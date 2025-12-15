@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn daemon for CashMatters Django Application
+After=network.target
+
+[Service]
+User=django
+Group=nginx
+WorkingDirectory=/home/django/apps/cashmatters
+Environment="PATH=/home/django/apps/cashmatters/venv/bin"
+ExecStart=/home/django/apps/cashmatters/venv/bin/gunicorn \
+          --workers 3 \
+          --bind unix:/home/django/apps/cashmatters/gunicorn.sock \
+          cashmatters.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
