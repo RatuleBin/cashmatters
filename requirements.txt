@@ -1,3 +1,5 @@
 Django>=5.2,<5.3
+gunicorn==21.2.0
+psycopg2-binary==2.9.7
 wagtail>=7.2,<7.3
 django-cors-headers>=4.0.0
