@@ -2,6 +2,9 @@ from .base import *
 
 DEBUG = False
 
+# ALLOWED_HOSTS configuration for production
+ALLOWED_HOSTS = ["48.230.104.225"]
+
 # ManifestStaticFilesStorage is recommended in production, to prevent
 # outdated JavaScript / CSS assets being served from cache
 # (e.g. after a Wagtail upgrade).
