@@ -1,0 +1,151 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock %}
+        </title>
+        {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+        <base target="_blank">
+        {% endif %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cashmatters.css' %}">
+        <style>
+            .main-navigation {
+                background: #007d7e !important;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                width: 100%;
+                padding: 1rem 0;
+            }
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .nav-brand a {
+                color: white !important;
+                text-decoration: none;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .nav-menu {
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                align-items: center;
+            }
+            .nav-item {
+                margin: 0 0 0 2rem;
+                position: relative;
+            }
+            .nav-item > a {
+                color: white !important;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                display: block;
+                transition: all 0.3s ease;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-item > a:hover,
+            .nav-item.active > a {
+                color: #e5f4f3 !important;
+                border-bottom-color: #e5f4f3;
+            }
+            /* Dropdown styles */
+            .nav-item.has-dropdown {
+                position: relative;
+            }
+            .nav-item.has-dropdown:hover .dropdown {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .dropdown {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #006666;
+                min-width: 200px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                border-radius: 4px;
+                z-index: 1001;
+                margin-top: 0.5rem;
+            }
+            .dropdown a {
+                padding: 0.75rem 1rem;
+                display: block;
+                color: white !important;
+                text-decoration: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                transition: background 0.2s ease;
+            }
+            .dropdown a:hover {
+                background: rgba(255,255,255,0.15);
+                color: #e5f4f3 !important;
+            }
+            .dropdown a:last-child {
+                border-bottom: none;
+            }
+        </style>
+
+        {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+
+        <nav class="main-navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="/">Cash Matters</a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item has-dropdown{% if '/news/' in request.path or '/blog/' in request.path %} active{% endif %}">
+                        <a href="/news/">News & Article</a>
+                        <div class="dropdown">
+                            <a href="/blog/">Blogs</a>
+                            <a href="/news/#keyfacts">Keys</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        {% block content %}{% endblock %}
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/cashmatters.js' %}"></script>
+
+        {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

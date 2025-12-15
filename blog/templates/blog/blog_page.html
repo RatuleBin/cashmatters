@@ -1,0 +1,78 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% load wagtailcore_tags wagtailadmin_tags %}
+
+{% block titletag %}{{ page.title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .nice-padding {
+        padding: 2rem;
+    }
+    
+    .article-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .article-meta {
+        color: #666;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+    
+    .article-intro {
+        font-size: 1.125rem;
+        color: #555;
+        font-style: italic;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: #f9f9f9;
+        border-left: 4px solid #007d7e;
+    }
+    
+    .article-body {
+        line-height: 1.8;
+        color: #333;
+    }
+    
+    .article-actions {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e5e5;
+        display: flex;
+        gap: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <header class="header nice-padding">
+        <div class="article-header">
+            <h1>📄 {{ page.title }}</h1>
+            <p class="article-meta">
+                📅 {{ page.date }}
+            </p>
+        </div>
+    </header>
+
+    <div class="nice-padding">
+        <article>
+            <div class="article-intro">{{ page.intro }}</div>
+            <div class="article-body">{{ page.body|richtext }}</div>
+            
+            <div class="article-actions">
+                <a href="{{ page.get_parent.url }}" class="button button-secondary">
+                    ← Return to Blog
+                </a>
+                
+                {% if user.is_authenticated %}
+                    <a href="/admin/pages/{{ page.id }}/edit/" class="button button-primary">
+                        ✏️ Edit Post
+                    </a>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+{% endblock %}

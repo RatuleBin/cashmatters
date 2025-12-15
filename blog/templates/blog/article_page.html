@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-articlepage{% endblock %}
+
+{% block content %}
+<div class="article-page">
+    <div class="container">
+        <article class="article-content">
+            <header class="article-header">
+                <h1>{{ page.title }}</h1>
+                
+                {% if page.page_header_image %}
+                {% image page.page_header_image fill-800x400 as header_img %}
+                <img src="{{ header_img.url }}" alt="{{ header_img.alt }}" class="header-image">
+                {% endif %}
+                
+                {% if page.page_header %}
+                <div class="page-header">
+                    {{ page.page_header|richtext }}
+                </div>
+                {% endif %}
+                
+                <div class="article-meta">
+                    <time datetime="{{ page.date }}">{{ page.date|date:"F j, Y" }}</time>
+                    {% if page.article_types.all %}
+                    <span class="article-types">
+                        {% for type in page.article_types.all %}
+                        <span class="type-tag">{{ type.name }}</span>
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </div>
+            </header>
+            
+            {% if page.intro %}
+            <div class="article-intro">
+                {{ page.intro }}
+            </div>
+            {% endif %}
+            
+            <div class="article-body">
+                {{ page.body|richtext }}
+            </div>
+            
+            {% if page.source_link %}
+            <div class="source-link">
+                <a href="{{ page.source_link }}" target="_blank" rel="noopener">View Source</a>
+            </div>
+            {% endif %}
+        </article>
+    </div>
+</div>
+
+<style>
+.article-page {
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.article-header {
+    margin-bottom: 2rem;
+}
+
+.article-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.header-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+.page-header {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.article-types {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.type-tag {
+    background: #f0f0f0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.article-intro {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #555;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 4px solid #007d7e;
+    border-radius: 0 4px 4px 0;
+}
+
+.article-body {
+    line-height: 1.8;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.article-body h2, .article-body h3, .article-body h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #222;
+}
+
+.article-body p {
+    margin-bottom: 1.5rem;
+}
+
+.article-body ul, .article-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.article-body li {
+    margin-bottom: 0.5rem;
+}
+
+.source-link {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+}
+
+.source-link a {
+    color: #007d7e;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #007d7e;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.source-link a:hover {
+    background: #007d7e;
+    color: white;
+}
+</style>
+{% endblock %}

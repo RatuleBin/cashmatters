@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cash Matters - Senior Dev Build</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <!-- Bootstrap 5.3 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body class="bg-light-cream">
+    <!-- =========================================
+         1. HEADER & HERO
+    ========================================== -->
+    <div class="hero-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="mainNav"
+          >
+            <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Key Facts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-none d-lg-flex align-items-center gap-3">
+            <button class="btn text-white p-0">
+              <i class="bi bi-search fs-5"></i>
+            </button>
+            <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2"
+              >Subscribe</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <section class="hero-content position-relative">
+        <div class="container">
+          <div class="row pt-5 pb-5 mb-5">
+            <div class="col-lg-6 pt-3">
+              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
+                Cash is simple,<br />safe, and
+                <span class="text-mint">for<br />everyone</span>
+              </h1>
+            </div>
+            <div
+              class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
+            >
+              <p class="hero-desc text-white mb-4">
+                Research, reporting, and resources that show why physical cash
+                remains essential around the world.
+              </p>
+              <div>
+                <a href="#" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                  Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Bridge Element -->
+          <div class="video-overlap-container">
+            <div
+              class="video-card position-relative w-100 rounded-4 overflow-hidden"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                class="img-fluid w-100"
+                alt="Video Thumb"
+              />
+              <div class="play-btn-wrapper">
+                <button class="btn-play">
+                  <i class="bi bi-play-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================
+         2. PARTNERS
+    ========================================== -->
+    <section class="partners-section bg-light-cream">
+      <div class="container">
+        <h6 class="fw-bold mb-4 partner-title">our partners</h6>
+        <div
+          class="d-flex flex-wrap justify-content-between align-items-center gap-4 partner-logos pb-5 opacity-50"
+        >
+          <h3 class="logo-text text-secondary mb-0">Givaudan</h3>
+          <h3 class="logo-text text-secondary mb-0">CERTINA</h3>
+          <h3 class="logo-text text-secondary mb-0">drom</h3>
+          <h3 class="logo-text text-secondary mb-0">Google</h3>
+          <h3 class="logo-text text-secondary mb-0">GoDaddy</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         3. FEATURED CONTENT (GSAP ANIMATION)
+    ========================================== -->
+    <section class="featured-section section-bg py-5">
+      <div class="container">
+        <div class="row mb-5 align-items-end">
+          <div class="col-md-8">
+            <h2 class="section-title fw-bold">Featured Content</h2>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <p class="text-muted small mb-0">
+              Our latest research, stories,<br />and conversations
+            </p>
+          </div>
+        </div>
+
+        <!-- Stacked Cards Wrapper -->
+        <div class="cards-stack-wrapper">
+          <!-- Card 1 -->
+          <div class="featured-card card-01">
+            <div class="row g-0 h-100">
+              <div
+                class="col-lg-5 p-5 d-flex flex-column justify-content-between"
+              >
+                <div class="nav-indicators">
+                  <span class="active-num">01</span
+                  ><span class="inactive-num">02</span
+                  ><span class="inactive-num">03</span>
+                </div>
+                <h3 class="fw-bold display-6 mt-4">
+                  Cash as a Public Good: The Infrastructure of Freedom
+                </h3>
+                <div class="meta-links d-flex gap-4 small fw-bold mt-4">
+                  <span><i class="bi bi-book"></i> Read</span
+                  ><span><i class="bi bi-share"></i> Share</span>
+                  <span><i class="bi bi-box-arrow-up-right"></i> Source</span>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <img
+                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop"
+                  class="img-fluid h-100 w-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="featured-card card-02">
+            <div class="row g-0 h-100">
+              <div
+                class="col-lg-5 p-5 d-flex flex-column justify-content-between"
+              >
+                <div class="nav-indicators">
+                  <span class="inactive-num">01</span
+                  ><span class="active-num">02</span
+                  ><span class="inactive-num">03</span>
+                </div>
+                <h3 class="fw-bold display-6 mt-4">
+                  Digital Currency vs Physical Cash: A Global Perspective
+                </h3>
+                <div class="meta-links d-flex gap-4 small fw-bold mt-4">
+                  <span><i class="bi bi-book"></i> Read</span
+                  ><span><i class="bi bi-share"></i> Share</span>
+                  <span><i class="bi bi-box-arrow-up-right"></i> Source</span>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <img
+                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop"
+                  class="img-fluid h-100 w-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="featured-card card-03">
+            <div class="row g-0 h-100">
+              <div
+                class="col-lg-5 p-5 d-flex flex-column justify-content-between"
+              >
+                <div class="nav-indicators">
+                  <span class="inactive-num">01</span
+                  ><span class="inactive-num">02</span
+                  ><span class="active-num">03</span>
+                </div>
+                <h3 class="fw-bold display-6 mt-4">
+                  Why the First Lessons of Money Must Be Taught in Cash
+                </h3>
+                <div class="meta-links d-flex gap-4 small fw-bold mt-4">
+                  <span><i class="bi bi-book"></i> Read</span
+                  ><span><i class="bi bi-share"></i> Share</span>
+                  <span><i class="bi bi-box-arrow-up-right"></i> Source</span>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <img
+                  src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop"
+                  class="img-fluid h-100 w-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         4. LATEST NEWS
+    ========================================== -->
+    <section class="section-bg py-5">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <h2 class="fw-bold mb-2">Latest News</h2>
+            <p class="text-muted mb-0">
+              Stay updated on cash and payment trends<br />worldwide
+            </p>
+          </div>
+          <a href="#" class="text-mint fw-bold text-decoration-none small"
+            >See all news <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <div class="row g-4">
+          <!-- News 1 -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
+            >
+              <div class="img-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                />
+              </div>
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted"
+                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >News</span
+                  >
+                </div>
+                <h5 class="fw-bold mb-4 flex-grow-1">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h5>
+                <a href="#" class="text-mint fw-bold text-decoration-none small"
+                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <!-- News 2 -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
+            >
+              <div class="img-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1605792657660-596af9009e82?auto=format&fit=crop&q=80&w=800"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                />
+              </div>
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted"
+                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >News</span
+                  >
+                </div>
+                <h5 class="fw-bold mb-4 flex-grow-1">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h5>
+                <a href="#" class="text-mint fw-bold text-decoration-none small"
+                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <!-- News 3 -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
+            >
+              <div class="img-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                />
+              </div>
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted"
+                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >News</span
+                  >
+                </div>
+                <h5 class="fw-bold mb-4 flex-grow-1">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h5>
+                <a href="#" class="text-mint fw-bold text-decoration-none small"
+                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         5. STUDIES & REPORTS (NEW SECTION)
+    ========================================== -->
+    <section class="section-bg py-5">
+      <div class="container">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <h2 class="fw-bold mb-2">Studies & Reports</h2>
+            <p class="text-muted mb-0">
+              In-depth research on cash, payments, and<br />financial inclusion
+            </p>
+          </div>
+          <a href="#" class="text-mint fw-bold text-decoration-none small"
+            >See all Studies & Reports <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <!-- Cards Row -->
+        <div class="row g-4">
+          <!-- Report Card 1 -->
+          <div class="col-md-6">
+            <div
+              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
+            >
+              <!-- Image -->
+              <div class="img-wrapper" style="height: 280px">
+                <img
+                  src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=1200"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted fw-medium"
+                    >Consumer Behavior • Americas • 2023</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >Studies</span
+                  >
+                </div>
+
+                <h4 class="fw-bold mb-3">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h4>
+
+                <p
+                  class="text-muted small mb-4 flex-grow-1"
+                  style="line-height: 1.6"
+                >
+                  There is a moment in almost every childhood when money becomes
+                  real: the first time a child feels the weight of a coin, or
+                  watches...
+                </p>
+
+                <div
+                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
+                >
+                  <span class="fw-bold small text-dark">8,236 downloads</span>
+                  <a
+                    href="#"
+                    class="text-mint fw-bold text-decoration-none small"
+                  >
+                    Download PDF <i class="bi bi-download ms-1"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Card 2 -->
+          <div class="col-md-6">
+            <div
+              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
+            >
+              <!-- Image -->
+              <div class="img-wrapper" style="height: 280px">
+                <img
+                  src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=1200"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted fw-medium"
+                    >Consumer Behavior • Americas • 2023</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >Studies</span
+                  >
+                </div>
+
+                <h4 class="fw-bold mb-3">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h4>
+
+                <p
+                  class="text-muted small mb-4 flex-grow-1"
+                  style="line-height: 1.6"
+                >
+                  There is a moment in almost every childhood when money becomes
+                  real: the first time a child feels the weight of a coin, or
+                  watches...
+                </p>
+
+                <div
+                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
+                >
+                  <span class="fw-bold small text-dark">8,236 downloads</span>
+                  <a
+                    href="#"
+                    class="text-mint fw-bold text-decoration-none small"
+                  >
+                    Download PDF <i class="bi bi-download ms-1"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-bg py-5">
+      <div class="container">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-end mb-5">
+          <div>
+            <h2 class="fw-bold mb-2">Key Facts</h2>
+            <p class="text-muted mb-0">
+              In-depth research on cash, payments, and<br />financial inclusion
+            </p>
+          </div>
+          <a href="#" class="text-mint fw-bold text-decoration-none small"
+            >See all Key Facts <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <!-- Uniform Grid -->
+        <div class="row g-4">
+          <!-- COLUMN 1 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-yellow mb-0">22%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 22% of POS payments in
+                    <strong>Chile</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-download"></i> Download</a
+                  >
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-share"></i> Share</a
+                  >
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600"
+                  class="w-100 h-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 2 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-blue mb-0">27%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 32% of POS payments in
+                    <strong>Poland</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-download"></i> Download</a
+                  >
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-share"></i> Share</a
+                  >
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600"
+                  class="w-100 h-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 3 (Image Top, Card Bottom - REVERSED) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Image (On Top here) -->
+              <div
+                class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600"
+                  class="w-100 h-100 object-fit-cover"
+                />
+              </div>
+              <!-- Stat Card (On Bottom here) -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-teal mb-0">09%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 09% of POS payments in
+                    <strong>Norway</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-download"></i> Download</a
+                  >
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-share"></i> Share</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 4 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-rust mb-0">33%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 33% of POS payments in
+                    <strong>Spain</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-download"></i> Download</a
+                  >
+                  <a href="#" class="text-reset text-decoration-none"
+                    ><i class="bi bi-share"></i> Share</a
+                  >
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600"
+                  class="w-100 h-100 object-fit-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-bg py-5">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="row align-items-end mb-5">
+          <div class="col-md-8">
+            <h2 class="fw-bold mb-2">Podcast & Video</h2>
+            <p class="text-muted mb-0">
+              Conversations that matter about the future of<br />money
+            </p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a href="#" class="text-mint fw-bold text-decoration-none small"
+              >See all news <i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="row g-5">
+          <!-- LEFT COLUMN: Featured Video (YouTube Iframe) -->
+          <div class="col-lg-7">
+            <div
+              class="card border-0 rounded-4 shadow-sm overflow-hidden h-100"
+            >
+              <!-- 16:9 Responsive Iframe Wrapper -->
+              <div class="ratio ratio-16x9 bg-dark">
+                <!-- Replace 'VIDEO_ID' with actual YouTube ID -->
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"
+                >
+                </iframe>
+              </div>
+
+              <!-- Video Details -->
+              <div class="card-body p-4 bg-white">
+                <div
+                  class="small text-muted mb-3 d-flex align-items-center gap-2"
+                >
+                  <i class="bi bi-clock"></i> 50 min
+                  <span class="mx-1">•</span> Dec 1, 2023
+                </div>
+                <h3 class="fw-bold mb-3">The Hidden Costs of Going Cashless</h3>
+                <p class="text-muted mb-0">
+                  We speak with economists and privacy advocates about what's
+                  lost when societies abandon physical currency. Featuring
+                  insights from Dr. Elena Rodriguez of MIT and former Bank of
+                  England advisor James Chen.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Recent Episodes List -->
+          <div class="col-lg-5">
+            <h3 class="fw-bold mb-4">Recent Episodes</h3>
+
+            <div class="d-flex flex-column gap-3">
+              <!-- Episode Item 1 -->
+              <a
+                href="#"
+                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
+              >
+                <div class="d-flex align-items-center gap-3">
+                  <div class="play-icon-circle flex-shrink-0">
+                    <i class="bi bi-play"></i>
+                    <!-- Bootstrap Icon -->
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">
+                      The Hidden Costs of Going Cashless
+                    </h6>
+                    <small class="text-muted"
+                      ><i class="bi bi-clock me-1"></i> 50 min • Dec 1,
+                      2023</small
+                    >
+                  </div>
+                </div>
+              </a>
+
+              <!-- Episode Item 2 -->
+              <a
+                href="#"
+                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
+              >
+                <div class="d-flex align-items-center gap-3">
+                  <div class="play-icon-circle flex-shrink-0">
+                    <i class="bi bi-play"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">
+                      The Hidden Costs of Going Cashless
+                    </h6>
+                    <small class="text-muted"
+                      ><i class="bi bi-clock me-1"></i> 50 min • Dec 1,
+                      2023</small
+                    >
+                  </div>
+                </div>
+              </a>
+
+              <!-- Episode Item 3 -->
+              <a
+                href="#"
+                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
+              >
+                <div class="d-flex align-items-center gap-3">
+                  <div class="play-icon-circle flex-shrink-0">
+                    <i class="bi bi-play"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">
+                      The Hidden Costs of Going Cashless
+                    </h6>
+                    <small class="text-muted"
+                      ><i class="bi bi-clock me-1"></i> 50 min • Dec 1,
+                      2023</small
+                    >
+                  </div>
+                </div>
+              </a>
+
+              <!-- Episode Item 4 -->
+              <a
+                href="#"
+                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
+              >
+                <div class="d-flex align-items-center gap-3">
+                  <div class="play-icon-circle flex-shrink-0">
+                    <i class="bi bi-play"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">
+                      The Hidden Costs of Going Cashless
+                    </h6>
+                    <small class="text-muted"
+                      ><i class="bi bi-clock me-1"></i> 50 min • Dec 1,
+                      2023</small
+                    >
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================
+         8. SUPPORT CTA
+    ========================================== -->
+    <section class="support-section text-white overflow-hidden">
+      <div class="container-fluid p-0">
+        <!-- Fluid container to allow image to touch edge -->
+        <div class="row g-0 align-items-center">
+          <!-- Text Content (Left) -->
+          <div class="col-lg-5 py-5">
+            <div
+              class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto"
+              style="max-width: 650px"
+            >
+              <h2 class="fw-bold mb-4 display-5">Support Our Work</h2>
+              <p class="mb-5 lead opacity-90 fw-light">
+                Cash Matters is an independent initiative dedicated to
+                preserving payment choice for everyone. Your support helps us
+                continue this important work.
+              </p>
+              <a href="#" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+                Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Curved Image (Right) -->
+          <div class="col-lg-7 h-100 position-relative">
+            <div class="curved-mask-wrapper h-100">
+              <img
+                src="{% static 'home-page-images/footer-section.png' %}"
+                class="w-100 h-100 object-fit-cover"
+                alt="Hands holding coins"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         9. FOOTER
+    ========================================== -->
+    <footer class="main-footer text-white pt-5 pb-4">
+      <div class="container pt-4">
+        <div class="row g-5 mb-5">
+          <!-- Brand & Social -->
+          <div class="col-lg-4 col-md-12">
+            <a class="navbar-brand fw-bold fs-2 d-inline-block mb-4" href="#">
+              Cash<span class="fw-light">Matters</span
+              ><sup style="font-size: 12px; top: -1em">®</sup>
+            </a>
+            <p class="small opacity-90 mb-4 pe-lg-5" style="line-height: 1.6">
+              Cash Matters is an independent initiative dedicated to preserving
+              payment choice for everyone.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#" class="social-circle"
+                ><i class="bi bi-twitter"></i
+              ></a>
+              <a href="#" class="social-circle"
+                ><i class="bi bi-facebook"></i
+              ></a>
+              <a href="#" class="social-circle"
+                ><i class="bi bi-instagram"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Links 1 -->
+          <div class="col-lg-2 col-md-4 col-6">
+            <h6 class="fw-bold mb-4">Get to know us</h6>
+            <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+              <li>
+                <a href="#" class="text-white text-decoration-none hover-u"
+                  >Our aim</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white text-decoration-none hover-u"
+                  >Our partners</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links 2 -->
+          <div class="col-lg-2 col-md-4 col-6">
+            <h6 class="fw-bold mb-4">Get informed</h6>
+            <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+              <li>
+                <a href="#" class="text-white text-decoration-none hover-u"
+                  >Why Cash?</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white text-decoration-none hover-u"
+                  >News</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Subscribe -->
+          <div class="col-lg-4 col-md-12">
+            <h4 class="fw-bold mb-3">
+              Stay up to date with<br />Cash Matters.
+            </h4>
+            <form class="mt-4">
+              <div class="input-group p-1 bg-white rounded-2">
+                <input
+                  type="email"
+                  class="form-control border-0 shadow-none ps-3"
+                  placeholder="Enter your email address"
+                />
+                <button
+                  class="btn btn-dark-custom rounded-2 px-4 fw-bold"
+                  type="button"
+                >
+                  Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
+                </button>
+              </div>
+            </form>
+            <p class="extra-small opacity-75 mt-3">
+              We’ll never sell your details to anyone else, promise! For more
+              information on how we store your data, please see our privacy
+              policy.
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div
+          class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-md-row justify-content-between small opacity-75"
+        >
+          <span class="mb-2 mb-md-0"
+            >© Copyright 2026, All Rights Reserved by Cash Matters</span
+          >
+          <a href="#" class="text-white text-decoration-none hover-u"
+            >Privacy Policy</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      if (window.innerWidth > 991) {
+        ScrollTrigger.create({
+          trigger: ".cards-stack-wrapper",
+          start: "top top+=100",
+          end: "+=1500",
+          pin: true,
+          scrub: 1,
+        });
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".cards-stack-wrapper",
+            start: "top top+=100",
+            end: "+=1500",
+            scrub: 1,
+          },
+        });
+        tl.to(".card-02", { y: "0%", duration: 1, ease: "power2.out" }).to(
+          ".card-03",
+          { y: "0%", duration: 1, ease: "power2.out" }
+        );
+      }
+    </script>
+  </body>
+</html>
