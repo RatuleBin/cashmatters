@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import os
@@ -48,24 +49,146 @@ def why_cash(request):
 
 def blogs_dashboard_redirect(request):
     """Redirect old blogs URL to new admin location"""
-    return redirect('/admin/blogs/add/')
+    return redirect('/admin/all-blogs/')
 
 
-def blogs_dashboard(request):
-    """Blog management dashboard"""
-    from blog.models import NewsIndexPage, ArticlePage
+def create_blog_page(request):
+    """Redirect to Wagtail admin for creating blog posts with clean URL"""
+    from blog.models import BlogIndexPage
+    from django.http import HttpResponsePermanentRedirect
 
     try:
-        news_index = NewsIndexPage.objects.get(slug='news')
-        # Get all published blog posts
-        blog_posts = (ArticlePage.objects.live()
-                      .order_by('-first_published_at')[:10])
-    except NewsIndexPage.DoesNotExist:
-        blog_posts = []
+        # Get the first BlogIndexPage
+        # (assuming there's only one main blog index)
+        blog_index = BlogIndexPage.objects.live().first()
+        if blog_index:
+            url = f'/admin/pages/add/blog/blogpage/{blog_index.id}/'
+            return HttpResponsePermanentRedirect(url)
+        else:
+            # Fallback to hardcoded ID if no BlogIndexPage found
+            return HttpResponsePermanentRedirect(
+                '/admin/pages/add/blog/blogpage/6/')
+    except Exception:
+        # Fallback to hardcoded ID if there's any error
+        return HttpResponsePermanentRedirect(
+            '/admin/pages/add/blog/blogpage/6/')
+
+
+@staff_member_required
+def blogs_dashboard(request):
+    """Blog management dashboard"""
+    from blog.models import ArticlePage
+    from django.db.models import Q
+    from django.core.paginator import Paginator
+    from django.contrib import messages
+    from django.shortcuts import redirect
+
+    # Handle bulk actions
+    if request.method == 'POST':
+        selected_posts = request.POST.getlist('selected_posts')
+        bulk_action = request.POST.get('bulk_action')
+        
+        if selected_posts and bulk_action:
+            posts = ArticlePage.objects.filter(id__in=selected_posts)
+            
+            if bulk_action == 'publish':
+                for post in posts:
+                    if not post.live:
+                        post.save_revision().publish()
+                messages.success(
+                    request, f"Published {len(selected_posts)} post(s)."
+                )
+            elif bulk_action == 'unpublish':
+                for post in posts:
+                    if post.live:
+                        post.unpublish()
+                messages.success(
+                    request, f"Unpublished {len(selected_posts)} post(s)."
+                )
+            elif bulk_action == 'delete':
+                count = posts.count()
+                posts.delete()
+                messages.success(request, f"Deleted {count} post(s).")
+            
+            return redirect(request.get_full_path())
+    
+    # Get search query
+    search_query = request.GET.get('q', '')
+    
+    # Get filter parameters
+    category_filter = request.GET.get('category', '')
+    status_filter = request.GET.get('status', '')
+    location_filter = request.GET.get('location', '')
+    sector_filter = request.GET.get('sector', '')
+    
+    # Base queryset - all article pages
+    blog_posts = ArticlePage.objects.all().order_by('-date')
+    
+    # Apply search filter
+    if search_query:
+        blog_posts = blog_posts.filter(
+            Q(title__icontains=search_query) |
+            Q(intro__icontains=search_query) |
+            Q(body__icontains=search_query)
+        )
+    
+    # Apply category filter
+    if category_filter:
+        blog_posts = blog_posts.filter(article_types__name=category_filter)
+    
+    # Apply status filter
+    if status_filter == 'live':
+        blog_posts = blog_posts.filter(live=True)
+    elif status_filter == 'draft':
+        blog_posts = blog_posts.filter(live=False)
+    
+    # Apply location filter
+    if location_filter:
+        blog_posts = blog_posts.filter(locations__name=location_filter)
+    
+    # Apply sector filter
+    if sector_filter:
+        blog_posts = blog_posts.filter(sectors__name=sector_filter)
+    
+    # Remove duplicates from many-to-many filters
+    blog_posts = blog_posts.distinct()
+    
+    # Pagination
+    paginator = Paginator(blog_posts, 20)  # 20 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    # Get unique values for filters
+    categories = ArticlePage.objects.values_list(
+        'article_types__name', flat=True
+    ).distinct().exclude(article_types__name__isnull=True)
+    locations = ArticlePage.objects.values_list(
+        'locations__name', flat=True
+    ).distinct().exclude(locations__name__isnull=True)
+    sectors = ArticlePage.objects.values_list(
+        'sectors__name', flat=True
+    ).distinct().exclude(sectors__name__isnull=True)
+    
+    # Stats
+    total_posts = ArticlePage.objects.count()
+    live_posts = ArticlePage.objects.filter(live=True).count()
+    draft_posts = ArticlePage.objects.filter(live=False).count()
 
     context = {
-        'blog_posts': blog_posts,
-        'news_index': news_index if 'news_index' in locals() else None,
+        'blog_posts': page_obj,
+        'search_query': search_query,
+        'category_filter': category_filter,
+        'status_filter': status_filter,
+        'location_filter': location_filter,
+        'sector_filter': sector_filter,
+        'categories': sorted(set(categories)),
+        'locations': sorted(set(locations)),
+        'sectors': sorted(set(sectors)),
+        'total_posts': total_posts,
+        'live_posts': live_posts,
+        'draft_posts': draft_posts,
+        'paginator': paginator,
+        'page_obj': page_obj,
     }
     return render(request, 'blogs_dashboard.html', context)
 
@@ -76,6 +199,9 @@ urlpatterns = [
     path("support/", support, name="support"),  # Support page
     path("why-cash/", why_cash, name="why_cash"),  # Why cash page
     path("django-admin/", admin.site.urls),
+    path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
+    path("admin/pages/add/blog/blogpage/", create_blog_page,
+         name="create_blog_page"),
     path("admin/", include(wagtailadmin_urls)),
     path("admin/blogs/add/", blogs_dashboard, name="blogs_dashboard"),
     # Blog creation dashboard
