@@ -160,107 +160,46 @@
     <section class="container pb-5 mb-5">
         <div class="row g-4">
             
-            <!-- Card 1 -->
+            {% for article in articles %}
+            <!-- Article Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
                     <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
+                        {% if article.wide_thumbnail %}
+                            <img src="{{ article.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                        {% else %}
+                            <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                        {% endif %}
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
+                            <span class="text-dark" style="color: #333 !important;">
+                                <i class="bi bi-clock me-1"></i> {{ article.date|date:"M d, Y" }}
+                            </span>
+                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">
+                                {% if article.article_types.first %}
+                                    {{ article.article_types.first.name }}
+                                {% else %}
+                                    News
+                                {% endif %}
+                            </span>
                         </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
+                        <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
+                        <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
+                            Read More <i class="bi bi-arrow-up-right ms-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <!-- No articles message -->
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <p class="mb-0">No articles available yet. Please check back later!</p>
+                </div>
+            </div>
+            {% endfor %}
 
-            <!-- Card 2 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                    <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
-                        </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                    <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
-                        </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                    <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
-                        </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                    <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
-                        </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                    <div class="img-wrapper">
-                        <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img">
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <span class="text-muted"><i class="bi bi-clock me-1"></i> Nov 24, 2025</span>
-                            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">News</span>
-                        </div>
-                        <h5 class="fw-bold mb-4 flex-grow-1">Why Cash Underpins Security, Freedom, and Social Stability</h5>
-                        <a href="#" class="text-mint fw-bold text-decoration-none small">Read More <i class="bi bi-arrow-up-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Load More Button -->
@@ -352,173 +291,5 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JavaScript for API Integration -->
-    <script>
-        // Debug: Check if script is loading
-        console.log('News page JavaScript loaded successfully');
-
-        let allPosts = [];
-        let currentPage = 0;
-        const postsPerPage = 6; // Show 6 posts initially, then load more
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, calling fetchBlogPosts');
-            fetchBlogPosts();
-        });
-
-        async function fetchBlogPosts() {
-            try {
-                console.log('Starting to fetch blog posts...');
-
-                console.log('Making fetch request to /api/v2/blog/');
-                const response = await fetch('/api/v2/blog/');
-                console.log('Response status:', response.status);
-                console.log('Response ok:', response.ok);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('API response received:', data);
-                console.log('Items in response:', data.items ? data.items.length : 'No items property');
-
-                if (data.items && data.items.length > 0) {
-                    allPosts = data.items;
-                    currentPage = 0;
-                    loadMorePosts();
-                } else {
-                    console.log('No posts found in API response');
-                }
-            } catch (error) {
-                console.error('Error fetching blog posts:', error);
-            }
-        }
-
-        function loadMorePosts() {
-            const startIndex = currentPage * postsPerPage;
-            const endIndex = startIndex + postsPerPage;
-            const postsToShow = allPosts.slice(startIndex, endIndex);
-
-            if (postsToShow.length > 0) {
-                populateNewsCards(postsToShow, startIndex === 0); // Clear only on first load
-                currentPage++;
-
-                // Check if there are more posts to load
-                if (endIndex < allPosts.length) {
-                    showLoadMoreButton();
-                } else {
-                    hideLoadMoreButton();
-                }
-            }
-        }
-
-        function populateNewsCards(posts, clearContainer = true) {
-            const container = document.querySelector('.row.g-4');
-            console.log('Container found:', !!container, 'Posts:', posts.length, 'Clear:', clearContainer);
-            if (!container) {
-                console.error('Container .row.g-4 not found!');
-                return;
-            }
-
-            // Clear existing cards only on first load
-            if (clearContainer) {
-                container.innerHTML = '';
-            }
-
-            posts.forEach((post, index) => {
-                const cardHtml = createNewsCard(post, index);
-                container.insertAdjacentHTML('beforeend', cardHtml);
-            });
-            console.log('Cards populated successfully');
-        }
-
-        function createNewsCard(post, index) {
-            // Add null checks for all post properties
-            if (!post) {
-                console.error('Post is null or undefined');
-                return '';
-            }
-
-            const date = post.first_published_at
-                ? new Date(post.first_published_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                })
-                : 'No date';
-
-            // Get article type for badge (if available)
-            const articleType = post.article_types && post.article_types.length > 0
-                ? post.article_types[0].name
-                : 'News';
-
-            // Use intro as description, fallback to body excerpt
-            const description = post.intro || (post.body ? post.body.substring(0, 150) + '...' : '');
-
-            // Fix the URL to work with current host
-            const readMoreUrl = post.meta && post.meta.html_url
-                ? post.meta.html_url.replace('http://localhost', window.location.origin)
-                : '#'; // Fallback if no URL available
-
-            // Ensure title exists
-            const title = post.title || 'Untitled Post';
-
-            return `
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-                        <div class="img-wrapper">
-                            <img src="{% static 'news-images/news-card.png' %}"
-                                 class="w-100 h-100 object-fit-cover transition-img"
-                                 alt="${title}">
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center mb-3 small">
-                                <span class="text-muted"><i class="bi bi-clock me-1"></i> ${date}</span>
-                                <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">${articleType}</span>
-                            </div>
-                            <h5 class="fw-bold mb-4 flex-grow-1">${title}</h5>
-                            ${description ? `<p class="text-muted small mb-3">${description}</p>` : ''}
-                            <a href="${readMoreUrl}" class="text-mint fw-bold text-decoration-none small" target="_blank">
-                                Read More <i class="bi bi-arrow-up-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showLoadMoreButton() {
-            // Remove existing load more button if any
-            const existingButton = document.querySelector('.load-more-container');
-            if (existingButton) {
-                existingButton.remove();
-            }
-
-            // Create and add load more button
-            const buttonHtml = `
-                <div class="load-more-container text-center mt-5 mb-5">
-                    <button onclick="loadMorePosts()" class="btn btn-outline-mint btn-lg px-5 py-3 fw-bold">
-                        Load More Articles
-                        <i class="bi bi-chevron-down ms-2"></i>
-                    </button>
-                </div>
-            `;
-
-            // Insert after the news grid
-            const container = document.querySelector('.row.g-4');
-            if (container && container.parentNode) {
-                container.parentNode.insertAdjacentHTML('afterend', buttonHtml);
-            }
-        }
-
-        function hideLoadMoreButton() {
-            const loadMoreButton = document.querySelector('.load-more-container');
-            if (loadMoreButton) {
-                loadMoreButton.remove();
-            }
-        }
-    </script>
 </body>
 </html>

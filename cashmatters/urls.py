@@ -19,8 +19,21 @@ def index(request):
 
 
 def news(request):
-    """Serve the news page"""
-    return render(request, 'news.html')
+    """Serve the news page with dynamic articles"""
+    from blog.models import ArticlePage
+    
+    # Get all published articles ordered by date (newest first)
+    articles = ArticlePage.objects.live().order_by('-date')
+    
+    # Debug: Print articles and dates
+    print(f"DEBUG: Total articles: {articles.count()}")
+    for article in articles[:5]:
+        print(f"DEBUG: {article.title} - Date: {article.date}")
+    
+    context = {
+        'articles': articles,
+    }
+    return render(request, 'news.html', context)
 
 
 def support(request):
