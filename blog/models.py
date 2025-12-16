@@ -1,11 +1,31 @@
 from django.db import models
 from wagtail.models import Page
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.search import index
 from wagtail.images import get_image_model
+from wagtail import blocks
+from wagtail.blocks import CharBlock, TextBlock, StructBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.documents.blocks import DocumentChooserBlock
 from modelcluster.fields import ParentalManyToManyField
 from django.forms import CheckboxSelectMultiple
+
+
+class QuoteBlock(StructBlock):
+    """
+    Custom quote block with person details
+    """
+    quote = TextBlock(required=True, help_text="Enter the quote text")
+    name = CharBlock(required=False, help_text="Person's name")
+    job_title = CharBlock(required=False, help_text="Job title")
+    company = CharBlock(required=False, help_text="Company name")
+
+    class Meta:
+        template = 'blog/blocks/quote_block.html'
+        icon = 'openquote'
+        label = 'Blockquote'
 
 
 class ArticleType(models.Model):
@@ -64,7 +84,14 @@ class BlogPage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
+    body = StreamField([
+        ('heading', CharBlock(classname="full title", icon="title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('quote', QuoteBlock()),
+        ('embed', EmbedBlock()),
+        ('document', DocumentChooserBlock()),
+    ], blank=True, use_json_field=True)
     
     # Title and header
     title_position = models.CharField(
@@ -74,6 +101,10 @@ class BlogPage(Page):
     )
     page_header = RichTextField(
         blank=True,
+        features=[
+            'h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'link',
+            'document-link', 'image', 'embed', 'code', 'blockquote', 'hr'
+        ],
         help_text="Optional page header content"
     )
     page_header_image = models.ForeignKey(
@@ -262,7 +293,14 @@ class ArticlePage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
+    body = StreamField([
+        ('heading', CharBlock(classname="full title", icon="title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('quote', QuoteBlock()),
+        ('embed', EmbedBlock()),
+        ('document', DocumentChooserBlock()),
+    ], blank=True, use_json_field=True)
     
     # Title and header
     title_position = models.CharField(
@@ -272,6 +310,10 @@ class ArticlePage(Page):
     )
     page_header = RichTextField(
         blank=True,
+        features=[
+            'h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'link',
+            'document-link', 'image', 'embed', 'code', 'blockquote', 'hr'
+        ],
         help_text="Optional page header content"
     )
     page_header_image = models.ForeignKey(
