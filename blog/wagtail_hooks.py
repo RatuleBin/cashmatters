@@ -9,7 +9,7 @@ from django.utils.html import format_html
 def register_news_and_article_menu_item():
     return MenuItem(
         'News & Articles',
-        '/admin/pages/10/',
+        '/admin/all-blogs/',
         icon_name='doc-full',
         order=10000
     )
@@ -19,7 +19,7 @@ def register_news_and_article_menu_item():
 def register_blogs_dashboard_menu_item():
     return MenuItem(
         'Blogs Dashboard',
-        '/admin/blogs/add/',
+        '/admin/all-blogs/',
         icon_name='list-ul',
         order=9999
     )
