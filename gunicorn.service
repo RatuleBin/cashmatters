@@ -7,6 +7,7 @@ User=django
 Group=nginx
 WorkingDirectory=/home/django/apps/cashmatters
 Environment="PATH=/home/django/apps/cashmatters/venv/bin"
+Environment="DJANGO_SETTINGS_MODULE=cashmatters.settings.production"
 ExecStart=/home/django/apps/cashmatters/venv/bin/gunicorn \
           --workers 3 \
           --bind unix:/home/django/apps/cashmatters/gunicorn.sock \
