@@ -141,15 +141,20 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = [
-    PROJECT_DIR / "static",
-]
-
-STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = BASE_DIR / "media"
+# Source static files (your custom CSS, images)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Collected static files (for production / nginx)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
 MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 # Default storage settings
 # See https://docs.djangoproject.com/en/6.0/ref/settings/#std-setting-STORAGES
