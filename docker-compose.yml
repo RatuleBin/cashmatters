@@ -1,11 +1,38 @@
-nginx:
-  image: nginx:latest
-  container_name: cashmatters-nginx
-  ports:
-    - "80:80"
-  volumes:
-    - ./nginx/conf.d:/etc/nginx/conf.d   # mount host config to container
-    - ./staticfiles:/app/staticfiles
-    - ./media:/app/media
-  depends_on:
-    - web
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: cashmatters-web
+    command: gunicorn cashmatters.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - ./media:/app/media
+      - ./db:/var/lib/cashmatters
+    environment:
+      - DEBUG=0
+      - ALLOWED_HOSTS=*
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: cashmatters-db
+    environment:
+      POSTGRES_DB: cashmatters
+      POSTGRES_USER: cashmatters
+      POSTGRES_PASSWORD: cashmatters123
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:latest
+    container_name: cashmatters-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./staticfiles:/app/staticfiles
+      - ./media:/app/media
+    depends_on:
+      - web
