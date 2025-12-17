@@ -145,11 +145,12 @@ STATIC_URL = "/static/"
 
 # Source static files (your custom CSS, images)
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    PROJECT_DIR / "static",
 ]
 
 # Collected static files (for production / nginx)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 
 MEDIA_URL = "/media/"
