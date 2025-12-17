@@ -92,7 +92,7 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/app/db.sqlite3',  # container path
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
