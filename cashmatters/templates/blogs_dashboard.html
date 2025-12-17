@@ -12,15 +12,15 @@
         <!-- Quick Stats -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
             <div class="w-panel" style="padding: 1.75rem; text-align: center; border-left: 4px solid #007cba; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h3 style="color: #007cba; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">6</h3>
+                <h3 style="color: #007cba; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">{{ total_posts }}</h3>
                 <p style="color: #505050; margin: 0; font-size: 0.95rem; font-weight: 500;">Total Posts</p>
             </div>
             <div class="w-panel" style="padding: 1.75rem; text-align: center; border-left: 4px solid #28a745; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h3 style="color: #28a745; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">6</h3>
+                <h3 style="color: #28a745; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">{{ live_posts }}</h3>
                 <p style="color: #505050; margin: 0; font-size: 0.95rem; font-weight: 500;">Published</p>
             </div>
             <div class="w-panel" style="padding: 1.75rem; text-align: center; border-left: 4px solid #ffc107; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h3 style="color: #ffc107; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">0</h3>
+                <h3 style="color: #ffc107; font-size: 2.25rem; margin: 0 0 0.5rem 0; font-weight: 600;">{{ draft_posts }}</h3>
                 <p style="color: #505050; margin: 0; font-size: 0.95rem; font-weight: 500;">Drafts</p>
             </div>
             <div class="w-panel" style="padding: 1.75rem; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border: 1px solid #e1e5e9; border-radius: 4px;">
@@ -264,7 +264,7 @@
                             Get started by creating your first blog post. Content management has never been easier.
                         {% endif %}
                     </p>
-                    <a href="{% url 'blog:create_blog_post' 10 %}" class="button button-primary button-large" style="font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <a href="{% url 'blog:create_blog_post' 8 %}" class="button button-primary button-large" style="font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
                         {% if search_query or category_filter or status_filter or location_filter or sector_filter %}
                             Add New Blog

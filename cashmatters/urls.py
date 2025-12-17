@@ -21,10 +21,10 @@ def index(request):
 
 def news(request):
     """Serve the news page with dynamic articles"""
-    from blog.models import ArticlePage
+    from blog.models import BlogPage
     
-    # Get all published articles ordered by date (newest first)
-    articles = ArticlePage.objects.live().order_by('-date')
+    # Get all published blog posts ordered by date (newest first)
+    articles = BlogPage.objects.live().order_by('-date')
     
     # Debug: Print articles and dates
     print(f"DEBUG: Total articles: {articles.count()}")
@@ -77,7 +77,7 @@ def create_blog_page(request):
 @staff_member_required
 def blogs_dashboard(request):
     """Blog management dashboard"""
-    from blog.models import ArticlePage
+    from blog.models import BlogPage
     from django.db.models import Q
     from django.core.paginator import Paginator
     from django.contrib import messages
@@ -89,7 +89,7 @@ def blogs_dashboard(request):
         bulk_action = request.POST.get('bulk_action')
         
         if selected_posts and bulk_action:
-            posts = ArticlePage.objects.filter(id__in=selected_posts)
+            posts = BlogPage.objects.filter(id__in=selected_posts)
             
             if bulk_action == 'publish':
                 for post in posts:
@@ -121,8 +121,8 @@ def blogs_dashboard(request):
     location_filter = request.GET.get('location', '')
     sector_filter = request.GET.get('sector', '')
     
-    # Base queryset - all article pages
-    blog_posts = ArticlePage.objects.all().order_by('-date')
+    # Base queryset - all blog pages
+    blog_posts = BlogPage.objects.all().order_by('-date')
     
     # Apply search filter
     if search_query:
@@ -159,20 +159,20 @@ def blogs_dashboard(request):
     page_obj = paginator.get_page(page_number)
     
     # Get unique values for filters
-    categories = ArticlePage.objects.values_list(
+    categories = BlogPage.objects.values_list(
         'article_types__name', flat=True
     ).distinct().exclude(article_types__name__isnull=True)
-    locations = ArticlePage.objects.values_list(
+    locations = BlogPage.objects.values_list(
         'locations__name', flat=True
     ).distinct().exclude(locations__name__isnull=True)
-    sectors = ArticlePage.objects.values_list(
+    sectors = BlogPage.objects.values_list(
         'sectors__name', flat=True
     ).distinct().exclude(sectors__name__isnull=True)
     
     # Stats
-    total_posts = ArticlePage.objects.count()
-    live_posts = ArticlePage.objects.filter(live=True).count()
-    draft_posts = ArticlePage.objects.filter(live=False).count()
+    total_posts = BlogPage.objects.count()
+    live_posts = BlogPage.objects.filter(live=True).count()
+    draft_posts = BlogPage.objects.filter(live=False).count()
 
     context = {
         'blog_posts': page_obj,
