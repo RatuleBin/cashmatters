@@ -79,10 +79,16 @@ class BlogIndexPage(Page):
 
 
 class BlogPage(Page):
+    def get_context(self, request):
+        context = super().get_context(request)
+        # Get latest 2 sibling blog posts (excluding self)
+        siblings = self.get_parent().get_children().live().exclude(id=self.id).order_by('-first_published_at')[:2]
+        context['latest_posts'] = [s.specific for s in siblings]
+        return context
     """
     Individual blog post page
     """
-    template_name = 'blog/blog-details.html'
+    # template_name = 'blog/blogpage.html'
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)

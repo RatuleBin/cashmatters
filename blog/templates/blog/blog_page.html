@@ -1,317 +1,181 @@
-{% extends "base.html" %}
-
-{% load wagtailcore_tags static %}
-
-{% block title %}{{ page.title }}{% endblock %}
-
-{% block extra_css %}
-<style>
-    .blog-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    .blog-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .blog-title {
-        font-size: 3rem;
-        font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 1rem;
-        line-height: 1.1;
-    }
-
-    .blog-meta {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        color: #6b7280;
-        font-size: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .blog-intro {
-        font-size: 1.25rem;
-        color: #4b5563;
-        font-style: italic;
-        line-height: 1.6;
-        margin: 2rem 0 3rem 0;
-        padding: 2rem;
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border-left: 4px solid #007d7e;
-        border-radius: 0 12px 12px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .blog-content {
-        line-height: 1.8;
-        color: #374151;
-        font-size: 1.1rem;
-    }
-
-    .blog-content h1,
-    .blog-content h2,
-    .blog-content h3,
-    .blog-content h4,
-    .blog-content h5,
-    .blog-content h6 {
-        color: #007d7e;
-        font-weight: 600;
-        margin-top: 2.5rem;
-        margin-bottom: 1rem;
-        line-height: 1.3;
-    }
-
-    .blog-content h1 { font-size: 2.25rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
-    .blog-content h2 { font-size: 1.875rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.25rem; }
-    .blog-content h3 { font-size: 1.5rem; }
-    .blog-content h4 { font-size: 1.25rem; }
-
-    .blog-content p {
-        margin-bottom: 1.5rem;
-        text-align: justify;
-    }
-
-    .blog-content ul,
-    .blog-content ol {
-        margin: 1.5rem 0;
-        padding-left: 2rem;
-    }
-
-    .blog-content li {
-        margin-bottom: 0.5rem;
-    }
-
-    .blog-content blockquote {
-        border-left: 4px solid #007d7e;
-        padding-left: 1.5rem;
-        margin: 2rem 0;
-        font-style: italic;
-        color: #6b7280;
-        background: #f9fafb;
-        padding: 1.5rem;
-        border-radius: 0 8px 8px 0;
-    }
-
-    .blog-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin: 2rem 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .blog-content .block-paragraph {
-        margin-bottom: 1.5rem;
-    }
-
-    .blog-actions {
-        margin-top: 4rem;
-        padding-top: 2rem;
-        border-top: 1px solid #e5e7eb;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .blog-actions-left {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .blog-actions-right {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-        cursor: pointer;
-    }
-
-    .btn-secondary {
-        background: #f3f4f6;
-        color: #374151;
-        border-color: #d1d5db;
-    }
-
-    .btn-secondary:hover {
-        background: #e5e7eb;
-        border-color: #9ca3af;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #007d7e 0%, #005a5b 100%);
-        color: white;
-        border-color: #007d7e;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(135deg, #005a5b 0%, #004a4b 100%);
-        border-color: #005a5b;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0,125,126,0.3);
-    }
-
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .status-published {
-        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-        color: #065f46;
-        border: 1px solid #34d399;
-    }
-
-    .status-draft {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        color: #92400e;
-        border: 1px solid #f59e0b;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .blog-container {
-            padding: 1rem;
-        }
-
-        .blog-title {
-            font-size: 2.25rem;
-        }
-
-        .blog-meta {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .blog-intro {
-            padding: 1.5rem;
-            margin: 1.5rem 0 2rem 0;
-        }
-
-        .blog-actions {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .blog-actions-left,
-        .blog-actions-right {
-            justify-content: center;
-        }
-
-        .btn {
-            justify-content: center;
-            flex: 1;
-            min-width: 200px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .blog-title {
-            font-size: 1.875rem;
-        }
-
-        .blog-content h1 { font-size: 1.875rem; }
-        .blog-content h2 { font-size: 1.5rem; }
-        .blog-content h3 { font-size: 1.25rem; }
-
-        .btn {
-            padding: 0.625rem 1.25rem;
-            font-size: 0.9rem;
-        }
-    }
-</style>
-{% endblock %}
-
-{% block content %}
-<div class="blog-container">
-    <header class="blog-header">
-        <h1 class="blog-title">{{ page.title }}</h1>
-        <div class="blog-meta">
-            <span class="meta-item">
-                📅 {{ page.date|date:"F j, Y" }}
-            </span>
-            {% if page.live %}
-                <span class="status-badge status-published">
-                    🟢 Published
-                </span>
-            {% else %}
-                <span class="status-badge status-draft">
-                    🟡 Draft
-                </span>
-            {% endif %}
-            {% if page.first_published_at %}
-                <span class="meta-item">
-                    📝 First published {{ page.first_published_at|date:"M j, Y" }}
-                </span>
-            {% endif %}
-        </div>
-    </header>
-
-    {% if page.intro %}
-    <div class="blog-intro">
-        {{ page.intro }}
-    </div>
-    {% endif %}
-
-    <article class="blog-content">
-        {% include_block page.body %}
-    </article>
-
-    <div class="blog-actions">
-        <div class="blog-actions-left">
-            <a href="{{ page.get_parent.url }}" class="btn btn-secondary">
-                ← Back to Blog
-            </a>
-            <a href="/" class="btn btn-secondary">
-                🏠 Home
-            </a>
-        </div>
-
-        <div class="blog-actions-right">
-            {% if user.is_authenticated %}
-                <a href="/admin/pages/{{ page.id }}/edit/" class="btn btn-primary">
-                    ✏️ Edit Post
+<!DOCTYPE html>
+{% load static wagtailcore_tags wagtailimages_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Cash Matters</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/news-style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="header-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
                 </a>
-            {% endif %}
-        </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Key Facts</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
+                    </ul>
+                </div>
+                <div class="d-none d-lg-flex align-items-center gap-3">
+                    <button class="btn text-white p-0"><i class="bi bi-search fs-5"></i></button>
+                    <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
+                </div>
+            </div>
+        </nav>
     </div>
-</div>
-{% endblock %}
+
+    <!-- Hero Section -->
+    <section class="hero-section py-5" style="background-color: white !important;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    {% if page.page_header_image %}
+                        {% image page.page_header_image fill-800x400 as header_img %}
+                        <img src="{{ header_img.url }}" alt="{{ header_img.alt }}" class="img-fluid rounded shadow">
+                    {% else %}
+                        <img src="{% static 'news-images/news-cover.png' %}" class="img-fluid rounded shadow" alt="{{ page.title }}">
+                    {% endif %}
+                    <div class="hero-overlay mt-4">
+                        <h1 class="display-4 fw-bold text-center">{{ page.title }}</h1>
+                        <div class="meta-info text-center mt-3">
+                            <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
+                            {% if page.article_types.first %}
+                            <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
+                                {{ page.article_types.first.name }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section py-5" style="background-color: white !important;">
+        <div class="container">
+            <div class="row">
+                <!-- Article Content -->
+                <div class="col-lg-8">
+                    <article class="article-content">
+                        {% if page.intro %}
+                        <p class="lead">{{ page.intro }}</p>
+                        {% endif %}
+
+                        <div class="article-body">
+                            {% for block in page.body %}
+                                {% include_block block %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- Tags -->
+                        {% if page.article_types.all %}
+                        <div class="article-tags mt-5 mb-4">
+                            {% for article_type in page.article_types.all %}
+                            <span class="badge bg-light text-dark me-2">{{ article_type.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="article-footer text-muted">
+                            <small>Last Updated: {{ page.last_published_at|date:"M d, Y" }}</small>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Latest Section -->
+                    <div class="sidebar-section mb-4">
+                        <h5 class="sidebar-title mb-3">Latest</h5>
+                        {% for post in latest_posts %}
+                        <div class="card sidebar-card mb-3">
+                            <div class="position-relative">
+                                {% if post.wide_thumbnail %}
+                                {% image post.wide_thumbnail fill-400x200 as thumb %}
+                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ post.title }}">
+                                {% else %}
+                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ post.title }}">
+                                {% endif %}
+                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">NEWS</span>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">{{ post.title }}</h6>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted"><i class="bi bi-book"></i> Read</small>
+                                    <small class="text-muted"><i class="bi bi-share"></i> Share</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Featured Section -->
+                    <div class="sidebar-section">
+                        <h5 class="sidebar-title mb-3">Featured</h5>
+                        <div class="list-group">
+                            <a href="{% url 'why_cash' %}" class="list-group-item list-group-item-action">
+                                Why Cash Matters
+                            </a>
+                            <a href="{% url 'support' %}" class="list-group-item list-group-item-action">
+                                Support Cash
+                            </a>
+                            <a href="{% url 'news' %}" class="list-group-item list-group-item-action">
+                                News & Articles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-5" style="background-color: white !important;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-3">Stay up to date with Cash Matters.</h2>
+                    <p class="mb-4">Join the Cash Matters community and we'll keep you posted about the latest developments in cash happening around the globe.</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="first name">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="company">
+                        </div>
+                        <div class="col-md-10">
+                            <input type="email" class="form-control" placeholder="your email address">
+                        </div>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-dark btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Cash Matters. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

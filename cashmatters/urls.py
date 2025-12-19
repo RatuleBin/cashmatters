@@ -20,19 +20,30 @@ def index(request):
 
 
 def news(request):
-    """Serve the news page with dynamic articles"""
-    from blog.models import ArticlePage
-    
-    # Get all published articles ordered by date (newest first)
+    """Serve the news page with dynamic articles and blog posts"""
+    from blog.models import ArticlePage, BlogPage
+    from itertools import chain
+
+    # Get all published articles and blog posts
     articles = ArticlePage.objects.live().order_by('-date')
-    
-    # Debug: Print articles and dates
+    blog_posts = BlogPage.objects.live().order_by('-date')
+
+    # Combine and sort by date (newest first)
+    combined_posts = sorted(
+        chain(articles, blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )
+
+    # Debug: Print posts and dates
     print(f"DEBUG: Total articles: {articles.count()}")
-    for article in articles[:5]:
-        print(f"DEBUG: {article.title} - Date: {article.date}")
-    
+    print(f"DEBUG: Total blog posts: {blog_posts.count()}")
+    print(f"DEBUG: Total combined posts: {len(combined_posts)}")
+    for post in combined_posts[:5]:
+        print(f"DEBUG: {post.title} - Date: {post.date} - Type: {post.__class__.__name__}")
+
     context = {
-        'articles': articles,
+        'articles': combined_posts,  # Keep the same variable name for template compatibility
     }
     return render(request, 'news.html', context)
 
@@ -242,7 +253,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
-    path("blog/", include("blog.urls")),  # Blog app URLs
+    # path("blog/", include("blog.urls")),  # Blog app URLs - temporarily commented out
 ]
 
 

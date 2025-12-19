@@ -159,6 +159,12 @@
     ========================================== -->
     <section class="container pb-5 mb-5">
         <div class="row g-4">
+            <div style="background: yellow; padding: 10px; margin: 10px;">
+                DEBUG: Total articles: {{ articles|length }}
+                {% for article in articles %}
+                    <br>Article: {{ article.title }}
+                {% endfor %}
+            </div>
             
             {% for article in articles %}
             <!-- Article Card -->
@@ -185,6 +191,7 @@
                             </span>
                         </div>
                         <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
+                        <p>URL: {{ article.url }}</p>
                         <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
                             Read More <i class="bi bi-arrow-up-right ms-1"></i>
                         </a>

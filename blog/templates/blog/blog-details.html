@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-blogdetails{% endblock %}
-
 {% block content %}
 <div class="blog-details-page">
     <!-- Hero Section -->
@@ -48,6 +46,8 @@
         </div>
     </section>
     {% endif %}
+
+    <!-- Main Content -->
     <section class="content-section py-5">
         <div class="container">
             <div class="row">
@@ -59,69 +59,51 @@
                         {% endif %}
 
                         <div class="article-body">
-                            {{ page.body }}
+                            {% for block in page.body %}
+                                {% include_block block %}
+                            {% endfor %}
                         </div>
-
-                        {% if page.source_link %}
-                        <div class="source-link mt-4">
-                            <a href="{{ page.source_link }}" target="_blank" rel="noopener" class="btn btn-outline-primary">
-                                View Source <i class="bi bi-box-arrow-up-right ms-1"></i>
-                            </a>
-                        </div>
-                        {% endif %}
 
                         <!-- Tags -->
-                        {% if page.article_types.all or page.locations.all or page.sectors.all %}
+                        {% if page.article_types.all %}
                         <div class="article-tags mt-5 mb-4">
-                            {% for type in page.article_types.all %}
-                            <span class="badge bg-light text-dark me-2">{{ type.name }}</span>
-                            {% endfor %}
-                            {% for location in page.locations.all %}
-                            <span class="badge bg-light text-dark me-2">{{ location.name }}</span>
-                            {% endfor %}
-                            {% for sector in page.sectors.all %}
-                            <span class="badge bg-light text-dark me-2">{{ sector.name }}</span>
+                            {% for article_type in page.article_types.all %}
+                            <span class="badge bg-light text-dark me-2">{{ article_type.name }}</span>
                             {% endfor %}
                         </div>
                         {% endif %}
 
                         <div class="article-footer text-muted">
-                            <small>Last Updated: {{ page.date|date:"M d, Y" }}</small>
+                            <small>Last Updated: {{ page.last_published_at|date:"M d, Y" }}</small>
                         </div>
                     </article>
                 </div>
 
                 <!-- Sidebar -->
                 <div class="col-lg-4">
-                    <!-- Latest Articles -->
+                    <!-- Latest Section -->
                     <div class="sidebar-section mb-4">
-                        <h5 class="sidebar-title mb-3">Latest Articles</h5>
-                        {% with latest_articles=page.get_parent.get_children.live.order_by('-date')|slice:":3" %}
-                        {% for article in latest_articles %}
-                        {% if article != page %}
+                        <h5 class="sidebar-title mb-3">Latest</h5>
+                        {% with latest_posts=page.get_parent.get_children.live.order_by('-first_published_at')[:2] %}
+                        {% for post in latest_posts %}
                         <div class="card sidebar-card mb-3">
                             <div class="position-relative">
-                                {% if article.wide_thumbnail %}
-                                {% image article.wide_thumbnail fill-400x200 as thumb %}
-                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ article.title }}">
+                                {% if post.wide_thumbnail %}
+                                {% image post.wide_thumbnail fill-400x200 as thumb %}
+                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ post.title }}">
                                 {% else %}
-                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ article.title }}">
+                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ post.title }}">
                                 {% endif %}
-                                {% if article.article_types.first %}
-                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">{{ article.article_types.first.name|upper }}</span>
-                                {% endif %}
+                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">NEWS</span>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">{{ article.title }}</h6>
-                                <small class="text-muted">{{ article.date|date:"M d, Y" }}</small>
+                                <h6 class="card-title">{{ post.title }}</h6>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
-                                        Read More <i class="bi bi-arrow-up-right ms-1"></i>
-                                    </a>
+                                    <small class="text-muted"><i class="bi bi-book"></i> Read</small>
+                                    <small class="text-muted"><i class="bi bi-share"></i> Share</small>
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
                         {% endfor %}
                         {% endwith %}
                     </div>
@@ -130,17 +112,14 @@
                     <div class="sidebar-section">
                         <h5 class="sidebar-title mb-3">Featured</h5>
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                White Paper "Digitally Inexploitable: Cash as Public Infrastructure"
+                            <a href="{% url 'why_cash' %}" class="list-group-item list-group-item-action">
+                                Why Cash Matters
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                Choice Matters Video
+                            <a href="{% url 'support' %}" class="list-group-item list-group-item-action">
+                                Support Cash
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                White Paper "Keeping Cash: Assessing the Arguments about Cash and Crime"
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                Cash Matters 2017 Video
+                            <a href="{% url 'news' %}" class="list-group-item list-group-item-action">
+                                News & Articles
                             </a>
                         </div>
                     </div>

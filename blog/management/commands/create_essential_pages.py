@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 from home.models import HomePage
-from blog.models import SupportPage, WhyCashMattersPage
+from blog.models import SupportPage, WhyCashMattersPage, BlogIndexPage
 
 
 class Command(BaseCommand):
@@ -76,5 +76,22 @@ class Command(BaseCommand):
                 self.stdout.write(f'Created WhyCashMattersPage: {why_page.title}')
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error creating WhyCashMattersPage: {e}'))
+
+        # Create BlogIndexPage if it doesn't exist
+        try:
+            blog_index = BlogIndexPage.objects.live().first()
+            if blog_index:
+                self.stdout.write(f'BlogIndexPage already exists: {blog_index.title}')
+            else:
+                blog_index = BlogIndexPage(
+                    title='Blog',
+                    slug='blog',
+                    intro='Latest blog posts and articles',
+                )
+                home_page.add_child(instance=blog_index)
+                blog_index.save_revision().publish()
+                self.stdout.write(f'Created BlogIndexPage: {blog_index.title}')
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Error creating BlogIndexPage: {e}'))
 
         self.stdout.write(self.style.SUCCESS('Essential pages setup complete!'))
