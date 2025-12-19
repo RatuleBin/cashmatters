@@ -24,7 +24,7 @@
                 <p style="color: #505050; margin: 0; font-size: 0.95rem; font-weight: 500;">Drafts</p>
             </div>
             <div class="w-panel" style="padding: 1.75rem; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border: 1px solid #e1e5e9; border-radius: 4px;">
-                <a href="/admin/pages/add/blog/blogpage/" class="button" style="background: #007cba; color: white; border: 1px solid #007cba; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.15s ease;">
+                <a href="{% url 'blog:create_blog_post' %}" class="button" style="background: #007cba; color: white; border: 1px solid #007cba; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.15s ease;">
                     <svg class="icon icon-plus" aria-hidden="true" style="width: 16px; height: 16px;"><use href="#icon-plus"></use></svg>
                     Add New Blog
                 </a>
@@ -264,7 +264,7 @@
                             Get started by creating your first blog post. Content management has never been easier.
                         {% endif %}
                     </p>
-                    <a href="{% url 'blog:create_blog_post' 8 %}" class="button button-primary button-large" style="font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <a href="{% url 'blog:create_blog_post' %}" class="button button-primary button-large" style="font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                         <svg class="icon icon-plus" aria-hidden="true"><use href="#icon-plus"></use></svg>
                         {% if search_query or category_filter or status_filter or location_filter or sector_filter %}
                             Add New Blog

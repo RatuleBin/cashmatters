@@ -243,8 +243,7 @@ urlpatterns = [
     path("why-cash/", why_cash, name="why_cash"),  # Why cash page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
-    path("admin/pages/add/blog/blogpage/", create_blog_page,
-         name="create_blog_page"),
+    path("add-blog/", create_blog_page, name="create_blog_page"),
     path("admin/", include(wagtailadmin_urls)),
     path("admin/blogs/add/", blogs_dashboard, name="blogs_dashboard"),
     # Blog creation dashboard
@@ -253,7 +252,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
-    # path("blog/", include("blog.urls")),  # Blog app URLs - temporarily commented out
+    path("blog/", include("blog.urls")),  # Blog app URLs
 ]
 
 

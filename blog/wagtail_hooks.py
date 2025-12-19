@@ -31,7 +31,7 @@ def register_blogs_dashboard_menu_item():
 def register_support_page_menu_item():
     return MenuItem(
         'Support Cash Page',
-        '/admin/support/',
+        '/blog/support/',
         icon_name='help',
         order=10001
     )
@@ -41,7 +41,7 @@ def register_support_page_menu_item():
 def register_why_cash_matters_page_menu_item():
     return MenuItem(
         'Why Cash Matters Page',
-        '/admin/why-cash-matters/',
+        '/blog/why-cash/',
         icon_name='question',
         order=10002
     )
