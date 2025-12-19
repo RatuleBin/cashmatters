@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,14 +57,20 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold text-white lh-sm mb-4">
-                        Let’s grow <span class="text-mint">awareness<br>for cash</span> around the<br>world
+                        {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Support Cash Matters{% endif %}
                     </h1>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
-                    <p class="text-white opacity-90 mb-4 lead fw-light">
-                        Join us in keeping cash relevant today and in the future by supporting our global pro-cash movement.
-                    </p>
-                    <a href="#" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
+                    {% if page.description_content %}
+                        <div class="text-white opacity-90 mb-4 lead fw-light">
+                            {{ page.description_content|richtext }}
+                        </div>
+                    {% else %}
+                        <p class="text-white opacity-90 mb-4 lead fw-light">
+                            Join us in keeping cash relevant today and in the future by supporting our global pro-cash movement.
+                        </p>
+                    {% endif %}
+                    <a href="{% if page.description_link %}{{ page.description_link }}{% else %}#{% endif %}" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
                         Discover Why Cash Matters <i class="bi bi-arrow-up-right ms-1"></i>
                     </a>
                 </div>
@@ -73,7 +79,24 @@
     </section>
 
     <!-- =========================================
-         3. DIGITAL ASSETS (TABS)
+         3. INTRODUCTION SECTION
+    ========================================== -->
+    {% if page.introduction %}
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="fs-5 text-muted">
+                        {{ page.introduction|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- =========================================
+         4. DIGITAL ASSETS (TABS)
     ========================================== -->
     <section class="section-bg py-5">
         <div class="container py-4">
@@ -225,9 +248,15 @@
         <div class="container position-relative z-2 py-5">
             <h2 class="display-4 fw-bold mb-4">Media Contacts</h2>
             <div class="col-lg-6 mx-auto">
-                <p class="fs-4 mb-3 fw-light">
-                    If you would like to speak to a member of our team regarding our campaign please
-                </p>
+                {% if page.media_contacts %}
+                    <div class="fs-4 mb-3 fw-light">
+                        {{ page.media_contacts|richtext }}
+                    </div>
+                {% else %}
+                    <p class="fs-4 mb-3 fw-light">
+                        If you would like to speak to a member of our team regarding our campaign please
+                    </p>
+                {% endif %}
                 <div class="fs-3">
                     email: <a href="mailto:info@cashmatters.org" class="text-mint text-decoration-underline fw-bold">info@cashmatters.org</a>
                 </div>

@@ -4,5 +4,10 @@ from . import views
 app_name = 'blog'
 
 urlpatterns = [
-    path('create/<int:parent_page_id>/', views.create_blog_post, name='create_blog_post'),
+    path('create/<int:parent_page_id>/', views.create_blog_post,
+         name='create_blog_post'),
+    path('create-support/', views.create_support_page,
+         name='create_support_page'),
+    path('create-why-cash-matters/', views.create_why_cash_matters_page,
+         name='create_why_cash_matters_page'),
 ]

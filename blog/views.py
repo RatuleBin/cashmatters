@@ -4,7 +4,7 @@ from django.contrib import messages
 from wagtail.images import get_image_model
 from wagtail.rich_text import RichText
 from .forms import BlogPostForm
-from .models import BlogIndexPage, BlogPage
+from .models import BlogIndexPage, BlogPage, SupportPage
 import json
 
 
@@ -209,4 +209,52 @@ def create_blog_post(request, parent_page_id):
         'parent_page': parent_page,
     }
     return render(request, 'blog/create_blog_post.html', context)
+
+
+@login_required
+def create_support_page(request):
+    """Redirect to Wagtail admin for creating SupportPage with clean URL"""
+    from home.models import HomePage
+    from django.http import HttpResponsePermanentRedirect
+
+    try:
+        # Get the first HomePage (assuming there's only one main home page)
+        home_page = HomePage.objects.live().first()
+        if home_page:
+            url = f'/admin/pages/add/blog/supportpage/{home_page.id}/'
+            return HttpResponsePermanentRedirect(url)
+        else:
+            # Fallback if no HomePage found
+            return HttpResponsePermanentRedirect('/admin/pages/')
+    except Exception:
+        # Fallback to admin pages
+        return HttpResponsePermanentRedirect('/admin/pages/')
+
+
+@login_required
+def create_why_cash_matters_page(request):
+    """Redirect to Wagtail admin for WhyCashMattersPage (singleton)"""
+    from home.models import HomePage
+    from django.http import HttpResponsePermanentRedirect
+    from blog.models import WhyCashMattersPage
+
+    try:
+        # Check if a WhyCashMattersPage already exists (singleton behavior)
+        existing_page = WhyCashMattersPage.objects.live().first()
+        if existing_page:
+            # Redirect to edit the existing page
+            url = f'/admin/pages/{existing_page.id}/edit/'
+            return HttpResponsePermanentRedirect(url)
+
+        # If no page exists, redirect to create new page
+        home_page = HomePage.objects.live().first()
+        if home_page:
+            url = f'/admin/pages/{home_page.id}/add/blog/whycashmatterspage/'
+            return HttpResponsePermanentRedirect(url)
+        else:
+            # Fallback if no HomePage found
+            return HttpResponsePermanentRedirect('/admin/pages/')
+    except Exception:
+        # Fallback to admin pages
+        return HttpResponsePermanentRedirect('/admin/pages/')
 

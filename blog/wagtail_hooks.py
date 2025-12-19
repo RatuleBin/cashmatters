@@ -1,9 +1,10 @@
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.ui.components import Component
-from django.urls import reverse
+from django.urls import reverse, path
 from django.utils.html import format_html
-from .models import BlogPage
+from django.shortcuts import redirect
+from .models import BlogPage, WhyCashMattersPage, SupportPage
 
 
 @hooks.register('register_admin_menu_item')
@@ -23,6 +24,26 @@ def register_blogs_dashboard_menu_item():
         '/admin/all-blogs/',
         icon_name='list-ul',
         order=9999
+    )
+
+
+@hooks.register('register_admin_menu_item')
+def register_support_page_menu_item():
+    return MenuItem(
+        'Support Cash Page',
+        '/admin/support/',
+        icon_name='help',
+        order=10001
+    )
+
+
+@hooks.register('register_admin_menu_item')
+def register_why_cash_matters_page_menu_item():
+    return MenuItem(
+        'Why Cash Matters Page',
+        '/admin/why-cash-matters/',
+        icon_name='question',
+        order=10002
     )
 
 
@@ -79,3 +100,108 @@ def add_blog_button(page, user, next_url=None):
         )
         return [button]
     return []
+
+
+@hooks.register('before_create_page')
+def redirect_why_cash_matters_to_edit(request, page_class, parent):
+    """Redirect WhyCashMattersPage creation to edit existing page"""
+    if page_class == WhyCashMattersPage:
+        existing_page = WhyCashMattersPage.objects.live().first()
+        if existing_page:
+            # Redirect to edit the existing page
+            edit_url = reverse('wagtailadmin_pages:edit',
+                               args=[existing_page.id])
+            return redirect(edit_url)
+    return None
+
+
+@hooks.register('register_admin_urls')
+def custom_why_cash_matters_urls():
+    """Custom URL patterns for WhyCashMattersPage singleton behavior"""
+    from wagtail.admin.views.pages.create import CreateView
+    from django.shortcuts import redirect
+    from django.urls import reverse
+    
+    # Monkey patch the CreateView dispatch method
+    original_dispatch = CreateView.dispatch
+    
+    def patched_dispatch(self, request, content_type_app_name,
+                         content_type_model_name, parent_page_id):
+        if (content_type_app_name == 'blog' and
+                content_type_model_name in ['whycashmatterspage',
+                                            'supportpage']):
+            # Check for existing page based on model type
+            if content_type_model_name == 'whycashmatterspage':
+                existing_page = WhyCashMattersPage.objects.live().first()
+            elif content_type_model_name == 'supportpage':
+                existing_page = SupportPage.objects.live().first()
+            
+            if existing_page:
+                # Redirect to edit the existing page
+                edit_url = reverse('wagtailadmin_pages:edit',
+                                   args=[existing_page.id])
+                return redirect(edit_url)
+        # Fall back to default behavior
+        return original_dispatch(self, request, content_type_app_name,
+                                 content_type_model_name, parent_page_id)
+    
+    CreateView.dispatch = patched_dispatch
+    
+    # Custom URL for direct access to WhyCashMattersPage edit
+    def why_cash_matters_edit_redirect(request):
+        """Redirect to edit the existing WhyCashMattersPage"""
+        existing_page = WhyCashMattersPage.objects.live().first()
+        if existing_page:
+            edit_url = reverse('wagtailadmin_pages:edit',
+                               args=[existing_page.id])
+            return redirect(edit_url)
+        else:
+            # If no page exists, redirect to create
+            return redirect(reverse('wagtailadmin_home'))
+    
+    # Custom URL for direct access to SupportPage edit
+    def support_page_edit_redirect(request):
+        """Redirect to edit the existing SupportPage"""
+        existing_page = SupportPage.objects.live().first()
+        if existing_page:
+            edit_url = reverse('wagtailadmin_pages:edit',
+                               args=[existing_page.id])
+            return redirect(edit_url)
+        else:
+            # If no page exists, redirect to create
+            return redirect(reverse('wagtailadmin_home'))
+    
+    return [
+        path('why-cash-matters/',
+             why_cash_matters_edit_redirect,
+             name='why_cash_matters_edit'),
+        path('support/',
+             support_page_edit_redirect,
+             name='support_page_edit'),
+    ]
+
+
+@hooks.register('construct_page_listing_buttons')
+def modify_add_button_for_homepage(buttons, page, user, context):
+    """Modify add buttons for HomePage to handle WhyCashMattersPage"""
+    if page.__class__.__name__ == 'HomePage':
+        # Check if WhyCashMattersPage already exists
+        existing_page = WhyCashMattersPage.objects.live().first()
+        if existing_page:
+            # Remove the original add button for WhyCashMattersPage
+            buttons[:] = [btn for btn in buttons
+                          if not (hasattr(btn, 'label') and
+                                  'Why Cash Matters Page' in str(btn.label))]
+            
+            # Add an edit button instead
+            from wagtail.admin.widgets import Button
+            
+            edit_button = Button(
+                'Edit Why Cash Matters Page',
+                '/admin/why-cash-matters/',
+                priority=10,
+                icon_name='edit'
+            )
+            buttons.append(edit_button)
+    
+    return buttons

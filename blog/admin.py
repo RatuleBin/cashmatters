@@ -9,3 +9,6 @@ admin.site.register(Sector)
 
 # Note: ArticlePage is a Wagtail Page model and should be
 # managed through Wagtail admin
+
+# Note: ArticlePage is a Wagtail Page model and should be
+# managed through Wagtail admin

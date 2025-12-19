@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,147 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Facts Styles -->
+    <style>
+        .facts-section {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .fact-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 300px;
+            cursor: pointer;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .fact-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .fact-overlay {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .fact-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .fact-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .fact-sector {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fact-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 3;
+        }
+
+        .fact-card:hover .fact-content {
+            transform: translateY(0);
+        }
+
+        .fact-text {
+            margin-bottom: 1rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .fact-reveal {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .fact-reveal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #43b1b0;
+        }
+
+        .fact-reveal-text {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .fact-reveal-toggle {
+            background: #43b1b0;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .fact-reveal-toggle:hover {
+            background: #3a9695;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Color themes */
+        .color-blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .color-red { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .color-green { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .color-purple { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .color-orange { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+    </style>
 </head>
 <body class="bg-light-cream">
 
@@ -57,20 +198,20 @@
                 <!-- Headline -->
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     <h1 class="display-4 fw-bold text-white lh-1">
-                        <span class="text-mint">Why</span> Cash<br>Matters
+                        {{ page.title|default:"Why Cash Matters" }}
                     </h1>
                 </div>
                 <!-- Text Content -->
                 <div class="col-lg-8">
                     <p class="text-white opacity-90 lead fw-light mb-4">
-                        New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method.
+                        {{ page.intro|default:"New technologies are changing the way we pay..." }}
                     </p>
-                    <p class="text-white opacity-90 fw-light small">
-                        Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Banknotes and coins reflect a nation's identity and its magic moments. In short: cash matters!
-                    </p>
+                    <div class="text-white opacity-90 fw-light small">
+                        {{ page.page_header|richtext|default:"Because cash is resilient..." }}
+                    </div>
                     <div class="d-flex align-items-center gap-4 mt-4 text-white small opacity-75">
                         <span><i class="bi bi-share me-2"></i> Share</span>
-                        <span><i class="bi bi-clock me-2"></i> Nov 24, 2025</span>
+                        <span><i class="bi bi-clock me-2"></i> {{ page.date|date:"M d, Y"|default:"Nov 24, 2025" }}</span>
                     </div>
                 </div>
             </div>
@@ -78,127 +219,55 @@
     </section>
 
     <!-- =========================================
-         3. FEATURE CARDS SECTION
+         3. MAIN CONTENT SECTION
     ========================================== -->
     <section class="py-5">
         <div class="container py-4">
+            {% if page and page.body %}
+                <!-- Dynamic content from StreamField -->
+                {% for block in page.body %}
+                    {% if block.block_type == 'heading' %}
+                        <h2 class="fw-bold mb-4">{{ block.value }}</h2>
+                    {% elif block.block_type == 'paragraph' %}
+                        <div class="mb-4">
+                            {{ block.value|richtext }}
+                        </div>
+                    {% elif block.block_type == 'image' %}
+                        <div class="mb-4 text-center">
+                            {% image block.value width-800 class="img-fluid rounded" %}
+                        </div>
+                    {% elif block.block_type == 'quote' %}
+                        <blockquote class="blockquote mb-4 p-4 bg-light rounded">
+                            <p class="mb-2">{{ block.value.quote }}</p>
+                            {% if block.value.name %}
+                                <footer class="blockquote-footer">
+                                    {{ block.value.name }}
+                                    {% if block.value.job_title %} - {{ block.value.job_title }}{% endif %}
+                                    {% if block.value.company %} at {{ block.value.company }}{% endif %}
+                                </footer>
+                            {% endif %}
+                        </blockquote>
+                    {% elif block.block_type == 'embed' %}
+                        <div class="mb-4">
+                            {{ block.value }}
+                        </div>
+                    {% elif block.block_type == 'document' %}
+                        <div class="mb-4">
+                            <a href="{{ block.value.url }}" class="btn btn-outline-primary">
+                                <i class="bi bi-file-earmark me-2"></i>
+                                {{ block.value.title }}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
-            <!-- ROW 1: BLUE (Freedom) -->
-            <div class="row g-4 mb-5 feature-row">
-                <!-- Icon Card (Left) -->
-                <div class="col-lg-3 col-md-12">
-                    <div class="feature-icon-card bg-feature-blue h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                        <i class="bi bi-send feature-icon mb-3"></i> <!-- Placeholder for bird icon -->
-                        <h4 class="fw-bold fs-5">Cash guarantees personal freedom and independence</h4>
-                    </div>
-                </div>
-                <!-- Content Card (Right) -->
-                <div class="col-lg-9 col-md-12">
-                    <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                        <div class="p-5 flex-grow-1">
-                            <h3 class="fw-bold mb-3">Only cash can be used without any intermediary</h3>
-                            <p class="text-muted small mb-4">
-                                Cash is the only payment method that functions independently of the issuer without third party involvement. As Canadian economist Pierre Lemieux says: "It is an intriguing fact that the availability of government currency provides protection against government intrusion itself."
-                            </p>
-                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
-                            </div>
-                        </div>
-                        <div class="feature-img-container">
-                            <img src="https://images.unsplash.com/photo-1534068590799-09895a701e3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Woman with cash">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ROW 2: RED (Democratic) -->
-            <div class="row g-4 mb-5 feature-row">
-                <!-- Icon Card -->
-                <div class="col-lg-3 col-md-12">
-                    <div class="feature-icon-card bg-feature-red h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                        <i class="bi bi-bank feature-icon mb-3"></i> <!-- Placeholder for scale icon -->
-                        <h4 class="fw-bold fs-5">Cash is the most democratic way to pay</h4>
-                    </div>
-                </div>
-                <!-- Content Card -->
-                <div class="col-lg-9 col-md-12">
-                    <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                        <div class="p-5 flex-grow-1">
-                            <h3 class="fw-bold mb-3">Cash is available to everyone, without exception</h3>
-                            <p class="text-muted small mb-4">
-                                Cash is the only form of payment with no threshold to its use, no matter where or when the payment is being made. No bank account, good credit rating, internet access etc. is needed when paying cash.
-                            </p>
-                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
-                            </div>
-                        </div>
-                        <div class="feature-img-container">
-                            <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Buying fruit">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ROW 3: PURPLE (Privacy) -->
-            <div class="row g-4 mb-5 feature-row">
-                <!-- Icon Card -->
-                <div class="col-lg-3 col-md-12">
-                    <div class="feature-icon-card bg-feature-purple h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                        <i class="bi bi-shield-lock feature-icon mb-3"></i>
-                        <h4 class="fw-bold fs-5">Cash guarantees personal freedom and independence</h4>
-                    </div>
-                </div>
-                <!-- Content Card -->
-                <div class="col-lg-9 col-md-12">
-                    <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                        <div class="p-5 flex-grow-1">
-                            <h3 class="fw-bold mb-3">Cash is a lifeline for many people in their daily lives</h3>
-                            <p class="text-muted small mb-4">
-                                People use cash for a variety of reasons. Many depend on cash. Among them are the 1.6 billion unbanked or underbanked people worldwide who use cash to meet their daily needs.
-                            </p>
-                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
-                            </div>
-                        </div>
-                        <div class="feature-img-container">
-                            <img src="https://images.unsplash.com/photo-1534068590799-09895a701e3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Woman shopping">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-             <!-- ROW 4: ORANGE/BROWN (Safety) -->
-             <div class="row g-4 mb-5 feature-row">
-                <!-- Icon Card -->
-                <div class="col-lg-3 col-md-12">
-                    <div class="feature-icon-card bg-feature-orange h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                        <i class="bi bi-wallet2 feature-icon mb-3"></i>
-                        <h4 class="fw-bold fs-5">Cash is safe</h4>
-                    </div>
-                </div>
-                <!-- Content Card -->
-                <div class="col-lg-9 col-md-12">
-                    <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                        <div class="p-5 flex-grow-1">
-                            <h3 class="fw-bold mb-3">Cash is safe to use</h3>
-                            <p class="text-muted small mb-4">
-                                Medical experts as well as many central banks around the world confirmed that cash is a medically safe means of payment. Additionally, the risk posed by surfaces is very low and the primary way of infection is through aerosols.
-                            </p>
-                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
-                            </div>
-                        </div>
-                        <div class="feature-img-container">
-                            <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Couple shopping">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Facts Section - Always render if page exists and has facts -->
+            {% if page and page.facts %}
+            {% for fact_block in page.facts %}
+                {% include_block fact_block %}
+            {% endfor %}
+            {% endif %}
         </div>
     </section>
 
@@ -282,6 +351,22 @@
             </div>
         </div>
     </footer>
+
+    <!-- Facts Reveal Functionality -->
+    <script>
+        function toggleReveal(factId) {
+            const revealElement = document.getElementById('reveal-' + factId);
+            const button = event.target;
+
+            if (revealElement.classList.contains('hidden')) {
+                revealElement.classList.remove('hidden');
+                button.textContent = 'Hide Details ↑';
+            } else {
+                revealElement.classList.add('hidden');
+                button.textContent = 'Reveal More →';
+            }
+        }
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

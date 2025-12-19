@@ -21,10 +21,10 @@ def index(request):
 
 def news(request):
     """Serve the news page with dynamic articles"""
-    from blog.models import BlogPage
+    from blog.models import ArticlePage
     
-    # Get all published blog posts ordered by date (newest first)
-    articles = BlogPage.objects.live().order_by('-date')
+    # Get all published articles ordered by date (newest first)
+    articles = ArticlePage.objects.live().order_by('-date')
     
     # Debug: Print articles and dates
     print(f"DEBUG: Total articles: {articles.count()}")
@@ -38,13 +38,31 @@ def news(request):
 
 
 def support(request):
-    """Serve the support page"""
-    return render(request, 'support.html')
+    """Serve the support page with dynamic content"""
+    from blog.models import SupportPage
+    
+    # Get the SupportPage content
+    page = SupportPage.objects.live().first()
+    
+    context = {
+        'page': page,
+    }
+    
+    return render(request, 'support.html', context)
 
 
 def why_cash(request):
-    """Serve the why cash page"""
-    return render(request, 'why-cash.html')
+    """Serve the why cash page with dynamic content"""
+    from blog.models import WhyCashMattersPage
+    
+    # Get the WhyCashMattersPage content
+    page = WhyCashMattersPage.objects.live().first()
+    
+    context = {
+        'page': page,
+    }
+    
+    return render(request, 'why-cash.html', context)
 
 
 def blogs_dashboard_redirect(request):
@@ -56,6 +74,7 @@ def create_blog_page(request):
     """Redirect to Wagtail admin for creating blog posts with clean URL"""
     from blog.models import BlogIndexPage
     from django.http import HttpResponsePermanentRedirect
+    from home.models import HomePage
 
     try:
         # Get the first BlogIndexPage
@@ -65,13 +84,26 @@ def create_blog_page(request):
             url = f'/admin/pages/add/blog/blogpage/{blog_index.id}/'
             return HttpResponsePermanentRedirect(url)
         else:
-            # Fallback to hardcoded ID if no BlogIndexPage found
-            return HttpResponsePermanentRedirect(
-                '/admin/pages/add/blog/blogpage/6/')
+            # If no BlogIndexPage exists, create one first
+            home_page = HomePage.objects.live().first()
+            if home_page:
+                blog_index = BlogIndexPage(
+                    title='Blog',
+                    slug='blog',
+                    intro='Latest blog posts and articles'
+                )
+                home_page.add_child(instance=blog_index)
+                blog_index.save_revision().publish()
+                url = f'/admin/pages/add/blog/blogpage/{blog_index.id}/'
+                return HttpResponsePermanentRedirect(url)
+            else:
+                # If no HomePage exists, redirect to general add page
+                return HttpResponsePermanentRedirect(
+                    '/admin/pages/add/blog/blogpage/')
     except Exception:
-        # Fallback to hardcoded ID if there's any error
+        # Fallback to general add page if there's any error
         return HttpResponsePermanentRedirect(
-            '/admin/pages/add/blog/blogpage/6/')
+            '/admin/pages/add/blog/blogpage/')
 
 
 @staff_member_required

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogdetails{% endblock %}
+
+{% block content %}
+<div class="blog-details-page">
+    <!-- Hero Section -->
+    {% if page.page_header_image %}
+    <section class="hero-section">
+        <div class="hero-image">
+            {% image page.page_header_image fill-1200x600 as header_img %}
+            <img src="{{ header_img.url }}" alt="{{ header_img.alt }}" class="w-100">
+            <div class="hero-overlay">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="display-4 fw-bold text-white">{{ page.title }}</h1>
+                        <div class="meta-info text-white">
+                            <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
+                            {% if page.article_types.first %}
+                            <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
+                                {{ page.article_types.first.name }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <!-- Title Section without image -->
+    <section class="title-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-4 fw-bold">{{ page.title }}</h1>
+                    <div class="meta-info mt-3">
+                        <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
+                        {% if page.article_types.first %}
+                        <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
+                            {{ page.article_types.first.name }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <section class="content-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Article Content -->
+                <div class="col-lg-8">
+                    <article class="article-content">
+                        {% if page.intro %}
+                        <p class="lead">{{ page.intro }}</p>
+                        {% endif %}
+
+                        <div class="article-body">
+                            {{ page.body }}
+                        </div>
+
+                        {% if page.source_link %}
+                        <div class="source-link mt-4">
+                            <a href="{{ page.source_link }}" target="_blank" rel="noopener" class="btn btn-outline-primary">
+                                View Source <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+
+                        <!-- Tags -->
+                        {% if page.article_types.all or page.locations.all or page.sectors.all %}
+                        <div class="article-tags mt-5 mb-4">
+                            {% for type in page.article_types.all %}
+                            <span class="badge bg-light text-dark me-2">{{ type.name }}</span>
+                            {% endfor %}
+                            {% for location in page.locations.all %}
+                            <span class="badge bg-light text-dark me-2">{{ location.name }}</span>
+                            {% endfor %}
+                            {% for sector in page.sectors.all %}
+                            <span class="badge bg-light text-dark me-2">{{ sector.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="article-footer text-muted">
+                            <small>Last Updated: {{ page.date|date:"M d, Y" }}</small>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Latest Articles -->
+                    <div class="sidebar-section mb-4">
+                        <h5 class="sidebar-title mb-3">Latest Articles</h5>
+                        {% with latest_articles=page.get_parent.get_children.live.order_by('-date')|slice:":3" %}
+                        {% for article in latest_articles %}
+                        {% if article != page %}
+                        <div class="card sidebar-card mb-3">
+                            <div class="position-relative">
+                                {% if article.wide_thumbnail %}
+                                {% image article.wide_thumbnail fill-400x200 as thumb %}
+                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ article.title }}">
+                                {% else %}
+                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ article.title }}">
+                                {% endif %}
+                                {% if article.article_types.first %}
+                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">{{ article.article_types.first.name|upper }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">{{ article.title }}</h6>
+                                <small class="text-muted">{{ article.date|date:"M d, Y" }}</small>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
+                                        Read More <i class="bi bi-arrow-up-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+
+                    <!-- Featured Section -->
+                    <div class="sidebar-section">
+                        <h5 class="sidebar-title mb-3">Featured</h5>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                White Paper "Digitally Inexploitable: Cash as Public Infrastructure"
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                Choice Matters Video
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                White Paper "Keeping Cash: Assessing the Arguments about Cash and Crime"
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                Cash Matters 2017 Video
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-3">Stay up to date with Cash Matters.</h2>
+                    <p class="mb-4">Join the Cash Matters community and we'll keep you posted about the latest developments in cash happening around the globe.</p>
+                    <form class="row g-3 justify-content-center">
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="first name">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="company">
+                        </div>
+                        <div class="col-md-10">
+                            <input type="email" class="form-control" placeholder="your email address">
+                        </div>
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-dark btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
