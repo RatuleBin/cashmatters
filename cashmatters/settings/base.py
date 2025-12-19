@@ -92,13 +92,14 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cashmatters_db',
-        'USER': 'cashmatters_user',
-        'PASSWORD': 'secure_password_123',
-        'HOST': 'localhost',
+        'NAME': 'cashmatters',          # must match POSTGRES_DB in docker-compose.yml
+        'USER': 'cashmatters',          # must match POSTGRES_USER
+        'PASSWORD': 'cashmatters123',   # must match POSTGRES_PASSWORD
+        'HOST': 'db',                   # service name from docker-compose.yml, NOT localhost
         'PORT': '5432',
     }
 }
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
