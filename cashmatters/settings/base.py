@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail.api.v2",
+    "wagtail.locales",
+    "wagtail",
     "corsheaders",
     "modelcluster",
     "taggit",
