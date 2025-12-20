@@ -9,19 +9,18 @@ SECRET_KEY = r"XkqR5\2M[8pE\9^~>9ef%8^%TO~qOsEPyh5@]-=25YZq6{$K{S"
 ALLOWED_HOSTS = ["148.230.104.225", "localhost", "127.0.0.1"]
 
 # Database configuration for production
-DATABASES = {
+DDATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cashmatters_db',
         'USER': 'cashmatters_user',
-        'PASSWORD': 'your_secure_db_password_here',
-        'HOST': 'localhost',
+        'PASSWORD': 'secure_password_123',
+        'HOST': 'db',          # Use the Docker service name if running in docker-compose
         'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',  # Enable SSL for production
-        }
     }
 }
+
+
 
 # Security settings for production
 SECURE_SSL_REDIRECT = True
@@ -54,20 +53,22 @@ WAGTAIL_SITE_NAME = 'CashMatters'
 
 # Logging configuration
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': '/home/django/apps/cashmatters/logs/django.log',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
         },
     },
 }
