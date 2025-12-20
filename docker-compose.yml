@@ -1,18 +1,25 @@
+version: '3.9'
+
 services:
   web:
     build: .
     container_name: cashmatters-web
+    command: gunicorn cashmatters.wsgi:application --bind 0.0.0.0:8000 --workers 3
     volumes:
       - ./staticfiles:/app/staticfiles
       - ./media:/app/media
     environment:
-      - DJANGO_SETTINGS_MODULE=cashmatters.settings.base
+      - DJANGO_SETTINGS_MODULE=cashmatters.settings.production
+      - DJANGO_SECRET_KEY=XkqR5\2M[8pE\9^~>9ef%8^%TO~qOsEPyh5@]-=25YZq6{$K{S
       - DEBUG=0
       - ALLOWED_HOSTS=*
+      - POSTGRES_DB=cashmatters_db
+      - POSTGRES_USER=cashmatters_user
+      - POSTGRES_PASSWORD=secure_password_123
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
     depends_on:
       - db
-    ports:
-      - "8000:8000"
 
   db:
     image: postgres:15
