@@ -92,6 +92,7 @@ class BlogPage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
+    author = models.CharField(max_length=100, blank=True, help_text="Author name")
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -227,6 +228,7 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
+        FieldPanel('author'),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),
@@ -302,6 +304,7 @@ class ArticlePage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
+    author = models.CharField(max_length=100, blank=True, help_text="Author name")
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -436,6 +439,7 @@ class ArticlePage(Page):
     ]
 
     content_panels = Page.content_panels + [
+        FieldPanel('author'),
         FieldPanel('date'),
         FieldPanel('intro'),
         MultiFieldPanel([

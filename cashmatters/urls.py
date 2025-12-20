@@ -48,6 +48,30 @@ def news(request):
     return render(request, 'news.html', context)
 
 
+def author(request, author_name):
+    """Serve the author profile page showing all articles by a specific author"""
+    from blog.models import ArticlePage, BlogPage
+    from itertools import chain
+
+    # Get all published articles and blog posts by this author
+    articles = ArticlePage.objects.live().filter(author__iexact=author_name).order_by('-date')
+    blog_posts = BlogPage.objects.live().filter(author__iexact=author_name).order_by('-date')
+
+    # Combine and sort by date (newest first)
+    author_posts = sorted(
+        chain(articles, blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )
+
+    context = {
+        'author_name': author_name,
+        'articles': author_posts,
+        'total_articles': len(author_posts),
+    }
+    return render(request, 'author.html', context)
+
+
 def support(request):
     """Serve the support page with dynamic content"""
     from blog.models import SupportPage
@@ -252,6 +276,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
+    path("author/<str:author_name>/", author, name="author_profile"),
     path("blog/", include("blog.urls")),  # Blog app URLs
 ]
 

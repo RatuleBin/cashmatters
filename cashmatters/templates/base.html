@@ -141,6 +141,63 @@
 
         {% block content %}{% endblock %}
 
+        {% block footer %}
+        <!-- Footer -->
+        <footer class="main-footer text-white pt-5 pb-4">
+            <div class="container pt-4">
+                <div class="row g-5 mb-5">
+                    <div class="col-lg-4 col-md-12">
+                        <a class="navbar-brand fw-bold fs-2 d-inline-block mb-4" href="#">
+                            Cash<span class="fw-light">Matters</span><sup style="font-size: 12px; top: -1em;">®</sup>
+                        </a>
+                        <p class="small opacity-90 mb-4 pe-lg-5" style="line-height: 1.6;">
+                            Cash Matters is an independent initiative dedicated to preserving payment choice for everyone.
+                        </p>
+                        <div class="d-flex gap-3">
+                            <a href="https://www.tiktok.com/@cashmatters" class="social-circle"><i class="bi bi-tiktok"></i></a>
+                            <a href="https://www.youtube.com/@cashmatters" class="social-circle"><i class="bi bi-youtube"></i></a>
+                            <a href="https://www.linkedin.com/company/cashmatters" class="social-circle"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://www.facebook.com/cashmatters" class="social-circle"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.instagram.com/cashmatters" class="social-circle"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <h6 class="fw-bold mb-4">Get to know us</h6>
+                        <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                            <li><a href="#" class="text-white text-decoration-none hover-u">Our aim</a></li>
+                            <li><a href="#" class="text-white text-decoration-none hover-u">Our partners</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <h6 class="fw-bold mb-4">Get informed</h6>
+                        <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                            <li><a href="#" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                            <li><a href="#" class="text-white text-decoration-none hover-u">News</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <h4 class="fw-bold mb-3">Stay up to date with<br>Cash Matters.</h4>
+                        <form class="mt-4">
+                            <div class="input-group p-1 bg-white rounded-2">
+                                <input type="email" class="form-control border-0 shadow-none ps-3" placeholder="Enter your email address">
+                                <button class="btn btn-dark-custom rounded-2 px-4 fw-bold" type="button">
+                                    Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <p class="extra-small opacity-75 mt-3">
+                            We'll never sell your details to anyone else, promise! For more information on how we store your data, please see our privacy policy.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-md-row justify-content-between small opacity-75">
+                    <span class="mb-2 mb-md-0">© Copyright 2024, All Rights Reserved by Cash Matters</span>
+                    <a href="#" class="text-white text-decoration-none hover-u">Privacy Policy</a>
+                </div>
+            </div>
+        </footer>
+        {% endblock %}
+
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/cashmatters.js' %}"></script>
 
