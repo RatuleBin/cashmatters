@@ -93,13 +93,14 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cashmatters_db',
-        'USER': 'cashmatters_user',
-        'PASSWORD': 'secure_password_123',
-        'HOST': '148.230.104.225',   # VPS IP
+        'NAME': 'cashmatters',
+        'USER': 'cashmatters',
+        'PASSWORD': 'cashmatters123',
+        'HOST': 'db',  # <-- service name in docker-compose.yml
         'PORT': '5432',
     }
 }
+
 
 
 
