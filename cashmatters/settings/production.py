@@ -1,25 +1,25 @@
 from .base import *
+import os
 
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = r"XkqR5\2M[8pE\9^~>9ef%8^%TO~qOsEPyh5@]-=25YZq6{$K{S"
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-change-in-production')
 
 # ALLOWED_HOSTS - Update with your actual domain/IP
 ALLOWED_HOSTS = ["148.230.104.225", "localhost", "127.0.0.1"]
 
 # Database configuration for production
-DDATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cashmatters_db',
-        'USER': 'cashmatters_user',
-        'PASSWORD': 'secure_password_123',
-        'HOST': 'db',          # Use the Docker service name if running in docker-compose
-        'PORT': '5432',
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST", "db"),
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
-
 
 
 # Security settings for production
