@@ -6,7 +6,7 @@ services:
       - ./staticfiles:/app/staticfiles
       - ./media:/app/media
     environment:
-      - DJANGO_SETTINGS_MODULE=cashmatr.settings.base
+      - DJANGO_SETTINGS_MODULE=cashmatters.settings.base
       - DEBUG=0
       - ALLOWED_HOSTS=*
     depends_on:
