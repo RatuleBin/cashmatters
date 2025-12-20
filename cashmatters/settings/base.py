@@ -89,16 +89,18 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# settings.py
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cashmatters_db',
         'USER': 'cashmatters_user',
         'PASSWORD': 'secure_password_123',
-        'HOST': '',   # empty = use Unix socket
-        'PORT': '',   # empty = default
+        'HOST': '127.0.0.1',   # TCP/IP connection
+        'PORT': '5432',
     }
 }
+
 
 
 # Default primary key field type
