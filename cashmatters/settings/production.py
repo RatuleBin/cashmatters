@@ -3,10 +3,10 @@ from .base import *
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "your-production-secret-key-change-this-immediately"
+SECRET_KEY = r"XkqR5\2M[8pE\9^~>9ef%8^%TO~qOsEPyh5@]-=25YZq6{$K{S"
 
 # ALLOWED_HOSTS - Update with your actual domain/IP
-ALLOWED_HOSTS = ["your-domain.com", "www.your-domain.com", "your-server-ip"]
+ALLOWED_HOSTS = ["148.230.104.225", "localhost", "127.0.0.1"]
 
 # Database configuration for production
 DATABASES = {
