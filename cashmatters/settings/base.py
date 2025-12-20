@@ -91,16 +91,18 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 # settings.py
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cashmatters',
-        'USER': 'cashmatters',
-        'PASSWORD': 'cashmatters123',
-        'HOST': 'db',  # <-- service name in docker-compose.yml
+        'NAME': 'cashmatters_db',
+        'USER': 'cashmatters_user',
+        'PASSWORD': 'secure_password_123',
+        'HOST': 'db',          # Use the Docker service name if running in docker-compose
         'PORT': '5432',
     }
 }
+
 
 
 
