@@ -96,10 +96,11 @@ DATABASES = {
         'NAME': 'cashmatters_db',
         'USER': 'cashmatters_user',
         'PASSWORD': 'secure_password_123',
-        'HOST': '127.0.0.1',   # TCP/IP connection
+        'HOST': '148.230.104.225',   # VPS IP
         'PORT': '5432',
     }
 }
+
 
 
 
