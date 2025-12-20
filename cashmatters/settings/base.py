@@ -95,8 +95,8 @@ DATABASES = {
         'NAME': 'cashmatters_db',
         'USER': 'cashmatters_user',
         'PASSWORD': 'secure_password_123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': '',   # empty = use Unix socket
+        'PORT': '',   # empty = default
     }
 }
 
