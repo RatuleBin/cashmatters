@@ -40,5 +40,6 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./staticfiles:/app/staticfiles
       - ./media:/app/media
+      - ./logs:/app/logs
     depends_on:
       - web
