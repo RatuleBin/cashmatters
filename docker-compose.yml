@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   cashmatters:
@@ -7,28 +7,24 @@ services:
       context: .
       dockerfile: config/cashmatters/Dockerfile
     env_file:
-      - .env   # <-- Load all environment variables from .env
-    environment:
-      - CI_COMMIT_SHORT_SHA
+      - .env
     volumes:
       - ./:/cashmatters
       - static_volume:/cashmatters/static
       - media_volume:/cashmatters/media
     expose:
-      - "8000"   # Only accessible to other containers, not host
+      - "8000"
     networks:
       - cashmatters-net
 
   nginx:
     container_name: cashmatters-nginx
-    image: nginx
+    image: nginx:alpine
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./config/nginx/templates:/etc/nginx/templates
       - ./config/nginx:/etc/nginx/conf.d
-      - ./config/nginx/.htpasswd:/etc/nginx/.htpasswd
       - static_volume:/cashmatters/static
       - media_volume:/cashmatters/media
     depends_on:
