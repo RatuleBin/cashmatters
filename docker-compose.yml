@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: config/cashmatters/Dockerfile
+    env_file:
+      - .env   # <-- Load all environment variables from .env
     environment:
       - CI_COMMIT_SHORT_SHA
     volumes:
@@ -13,7 +15,7 @@ services:
       - static_volume:/cashmatters/static
       - media_volume:/cashmatters/media
     expose:
-      - "8000"   # Only exposed to other containers, not host
+      - "8000"   # Only accessible to other containers, not host
     networks:
       - cashmatters-net
 
