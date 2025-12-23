@@ -1,5 +1,6 @@
 from .base import *
 import os
+import dj_database_url
 
 DEBUG = False
 
@@ -9,20 +10,16 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-change-in-product
 # ALLOWED_HOSTS - Update with your actual domain/IP
 ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]
 
-# Database configuration for production - Railway PostgreSQL
+# Database configuration for production - Neon PostgreSQL
+DATABASE_URL = (
+    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'railway'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD',
-                          'eYMpmsmByJvGdqVNLfwhHZkjEnAdUVTU'),
-        'HOST': os.getenv('POSTGRES_HOST', 'crossover.proxy.rlwy.net'),
-        'PORT': os.getenv('POSTGRES_PORT', '39397'),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600
+    )
 }
 
 
