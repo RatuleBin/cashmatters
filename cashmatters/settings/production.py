@@ -7,7 +7,7 @@ DEBUG = False
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-change-in-production')
 
 # ALLOWED_HOSTS - Update with your actual domain/IP
-ALLOWED_HOSTS = ["148.230.104.225", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]
 
 # Database configuration for production
 DATABASES = {

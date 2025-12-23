@@ -1,33 +1,46 @@
+# File structure version
+# File structure version
+version: '3'
+
 services:
-  db:
-    image: postgres:15
-    container_name: cashmatters-db
-    env_file:
-      - .env
+
+  cashmatters:
+    environment:
+      - CI_COMMIT_SHORT_SHA
+    build:
+      context: .
+      dockerfile: config/cashmatters/Dockerfile
+    hostname: cashmatters
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: always
-
-  web:
-    build: .
-    container_name: cashmatters-web
-    command: gunicorn cashmatters.wsgi:application --bind 0.0.0.0:8000
-    env_file:
-      - .env
-    depends_on:
-      - db
-    restart: always
-
+      - ./:/cashmatters
+      - static_volume:/cashmatters/static
+      - media_volume:/cashmatters/media
+    expose:
+      - "8000"      
+  # Web server based on official nginx image
+  # Connect external 8000 (which you can access from browser)
+  # with internal port 8000(which will be linked to cashmatters port 8000 in configs)
+  # Connect local nginx configuration with image configuration
   nginx:
-    image: nginx:latest
-    container_name: cashmatters-nginx
+    image: nginx
+    hostname: nginx
     ports:
       - "80:80"
+      - "443:443"
+      - "8000:8000"
+      - "5555:5555"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./config/nginx/templates:/etc/nginx/templates
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./config/nginx/.htpasswd:/etc/nginx/.htpasswd
+      - static_volume:/cashmatters/static
+      - media_volume:/cashmatters/media
+    env_file: .env
     depends_on:
-      - web
-    restart: always
+      - cashmatters
+#  redis:
+#    image: redis:alpine
 
 volumes:
-  postgres_data:
+  static_volume:
+  media_volume:
