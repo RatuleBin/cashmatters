@@ -1,10 +1,9 @@
 # define group app
 upstream cashmatters {
-  # balancing by ip
-  ip_hash;
-  # define server app
-  server cashmatters:8000;
+    ip_hash;
+    server cashmatters-cashmatters:8000;
 }
+
 
 server {
 
