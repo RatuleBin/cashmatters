@@ -5,7 +5,7 @@ import dj_database_url
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-change-in-production')
+SECRET_KEY = "y6eR_h82UNx40JEYo9e211ah5usQHYkqsYB9Wf_cS27ePkCpEUAzIUimeMhC4SPnSJY"
 
 # ALLOWED_HOSTS - Update with your actual domain/IP
 ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]

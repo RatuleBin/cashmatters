@@ -12,7 +12,7 @@ DATABASES = {
 
 # Override any production settings for local development
 DEBUG = True
-SECRET_KEY = 'local-development-key-change-in-production'
+SECRET_KEY = "y6eR_h82UNx40JEYo9e211ah5usQHYkqsYB9Wf_cS27ePkCpEUAzIUimeMhC4SPnSJY"
 
 # Email backend for development
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
