@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from pathlib import Path
 import os
+import dj_database_url
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
@@ -21,6 +22,9 @@ BASE_DIR = PROJECT_DIR.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
+                       'fallback-key-change-in-production')
 
 # Application definition
 
@@ -91,17 +95,16 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# settings.py
+DATABASE_URL = (
+    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+)
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600
+    )
 }
 
 
