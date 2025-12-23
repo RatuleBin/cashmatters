@@ -9,15 +9,18 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-change-in-product
 # ALLOWED_HOSTS - Update with your actual domain/IP
 ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]
 
-# Database configuration for production
+# Database configuration for production - Railway PostgreSQL
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'eYMpmsmByJvGdqVNLfwhHZkjEnAdUVTU',
+        'HOST': 'crossover.proxy.rlwy.net',
+        'PORT': '39397',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
