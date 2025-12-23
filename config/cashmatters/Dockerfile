@@ -1,5 +1,5 @@
-# Creating image based on docker slim-buster python 3 image
-FROM python:3.10.10-slim-buster
+# Creating image based on docker slim-bullseye python 3 image
+FROM python:3.10.10-slim-bullseye
 # Sets dumping log messages directly to stream instead of buffering
 ENV PYTHONUNBUFFERED 1
 # RUN mkdir /code
