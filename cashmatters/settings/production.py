@@ -13,11 +13,12 @@ ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'eYMpmsmByJvGdqVNLfwhHZkjEnAdUVTU',
-        'HOST': 'crossover.proxy.rlwy.net',
-        'PORT': '39397',
+        'NAME': os.getenv('POSTGRES_DB', 'railway'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD',
+                          'eYMpmsmByJvGdqVNLfwhHZkjEnAdUVTU'),
+        'HOST': os.getenv('POSTGRES_HOST', 'crossover.proxy.rlwy.net'),
+        'PORT': os.getenv('POSTGRES_PORT', '39397'),
         'OPTIONS': {
             'sslmode': 'require',
         },
