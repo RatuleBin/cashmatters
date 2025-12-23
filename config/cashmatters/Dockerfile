@@ -30,7 +30,7 @@ EXPOSE 8000
 # When container starts, this script will be executed.
 # Note that it is NOT executed during building
 # CMD ["chmod +x /config/on-container-start.sh", "sh", "/config/on-container-start.sh"]
-CMD ["/bin/bash","-c","chmod +x /config/on-container-start.sh && /config/on-container-start.sh"]
+CMD ["gunicorn", "cashmatters.wsgi:application", "--bind", "0.0.0.0:8000"]
 
 
 # Creating and putting application inside container
