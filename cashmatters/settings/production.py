@@ -44,10 +44,10 @@ EMAIL_HOST_PASSWORD = 'your-email-password'
 
 # Static and media files
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/django/apps/cashmatters/staticfiles/'
+STATIC_ROOT = '/cashmatters/staticfiles/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/django/apps/cashmatters/media/'
+MEDIA_ROOT = '/cashmatters/media/'
 
 # Wagtail settings for production
 WAGTAIL_SITE_NAME = 'CashMatters'
