@@ -224,6 +224,11 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = False  # True if your site uses HTTPS
+CSRF_COOKIE_SECURE = False     # True if your site uses HTTPS
+
+
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
