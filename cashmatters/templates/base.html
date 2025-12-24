@@ -128,12 +128,18 @@
                     <a href="/">Cash Matters</a>
                 </div>
                 <ul class="nav-menu">
+                    <li class="nav-item{% if request.path == '/' %} active{% endif %}">
+                        <a href="/">Home</a>
+                    </li>
                     <li class="nav-item has-dropdown{% if '/news/' in request.path or '/blog/' in request.path %} active{% endif %}">
                         <a href="/news/">News & Article</a>
                         <div class="dropdown">
                             <a href="/blog/">Blogs</a>
                             <a href="/news/#keyfacts">Keys</a>
                         </div>
+                    </li>
+                    <li class="nav-item{% if '/about/' in request.path %} active{% endif %}">
+                        <a href="{% url 'about' %}">About</a>
                     </li>
                 </ul>
             </div>
