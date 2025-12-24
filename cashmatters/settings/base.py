@@ -170,7 +170,6 @@ USE_TZ = True
 
 SECURE_SSL_REDIRECT = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
@@ -180,7 +179,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # instead of 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
