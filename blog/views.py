@@ -227,17 +227,24 @@ def create_blog_post(request):
 
 
 @login_required
+@login_required
 def create_support_page(request):
     """Create or edit SupportPage (singleton) - redirects to Wagtail admin"""
     from wagtail.models import Page
     from django.contrib import messages
 
     try:
-        # Check if a SupportPage already exists (singleton behavior)
-        existing_page = SupportPage.objects.live().first()
+        # First check if there's any page with slug "support" (regardless of type)
+        existing_page = Page.objects.filter(slug="support").first()
         if existing_page:
             # Redirect to edit the existing page
             return redirect(f'/admin/pages/{existing_page.id}/edit/')
+
+        # Check if a SupportPage already exists (look for slug "support")
+        existing_support_page = SupportPage.objects.filter(slug="support").first()
+        if existing_support_page:
+            # Redirect to edit the existing page
+            return redirect(f'/admin/pages/{existing_support_page.id}/edit/')
 
         # If no page exists, create one under the root page
         root_page = Page.objects.get(id=1)  # Root page
@@ -266,17 +273,23 @@ def create_why_cash_matters_page(request):
     from datetime import date
 
     try:
-        # Check if a WhyCashMattersPage already exists (singleton behavior)
-        existing_page = WhyCashMattersPage.objects.live().first()
+        # First check if there's any page with slug "why-cash" (regardless of type)
+        existing_page = Page.objects.filter(slug="why-cash").first()
         if existing_page:
             # Redirect to edit the existing page
             return redirect(f'/admin/pages/{existing_page.id}/edit/')
+
+        # Check if a WhyCashMattersPage already exists (look for slug "why-cash")
+        existing_why_page = WhyCashMattersPage.objects.filter(slug="why-cash").first()
+        if existing_why_page:
+            # Redirect to edit the existing page
+            return redirect(f'/admin/pages/{existing_why_page.id}/edit/')
 
         # If no page exists, create one under the root page
         root_page = Page.objects.get(id=1)  # Root page
         why_cash_page = WhyCashMattersPage(
             title="Why Cash Matters",
-            slug="why-cash-matters",
+            slug="why-cash",
             date=date.today(),
             intro="Understanding the importance of cash in today's economy"
         )

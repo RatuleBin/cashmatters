@@ -8,16 +8,6 @@ from .models import BlogPage, WhyCashMattersPage, SupportPage
 
 
 @hooks.register('register_admin_menu_item')
-def register_news_and_article_menu_item():
-    return MenuItem(
-        'News & Articles',
-        '/admin/all-blogs/',
-        icon_name='doc-full',
-        order=10000
-    )
-
-
-@hooks.register('register_admin_menu_item')
 def register_blogs_dashboard_menu_item():
     return MenuItem(
         'Blogs Dashboard',
@@ -31,7 +21,7 @@ def register_blogs_dashboard_menu_item():
 def register_support_page_menu_item():
     return MenuItem(
         'Support Cash Page',
-        '/blog/support/',
+        reverse('blog:create_support_page'),
         icon_name='help',
         order=10001
     )
@@ -41,7 +31,7 @@ def register_support_page_menu_item():
 def register_why_cash_matters_page_menu_item():
     return MenuItem(
         'Why Cash Matters Page',
-        '/blog/why-cash/',
+        reverse('blog:create_why_cash_matters_page'),
         icon_name='question',
         order=10002
     )
