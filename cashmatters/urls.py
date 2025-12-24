@@ -328,6 +328,7 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     path("author/<str:author_name>/", author, name="author_profile"),
     path("blog/admin/", include("blog.urls")),  # Blog app URLs
+    path("blog/support/", support, name="blog_support_redirect"),
 ]
 
 

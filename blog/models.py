@@ -639,8 +639,12 @@ class SupportPage(Page):
         """Ensure only one SupportPage can exist"""
         super().clean()
         
-        # Check if another SupportPage already exists
-        existing_pages = SupportPage.objects.exclude(pk=self.pk)
+        # Check if another SupportPage already exists by content type
+        from django.contrib.contenttypes.models import ContentType
+        support_ct = ContentType.objects.get_for_model(SupportPage)
+        existing_pages = Page.objects.filter(
+            content_type=support_ct
+        ).exclude(pk=self.pk)
         if existing_pages.exists():
             raise ValidationError({
                 'title': 'Only one Support page allowed. Edit existing page.'
@@ -860,8 +864,12 @@ class WhyCashMattersPage(Page):
         """Ensure only one WhyCashMattersPage can exist"""
         super().clean()
         
-        # Check if another WhyCashMattersPage already exists
-        existing_pages = WhyCashMattersPage.objects.exclude(pk=self.pk)
+        # Check if another WhyCashMattersPage already exists by content type
+        from django.contrib.contenttypes.models import ContentType
+        whycash_ct = ContentType.objects.get_for_model(WhyCashMattersPage)
+        existing_pages = Page.objects.filter(
+            content_type=whycash_ct
+        ).exclude(pk=self.pk)
         if existing_pages.exists():
             raise ValidationError({
                 'title': 'Only one Why Cash Matters page allowed.'

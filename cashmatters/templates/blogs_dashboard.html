@@ -74,7 +74,7 @@
                 left: 0;
                 right: 0;
                 height: 4px;
-                background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+                background: linear-gradient(90deg, #60a5fa, #93c5fd);
             }
 
             .stat-card:hover {
@@ -82,7 +82,7 @@
                 box-shadow: var(--shadow-lg);
             }
 
-            .stat-card.total::before { background: linear-gradient(90deg, var(--primary-color), var(--primary-light)); }
+            .stat-card.total::before { background: linear-gradient(90deg, #60a5fa, #93c5fd); }
             .stat-card.published::before { background: linear-gradient(90deg, var(--success-color), var(--success-light)); }
             .stat-card.drafts::before { background: linear-gradient(90deg, var(--warning-color), var(--warning-light)); }
 
@@ -118,15 +118,14 @@
                 opacity: 0.1;
             }
 
-            .stat-card.total .stat-icon { background: var(--primary-color); }
+            .stat-card.total .stat-icon { background: #60a5fa; }
             .stat-card.published .stat-icon { background: var(--success-color); }
             .stat-card.drafts .stat-icon { background: var(--warning-color); }
 
             /* Action Card */
             .action-card {
-                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-                border: none;
-                color: white;
+                border: 1px solid var(--w-color-border-furniture);
+                color: var(--w-color-text-label);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -153,8 +152,8 @@
             }
 
             .action-button {
-                background: rgba(255, 255, 255, 0.2);
-                border: 2px solid rgba(255, 255, 255, 0.3);
+                background: #60a5fa;
+                border: 2px solid #60a5fa;
                 color: white;
                 padding: 1rem 2rem;
                 border-radius: var(--border-radius);
@@ -164,12 +163,12 @@
                 align-items: center;
                 gap: 0.75rem;
                 transition: var(--transition);
-                backdrop-filter: blur(10px);
+                box-shadow: var(--shadow);
             }
 
             .action-button:hover {
-                background: rgba(255, 255, 255, 0.3);
-                border-color: rgba(255, 255, 255, 0.5);
+                background: var(--primary-dark);
+                border-color: var(--primary-dark);
                 transform: translateY(-1px);
                 box-shadow: var(--shadow-lg);
             }
@@ -243,8 +242,8 @@
 
             .filter-input:focus, .filter-select:focus {
                 outline: none;
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+                border-color: #60a5fa;
+                box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
             }
 
             .filter-input::placeholder {
@@ -257,7 +256,7 @@
             }
 
             .btn-primary {
-                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
                 color: white;
                 border: none;
                 padding: 0.875rem 2rem;
@@ -344,7 +343,7 @@
             .checkbox-input {
                 width: 18px;
                 height: 18px;
-                accent-color: var(--primary-color);
+                accent-color: #60a5fa;
             }
 
             .checkbox-label {
@@ -409,13 +408,13 @@
             .post-title {
                 font-size: 1.125rem;
                 font-weight: 600;
-                color: var(--primary-color);
+                color: #60a5fa;
                 margin-bottom: 0.25rem;
                 display: block;
             }
 
             .post-title:hover {
-                color: var(--primary-dark);
+                color: #3b82f6;
             }
 
             .post-excerpt {
@@ -698,12 +697,14 @@
                 <div class="stat-card action-card">
                     <div style="text-align: center; z-index: 1; position: relative;">
                         <h3 style="color: white; font-size: 1.25rem; font-weight: 700; margin: 0 0 1rem 0;">Create Content</h3>
-                        <a href="{% url 'blog:create_blog_post' %}" class="action-button">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 4v16m8-8H4"/>
-                            </svg>
-                            Add New Blog
-                        </a>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <a href="{% url 'blog:create_blog_post' %}" class="action-button">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 4v16m8-8H4"/>
+                                </svg>
+                                Add New Blog
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
