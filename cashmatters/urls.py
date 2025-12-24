@@ -144,8 +144,8 @@ def create_blog_page(request):
 @staff_member_required
 def blogs_dashboard(request):
     """Blog management dashboard"""
-    from blog.models import BlogPage
-    from django.db.models import Q
+    from blog.models import BlogPage, ArticlePage
+    from itertools import chain
     from django.core.paginator import Paginator
     from django.contrib import messages
     from django.shortcuts import redirect
@@ -156,25 +156,39 @@ def blogs_dashboard(request):
         bulk_action = request.POST.get('bulk_action')
         
         if selected_posts and bulk_action:
-            posts = BlogPage.objects.filter(id__in=selected_posts)
+            # Handle both ArticlePage and BlogPage objects
+            posts = []
+            for post_id in selected_posts:
+                try:
+                    # Try to get as BlogPage first
+                    post = BlogPage.objects.get(id=post_id)
+                    posts.append(post)
+                except BlogPage.DoesNotExist:
+                    try:
+                        # Try to get as ArticlePage
+                        post = ArticlePage.objects.get(id=post_id)
+                        posts.append(post)
+                    except ArticlePage.DoesNotExist:
+                        continue
             
             if bulk_action == 'publish':
                 for post in posts:
                     if not post.live:
                         post.save_revision().publish()
                 messages.success(
-                    request, f"Published {len(selected_posts)} post(s)."
+                    request, f"Published {len(posts)} post(s)."
                 )
             elif bulk_action == 'unpublish':
                 for post in posts:
                     if post.live:
                         post.unpublish()
                 messages.success(
-                    request, f"Unpublished {len(selected_posts)} post(s)."
+                    request, f"Unpublished {len(posts)} post(s)."
                 )
             elif bulk_action == 'delete':
-                count = posts.count()
-                posts.delete()
+                count = len(posts)
+                for post in posts:
+                    post.delete()
                 messages.success(request, f"Deleted {count} post(s).")
             
             return redirect(request.get_full_path())
@@ -188,58 +202,94 @@ def blogs_dashboard(request):
     location_filter = request.GET.get('location', '')
     sector_filter = request.GET.get('sector', '')
     
-    # Base queryset - all blog pages
-    blog_posts = BlogPage.objects.all().order_by('-date')
+    # Base queryset - get all published articles and blog posts (like news page)
+    articles = ArticlePage.objects.live().order_by('-date')
+    blog_posts = BlogPage.objects.live().order_by('-date')
+    
+    # Combine and sort by date (newest first)
+    all_posts = sorted(
+        chain(articles, blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )
     
     # Apply search filter
     if search_query:
-        blog_posts = blog_posts.filter(
-            Q(title__icontains=search_query) |
-            Q(intro__icontains=search_query) |
-            Q(body__icontains=search_query)
-        )
+        filtered_posts = []
+        for post in all_posts:
+            search_text = f"{post.title} {getattr(post, 'intro', '')} {getattr(post, 'body', '')}"
+            if search_query.lower() in search_text.lower():
+                filtered_posts.append(post)
+        all_posts = filtered_posts
     
     # Apply category filter
     if category_filter:
-        blog_posts = blog_posts.filter(article_types__name=category_filter)
+        filtered_posts = []
+        for post in all_posts:
+            if hasattr(post, 'article_types') and post.article_types.filter(name=category_filter).exists():
+                filtered_posts.append(post)
+        all_posts = filtered_posts
     
-    # Apply status filter
-    if status_filter == 'live':
-        blog_posts = blog_posts.filter(live=True)
-    elif status_filter == 'draft':
-        blog_posts = blog_posts.filter(live=False)
+    # Apply status filter (though all are already live)
+    if status_filter == 'draft':
+        # If we want to show drafts too, we'd need to get non-live posts
+        # But for now, keeping only live posts as requested
+        pass
     
     # Apply location filter
     if location_filter:
-        blog_posts = blog_posts.filter(locations__name=location_filter)
+        filtered_posts = []
+        for post in all_posts:
+            if hasattr(post, 'locations') and post.locations.filter(name=location_filter).exists():
+                filtered_posts.append(post)
+        all_posts = filtered_posts
     
     # Apply sector filter
     if sector_filter:
-        blog_posts = blog_posts.filter(sectors__name=sector_filter)
-    
-    # Remove duplicates from many-to-many filters
-    blog_posts = blog_posts.distinct()
+        filtered_posts = []
+        for post in all_posts:
+            if hasattr(post, 'sectors') and post.sectors.filter(name=sector_filter).exists():
+                filtered_posts.append(post)
+        all_posts = filtered_posts
     
     # Pagination
-    paginator = Paginator(blog_posts, 20)  # 20 posts per page
+    paginator = Paginator(all_posts, 20)  # 20 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    # Get unique values for filters
-    categories = BlogPage.objects.values_list(
+    # Get unique values for filters (from both ArticlePage and BlogPage)
+    article_categories = ArticlePage.objects.values_list(
         'article_types__name', flat=True
     ).distinct().exclude(article_types__name__isnull=True)
-    locations = BlogPage.objects.values_list(
+    blog_categories = BlogPage.objects.values_list(
+        'article_types__name', flat=True
+    ).distinct().exclude(article_types__name__isnull=True)
+    categories = list(article_categories) + list(blog_categories)
+    
+    article_locations = ArticlePage.objects.values_list(
         'locations__name', flat=True
     ).distinct().exclude(locations__name__isnull=True)
-    sectors = BlogPage.objects.values_list(
+    blog_locations = BlogPage.objects.values_list(
+        'locations__name', flat=True
+    ).distinct().exclude(locations__name__isnull=True)
+    locations = list(article_locations) + list(blog_locations)
+    
+    article_sectors = ArticlePage.objects.values_list(
         'sectors__name', flat=True
     ).distinct().exclude(sectors__name__isnull=True)
+    blog_sectors = BlogPage.objects.values_list(
+        'sectors__name', flat=True
+    ).distinct().exclude(sectors__name__isnull=True)
+    sectors = list(article_sectors) + list(blog_sectors)
     
-    # Stats
-    total_posts = BlogPage.objects.count()
-    live_posts = BlogPage.objects.filter(live=True).count()
-    draft_posts = BlogPage.objects.filter(live=False).count()
+    # Stats (for both types)
+    total_articles = ArticlePage.objects.count()
+    live_articles = ArticlePage.objects.filter(live=True).count()
+    total_blogs = BlogPage.objects.count()
+    live_blogs = BlogPage.objects.filter(live=True).count()
+    total_posts = total_articles + total_blogs
+    live_posts = live_articles + live_blogs
+    draft_posts = total_posts - live_posts
 
     context = {
         'blog_posts': page_obj,

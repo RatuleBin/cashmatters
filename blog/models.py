@@ -268,6 +268,8 @@ class BlogPage(Page):
         FieldPanel('source_link'),
     ]
 
+    template_name = 'blog/blog-details.html'
+
 
 class NewsIndexPage(Page):
     """
