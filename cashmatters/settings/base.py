@@ -216,6 +216,12 @@ CORS_ALLOWED_ORIGINS = [
     # "https://yourfrontenddomain.com",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://72.62.147.13',      # your server IP
+    'https://72.62.147.13',     # if using SSL
+]
+
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
