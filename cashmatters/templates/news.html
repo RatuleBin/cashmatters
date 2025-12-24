@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load wagtailcore_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -148,11 +149,13 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
                     <div class="img-wrapper">
-                        {% if article.wide_thumbnail %}
-                            <img src="{{ article.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
-                        {% else %}
-                            <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
-                        {% endif %}
+                        <a href="{{ article.url_path }}" class="text-decoration-none">
+                            {% if article.wide_thumbnail %}
+                                <img src="{{ article.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                            {% else %}
+                                <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                            {% endif %}
+                        </a>
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3 small">
@@ -176,8 +179,7 @@
                         </div>
                         {% endif %}
                         <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
-                        <p>URL: {{ article.url }}</p>
-                        <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
+                        <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
                             Read More <i class="bi bi-arrow-up-right ms-1"></i>
                         </a>
                     </div>

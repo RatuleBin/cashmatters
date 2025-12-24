@@ -277,7 +277,7 @@ urlpatterns = [
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
     path("author/<str:author_name>/", author, name="author_profile"),
-    path("blog/", include("blog.urls")),  # Blog app URLs
+    path("blog/admin/", include("blog.urls")),  # Blog app URLs
 ]
 
 
