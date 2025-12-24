@@ -7,8 +7,9 @@ services:
     env_file:
       - .env
     volumes:
-      - ./static:/cashmatters/static
+      - ./staticfiles:/cashmatters/staticfiles  # <- match STATIC_ROOT
       - ./media:/cashmatters/media
+      - ./static:/cashmatters/static           # optional if you still have dev static
     expose:
       - "8000"
     networks:
@@ -23,7 +24,7 @@ services:
       - "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./static:/cashmatters/static
+      - ./staticfiles:/cashmatters/staticfiles  # <- must match STATIC_ROOT
       - ./media:/cashmatters/media
     depends_on:
       - cashmatters
