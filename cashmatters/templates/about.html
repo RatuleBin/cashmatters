@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Cash Matters</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Custom styles for about page -->
+    <style>
+    .bg-light-cream {
+        background-color: #fefefe !important;
+    }
+    .bg-dark-teal {
+        background-color: #006d6d !important;
+    }
+    .btn-mint {
+        background-color: #00d4aa !important;
+        border-color: #00d4aa !important;
+        color: white !important;
+    }
+    .btn-mint:hover {
+        background-color: #00b894 !important;
+        border-color: #00b894 !important;
+    }
+    .text-dark-teal {
+        color: #006d6d !important;
+    }
+    </style>
+</head>
+<body class="bg-light-cream">
+
+    <!-- =========================================
+         1. HEADER (Fixed Dark)
+    ========================================== -->
+    <div class="header-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Key Facts</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
+                    </ul>
+                </div>
+                <div class="d-none d-lg-flex align-items-center gap-3">
+                    <button class="btn text-white p-0"><i class="bi bi-search fs-5"></i></button>
+                    <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+<!-- =========================================
+     2. HERO SECTION
+========================================== -->
+<section class="bg-dark-teal pt-5 pb-5">
+    <div class="container pt-4 pb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-white lh-sm mb-4">
+                    About Cash Matters
+                </h1>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <p class="text-white opacity-90 mb-4 lead fw-light">
+                    We are an independent initiative dedicated to preserving payment choice for everyone. Our mission is to ensure that physical cash remains a viable and accessible payment option in an increasingly digital world.
+                </p>
+                <a href="#mission" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
+                    Learn Our Mission <i class="bi bi-arrow-up-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- =========================================
+         3. OUR MISSION
+    ========================================== -->
+    <section id="mission" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Our Mission</h2>
+                    <p class="text-muted fs-5 mb-4">
+                        Cash Matters believes that everyone should have the freedom to choose how they pay. We advocate for the preservation of physical cash as an essential public good that promotes financial inclusion, privacy, and economic resilience.
+                    </p>
+                    <p class="text-muted fs-5 mb-4">
+                        In a world increasingly dominated by digital payments, we work to ensure that cash remains accessible, accepted, and valued by businesses, governments, and communities worldwide.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn btn-mint fw-bold px-4 py-2">Join Our Movement</a>
+                        <a href="#" class="btn btn-outline-dark fw-bold px-4 py-2">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 pt-5 offset-lg-1">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800" class="img-fluid rounded-4 shadow" alt="Our Mission">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         4. WHAT WE DO
+    ========================================== -->
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="row align-items-end mb-5">
+                <div class="col-md-8">
+                    <h2 class="fw-bold">What We Do</h2>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="text-muted small mb-0">
+                        Our work spans research, advocacy,<br />and community engagement
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Research -->
+                <div class="col-lg-4">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success rounded-3 p-3 me-3">
+                                <i class="bi bi-search text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Research</h4>
+                        </div>
+                        <p class="text-muted">
+                            We conduct comprehensive research on cash usage patterns, economic impacts, and consumer preferences worldwide to inform policy and business decisions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Advocacy -->
+                <div class="col-lg-4">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success rounded-3 p-3 me-3">
+                                <i class="bi bi-megaphone text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Advocacy</h4>
+                        </div>
+                        <p class="text-muted">
+                            We advocate for policies that protect payment choice and ensure that cash remains a fundamental component of modern economies.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="col-lg-4">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success rounded-3 p-3 me-3">
+                                <i class="bi bi-book text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Education</h4>
+                        </div>
+                        <p class="text-muted">
+                            We educate businesses, policymakers, and consumers about the importance of cash and its role in creating inclusive financial systems.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         5. OUR TEAM
+    ========================================== -->
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">Our Team</h2>
+                <p class="text-muted fs-5">
+                    Meet the dedicated professionals working to preserve payment choice worldwide
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Team Member 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 bg-white rounded-4 shadow-sm text-center p-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" class="rounded-circle mx-auto mb-3" style="object-fit: cover;" width="120" height="120" alt="Team Member">
+                        <h5 class="fw-bold mb-1">Sarah Johnson</h5>
+                        <p class="text-success small fw-bold mb-3">Executive Director</p>
+                        <p class="text-muted small">
+                            Leading our global advocacy efforts with over 15 years in financial policy.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 bg-white rounded-4 shadow-sm text-center p-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400" class="rounded-circle mx-auto mb-3" style="object-fit: cover;" width="120" height="120" alt="Team Member">
+                        <h5 class="fw-bold mb-1">Michael Chen</h5>
+                        <p class="text-success small fw-bold mb-3">Research Director</p>
+                        <p class="text-muted small">
+                            Economist specializing in payment systems and financial inclusion.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 bg-white rounded-4 shadow-sm text-center p-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" class="rounded-circle mx-auto mb-3" style="object-fit: cover;" width="120" height="120" alt="Team Member">
+                        <h5 class="fw-bold mb-1">Elena Rodriguez</h5>
+                        <p class="text-success small fw-bold mb-3">Policy Advisor</p>
+                        <p class="text-muted small">
+                            Former central bank advisor focused on consumer protection and privacy.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 bg-white rounded-4 shadow-sm text-center p-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" class="rounded-circle mx-auto mb-3" width="120" style="object-fit: cover;" height="120" alt="Team Member">
+                        <h5 class="fw-bold mb-1">David Thompson</h5>
+                        <p class="text-success small fw-bold mb-3">Communications Lead</p>
+                        <p class="text-muted small">
+                            Expert in strategic communications and public awareness campaigns.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         6. OUR IMPACT
+    ========================================== -->
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">Our Impact</h2>
+                <p class="text-muted fs-5">
+                    Making a difference in communities around the world
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Impact Stat 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-primary mb-2">50+</h3>
+                        <p class="text-muted fw-bold">Countries Reached</p>
+                        <p class="small text-muted">Our research and advocacy spans continents</p>
+                    </div>
+                </div>
+
+                <!-- Impact Stat 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-info mb-2">2M+</h3>
+                        <p class="text-muted fw-bold">People Informed</p>
+                        <p class="small text-muted">Through our educational campaigns</p>
+                    </div>
+                </div>
+
+                <!-- Impact Stat 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-warning mb-2">100+</h3>
+                        <p class="text-muted fw-bold">Policy Changes</p>
+                        <p class="small text-muted">Influenced by our advocacy work</p>
+                    </div>
+                </div>
+
+                <!-- Impact Stat 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-danger mb-2">500+</h3>
+                        <p class="text-muted fw-bold">Partner Organizations</p>
+                        <p class="small text-muted">Working together for payment choice</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         7. SUPPORT CTA
+    ========================================== -->
+    <section class="bg-primary text-white py-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4 display-5">Join Our Movement</h2>
+                    <p class="mb-5 lead opacity-90 fw-light">
+                        Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
+                    </p>
+                    <a href="{% url 'support' %}" class="btn btn-success fw-bold rounded-2 px-4 py-3">
+                        Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'home-page-images/footer-section.png' %}" class="img-fluid rounded-4 shadow" alt="Support Cash" onerror="this.src='https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600'">
+                </div>
+            </div>
+        </div>
+    <!-- =========================================
+         5. FOOTER (Reused)
+    ========================================== -->
+    <footer class="main-footer text-white pt-5 pb-4">
+        <div class="container pt-4">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4 col-md-12">
+                    <a class="navbar-brand fw-bold fs-2 d-inline-block mb-4" href="#">
+                        Cash<span class="fw-light">Matters</span><sup style="font-size: 12px; top: -1em;">®</sup>
+                    </a>
+                    <p class="small opacity-90 mb-4 pe-lg-5" style="line-height: 1.6;">
+                        Cash Matters is an independent initiative dedicated to preserving payment choice for everyone.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-circle"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="fw-bold mb-4">Get to know us</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                        <li><a href="#" class="text-white text-decoration-none hover-u">Our aim</a></li>
+                        <li><a href="#" class="text-white text-decoration-none hover-u">Our partners</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="fw-bold mb-4">Get informed</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                        <li><a href="#" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="#" class="text-white text-decoration-none hover-u">News</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="fw-bold mb-3">Stay up to date with<br>Cash Matters.</h4>
+                    <form class="mt-4">
+                        <div class="input-group p-1 bg-white rounded-2">
+                            <input type="email" class="form-control border-0 shadow-none ps-3" placeholder="Enter your email address">
+                            <button class="btn btn-dark-custom rounded-2 px-4 fw-bold" type="button">
+                                Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="extra-small opacity-75 mt-3">
+                        We'll never sell your details to anyone else, promise! For more information on how we store your data, please see our privacy policy.
+                    </p>
+                </div>
+            </div>
+            <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-md-row justify-content-between small opacity-75">
+                <span class="mb-2 mb-md-0">© Copyright 2024, All Rights Reserved by Cash Matters</span>
+                <a href="#" class="text-white text-decoration-none hover-u">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

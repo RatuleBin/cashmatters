@@ -105,6 +105,11 @@ def blogs_dashboard_redirect(request):
     return redirect('/admin/all-blogs/')
 
 
+def about(request):
+    """Serve the about page"""
+    return render(request, 'about.html')
+
+
 def create_blog_page(request):
     """Redirect to Wagtail admin for creating blog posts with clean URL"""
     from blog.models import BlogIndexPage
@@ -313,6 +318,7 @@ def blogs_dashboard(request):
 urlpatterns = [
     path("", index, name="index"),  # Root URL serves the homepage
     path("news/", news, name="news"),  # News page
+    path("about/", about, name="about"),  # About page
     path("support/", support, name="support"),  # Support page
     path("why-cash/", why_cash, name="why_cash"),  # Why cash page
     path("django-admin/", admin.site.urls),
