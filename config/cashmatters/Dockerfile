@@ -17,4 +17,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Run Gunicorn
-CMD ["gunicorn", "your_project_name.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["gunicorn", "cashmatters.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
