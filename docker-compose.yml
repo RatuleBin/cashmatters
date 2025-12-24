@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   cashmatters:
     container_name: cashmatters
@@ -9,9 +7,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./:/cashmatters
-      - static_volume:/cashmatters/static
-      - media_volume:/cashmatters/media
+      - ./static:/cashmatters/static
+      - ./media:/cashmatters/media
     expose:
       - "8000"
     networks:
@@ -26,16 +23,12 @@ services:
       - "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - static_volume:/cashmatters/static
-      - media_volume:/cashmatters/media
+      - ./static:/cashmatters/static
+      - ./media:/cashmatters/media
     depends_on:
       - cashmatters
     networks:
       - cashmatters-net
-
-volumes:
-  static_volume:
-  media_volume:
 
 networks:
   cashmatters-net:
