@@ -93,6 +93,14 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     author = models.CharField(max_length=100, blank=True, help_text="Author name")
+    author_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Author profile picture"
+    )
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -229,6 +237,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('author'),
+        FieldPanel('author_image'),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),
@@ -307,6 +316,14 @@ class ArticlePage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     author = models.CharField(max_length=100, blank=True, help_text="Author name")
+    author_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Author profile picture"
+    )
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -442,6 +459,7 @@ class ArticlePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
+        FieldPanel('author_image'),
         FieldPanel('date'),
         FieldPanel('intro'),
         MultiFieldPanel([
