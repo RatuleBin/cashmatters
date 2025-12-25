@@ -261,111 +261,65 @@
               Stay updated on cash and payment trends<br />worldwide
             </p>
           </div>
-          <a href="#" class="text-mint fw-bold text-decoration-none small"
+          <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small"
             >See all news <i class="bi bi-arrow-up-right"></i
           ></a>
         </div>
 
         <div class="row g-4">
-          <!-- News 1 -->
+          {% for post in latest_posts %}
+          <!-- News Card -->
           <div class="col-md-4">
             <div
               class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
             >
               <div class="img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
-                  class="w-100 h-100 object-fit-cover transition-img"
-                />
+                <a href="{{ post.url_path }}" class="text-decoration-none">
+                  {% if post.wide_thumbnail %}
+                    <img
+                      src="{{ post.wide_thumbnail.file.url }}"
+                      class="w-100 h-100 object-fit-cover transition-img"
+                      alt="{{ post.title }}"
+                    />
+                  {% else %}
+                    <img
+                      src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
+                      class="w-100 h-100 object-fit-cover transition-img"
+                      alt="{{ post.title }}"
+                    />
+                  {% endif %}
+                </a>
               </div>
               <div class="card-body p-4 d-flex flex-column">
                 <div
                   class="d-flex justify-content-between align-items-center mb-3 small"
                 >
                   <span class="text-muted"
-                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
+                    ><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span
                   >
                   <span
                     class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
                     style="font-size: 0.75rem"
-                    >News</span
+                    >{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span
                   >
                 </div>
                 <h5 class="fw-bold mb-4 flex-grow-1">
-                  Why Cash Underpins Security, Freedom, and Social Stability
+                  {{ post.title }}
                 </h5>
-                <a href="#" class="text-mint fw-bold text-decoration-none small"
+                <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small"
                   >Read More <i class="bi bi-arrow-up-right ms-1"></i
                 ></a>
               </div>
             </div>
           </div>
-          <!-- News 2 -->
-          <div class="col-md-4">
-            <div
-              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
-            >
-              <div class="img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1605792657660-596af9009e82?auto=format&fit=crop&q=80&w=800"
-                  class="w-100 h-100 object-fit-cover transition-img"
-                />
-              </div>
-              <div class="card-body p-4 d-flex flex-column">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3 small"
-                >
-                  <span class="text-muted"
-                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
-                  >
-                  <span
-                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                    style="font-size: 0.75rem"
-                    >News</span
-                  >
-                </div>
-                <h5 class="fw-bold mb-4 flex-grow-1">
-                  Why Cash Underpins Security, Freedom, and Social Stability
-                </h5>
-                <a href="#" class="text-mint fw-bold text-decoration-none small"
-                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
-                ></a>
-              </div>
+          {% empty %}
+          <!-- No posts message -->
+          <div class="col-12">
+            <div class="alert alert-info text-center">
+              <p class="mb-0">No news articles available yet. Please check back later!</p>
             </div>
           </div>
-          <!-- News 3 -->
-          <div class="col-md-4">
-            <div
-              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
-            >
-              <div class="img-wrapper">
-                <img
-                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
-                  class="w-100 h-100 object-fit-cover transition-img"
-                />
-              </div>
-              <div class="card-body p-4 d-flex flex-column">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3 small"
-                >
-                  <span class="text-muted"
-                    ><i class="bi bi-clock me-1"></i> Nov 24, 2025</span
-                  >
-                  <span
-                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                    style="font-size: 0.75rem"
-                    >News</span
-                  >
-                </div>
-                <h5 class="fw-bold mb-4 flex-grow-1">
-                  Why Cash Underpins Security, Freedom, and Social Stability
-                </h5>
-                <a href="#" class="text-mint fw-bold text-decoration-none small"
-                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>

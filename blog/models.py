@@ -671,6 +671,34 @@ class FactBlock(StructBlock):
         label = 'Fact'
 
 
+class FeatureCardBlock(StructBlock):
+    """
+    Feature card block with icon and content sections
+    """
+    # Icon card fields
+    icon_title = CharBlock(required=True, help_text="Title for the icon card")
+    icon = CharBlock(required=False,
+                     help_text="Bootstrap icon class (e.g., bi-send)")
+    color = CharBlock(required=False, choices=[
+        ('blue', 'Blue'),
+        ('red', 'Red'),
+        ('purple', 'Purple'),
+        ('orange', 'Orange'),
+    ], default='blue', help_text="Color theme for the icon card")
+
+    # Content card fields
+    content_title = CharBlock(required=True,
+                              help_text="Main heading for content card")
+    content_text = TextBlock(required=True, help_text="Description text")
+    background_image = ImageChooserBlock(required=False,
+                                         help_text="Background image")
+
+    class Meta:
+        template = 'blog/blocks/feature_card_block.html'
+        icon = 'doc-full'
+        label = 'Feature Card'
+
+
 class WhyCashMattersPage(Page):
     """
     Why Cash Matters page - comprehensive guide with interactive facts
@@ -810,12 +838,14 @@ class WhyCashMattersPage(Page):
     ], blank=True, use_json_field=True,
        help_text="Add facts with reveal functionality")
 
+
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
         index.SearchField('page_header'),
         index.SearchField('twitter_body'),
-        index.SearchField('facts'),
+        index.SearchField('facts')
+        ,
     ]
 
     content_panels = Page.content_panels + [
