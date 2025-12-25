@@ -15,14 +15,34 @@ from blog.api import api_router
 
 # Frontend views
 def index(request):
-    """Serve the homepage"""
-    return render(request, 'index.html')
+    """Serve the homepage with latest blog posts"""
+    from blog.models import ArticlePage, BlogPage
+    from itertools import chain
+
+    # Get latest 3 published articles and blog posts
+    articles = ArticlePage.objects.live().order_by('-date')[:3]
+    blog_posts = BlogPage.objects.live().order_by('-date')[:3]
+
+    # Combine and sort by date (newest first)
+    combined_posts = sorted(
+        chain(articles, blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:3]  # Take only the 3 most recent
+
+    context = {
+        'latest_posts': combined_posts,
+    }
+    return render(request, 'index.html', context)
 
 
 def news(request):
     """Serve the news page with dynamic articles and blog posts"""
     from blog.models import ArticlePage, BlogPage
     from itertools import chain
+    from django.core.paginator import Paginator
+    from django.http import JsonResponse
+    from django.template.loader import render_to_string
 
     # Get all published articles and blog posts
     articles = ArticlePage.objects.live().order_by('-date')
@@ -35,15 +55,35 @@ def news(request):
         reverse=True
     )
 
+    # Pagination - 6 posts per page
+    paginator = Paginator(combined_posts, 6)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    # Check if this is an AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # Return just the article HTML for AJAX requests
+        article_html = render_to_string('news_articles.html', {
+            'articles': page_obj,
+            'has_next': page_obj.has_next(),
+            'next_page_number': page_obj.next_page_number() if page_obj.has_next() else None,
+        })
+        return JsonResponse({
+            'html': article_html,
+            'has_next': page_obj.has_next(),
+            'next_page_number': page_obj.next_page_number() if page_obj.has_next() else None,
+        })
+
     # Debug: Print posts and dates
     print(f"DEBUG: Total articles: {articles.count()}")
     print(f"DEBUG: Total blog posts: {blog_posts.count()}")
     print(f"DEBUG: Total combined posts: {len(combined_posts)}")
-    for post in combined_posts[:5]:
-        print(f"DEBUG: {post.title} - Date: {post.date} - Type: {post.__class__.__name__}")
+    print(f"DEBUG: Page {page_number} has {len(page_obj)} posts")
 
     context = {
-        'articles': combined_posts,  # Keep the same variable name for template compatibility
+        'articles': page_obj,  # Now this is a page object, not the full list
+        'has_next': page_obj.has_next(),
+        'next_page_number': page_obj.next_page_number() if page_obj.has_next() else None,
     }
     return render(request, 'news.html', context)
 
@@ -90,8 +130,8 @@ def why_cash(request):
     """Serve the why cash page with dynamic content"""
     from blog.models import WhyCashMattersPage
     
-    # Get the WhyCashMattersPage content
-    page = WhyCashMattersPage.objects.live().first()
+    # Get the WhyCashMattersPage content by slug
+    page = WhyCashMattersPage.objects.live().filter(slug='why-cash').first()
     
     context = {
         'page': page,
