@@ -30,8 +30,20 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent
 
+    # Get featured posts for the Featured Content section
+    featured_articles = ArticlePage.objects.live().filter(featured=True).order_by('-date')[:3]
+    featured_blog_posts = BlogPage.objects.live().filter(featured=True).order_by('-date')[:3]
+
+    # Combine featured posts
+    featured_posts = sorted(
+        chain(featured_articles, featured_blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:3]  # Take only the 3 most recent featured posts
+
     context = {
         'latest_posts': combined_posts,
+        'featured_posts': featured_posts,
     }
     return render(request, 'index.html', context)
 
@@ -43,10 +55,45 @@ def news(request):
     from django.core.paginator import Paginator
     from django.http import JsonResponse
     from django.template.loader import render_to_string
+    from django.db.models import Q
+
+    # Get search query and category
+    search_query = request.GET.get('q', '').strip()
+    category = request.GET.get('category', '').strip()
 
     # Get all published articles and blog posts
     articles = ArticlePage.objects.live().order_by('-date')
     blog_posts = BlogPage.objects.live().order_by('-date')
+
+    # Apply category filter if specified
+    if category:
+        # Map category names to article type names
+        category_mapping = {
+            'news': ['News'],
+            'studies': ['Studies', 'Research'],
+            'key-fact': ['Key Facts', 'Key Fact'],
+            'podcast': ['Podcast', 'Audio']
+        }
+
+        article_type_names = category_mapping.get(category.lower(), [])
+        if article_type_names:
+            articles = articles.filter(article_types__name__in=article_type_names)
+            blog_posts = blog_posts.filter(article_types__name__in=article_type_names)
+
+    # Apply search filter if query exists
+    if search_query:
+        articles = articles.filter(
+            Q(title__icontains=search_query) |
+            Q(intro__icontains=search_query) |
+            Q(body__icontains=search_query) |
+            Q(page_header__icontains=search_query)
+        )
+        blog_posts = blog_posts.filter(
+            Q(title__icontains=search_query) |
+            Q(intro__icontains=search_query) |
+            Q(body__icontains=search_query) |
+            Q(page_header__icontains=search_query)
+        )
 
     # Combine and sort by date (newest first)
     combined_posts = sorted(
@@ -79,11 +126,17 @@ def news(request):
     print(f"DEBUG: Total blog posts: {blog_posts.count()}")
     print(f"DEBUG: Total combined posts: {len(combined_posts)}")
     print(f"DEBUG: Page {page_number} has {len(page_obj)} posts")
+    if search_query:
+        print(f"DEBUG: Search query: '{search_query}'")
+    if category:
+        print(f"DEBUG: Category filter: '{category}'")
 
     context = {
         'articles': page_obj,  # Now this is a page object, not the full list
         'has_next': page_obj.has_next(),
         'next_page_number': page_obj.next_page_number() if page_obj.has_next() else None,
+        'search_query': search_query,
+        'active_category': category,
     }
     return render(request, 'news.html', context)
 
