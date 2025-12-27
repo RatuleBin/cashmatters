@@ -607,23 +607,29 @@
         </div>
 
         <div class="row g-5">
-          <!-- LEFT COLUMN: Featured Video (YouTube Iframe) -->
+          <!-- LEFT COLUMN: Featured Video (Local Video with Play Button) -->
           <div class="col-lg-7">
             <div
               class="card border-0 rounded-4 shadow-sm overflow-hidden h-100"
             >
-              <!-- 16:9 Responsive Iframe Wrapper -->
-              <div class="ratio ratio-16x9 bg-dark">
-                <!-- Replace 'VIDEO_ID' with actual YouTube ID -->
-                <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                  loading="lazy"
+              <!-- Video Container with Play Button Overlay -->
+              <div class="video-card position-relative w-100">
+                <video
+                  id="podcast-video"
+                  class="img-fluid w-100"
+                  loop
+                  playsinline
+                  preload="auto"
+                  controls
                 >
-                </iframe>
+                  <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="play-btn-wrapper">
+                  <button id="podcast-play-btn" class="btn-play">
+                    <i class="bi bi-play-fill"></i>
+                  </button>
+                </div>
               </div>
 
               <!-- Video Details -->
@@ -978,6 +984,52 @@
         video.load(); // Force load
         console.log('Video preload initiated');
       });
+
+      // Podcast Video play button functionality
+      const podcastPlayBtn = document.getElementById('podcast-play-btn');
+      const podcastVideo = document.getElementById('podcast-video');
+
+      if (podcastPlayBtn && podcastVideo) {
+        podcastPlayBtn.addEventListener('click', function() {
+          console.log('Podcast play button clicked');
+          console.log('Podcast video readyState:', podcastVideo.readyState);
+
+          podcastVideo.play().then(() => {
+            console.log('Podcast video started playing');
+            podcastPlayBtn.style.display = 'none';
+          }).catch(error => {
+            console.error('Podcast video play failed:', error);
+            alert('Unable to play video: ' + error.message);
+          });
+        });
+
+        // Hide play button when video starts playing
+        podcastVideo.addEventListener('play', function() {
+          console.log('Podcast video play event');
+          podcastPlayBtn.style.display = 'none';
+        });
+
+        // Show play button when video is paused or ended
+        podcastVideo.addEventListener('pause', function() {
+          console.log('Podcast video pause event');
+          podcastPlayBtn.style.display = 'flex';
+        });
+
+        podcastVideo.addEventListener('ended', function() {
+          console.log('Podcast video ended event');
+          podcastPlayBtn.style.display = 'flex';
+        });
+
+        // Check if video loaded
+        podcastVideo.addEventListener('loadeddata', function() {
+          console.log('Podcast video loaded successfully, readyState:', this.readyState);
+        });
+
+        podcastVideo.addEventListener('error', function(e) {
+          console.error('Podcast video loading error:', e);
+          alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
+        });
+      }
     </script>
   </body>
 </html>
