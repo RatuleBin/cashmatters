@@ -34,6 +34,82 @@ except ImportError:
     WAGTAIL_AVAILABLE = False
 
 
+class CMSClient:
+    """Access the old CashMatters CMS API with authentication."""
+
+    CMS_BASE = "https://cashmatters.backend-api.io"
+
+    def __init__(self, stdout, style, username=None, password=None):
+        self.stdout = stdout
+        self.style = style
+        self.session = requests.Session()
+        self.authenticated = False
+
+        if username and password:
+            self.authenticate(username, password)
+
+    def authenticate(self, username, password):
+        """Authenticate with the CMS."""
+        try:
+            # Try to login
+            login_url = f"{self.CMS_BASE}/cms/login/"
+
+            # Get CSRF token first
+            response = self.session.get(login_url, timeout=30)
+
+            # Extract CSRF token from cookies or form
+            csrf_token = self.session.cookies.get('csrftoken', '')
+
+            # Post login credentials
+            login_data = {
+                'username': username,
+                'password': password,
+                'csrfmiddlewaretoken': csrf_token,
+            }
+
+            response = self.session.post(
+                login_url,
+                data=login_data,
+                headers={'Referer': login_url},
+                timeout=30
+            )
+
+            if response.status_code == 200 and 'login' not in response.url.lower():
+                self.authenticated = True
+                self.stdout.write(self.style.SUCCESS("  Authenticated with CMS"))
+            else:
+                self.stdout.write(self.style.WARNING("  CMS authentication failed"))
+
+        except Exception as e:
+            self.stdout.write(self.style.WARNING(f"  CMS auth error: {e}"))
+
+    def get_images(self):
+        """Fetch all images from the CMS API."""
+        if not self.authenticated:
+            return []
+
+        images = []
+        try:
+            # Try Wagtail API v2
+            api_url = f"{self.CMS_BASE}/api/v2/images/"
+            response = self.session.get(api_url, timeout=30)
+
+            if response.status_code == 200:
+                data = response.json()
+                for item in data.get('items', []):
+                    if 'meta' in item and 'download_url' in item['meta']:
+                        images.append(item['meta']['download_url'])
+                    elif 'file' in item:
+                        images.append(f"{self.CMS_BASE}{item['file']}")
+
+                self.stdout.write(f"  Found {len(images)} images in CMS")
+
+        except Exception as e:
+            self.stdout.write(self.style.WARNING(f"  Error fetching CMS images: {e}"))
+
+        return images
+
+
 class AssetScraper:
     """Scrape assets from cashmatters.org and its CDN."""
 
@@ -42,9 +118,29 @@ class AssetScraper:
 
     PAGES_TO_SCRAPE = [
         "/",
+        "/supporter-resources",
         "/why-cash-matters",
         "/about",
         "/key-facts",
+        "/blog",
+        "/blog?types=key-facts",
+        "/blog?types=news",
+    ]
+
+    # Known asset patterns on CDN - enumerate these
+    KNOWN_CDN_ASSETS = [
+        # Fact cards (key-fact pattern)
+        "https://d3an988loexeh7.cloudfront.net/media/media/images/key-fact-2120_g0hl7Ko.png",
+        "https://d3an988loexeh7.cloudfront.net/media/media/images/key-fact-2121_lbCK4fP.png",
+        # Logos
+        "https://d3an988loexeh7.cloudfront.net/media/original_images/cash-matters-logo-white.png",
+        "https://d3an988loexeh7.cloudfront.net/media/original_images/cash-matters-logo-black.png",
+        "https://d3an988loexeh7.cloudfront.net/media/original_images/cash-matters-logo.png",
+        # Banners
+        "https://d3an988loexeh7.cloudfront.net/media/original_images/assets-header.png",
+        "https://d3an988loexeh7.cloudfront.net/media/original_images/we-support-cash-banner.png",
+        # World/regional images
+        "https://d3an988loexeh7.cloudfront.net/media/images/world-global-1140x750.width-1660.jpegquality-80.jpg",
     ]
 
     # Known Vimeo video IDs
@@ -68,6 +164,19 @@ class AssetScraper:
             'images': set(),
             'videos': list(self.KNOWN_VIDEOS),
         }
+
+        # Add known CDN assets first
+        self.stdout.write("Adding known CDN assets...")
+        for url in self.KNOWN_CDN_ASSETS:
+            assets['images'].add(url)
+
+        # Also try to enumerate key-fact patterns (key-fact-XXXX)
+        self.stdout.write("Enumerating key-fact patterns...")
+        for i in range(2100, 2150):  # Try a range of IDs
+            for suffix in ['', '_g0hl7Ko', '_lbCK4fP', '_abc123']:
+                url = f"https://d3an988loexeh7.cloudfront.net/media/media/images/key-fact-{i}{suffix}.png"
+                # We'll validate these later during download
+                assets['images'].add(url)
 
         for page_path in self.PAGES_TO_SCRAPE:
             url = urljoin(self.SITE_URL, page_path)
@@ -186,27 +295,34 @@ class AssetScraper:
 class AssetDownloader:
     """Download assets from URLs."""
 
-    def __init__(self, stdout, style):
+    def __init__(self, stdout, style, skip_failed=True):
         self.stdout = stdout
         self.style = style
+        self.skip_failed = skip_failed
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
         })
 
-    def download(self, url, max_retries=3):
+    def download(self, url, max_retries=2):
         """Download a file from URL with retries."""
         for attempt in range(max_retries):
             try:
-                response = self.session.get(url, timeout=60)
+                response = self.session.get(url, timeout=30)
+
+                # Skip 404s silently
+                if response.status_code == 404:
+                    return None
+
                 response.raise_for_status()
                 return response.content
+
             except requests.RequestException as e:
+                if '404' in str(e) or 'Not Found' in str(e):
+                    return None  # Skip 404s silently
                 if attempt < max_retries - 1:
-                    self.stdout.write(self.style.WARNING(
-                        f"  Retry {attempt + 1}/{max_retries} for {url}"
-                    ))
-                else:
+                    continue  # Retry silently
+                if not self.skip_failed:
                     raise e
         return None
 
@@ -284,7 +400,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             '--source',
-            choices=['scrape', 'static', 'both'],
+            choices=['scrape', 'cms', 'both'],
             default='scrape',
             help='Source to import from (default: scrape)',
         )
@@ -310,6 +426,22 @@ class Command(BaseCommand):
             default=True,
             help='Update support.html template with new assets',
         )
+        parser.add_argument(
+            '--cms-user',
+            default='directorgeneral',
+            help='CMS username for authentication',
+        )
+        parser.add_argument(
+            '--cms-pass',
+            default='SYz6fZ8ndjkf3v',
+            help='CMS password for authentication',
+        )
+        parser.add_argument(
+            '--skip-failed',
+            action='store_true',
+            default=True,
+            help='Skip URLs that return 404 (default: True)',
+        )
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('\n=== CashMatters Asset Importer ===\n'))
@@ -322,12 +454,37 @@ class Command(BaseCommand):
 
         # Initialize components
         scraper = AssetScraper(self.stdout, self.style)
-        downloader = AssetDownloader(self.stdout, self.style)
+        downloader = AssetDownloader(self.stdout, self.style, skip_failed=options['skip_failed'])
         uploader = WagtailUploader(self.stdout, self.style)
 
-        # Step 1: Scrape assets
-        self.stdout.write('\n[1/4] Scraping cashmatters.org for assets...\n')
-        assets = scraper.scrape_all_assets()
+        assets = {
+            'images': [],
+            'videos': [],
+        }
+
+        # Step 1: Scrape assets based on source
+        source = options['source']
+
+        if source in ['scrape', 'both']:
+            self.stdout.write('\n[1/4] Scraping cashmatters.org for assets...\n')
+            scraped = scraper.scrape_all_assets()
+            assets['images'].extend(scraped['images'])
+            assets['videos'].extend(scraped['videos'])
+
+        if source in ['cms', 'both']:
+            self.stdout.write('\n[1/4] Fetching assets from CMS API...\n')
+            cms = CMSClient(
+                self.stdout,
+                self.style,
+                username=options['cms_user'],
+                password=options['cms_pass']
+            )
+            cms_images = cms.get_images()
+            assets['images'].extend(cms_images)
+
+        # Deduplicate
+        assets['images'] = list(set(assets['images']))
+        assets['videos'] = list({v['id']: v for v in assets['videos']}.values())
 
         self.stdout.write(self.style.SUCCESS(
             f'\nFound {len(assets["images"])} images and {len(assets["videos"])} videos\n'
@@ -396,6 +553,9 @@ class Command(BaseCommand):
             'general': [],
         }
 
+        success_count = 0
+        skip_count = 0
+
         for url in image_urls:
             filename = downloader.get_filename_from_url(url)
             category = downloader.categorize_asset(filename, url)
@@ -404,19 +564,19 @@ class Command(BaseCommand):
             if category_filter != 'all' and category != category_filter:
                 continue
 
-            self.stdout.write(f'\nDownloading: {filename}')
-
             try:
                 # Download the file
                 content = downloader.download(url)
                 if not content:
+                    skip_count += 1
                     continue
+
+                self.stdout.write(f'Downloaded: {filename}')
 
                 # Save to static directory
                 save_path = output_dir / category / filename
                 with open(save_path, 'wb') as f:
                     f.write(content)
-                self.stdout.write(f'  Saved to: {save_path}')
 
                 # Upload to Wagtail
                 if WAGTAIL_AVAILABLE:
@@ -427,16 +587,19 @@ class Command(BaseCommand):
                             'wagtail_id': image.id,
                             'url': url,
                         })
+                        success_count += 1
                 else:
                     uploaded[category].append({
                         'filename': filename,
                         'static_path': str(save_path),
                         'url': url,
                     })
+                    success_count += 1
 
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'  Error: {e}'))
+                skip_count += 1
 
+        self.stdout.write(f'\nProcessed: {success_count} downloaded, {skip_count} skipped (404 or failed)')
         return uploaded
 
     def _save_video_metadata(self, videos, output_dir):
