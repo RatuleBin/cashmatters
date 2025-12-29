@@ -292,10 +292,6 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('author_profile'),
-        MultiFieldPanel([
-            FieldPanel('author'),
-            FieldPanel('author_image'),
-        ], heading="Legacy Author Fields (use Author Profile instead)"),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),
@@ -530,10 +526,6 @@ class ArticlePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('author_profile'),
-        MultiFieldPanel([
-            FieldPanel('author'),
-            FieldPanel('author_image'),
-        ], heading="Legacy Author Fields (use Author Profile instead)"),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),

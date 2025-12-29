@@ -202,8 +202,8 @@
                         {% if article.author_profile %}
                         <div class="mb-2 small text-muted d-flex align-items-center">
                             {% if article.author_profile.profile_image %}
-                                {% image article.author_profile.profile_image fill-36x36 as author_thumb %}
-                                <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover;" alt="{{ article.author_profile.name }}">
+                                {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
+                                <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author_profile.name }}">
                             {% else %}
                                 <i class="bi bi-person me-1"></i>
                             {% endif %}
@@ -214,7 +214,7 @@
                         {% elif article.author %}
                         <div class="mb-2 small text-muted d-flex align-items-center">
                             {% if article.author_image %}
-                                <img src="{{ article.author_image.file.url }}" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover;" alt="{{ article.author }}">
+                                <img src="{{ article.author_image.file.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author }}">
                             {% else %}
                                 <i class="bi bi-person me-1"></i>
                             {% endif %}
