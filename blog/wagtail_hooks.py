@@ -1,10 +1,28 @@
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.ui.components import Component
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from django.urls import reverse, path
 from django.utils.html import format_html
 from django.shortcuts import redirect
-from .models import BlogPage, WhyCashMattersPage, SupportPage
+from .models import BlogPage, WhyCashMattersPage, SupportPage, Author
+
+
+class AuthorViewSet(SnippetViewSet):
+    """Custom ViewSet for Author snippet with article count column"""
+    model = Author
+    icon = "user"
+    menu_label = "Authors"
+    menu_name = "authors"
+    menu_order = 200
+    add_to_admin_menu = True
+    list_display = ["name", "job_title", "get_article_count"]
+    list_filter = ["job_title"]
+    search_fields = ["name", "job_title", "bio"]
+
+
+register_snippet(AuthorViewSet)
 
 
 @hooks.register('register_admin_menu_item')

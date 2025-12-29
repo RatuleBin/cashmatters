@@ -231,6 +231,18 @@
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/cashmatters.js' %}"></script>
 
+        <!-- Global link handler: external links open in new tab, internal in same tab -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+                    if (!link.href.includes(window.location.hostname)) {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    }
+                });
+            });
+        </script>
+
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
         {% endblock %}
