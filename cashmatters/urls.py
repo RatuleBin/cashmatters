@@ -141,14 +141,32 @@ def news(request):
     return render(request, 'news.html', context)
 
 
-def author(request, author_name):
+def author(request, author_name=None, author_id=None):
     """Serve the author profile page showing all articles by a specific author"""
-    from blog.models import ArticlePage, BlogPage
+    from blog.models import ArticlePage, BlogPage, Author
     from itertools import chain
+    from django.shortcuts import get_object_or_404
 
-    # Get all published articles and blog posts by this author
-    articles = ArticlePage.objects.live().filter(author__iexact=author_name).order_by('-date')
-    blog_posts = BlogPage.objects.live().filter(author__iexact=author_name).order_by('-date')
+    author_obj = None
+
+    # Try to get author by ID first (preferred method)
+    if author_id:
+        author_obj = get_object_or_404(Author, id=author_id)
+        # Get posts by author_profile
+        articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
+        blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+    elif author_name:
+        # Try to find author by name (new Author model)
+        author_obj = Author.objects.filter(name__iexact=author_name).first()
+
+        if author_obj:
+            # Get posts by author_profile
+            articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
+            blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+        else:
+            # Fall back to legacy CharField author field
+            articles = ArticlePage.objects.live().filter(author__iexact=author_name).order_by('-date')
+            blog_posts = BlogPage.objects.live().filter(author__iexact=author_name).order_by('-date')
 
     # Combine and sort by date (newest first)
     author_posts = sorted(
@@ -158,7 +176,8 @@ def author(request, author_name):
     )
 
     context = {
-        'author_name': author_name,
+        'author': author_obj,
+        'author_name': author_obj.name if author_obj else author_name,
         'articles': author_posts,
         'total_articles': len(author_posts),
     }
@@ -426,6 +445,7 @@ urlpatterns = [
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
     path("author/<str:author_name>/", author, name="author_profile"),
+    path("author/id/<int:author_id>/", author, name="author_profile_by_id"),
     path("blog/admin/", include("blog.urls")),  # Blog app URLs
     path("blog/support/", support, name="blog_support_redirect"),
 ]

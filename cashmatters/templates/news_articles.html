@@ -1,5 +1,6 @@
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% for article in articles %}
 <!-- Article Card -->
@@ -27,10 +28,22 @@
                     {% endif %}
                 </span>
             </div>
-            {% if article.author %}
+            {% if article.author_profile %}
+            <div class="mb-2 small text-muted d-flex align-items-center">
+                {% if article.author_profile.profile_image %}
+                    {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
+                    <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author_profile.name }}">
+                {% else %}
+                    <i class="bi bi-person me-1"></i>
+                {% endif %}
+                <a href="{% url 'author_profile_by_id' article.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
+                    {{ article.author_profile.name }}
+                </a>
+            </div>
+            {% elif article.author %}
             <div class="mb-2 small text-muted d-flex align-items-center">
                 {% if article.author_image %}
-                    <img src="{{ article.author_image.file.url }}" class="rounded-circle me-2" style="width: 36px; height: 36px; object-fit: cover;" alt="{{ article.author }}">
+                    <img src="{{ article.author_image.file.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author }}">
                 {% else %}
                     <i class="bi bi-person me-1"></i>
                 {% endif %}
