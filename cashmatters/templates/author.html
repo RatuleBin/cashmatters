@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +41,7 @@
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
                     </ul>
@@ -48,7 +49,7 @@
 
                 <!-- Right Actions -->
                 <div class="d-none d-lg-flex align-items-center gap-3">
-                    <button class="btn text-white p-0"><i class="bi bi-search fs-5"></i></button>
+                    <button class="btn text-white p-0 search-trigger"><i class="bi bi-search fs-5"></i></button>
                     <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
                 </div>
             </div>
@@ -56,96 +57,88 @@
     </div>
 
     <!-- =========================================
-         2. FILTERS & SUB-NAV
+         2. AUTHOR PROFILE HEADER
     ========================================== -->
     <div class="container mt-5 pt-4">
-        <!-- Links & Filter Toggle -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-            <div class="sub-nav-links d-flex gap-4 fs-5 fw-medium">
-                <a href="#" class="text-mint text-decoration-none">News</a>
-                <a href="#" class="text-dark text-decoration-none opacity-75 hover-mint">Studies</a>
-                <a href="#" class="text-dark text-decoration-none opacity-75 hover-mint">Key Fact</a>
-                <a href="#" class="text-dark text-decoration-none opacity-75 hover-mint">Podcast</a>
+        <div class="row g-5 mb-5 pb-4 border-bottom border-secondary border-opacity-10">
+            <!-- Author Image -->
+            <div class="col-lg-3 col-md-4 text-center text-md-start">
+                {% if author and author.profile_image %}
+                    {% image author.profile_image fill-250x250 as author_img %}
+                    <img src="{{ author_img.url }}" class="rounded-circle shadow-sm" style="width: 200px; height: 200px; object-fit: cover;" alt="{{ author_name }}">
+                {% else %}
+                    <div class="bg-dark-teal rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 200px; height: 200px;">
+                        <i class="bi bi-person-fill text-white" style="font-size: 80px;"></i>
+                    </div>
+                {% endif %}
             </div>
-            <button class="btn btn-light-grey rounded-2 px-4 py-2 fw-bold small">
-                <i class="bi bi-funnel-fill me-2 opacity-50"></i> Filter stories
-            </button>
-        </div>
 
-        <!-- Filter Inputs -->
-        <div class="row g-3 mb-5">
-            <div class="col-lg-6 offset-lg-3 col-md-12">
-                <label class="form-label extra-small fw-bold text-muted text-uppercase ls-1">Keyword(s)</label>
-                <input type="text" class="form-control form-control-lg fs-6 shadow-sm border-0" placeholder="Search keywords...">
+            <!-- Author Info -->
+            <div class="col-lg-9 col-md-8">
+                <span class="badge bg-mint text-dark rounded-pill px-3 py-2 fw-bold mb-3">Author Profile</span>
+                <h1 class="display-4 fw-bold mb-2">{{ author_name }}</h1>
+
+                {% if author and author.job_title %}
+                    <p class="text-muted fs-5 mb-3">{{ author.job_title }}</p>
+                {% endif %}
+
+                {% if author and author.bio %}
+                    <p class="lead text-secondary mb-4" style="max-width: 600px;">{{ author.bio }}</p>
+                {% endif %}
+
+                <!-- Stats -->
+                <div class="d-flex gap-4 mb-4">
+                    <div class="text-center">
+                        <div class="fw-bold fs-3 text-dark-teal">{{ total_articles }}</div>
+                        <div class="small text-muted">Article{{ total_articles|pluralize }}</div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                {% if author %}
+                    <div class="d-flex gap-3 flex-wrap">
+                        {% if author.email %}
+                            <a href="mailto:{{ author.email }}" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="Email">
+                                <i class="bi bi-envelope me-1"></i> Email
+                            </a>
+                        {% endif %}
+                        {% if author.linkedin_url %}
+                            <a href="{{ author.linkedin_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="LinkedIn">
+                                <i class="bi bi-linkedin me-1"></i> LinkedIn
+                            </a>
+                        {% endif %}
+                        {% if author.twitter_url %}
+                            <a href="{{ author.twitter_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="Twitter/X">
+                                <i class="bi bi-twitter-x me-1"></i> Twitter
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
 
     <!-- =========================================
-         3. FEATURED ARTICLE
-    ========================================== -->
-    <main class="container pb-5 mb-5 border-bottom border-secondary border-opacity-10">
-        <article>
-            <h5 class="fw-bold text-dark-teal mb-3">Author Profile</h5>
-            
-            <div class="row mb-3">
-                <div class="col-lg-10">
-                    <h1 class="display-3 fw-bold article-headline mb-4">
-                        <span class="underline-blue">Articles by {{ author_name }}</span>
-                    </h1>
-                </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-3 mb-5 small text-muted fw-medium">
-                <span>{{ total_articles }} article{{ total_articles|pluralize }}</span>
-            </div>
-
-            <div class="row g-5">
-                <!-- Author Info -->
-                <div class="col-lg-8">
-                    <p class="lead fw-normal text-secondary mb-5 opacity-75">
-                        Browse all articles and blog posts written by {{ author_name }}.
-                    </p>
-                </div>
-                
-                <!-- Author Stats -->
-                <aside class="col-lg-4 ps-lg-5">
-                    <div class="mb-5">
-                        <h5 class="fw-normal mb-3">Author Statistics</h5>
-                        <div class="d-flex gap-2">
-                            <div class="stat-card bg-light p-3 rounded">
-                                <div class="fw-bold text-dark-teal">{{ total_articles }}</div>
-                                <div class="small text-muted">Total Articles</div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-        </article>
-    </main>
-
-    <!-- =========================================
-         4. NEWS GRID (CARDS)
+         3. ARTICLES BY AUTHOR
     ========================================== -->
     <section class="container pb-5 mb-5">
+        <h2 class="fw-bold mb-4">Articles by {{ author_name }}</h2>
+
         <div class="row g-4">
-            <div style="background: yellow; padding: 10px; margin: 10px;">
-                DEBUG: Total articles: {{ articles|length }}
-                {% for article in articles %}
-                    <br>Article: {{ article.title }}
-                {% endfor %}
-            </div>
-            
             {% for article in articles %}
             <!-- Article Card -->
             <div class="col-lg-4 col-md-6">
                 <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
                     <div class="img-wrapper">
-                        {% if article.wide_thumbnail %}
-                            <img src="{{ article.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
-                        {% else %}
-                            <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
-                        {% endif %}
+                        <a href="{{ article.url }}" class="text-decoration-none">
+                            {% if article.wide_thumbnail %}
+                                <img src="{{ article.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                            {% elif article.tall_thumbnail %}
+                                <img src="{{ article.tall_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                            {% else %}
+                                <img src="{% static 'news-images/news-card.png' %}" class="w-100 h-100 object-fit-cover transition-img" alt="{{ article.title }}">
+                            {% endif %}
+                        </a>
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3 small">
@@ -161,8 +154,7 @@
                             </span>
                         </div>
                         <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
-                        <p>URL: {{ article.url_path }}</p>
-                        <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
+                        <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
                             Read More <i class="bi bi-arrow-up-right ms-1"></i>
                         </a>
                     </div>
@@ -171,22 +163,18 @@
             {% empty %}
             <!-- No articles message -->
             <div class="col-12">
-                <div class="alert alert-info text-center">
-                    <p class="mb-0">No articles available yet. Please check back later!</p>
+                <div class="alert alert-info text-center py-5">
+                    <i class="bi bi-file-earmark-text fs-1 mb-3 d-block opacity-50"></i>
+                    <h4 class="fw-bold mb-2">No Articles Yet</h4>
+                    <p class="mb-0">{{ author_name }} hasn't published any articles yet. Check back later!</p>
                 </div>
             </div>
             {% endfor %}
-
-        </div>
-
-        <!-- Load More Button -->
-        <div class="text-center mt-5">
-            <button class="btn btn-outline-mint rounded-2 px-5 py-2 fw-medium">Load More</button>
         </div>
     </section>
 
     <!-- =========================================
-         5. SUPPORT CTA
+         4. SUPPORT CTA
     ========================================== -->
     <section class="support-section text-white overflow-hidden">
         <div class="container-fluid p-0">
@@ -197,14 +185,14 @@
                         <p class="mb-5 lead opacity-90 fw-light">
                             Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
                         </p>
-                        <a href="#" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+                        <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
                             Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-7 h-100 position-relative">
                     <div class="curved-mask-wrapper h-100">
-                        <img src="/media/original_images/Support Our Work.jpg" class="w-100 h-100 object-fit-cover" alt="Hands holding coins">
+                        <img src="{% static 'home-page-images/support_our_work.jpg' %}" class="w-100 h-100 object-fit-cover" alt="Hands holding coins">
                     </div>
                 </div>
             </div>
@@ -212,7 +200,7 @@
     </section>
 
     <!-- =========================================
-         6. FOOTER
+         5. FOOTER
     ========================================== -->
     <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
@@ -261,14 +249,14 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <h6 class="fw-bold mb-4">Get to know us</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Our aim</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">Our aim</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <h6 class="fw-bold mb-4">Get informed</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-                        <li><a href="#" class="text-white text-decoration-none hover-u">News</a></li>
+                        <li><a href="{% url 'why_cash' %}" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'news' %}" class="text-white text-decoration-none hover-u">News</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-12">
@@ -282,19 +270,27 @@
                         </div>
                     </form>
                     <p class="extra-small opacity-75 mt-3">
-                        We’ll never sell your details to anyone else, promise! For more information on how we store your data, please see our privacy policy.
+                        We'll never sell your details to anyone else, promise! For more information on how we store your data, please see our privacy policy.
                     </p>
                 </div>
             </div>
             <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small opacity-75 gap-3">
-                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters</span>
+                <span class="mb-2 mb-lg-0 text-center text-lg-start">&copy; Copyright 2025, All Rights Reserved by Cash Matters</span>
 
                 <a href="#" class="text-white text-decoration-none hover-u text-center text-lg-end">Privacy Policy</a>
             </div>
         </div>
     </footer>
 
+    <!-- =========================================
+         6. SEARCH OVERLAY MODAL
+    ========================================== -->
+    {% include 'components/search_overlay.html' %}
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Search Overlay Script -->
+    <script src="{% static 'js/search-overlay.js' %}"></script>
 </body>
 </html>

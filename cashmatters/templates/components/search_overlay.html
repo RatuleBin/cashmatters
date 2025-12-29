@@ -1,0 +1,223 @@
+<!-- Full-Screen Search Overlay -->
+<div id="searchOverlay" class="search-overlay">
+    <div class="search-overlay-content">
+        <!-- Close Button -->
+        <button type="button" class="search-overlay-close" id="searchClose" aria-label="Close search">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Search Header -->
+                    <h2 class="text-white fw-bold mb-5 text-center">What are you looking for?</h2>
+
+                    <!-- Search Form -->
+                    <form method="GET" action="{% url 'news' %}" class="search-overlay-form">
+                        <!-- Search Input -->
+                        <div class="search-input-wrapper mb-4">
+                            <input type="text"
+                                   name="q"
+                                   id="searchOverlayInput"
+                                   class="search-overlay-input"
+                                   placeholder="Type your search..."
+                                   autocomplete="off"
+                                   autofocus>
+                            <span class="search-input-underline"></span>
+                        </div>
+
+                        <!-- Filter Row -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="text-white-50 small mb-2 d-block">Category</label>
+                                <select name="category" class="form-select search-overlay-select">
+                                    <option value="">All Categories</option>
+                                    <option value="news">News</option>
+                                    <option value="studies">Studies & Research</option>
+                                    <option value="key-fact">Key Facts</option>
+                                    <option value="podcast">Podcast</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-white-50 small mb-2 d-block">Location</label>
+                                <select name="location" class="form-select search-overlay-select">
+                                    <option value="">All Locations</option>
+                                    <option value="global">Global</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="americas">Americas</option>
+                                    <option value="asia-pacific">Asia Pacific</option>
+                                    <option value="africa">Africa</option>
+                                    <option value="middle-east">Middle East</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-mint btn-lg rounded-pill px-5 py-3 fw-bold">
+                                <i class="bi bi-search me-2"></i> Search
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Popular Searches -->
+                    <div class="mt-5 text-center">
+                        <p class="text-white-50 small mb-3">Popular searches:</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <a href="{% url 'news' %}?q=cash+payments" class="btn btn-outline-light btn-sm rounded-pill px-3">Cash payments</a>
+                            <a href="{% url 'news' %}?q=digital+currency" class="btn btn-outline-light btn-sm rounded-pill px-3">Digital currency</a>
+                            <a href="{% url 'news' %}?q=financial+inclusion" class="btn btn-outline-light btn-sm rounded-pill px-3">Financial inclusion</a>
+                            <a href="{% url 'news' %}?q=central+bank" class="btn btn-outline-light btn-sm rounded-pill px-3">Central bank</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Search Overlay Styles */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 55, 65, 0.98);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto;
+}
+
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-overlay-content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    position: relative;
+}
+
+.search-overlay-close {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.search-overlay-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: rotate(90deg);
+}
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-overlay-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 2rem;
+    padding: 15px 0;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-overlay-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.search-overlay-input:focus {
+    border-bottom-color: #8de4af;
+}
+
+.search-input-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #8de4af;
+    transition: width 0.3s ease;
+}
+
+.search-overlay-input:focus + .search-input-underline {
+    width: 100%;
+}
+
+.search-overlay-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+}
+
+.search-overlay-select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #8de4af;
+    box-shadow: 0 0 0 3px rgba(141, 228, 175, 0.2);
+    color: white;
+}
+
+.search-overlay-select option {
+    background: #003741;
+    color: white;
+}
+
+/* Animation for overlay opening */
+.search-overlay.active .search-overlay-content {
+    animation: slideDown 0.4s ease forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .search-overlay-input {
+        font-size: 1.5rem;
+    }
+
+    .search-overlay-close {
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .search-overlay-content {
+        padding: 100px 15px 50px;
+    }
+}
+</style>

@@ -29,12 +29,55 @@ class QuoteBlock(StructBlock):
         label = 'Blockquote'
 
 
-class ArticleType(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    
+class Author(models.Model):
+    """Author snippet model for managing content creators"""
+    name = models.CharField(max_length=100, unique=True, help_text="Author's full name")
+    job_title = models.CharField(max_length=200, blank=True, help_text="Author's job title or role")
+    profile_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Author's profile picture"
+    )
+    bio = models.TextField(blank=True, help_text="Short biography of the author")
+    email = models.EmailField(blank=True, help_text="Author's email address")
+    linkedin_url = models.URLField(blank=True, help_text="LinkedIn profile URL")
+    twitter_url = models.URLField(blank=True, help_text="Twitter/X profile URL")
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('job_title'),
+        FieldPanel('profile_image'),
+        FieldPanel('bio'),
+        MultiFieldPanel([
+            FieldPanel('email'),
+            FieldPanel('linkedin_url'),
+            FieldPanel('twitter_url'),
+        ], heading="Contact & Social"),
+    ]
+
     def __str__(self):
         return self.name
-    
+
+    def get_article_count(self):
+        """Return the total count of articles by this author"""
+        from django.db.models import Q
+        blog_count = BlogPage.objects.filter(author_profile=self).count()
+        article_count = ArticlePage.objects.filter(author_profile=self).count()
+        return blog_count + article_count
+
+    class Meta:
+        ordering = ['name']
+
+
+class ArticleType(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         ordering = ['name']
 
@@ -92,14 +135,26 @@ class BlogPage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    author = models.CharField(max_length=100, blank=True, help_text="Author name")
+
+    # Author profile - link to Author snippet
+    author_profile = models.ForeignKey(
+        'blog.Author',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='blog_posts',
+        help_text="Select an author from the Author database"
+    )
+
+    # Legacy author fields (for backwards compatibility)
+    author = models.CharField(max_length=100, blank=True, help_text="Author name (legacy - use Author Profile instead)")
     author_image = models.ForeignKey(
         get_image_model(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text="Author profile picture"
+        help_text="Author profile picture (legacy - use Author Profile instead)"
     )
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
@@ -236,8 +291,11 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('author'),
-        FieldPanel('author_image'),
+        FieldPanel('author_profile'),
+        MultiFieldPanel([
+            FieldPanel('author'),
+            FieldPanel('author_image'),
+        ], heading="Legacy Author Fields (use Author Profile instead)"),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),
@@ -315,14 +373,26 @@ class ArticlePage(Page):
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    author = models.CharField(max_length=100, blank=True, help_text="Author name")
+
+    # Author profile - link to Author snippet
+    author_profile = models.ForeignKey(
+        'blog.Author',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='articles',
+        help_text="Select an author from the Author database"
+    )
+
+    # Legacy author fields (for backwards compatibility)
+    author = models.CharField(max_length=100, blank=True, help_text="Author name (legacy - use Author Profile instead)")
     author_image = models.ForeignKey(
         get_image_model(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text="Author profile picture"
+        help_text="Author profile picture (legacy - use Author Profile instead)"
     )
     body = StreamField([
         ('heading', CharBlock(classname="full title", icon="title")),
@@ -458,9 +528,12 @@ class ArticlePage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('author'),
-        FieldPanel('author_image'),
         FieldPanel('date'),
+        FieldPanel('author_profile'),
+        MultiFieldPanel([
+            FieldPanel('author'),
+            FieldPanel('author_image'),
+        ], heading="Legacy Author Fields (use Author Profile instead)"),
         FieldPanel('intro'),
         MultiFieldPanel([
             FieldPanel('title_position'),
