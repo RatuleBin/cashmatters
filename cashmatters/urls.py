@@ -19,9 +19,9 @@ def index(request):
     from blog.models import ArticlePage, BlogPage
     from itertools import chain
 
-    # Get latest 3 published articles and blog posts
-    articles = ArticlePage.objects.live().order_by('-date')[:3]
-    blog_posts = BlogPage.objects.live().order_by('-date')[:3]
+    # Get latest 3 published articles and blog posts with author_profile preloaded
+    articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')[:3]
+    blog_posts = BlogPage.objects.live().select_related('author_profile').order_by('-date')[:3]
 
     # Combine and sort by date (newest first)
     combined_posts = sorted(
@@ -31,8 +31,8 @@ def index(request):
     )[:3]  # Take only the 3 most recent
 
     # Get featured posts for the Featured Content section
-    featured_articles = ArticlePage.objects.live().filter(featured=True).order_by('-date')[:3]
-    featured_blog_posts = BlogPage.objects.live().filter(featured=True).order_by('-date')[:3]
+    featured_articles = ArticlePage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
+    featured_blog_posts = BlogPage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
 
     # Combine featured posts
     featured_posts = sorted(
@@ -61,9 +61,9 @@ def news(request):
     search_query = request.GET.get('q', '').strip()
     category = request.GET.get('category', '').strip()
 
-    # Get all published articles and blog posts
-    articles = ArticlePage.objects.live().order_by('-date')
-    blog_posts = BlogPage.objects.live().order_by('-date')
+    # Get all published articles and blog posts with author_profile preloaded
+    articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')
+    blog_posts = BlogPage.objects.live().select_related('author_profile').order_by('-date')
 
     # Apply category filter if specified
     if category:
