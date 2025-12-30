@@ -28,6 +28,7 @@ SECRET_KEY = "y6eR_h82UNx40JEYo9e211ah5usQHYkqsYB9Wf_cS27ePkCpEUAzIUimeMhC4SPnSJ
 # Application definition
 
 INSTALLED_APPS = [
+    "wagtail.documents",
     "home",
     "search",
     "blog",  # Blog app for vlog functionality
@@ -37,7 +38,6 @@ INSTALLED_APPS = [
     "wagtail.sites",
     "wagtail.users",
     "wagtail.snippets",
-    "wagtail.documents",
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
