@@ -8,17 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchOverlayInput');
     const searchClose = document.getElementById('searchClose');
 
-    // Get all search trigger buttons
-    const searchTriggers = document.querySelectorAll('.search-trigger, .btn.text-white.p-0 .bi-search');
-
-    // Also handle the nav search button (for backwards compatibility)
-    document.querySelectorAll('.bi-search').forEach(function(icon) {
-        const btn = icon.closest('button');
-        if (btn && !btn.classList.contains('search-trigger')) {
-            btn.addEventListener('click', openSearchOverlay);
-        }
-    });
-
     // Open search overlay
     function openSearchOverlay(e) {
         if (e) e.preventDefault();
@@ -41,9 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners for search triggers
-    searchTriggers.forEach(function(trigger) {
-        trigger.addEventListener('click', openSearchOverlay);
+    // Use event delegation on document for all search triggers
+    document.addEventListener('click', function(e) {
+        // Check if clicked element or its parent is a search trigger
+        const trigger = e.target.closest('.search-trigger');
+        if (trigger) {
+            e.preventDefault();
+            openSearchOverlay(e);
+        }
     });
 
     // Close button click
