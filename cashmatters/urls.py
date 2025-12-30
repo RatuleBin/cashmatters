@@ -84,15 +84,11 @@ def news(request):
     if search_query:
         articles = articles.filter(
             Q(title__icontains=search_query) |
-            Q(intro__icontains=search_query) |
-            Q(body__icontains=search_query) |
-            Q(page_header__icontains=search_query)
+            Q(intro__icontains=search_query)
         )
         blog_posts = blog_posts.filter(
             Q(title__icontains=search_query) |
-            Q(intro__icontains=search_query) |
-            Q(body__icontains=search_query) |
-            Q(page_header__icontains=search_query)
+            Q(intro__icontains=search_query)
         )
 
     # Combine and sort by date (newest first)
