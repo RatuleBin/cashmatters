@@ -146,34 +146,51 @@ def author(request, author_name=None, author_id=None):
     from blog.models import ArticlePage, BlogPage, Author
     from itertools import chain
     from django.shortcuts import get_object_or_404
+    from django.http import Http404
 
     author_obj = None
+    articles = []
+    blog_posts = []
 
     # Try to get author by ID first (preferred method)
     if author_id:
         author_obj = get_object_or_404(Author, id=author_id)
-        # Get posts by author_profile
-        articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
-        blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+        # Get posts by author_profile with optimized queries
+        articles = list(ArticlePage.objects.live().filter(author_profile=author_obj).only(
+            'title', 'date', 'url_path', 'slug'
+        ).prefetch_related('article_types').order_by('-date')[:50])
+        blog_posts = list(BlogPage.objects.live().filter(author_profile=author_obj).only(
+            'title', 'date', 'url_path', 'slug'
+        ).prefetch_related('article_types').order_by('-date')[:50])
     elif author_name:
         # Try to find author by name (new Author model)
         author_obj = Author.objects.filter(name__iexact=author_name).first()
 
         if author_obj:
-            # Get posts by author_profile
-            articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
-            blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+            # Get posts by author_profile with optimized queries
+            articles = list(ArticlePage.objects.live().filter(author_profile=author_obj).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+            blog_posts = list(BlogPage.objects.live().filter(author_profile=author_obj).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
         else:
             # Fall back to legacy CharField author field
-            articles = ArticlePage.objects.live().filter(author__iexact=author_name).order_by('-date')
-            blog_posts = BlogPage.objects.live().filter(author__iexact=author_name).order_by('-date')
+            articles = list(ArticlePage.objects.live().filter(author__iexact=author_name).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+            blog_posts = list(BlogPage.objects.live().filter(author__iexact=author_name).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+    else:
+        raise Http404("Author not found")
 
-    # Combine and sort by date (newest first)
+    # Combine and sort by date (newest first) - limit to 50 total
     author_posts = sorted(
         chain(articles, blog_posts),
         key=lambda x: x.date,
         reverse=True
-    )
+    )[:50]
 
     context = {
         'author': author_obj,
