@@ -150,6 +150,19 @@
             display: none;
         }
 
+        /* Feature image container styling */
+        .feature-img-container {
+            width: 120% !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-img-container img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
         /* Color themes */
         .color-blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .color-red { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
@@ -275,7 +288,7 @@
                                 <div class="feature-icon-card bg-feature-blue h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 48px; height: 48px; object-fit: contain;">
+                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
                                         <i class="bi bi-send feature-icon mb-3"></i>
                                     {% endif %}
@@ -286,7 +299,7 @@
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
                                     <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.text|truncatewords:10 }}</h3>
+                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
                                         <p class="text-muted small mb-4">
                                             {{ fact_block.value.text }}
                                         </p>
@@ -328,7 +341,7 @@
                                 <div class="feature-icon-card bg-feature-red h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 48px; height: 48px; object-fit: contain;">
+                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
                                         <i class="bi bi-bank feature-icon mb-3"></i>
                                     {% endif %}
@@ -339,7 +352,7 @@
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
                                     <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.text|truncatewords:10 }}</h3>
+                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
                                         <p class="text-muted small mb-4">
                                             {{ fact_block.value.text }}
                                         </p>
@@ -381,7 +394,7 @@
                                 <div class="feature-icon-card bg-feature-purple h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 48px; height: 48px; object-fit: contain;">
+                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
                                         <i class="bi bi-shield-lock feature-icon mb-3"></i>
                                     {% endif %}
@@ -392,7 +405,7 @@
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
                                     <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.text|truncatewords:10 }}</h3>
+                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
                                         <p class="text-muted small mb-4">
                                             {{ fact_block.value.text }}
                                         </p>
@@ -434,7 +447,7 @@
                                 <div class="feature-icon-card bg-feature-orange h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 48px; height: 48px; object-fit: contain;">
+                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
                                         <i class="bi bi-wallet2 feature-icon mb-3"></i>
                                     {% endif %}
@@ -445,7 +458,7 @@
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
                                     <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.text|truncatewords:10 }}</h3>
+                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
                                         <p class="text-muted small mb-4">
                                             {{ fact_block.value.text }}
                                         </p>
