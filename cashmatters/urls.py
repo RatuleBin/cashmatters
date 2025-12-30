@@ -266,6 +266,32 @@ def blogs_dashboard(request):
     from django.core.paginator import Paginator
     from django.contrib import messages
     from django.shortcuts import redirect
+    from wagtail.rich_text import RichText
+
+    def extract_text_from_streamfield(streamfield):
+        """Extract searchable text from StreamField"""
+        text_parts = []
+        if streamfield:
+            for block in streamfield:
+                block_type = block.block_type
+                value = block.value
+                
+                if block_type == 'paragraph':
+                    # RichTextBlock - value is RichText object
+                    if hasattr(value, 'source'):
+                        text_parts.append(value.source)
+                    else:
+                        text_parts.append(str(value))
+                elif block_type in ['heading', 'quote']:
+                    # CharBlock or TextBlock
+                    if isinstance(value, str):
+                        text_parts.append(value)
+                    elif hasattr(value, 'text'):
+                        text_parts.append(value.text)
+                    elif hasattr(value, 'quote'):
+                        text_parts.append(value.quote)
+                # Skip image, embed, document blocks for search
+        return ' '.join(text_parts)
 
     # Handle bulk actions
     if request.method == 'POST':
@@ -334,7 +360,14 @@ def blogs_dashboard(request):
     if search_query:
         filtered_posts = []
         for post in all_posts:
-            search_text = f"{post.title} {getattr(post, 'intro', '')} {getattr(post, 'body', '')}"
+            # Build search text from title, intro, and body content
+            search_parts = [post.title, getattr(post, 'intro', '')]
+            
+            # Extract text from body StreamField for both ArticlePage and BlogPage
+            if hasattr(post, 'body') and post.body:
+                search_parts.append(extract_text_from_streamfield(post.body))
+            
+            search_text = ' '.join(search_parts)
             if search_query.lower() in search_text.lower():
                 filtered_posts.append(post)
         all_posts = filtered_posts
