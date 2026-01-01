@@ -412,7 +412,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#">Key Facts</a></li>
@@ -525,7 +525,7 @@
                     <div class="sidebar-section">
                         <h5 class="sidebar-title mb-3">Featured</h5>
                         <div class="list-group">
-                            <a href="{% url 'why_cash' %}" class="list-group-item list-group-item-action">
+                            <a href="{{ why_cash_page.url }}" class="list-group-item list-group-item-action">
                                 Why Cash Matters
                             </a>
                             <a href="{% url 'support' %}" class="list-group-item list-group-item-action">

@@ -106,6 +106,7 @@ class BlogIndexPage(Page):
     """
     Main blog index page - lists all blog posts
     """
+    template = "blog/blog_index_page.html"
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -122,16 +123,10 @@ class BlogIndexPage(Page):
 
 
 class BlogPage(Page):
-    def get_context(self, request):
-        context = super().get_context(request)
-        # Get latest 2 sibling blog posts (excluding self)
-        siblings = self.get_parent().get_children().live().exclude(id=self.id).order_by('-first_published_at')[:2]
-        context['latest_posts'] = [s.specific for s in siblings]
-        return context
     """
     Individual blog post page
     """
-    # template_name = 'blog/blogpage.html'
+    template = "blog/blog_page.html"
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
@@ -338,6 +333,7 @@ class NewsIndexPage(Page):
     """
     News and Article index page - lists all news articles and key facts
     """
+    template = "blog/news_index_page.html"
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -578,6 +574,7 @@ class KeyFactsPage(Page):
     """
     Key Facts page - displays important facts and information
     """
+    template = "blog/key_facts_page.html"
     intro = models.CharField(max_length=250, blank=True)
     body = RichTextField(blank=True)
     
@@ -615,6 +612,7 @@ class SupportPage(Page):
     """
     Support Cash page - promotes cash awareness and provides support resources
     """
+    template = "support_page.html"
     # Page Header
     page_header_title = models.CharField(
         max_length=200,
@@ -786,6 +784,7 @@ class WhyCashMattersPage(Page):
     """
     Why Cash Matters page - comprehensive guide with interactive facts
     """
+    template = "why-cash.html"
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)

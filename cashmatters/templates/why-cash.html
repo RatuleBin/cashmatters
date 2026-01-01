@@ -187,7 +187,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
@@ -292,7 +292,7 @@
                                     {% else %}
                                         <i class="bi bi-send feature-icon mb-3"></i>
                                     {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.title }}</h4>
+                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card (Right) -->
@@ -345,7 +345,7 @@
                                     {% else %}
                                         <i class="bi bi-bank feature-icon mb-3"></i>
                                     {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.title }}</h4>
+                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
@@ -391,14 +391,14 @@
                         <div class="row g-4 mb-5 feature-row">
                             <!-- Icon Card -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-purple h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="feature-icon-card bg-feature-orange h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
                                         <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
-                                        <i class="bi bi-shield-lock feature-icon mb-3"></i>
+                                        <i class="bi bi-bank feature-icon mb-3"></i>
                                     {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.title }}</h4>
+                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
@@ -444,14 +444,14 @@
                         <div class="row g-4 mb-5 feature-row">
                             <!-- Icon Card -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-orange h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="feature-icon-card bg-feature-purple h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
                                     {% if fact_block.value.icon %}
                                         {% image fact_block.value.icon fill-60x60 as icon_img %}
                                         <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
                                     {% else %}
-                                        <i class="bi bi-wallet2 feature-icon mb-3"></i>
+                                        <i class="bi bi-bank feature-icon mb-3"></i>
                                     {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.title }}</h4>
+                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
