@@ -198,20 +198,6 @@ def support(request):
     return render(request, 'support.html', context)
 
 
-def why_cash(request):
-    """Serve the why cash page with dynamic content"""
-    from blog.models import WhyCashMattersPage
-    
-    # Get the WhyCashMattersPage content by slug
-    page = WhyCashMattersPage.objects.live().filter(slug='why-cash').first()
-    
-    context = {
-        'page': page,
-    }
-    
-    return render(request, 'why-cash.html', context)
-
-
 def blogs_dashboard_redirect(request):
     """Redirect old blogs URL to new admin location"""
     return redirect('/admin/all-blogs/')
@@ -465,7 +451,6 @@ urlpatterns = [
     path("news/", news, name="news"),  # News page
     path("about/", about, name="about"),  # About page
     path("support/", support, name="support"),  # Support page
-    path("why-cash/", why_cash, name="why_cash"),  # Why cash page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
     path("add-blog/", create_blog_page, name="create_blog_page"),
