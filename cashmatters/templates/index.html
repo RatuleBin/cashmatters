@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static wagtailimages_tags %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -263,11 +263,22 @@
                     >{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span
                   >
                 </div>
-                {% if post.author %}
+                {% if post.author_profile %}
+                <div class="mb-2 small text-muted d-flex align-items-center">
+                    {% if post.author_profile.profile_image %}
+                        {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
+                        <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author_profile.name }}">
+                    {% else %}
+                        <i class="bi bi-person me-1"></i>
+                    {% endif %}
+                    <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
+                        {{ post.author_profile.name }}
+                    </a>
+                </div>
+                {% elif post.author %}
                 <div class="mb-2 small text-muted d-flex align-items-center">
                     {% if post.author_image %}
-                        <img src="{{ post.author_image.file.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
-                        <i class="bi bi-person me-1" style="display: none;"></i>
+                        <img src="{{ post.author_image.file.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author }}">
                     {% else %}
                         <i class="bi bi-person me-1"></i>
                     {% endif %}
@@ -898,7 +909,9 @@
           <span class="mb-2 mb-lg-0 text-center text-lg-start"
             >© Copyright 2025, All Rights Reserved by Cash Matters</span
           >
-
+          <span class="mb-2 mb-lg-0 text-center"
+            >Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span
+          >
           <a href="#" class="text-white text-decoration-none hover-u text-center text-lg-end"
             >Privacy Policy</a
           >

@@ -19,9 +19,9 @@ def index(request):
     from blog.models import ArticlePage, BlogPage
     from itertools import chain
 
-    # Get latest 3 published articles and blog posts
-    articles = ArticlePage.objects.live().order_by('-date')[:3]
-    blog_posts = BlogPage.objects.live().order_by('-date')[:3]
+    # Get latest 3 published articles and blog posts with author_profile preloaded
+    articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')[:3]
+    blog_posts = BlogPage.objects.live().select_related('author_profile').order_by('-date')[:3]
 
     # Combine and sort by date (newest first)
     combined_posts = sorted(
@@ -31,8 +31,8 @@ def index(request):
     )[:3]  # Take only the 3 most recent
 
     # Get featured posts for the Featured Content section
-    featured_articles = ArticlePage.objects.live().filter(featured=True).order_by('-date')[:3]
-    featured_blog_posts = BlogPage.objects.live().filter(featured=True).order_by('-date')[:3]
+    featured_articles = ArticlePage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
+    featured_blog_posts = BlogPage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
 
     # Combine featured posts
     featured_posts = sorted(
@@ -61,9 +61,9 @@ def news(request):
     search_query = request.GET.get('q', '').strip()
     category = request.GET.get('category', '').strip()
 
-    # Get all published articles and blog posts
-    articles = ArticlePage.objects.live().order_by('-date')
-    blog_posts = BlogPage.objects.live().order_by('-date')
+    # Get all published articles and blog posts with author_profile preloaded
+    articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')
+    blog_posts = BlogPage.objects.live().select_related('author_profile').order_by('-date')
 
     # Apply category filter if specified
     if category:
@@ -84,15 +84,11 @@ def news(request):
     if search_query:
         articles = articles.filter(
             Q(title__icontains=search_query) |
-            Q(intro__icontains=search_query) |
-            Q(body__icontains=search_query) |
-            Q(page_header__icontains=search_query)
+            Q(intro__icontains=search_query)
         )
         blog_posts = blog_posts.filter(
             Q(title__icontains=search_query) |
-            Q(intro__icontains=search_query) |
-            Q(body__icontains=search_query) |
-            Q(page_header__icontains=search_query)
+            Q(intro__icontains=search_query)
         )
 
     # Combine and sort by date (newest first)
@@ -146,34 +142,51 @@ def author(request, author_name=None, author_id=None):
     from blog.models import ArticlePage, BlogPage, Author
     from itertools import chain
     from django.shortcuts import get_object_or_404
+    from django.http import Http404
 
     author_obj = None
+    articles = []
+    blog_posts = []
 
     # Try to get author by ID first (preferred method)
     if author_id:
         author_obj = get_object_or_404(Author, id=author_id)
-        # Get posts by author_profile
-        articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
-        blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+        # Get posts by author_profile with optimized queries
+        articles = list(ArticlePage.objects.live().filter(author_profile=author_obj).only(
+            'title', 'date', 'url_path', 'slug'
+        ).prefetch_related('article_types').order_by('-date')[:50])
+        blog_posts = list(BlogPage.objects.live().filter(author_profile=author_obj).only(
+            'title', 'date', 'url_path', 'slug'
+        ).prefetch_related('article_types').order_by('-date')[:50])
     elif author_name:
         # Try to find author by name (new Author model)
         author_obj = Author.objects.filter(name__iexact=author_name).first()
 
         if author_obj:
-            # Get posts by author_profile
-            articles = ArticlePage.objects.live().filter(author_profile=author_obj).order_by('-date')
-            blog_posts = BlogPage.objects.live().filter(author_profile=author_obj).order_by('-date')
+            # Get posts by author_profile with optimized queries
+            articles = list(ArticlePage.objects.live().filter(author_profile=author_obj).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+            blog_posts = list(BlogPage.objects.live().filter(author_profile=author_obj).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
         else:
             # Fall back to legacy CharField author field
-            articles = ArticlePage.objects.live().filter(author__iexact=author_name).order_by('-date')
-            blog_posts = BlogPage.objects.live().filter(author__iexact=author_name).order_by('-date')
+            articles = list(ArticlePage.objects.live().filter(author__iexact=author_name).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+            blog_posts = list(BlogPage.objects.live().filter(author__iexact=author_name).only(
+                'title', 'date', 'url_path', 'slug'
+            ).prefetch_related('article_types').order_by('-date')[:50])
+    else:
+        raise Http404("Author not found")
 
-    # Combine and sort by date (newest first)
+    # Combine and sort by date (newest first) - limit to 50 total
     author_posts = sorted(
         chain(articles, blog_posts),
         key=lambda x: x.date,
         reverse=True
-    )
+    )[:50]
 
     context = {
         'author': author_obj,
