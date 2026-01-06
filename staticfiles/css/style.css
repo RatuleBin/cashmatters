@@ -7,8 +7,11 @@
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
     --brand-yellow: #F0E66A; 
-    --brand-footer: #3bc5ac;
+    --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
+    /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
+    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 html, body {
@@ -21,10 +24,36 @@ html, body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   TYPOGRAPHY - ITC Avant Garde Gothic Alternative
+   All headings use Poppins (geometric sans-serif)
+   ========================================= */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-header);
+    font-weight: 600;
+}
+
+/* Section titles and large headings */
+.section-title,
+.hero-title,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-header);
+    font-weight: 700;
+}
+
+/* Navigation uses header font */
+.navbar,
+.navbar *,
+.main-navigation,
+.main-navigation * {
+    font-family: var(--font-header);
 }
 
 .bg-light-cream, .section-bg {
@@ -354,13 +383,32 @@ body {
     }
 }
 
-.main-footer { background-color: var(--brand-footer); }
+.main-footer { 
+    background-color: var(--brand-footer); 
+}
+.main-footer a:not(.btn),
+.main-footer p,
+.main-footer span,
+.main-footer li {
+    color: #ffffff !important;
+}
+.main-footer .opacity-90 {
+    opacity: 1 !important; /* Ensure text is fully visible for accessibility */
+}
 .social-circle {
     width: 40px; height: 40px; background-color: #fff;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     color: var(--brand-footer); transition: 0.2s; text-decoration: none;
 }
-.social-circle:hover { transform: translateY(-3px); color: #33b896; }
+.social-circle:hover { transform: translateY(-3px); color: #005c5d; }
+.footer-ica-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+.footer-ica-logo {
+    height: 35px;
+    width: auto;
+}
 .btn-dark-custom {
     background-color: #06232d; color: #fff; transition: background 0.3s;
 }

@@ -5,7 +5,7 @@
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
     --brand-yellow: #F0E66A; 
-    --brand-footer: #40DDB6;
+    --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
 }
 
