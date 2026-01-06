@@ -94,9 +94,9 @@
                     </div>
                 </div>
 
-                <!-- Social Links -->
-                {% if author %}
-                    <div class="d-flex gap-3 flex-wrap">
+                <!-- Social Links & Share -->
+                <div class="d-flex gap-3 flex-wrap align-items-center">
+                    {% if author %}
                         {% if author.email %}
                             <a href="mailto:{{ author.email }}" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="Email">
                                 <i class="bi bi-envelope me-1"></i> Email
@@ -112,8 +112,51 @@
                                 <i class="bi bi-twitter-x me-1"></i> Twitter
                             </a>
                         {% endif %}
+                    {% endif %}
+                    
+                    <!-- Share Profile Section -->
+                    <div class="share-profile-wrapper ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-mint btn-sm rounded-pill px-3 dropdown-toggle" type="button" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-share me-1"></i> Share Profile
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="shareDropdown">
+                                <li>
+                                    <button class="dropdown-item" onclick="copyProfileLink()">
+                                        <i class="bi bi-link-45deg me-2"></i> Copy Link
+                                    </button>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out {{ author_name }}'s articles on Cash Matters" target="_blank" rel="noopener noreferrer">
+                                        <i class="bi bi-twitter-x me-2"></i> Share on Twitter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" rel="noopener noreferrer">
+                                        <i class="bi bi-linkedin me-2"></i> Share on LinkedIn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" rel="noopener noreferrer">
+                                        <i class="bi bi-facebook me-2"></i> Share on Facebook
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                {% endif %}
+                </div>
+                
+                <!-- Copy Link Toast Notification -->
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+                    <div id="copyToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <i class="bi bi-check-circle me-2"></i> Profile link copied to clipboard!
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -292,5 +335,53 @@
 
     <!-- Search Overlay Script -->
     <script src="{% static 'js/search-overlay.js' %}"></script>
+    
+    <!-- Copy Profile Link Script -->
+    <script>
+        function copyProfileLink() {
+            const profileUrl = window.location.href;
+            
+            // Use modern Clipboard API if available
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(profileUrl).then(function() {
+                    showCopyToast();
+                }).catch(function(err) {
+                    fallbackCopyText(profileUrl);
+                });
+            } else {
+                fallbackCopyText(profileUrl);
+            }
+        }
+        
+        function fallbackCopyText(text) {
+            // Fallback for older browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopyToast();
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy link. Please copy manually: ' + text);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showCopyToast() {
+            const toastEl = document.getElementById('copyToast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                toast.show();
+            }
+        }
+    </script>
 </body>
 </html>
