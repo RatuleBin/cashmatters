@@ -9,8 +9,27 @@
     --brand-yellow: #F0E66A; 
     --brand-footer: #3bc5ac;
     --brand-blue-line: #0099CC;
-    --font-header: 'Josefin Sans', 'Avant Garde', 'Century Gothic', sans-serif;
+    /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
+    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
     --font-body: 'Inter', sans-serif;
+}
+
+/* =========================================
+   TYPOGRAPHY - ITC Avant Garde Gothic Alternative
+   All headings use Poppins (geometric sans-serif)
+   ========================================= */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-header);
+    font-weight: 600;
+}
+
+/* Section titles and large headings */
+.section-title,
+.hero-title,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-header);
+    font-weight: 700;
 }
 
 html, body {
