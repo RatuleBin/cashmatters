@@ -56,6 +56,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a></li>
                     </ul>
                 </div>
 
@@ -331,7 +332,8 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <h6 class="fw-bold mb-4">Get to know us</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Our aim</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">

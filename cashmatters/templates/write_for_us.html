@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Cash Matters</title>
+    <title>Write for Us - Cash Matters</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
@@ -35,10 +35,10 @@
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
                         <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'write_for_us' %}">Write for Us</a></li>
                     </ul>
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
@@ -57,15 +57,15 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold text-white lh-sm mb-4">
-                        About Cash Matters
+                        Write for Us
                     </h1>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <p class="text-white opacity-90 mb-4 lead fw-light">
-                        We are an independent initiative dedicated to preserving payment choice for everyone. Our mission is to ensure that physical cash remains a viable and accessible payment option in an increasingly digital world.
+                        Share your insights and perspectives on cash, payments, and financial inclusion with our global audience.
                     </p>
-                    <a href="#mission" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
-                        Learn Our Mission <i class="bi bi-arrow-up-right ms-1"></i>
+                    <a href="#submit" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
+                        Submit Your Article <i class="bi bi-arrow-up-right ms-1"></i>
                     </a>
                 </div>
             </div>
@@ -73,139 +73,67 @@
     </section>
 
     <!-- =========================================
-         3. OUR MISSION
+         3. SUBMISSION GUIDELINES
     ========================================== -->
-    <section id="mission" class="py-5 bg-light">
+    <section id="submit" class="py-5 bg-light">
         <div class="container py-4">
-            <div class="row align-items-center">
+            <div class="row align-items-start">
                 <!-- Text content -->
-                <div class="col-lg-5 col-md-12">
-                    <h2 class="fw-bold mb-4">Our Mission</h2>
+                <div class="col-lg-7 col-md-12">
+                    <h2 class="fw-bold mb-4">We Want to Hear From You</h2>
                     <p class="text-muted fs-5 mb-4">
-                        Cash Matters believes that everyone should have the freedom to choose how they pay. We advocate for the preservation of physical cash as an essential public good that promotes financial inclusion, privacy, and economic resilience.
+                        Cash Matters welcomes contributions from writers, researchers, economists, and advocates who share our commitment to preserving payment choice. Whether you're an academic, industry expert, or passionate advocate, we'd love to hear your perspective.
                     </p>
                     <p class="text-muted fs-5 mb-4">
-                        In a world increasingly dominated by digital payments, we work to ensure that cash remains accessible, accepted, and valued by businesses, governments, and communities worldwide.
+                        We're looking for well-researched articles, opinion pieces, and stories that explore the importance of cash in today's society. Topics can include financial inclusion, privacy, economic resilience, consumer rights, and the future of payments.
                     </p>
-                    <div class="d-flex gap-3">
-                        <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Join Our Movement</a>
-                        <a href="{{ why_cash_page.url }}" class="btn btn-outline-dark fw-bold px-4 py-2">Learn More</a>
-                    </div>
+                    
+                    <h4 class="fw-bold mt-5 mb-3">What We're Looking For</h4>
+                    <ul class="text-muted fs-5 mb-4">
+                        <li class="mb-2">Original, unpublished content related to cash and payments</li>
+                        <li class="mb-2">Well-researched articles with credible sources</li>
+                        <li class="mb-2">Diverse perspectives on financial inclusion and payment choice</li>
+                        <li class="mb-2">Personal stories about the importance of cash access</li>
+                        <li class="mb-2">Expert analysis on policy and economic trends</li>
+                    </ul>
+
+                    <h4 class="fw-bold mt-5 mb-3">Submission Guidelines</h4>
+                    <ul class="text-muted fs-5 mb-4">
+                        <li class="mb-2">Articles should be between 800-2000 words</li>
+                        <li class="mb-2">Include a brief author bio (50-100 words)</li>
+                        <li class="mb-2">Provide high-quality images if available</li>
+                        <li class="mb-2">Cite all sources and statistics</li>
+                    </ul>
                 </div>
 
-                <!-- Big image -->
-                <div class="col-lg-7 col-md-12 mt-5 mt-lg-0">
-                    <img src="{% static 'images/about/msiion.jpeg' %}"
-                         class="img-fluid rounded-4 shadow-lg"
-                         alt="Our Mission"
-                         style="height: 500px; object-fit: cover; width: 100%;">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================
-         4. WHAT WE DO
-    ========================================== -->
-    <section class="section-bg py-5">
-        <div class="container py-4">
-            <div class="row align-items-end mb-5">
-                <div class="col-md-8">
-                    <h2 class="section-title fw-bold">What We Do</h2>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <p class="text-muted small mb-0">
-                        Our work spans research, advocacy,<br />and community engagement
-                    </p>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <!-- Research -->
-                <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <h4 class="fw-bold mb-0">Research</h4>
+                <!-- Editor Contact Card -->
+                <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0">
+                    <div class="card border-0 rounded-4 shadow-lg overflow-hidden">
+                        <div class="bg-dark-teal p-4 text-center">
+                            <h5 class="text-white fw-bold mb-0">Contact Our Editor</h5>
                         </div>
-                        <p class="text-muted">
-                            We conduct comprehensive research on cash usage patterns, economic impacts, and consumer preferences worldwide to inform policy and business decisions.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Advocacy -->
-                <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <h4 class="fw-bold mb-0">Advocacy</h4>
-                        </div>
-                        <p class="text-muted">
-                            We advocate for policies that protect payment choice and ensure that cash remains a fundamental component of modern economies.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Education -->
-                <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <h4 class="fw-bold mb-0">Education</h4>
-                        </div>
-                        <p class="text-muted">
-                            We educate businesses, policymakers, and consumers about the importance of cash and its role in creating inclusive financial systems.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================
-         5. WHY CASH MATTERS
-    ========================================== -->
-    <section class="py-5 bg-light">
-        <div class="container py-4">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <img src="{% static 'images/about/whycash.jpeg' %}" class="img-fluid rounded-4 shadow" alt="Why Cash Matters">
-                </div>
-                <div class="col-lg-6 offset-lg-1">
-                    <h2 class="fw-bold mb-4">Why Cash Matters</h2>
-                    <p class="text-muted fs-5 mb-4">
-                        Cash is more than just a payment method—it's a fundamental right and a critical component of a resilient economy. It provides:
-                    </p>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start">
-                                <div>
-                                    <h5 class="fw-bold">Financial Inclusion</h5>
-                                    <p class="text-muted small">Accessible to everyone, regardless of age, income, or technological literacy.</p>
-                                </div>
+                        <div class="card-body p-4 text-center">
+                            <!-- Editor Photo -->
+                            <div class="mb-4">
+                                <img src="{% static 'images/pius-editor.jpg' %}" 
+                                     alt="Pius - Editor" 
+                                     class="rounded-circle shadow"
+                                     style="width: 150px; height: 150px; object-fit: cover;"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=Pius&size=150&background=007d7e&color=fff&bold=true'">
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start">
-                                <div>
-                                    <h5 class="fw-bold">Privacy & Security</h5>
-                                    <p class="text-muted small">Protects personal data and provides transaction anonymity.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start">
-                                <div>
-                                    <h5 class="fw-bold">System Resilience</h5>
-                                    <p class="text-muted small">Works during power outages, network failures, and cyber attacks.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start">
-                                <div>
-                                    <h5 class="fw-bold">Budget Control</h5>
-                                    <p class="text-muted small">Helps with financial discipline and tangible spending awareness.</p>
-                                </div>
-                            </div>
+                            <h4 class="fw-bold mb-2">Pius</h4>
+                            <p class="text-muted mb-4">Editor</p>
+                            
+                            <!-- Email Link -->
+                            <a href="mailto:pius@cashmatters.org" 
+                               class="btn btn-mint fw-bold rounded-2 px-4 py-2 w-100">
+                                <i class="bi bi-envelope me-2"></i>
+                                pius@cashmatters.org
+                            </a>
+                            
+                            <p class="text-muted small mt-4 mb-0">
+                                Send your article submissions and inquiries directly to our editor.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -214,72 +142,60 @@
     </section>
 
     <!-- =========================================
-         6. OUR VALUES
+         4. WHY CONTRIBUTE
     ========================================== -->
     <section class="section-bg py-5">
         <div class="container py-4">
             <div class="text-center mb-5">
-                <h2 class="fw-bold mb-3">Our Values</h2>
+                <h2 class="fw-bold mb-3">Why Contribute?</h2>
                 <p class="text-muted fs-5">
-                    The principles that guide our work and advocacy
+                    Join our community of voices advocating for payment choice
                 </p>
             </div>
 
             <div class="row g-4">
-                <!-- Value 1: Inclusion -->
+                <!-- Benefit 1 -->
                 <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden">
-                        <!-- Image Container -->
-                        <div class="value-image-container" style="height: 200px; overflow: hidden;">
-                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=800"
-                                 class="w-100 h-100 object-fit-cover"
-                                 alt="Diverse hands holding coins together - Inclusion">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-mint rounded-circle p-3 me-3">
+                                <i class="bi bi-globe text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Global Reach</h4>
                         </div>
-                        <!-- Content -->
-                        <div class="p-4">
-                            <h4 class="fw-bold mb-3 text-dark-teal">Inclusion</h4>
-                            <p class="text-muted">
-                                We believe payment systems should serve everyone—from the elderly to the underbanked, from rural communities to urban centers. Cash ensures no one is left behind in our financial ecosystem.
-                            </p>
-                        </div>
+                        <p class="text-muted">
+                            Your article will reach our international audience of policymakers, researchers, and advocates across 50+ countries.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Value 2: Choice -->
+                <!-- Benefit 2 -->
                 <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden">
-                        <!-- Image Container -->
-                        <div class="value-image-container" style="height: 200px; overflow: hidden;">
-                            <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&q=80&w=1200"
-                                 class="w-100 h-100 object-fit-cover"
-                                 alt="Multiple payment options showing choice - Choice">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-mint rounded-circle p-3 me-3">
+                                <i class="bi bi-people text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Expert Community</h4>
                         </div>
-                        <!-- Content -->
-                        <div class="p-4">
-                            <h4 class="fw-bold mb-3 text-dark-teal">Choice</h4>
-                            <p class="text-muted">
-                                We advocate for consumer freedom—the right to choose how to pay without coercion or limitation by governments or corporations. Cash represents true payment sovereignty.
-                            </p>
-                        </div>
+                        <p class="text-muted">
+                            Join a network of economists, academics, and industry leaders who contribute to the global conversation on cash.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Value 3: Resilience -->
+                <!-- Benefit 3 -->
                 <div class="col-lg-4">
-                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden">
-                        <!-- Image Container -->
-                        <div class="value-image-container" style="height: 200px; overflow: hidden;">
-                            <img src="{% static 'images/about/resilience.jpeg' %}"
-                                 class="w-100 h-100 object-fit-cover"
-                                 alt="Cash working during power outage - Resilience">
+                    <div class="card h-100 border-0 bg-white rounded-4 shadow-sm p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-mint rounded-circle p-3 me-3">
+                                <i class="bi bi-megaphone text-white fs-4"></i>
+                            </div>
+                            <h4 class="fw-bold mb-0">Make an Impact</h4>
                         </div>
-                        <!-- Content -->
-                        <div class="p-4">
-                            <h4 class="fw-bold mb-3 text-dark-teal">Resilience</h4>
-                            <p class="text-muted">
-                                We champion robust payment systems that work in all circumstances—during emergencies, infrastructure failures, and economic crises. Cash is the ultimate backup system.
-                            </p>
-                        </div>
+                        <p class="text-muted">
+                            Help shape the narrative around payment choice and contribute to meaningful policy discussions worldwide.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -287,73 +203,20 @@
     </section>
 
     <!-- =========================================
-         7. OUR IMPACT
-    ========================================== -->
-    <section class="section-bg py-5">
-        <div class="container py-4">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold mb-3">Our Impact</h2>
-                <p class="text-muted fs-5">
-                    Making a difference in communities around the world
-                </p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Impact Stat 1 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="text-center">
-                        <h3 class="display-4 fw-bold text-stat-blue mb-2">50+</h3>
-                        <p class="text-muted fw-bold">Countries Reached</p>
-                        <p class="small text-muted">Our research and advocacy spans continents</p>
-                    </div>
-                </div>
-
-                <!-- Impact Stat 2 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="text-center">
-                        <h3 class="display-4 fw-bold text-stat-teal mb-2">2M+</h3>
-                        <p class="text-muted fw-bold">People Informed</p>
-                        <p class="small text-muted">Through our educational campaigns</p>
-                    </div>
-                </div>
-
-                <!-- Impact Stat 3 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="text-center">
-                        <h3 class="display-4 fw-bold text-stat-yellow mb-2">100+</h3>
-                        <p class="text-muted fw-bold">Policy Changes</p>
-                        <p class="small text-muted">Influenced by our advocacy work</p>
-                    </div>
-                </div>
-
-                <!-- Impact Stat 4 -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="text-center">
-                        <h3 class="display-4 fw-bold text-stat-rust mb-2">500+</h3>
-                        <p class="text-muted fw-bold">Partner Organizations</p>
-                        <p class="small text-muted">Working together for payment choice</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================
-         8. SUPPORT CTA
+         5. CTA SECTION
     ========================================== -->
     <section class="support-section text-white overflow-hidden">
         <div class="container-fluid p-0">
-            <!-- Fluid container to allow image to touch edge -->
             <div class="row g-0 align-items-center">
                 <!-- Text Content (Left) -->
                 <div class="col-lg-5 py-5">
                     <div class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto" style="max-width: 650px">
-                        <h2 class="fw-bold mb-4 display-5">Join Our Movement</h2>
+                        <h2 class="fw-bold mb-4 display-5">Ready to Contribute?</h2>
                         <p class="mb-5 lead opacity-90 fw-light">
-                            Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
+                            We're excited to read your submission. Send your article or pitch directly to our editor and join the conversation.
                         </p>
-                        <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+                        <a href="mailto:pius@cashmatters.org" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+                            <i class="bi bi-envelope me-2"></i> Email pius@cashmatters.org
                         </a>
                     </div>
                 </div>
@@ -361,7 +224,7 @@
                 <!-- Curved Image (Right) -->
                 <div class="col-lg-7 h-100 position-relative">
                     <div class="curved-mask-wrapper h-100">
-                        <img src="{% static 'images/about/foot.jpeg' %}" class="w-100 h-100 object-fit-cover" alt="Hands holding coins">
+                        <img src="{% static 'images/about/foot.jpeg' %}" class="w-100 h-100 object-fit-cover" alt="Writing and contribution">
                     </div>
                 </div>
             </div>
@@ -369,7 +232,7 @@
     </section>
 
     <!-- =========================================
-         9. FOOTER
+         6. FOOTER
     ========================================== -->
     <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
@@ -494,3 +357,4 @@
     </script>
 </body>
 </html>
+
