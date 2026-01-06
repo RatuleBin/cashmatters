@@ -221,6 +221,11 @@ def about(request):
     return render(request, 'about.html')
 
 
+def privacy(request):
+    """Serve the privacy policy page"""
+    return render(request, 'privacy.html')
+
+
 def create_blog_page(request):
     """Redirect to Wagtail admin for creating blog posts with clean URL"""
     from blog.models import BlogIndexPage
@@ -463,6 +468,7 @@ urlpatterns = [
     path("", index, name="index"),  # Root URL serves the homepage
     path("news/", news, name="news"),  # News page
     path("about/", about, name="about"),  # About page
+    path("privacy/", privacy, name="privacy"),  # Privacy Policy page
     path("support/", support, name="support"),  # Support page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
