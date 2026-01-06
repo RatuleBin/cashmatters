@@ -465,3 +465,229 @@ body {
         margin-bottom: 3rem !important; /* Less gap on mobile */
     }
 }
+
+
+/* =========================================
+   8. ABOUT PAGE - WHY CASH MATTERS SECTION
+   ========================================= */
+
+/* Readable text for Why Cash Matters feature boxes */
+.why-cash-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .why-cash-text {
+        font-size: 1.05rem;
+    }
+}
+
+
+/* =========================================
+   9. ABOUT PAGE - TEAM SECTION
+   ========================================= */
+
+.team-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Team card with modern glassmorphism effect */
+.team-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--brand-mint), #2CB1FF, var(--brand-mint));
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.team-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(0, 31, 41, 0.15);
+}
+
+/* Team member photo */
+.team-photo-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+}
+
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 30px rgba(0, 31, 41, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-card:hover .team-photo {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(76, 209, 194, 0.25);
+}
+
+/* Photo decorative ring */
+.team-photo-ring {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px dashed var(--brand-mint);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.4s ease;
+    animation: rotate 20s linear infinite paused;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.team-card:hover .team-photo-ring {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+/* Team member info */
+.team-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.25rem;
+}
+
+.team-role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-mint);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.team-bio {
+    color: #6c757d;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+}
+
+/* LinkedIn button with animation */
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-linkedin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-linkedin:hover::before {
+    left: 100%;
+}
+
+.btn-linkedin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 119, 181, 0.35);
+    color: #fff;
+}
+
+.btn-linkedin svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-linkedin:hover svg {
+    transform: scale(1.1);
+}
+
+/* Section heading animation */
+.team-section-title {
+    position: relative;
+    display: inline-block;
+}
+
+.team-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--brand-mint);
+    border-radius: 2px;
+}
+
+/* Fade-in animation for cards */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .team-photo-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .team-name {
+        font-size: 1.3rem;
+    }
+    
+    .team-bio {
+        font-size: 0.95rem;
+    }
+}
