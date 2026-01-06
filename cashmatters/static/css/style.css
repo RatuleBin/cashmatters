@@ -9,6 +9,8 @@
     --brand-yellow: #F0E66A; 
     --brand-footer: #3bc5ac;
     --brand-blue-line: #0099CC;
+    --font-header: 'Josefin Sans', 'Avant Garde', 'Century Gothic', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 html, body {
@@ -21,10 +23,94 @@ html, body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   HEADER / NAVIGATION STYLES (Global)
+   ========================================= */
+
+/* Header Font - ITC Avant Garde Gothic Alternative */
+.navbar,
+.navbar *,
+.main-navigation,
+.main-navigation * {
+    font-family: var(--font-header);
+}
+
+.navbar .nav-link,
+.nav-item > a {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modern hover animations for menu items */
+.navbar .nav-link::before,
+.nav-item > a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-mint), #8de4af);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+}
+
+.navbar .nav-link:hover::before,
+.navbar .nav-link.active::before,
+.nav-item > a:hover::before,
+.nav-item.active > a::before {
+    width: 100%;
+}
+
+.navbar .nav-link:hover,
+.nav-item > a:hover {
+    color: var(--brand-mint) !important;
+    transform: translateY(-2px);
+}
+
+/* Search button animation */
+.search-trigger {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.search-trigger:hover {
+    color: var(--brand-mint) !important;
+    transform: scale(1.15);
+}
+
+/* Support Cash CTA Button */
+.btn-support-cash {
+    background: linear-gradient(135deg, var(--brand-mint) 0%, var(--brand-mint-hover) 100%);
+    color: #002e26 !important;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.btn-support-cash:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+    background: linear-gradient(135deg, #5ce0cf 0%, var(--brand-mint) 100%);
+    color: #002e26 !important;
 }
 
 .bg-light-cream, .section-bg {
