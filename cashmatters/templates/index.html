@@ -449,15 +449,15 @@
                   watches...
                 </p>
 
-                <div
-                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
-                >
-                  <span class="fw-bold small text-dark">8,236 downloads</span>
-                  <a
-                    href="#"
-                    class="text-mint fw-bold text-decoration-none small"
-                  >
-                    Download PDF <i class="bi bi-download ms-1"></i>
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-1')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
                   </a>
                 </div>
               </div>
@@ -505,15 +505,15 @@
                   watches...
                 </p>
 
-                <div
-                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
-                >
-                  <span class="fw-bold small text-dark">8,236 downloads</span>
-                  <a
-                    href="#"
-                    class="text-mint fw-bold text-decoration-none small"
-                  >
-                    Download PDF <i class="bi bi-download ms-1"></i>
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-2')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
                   </a>
                 </div>
               </div>
@@ -523,7 +523,7 @@
       </div>
     </section>
 
-    <section class="section-bg py-5">
+    <section id="key-facts" class="section-bg py-5">
       <div class="container">
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-end mb-5">
@@ -555,12 +555,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-chile', 'Cash used for 22% of POS payments in Chile')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -588,12 +588,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-poland', 'Cash used for 32% of POS payments in Poland')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -630,12 +630,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-norway', 'Cash used for 09% of POS payments in Norway')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
             </div>
@@ -656,12 +656,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-spain', 'Cash used for 33% of POS payments in Spain')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -1174,6 +1174,199 @@
           console.error('Podcast video loading error:', e);
           alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
         });
+      }
+
+      // =========================================
+      // DOWNLOAD, SHARE, AND PRINT FUNCTIONALITY
+      // =========================================
+
+      // Download Report - Shows notification that PDF will be available
+      function downloadReport(event, title) {
+        event.preventDefault();
+        showNotification('Download Started', 'The PDF for "' + title + '" is being prepared. Full download functionality will be available when reports are uploaded to the system.');
+      }
+
+      // Share Report - Uses Web Share API with fallback to modal
+      function shareReport(event, title, url) {
+        event.preventDefault();
+        
+        const shareData = {
+          title: title + ' - Cash Matters',
+          text: 'Check out this research from Cash Matters: ' + title,
+          url: url
+        };
+
+        // Try Web Share API first (mobile-friendly)
+        if (navigator.share) {
+          navigator.share(shareData)
+            .catch((err) => {
+              if (err.name !== 'AbortError') {
+                showShareModal(title, url);
+              }
+            });
+        } else {
+          // Fallback to custom share modal
+          showShareModal(title, url);
+        }
+      }
+
+      // Print Report - Opens print dialog for the card
+      function printReport(event, cardId) {
+        event.preventDefault();
+        showNotification('Print', 'Print functionality allows you to print report details. For full print support, please view the complete report page.');
+        window.print();
+      }
+
+      // Download Key Fact - Downloads fact as image or shows notification
+      function downloadKeyFact(event, factId, title) {
+        event.preventDefault();
+        showNotification('Download Fact Card', 'The fact card "' + title + '" will be downloaded as an image. Full download functionality available on the Key Facts page.');
+      }
+
+      // Share Key Fact - Uses Web Share API with fallback
+      function shareKeyFact(event, title, url) {
+        event.preventDefault();
+        
+        const shareData = {
+          title: 'Cash Matters Key Fact',
+          text: title + ' - Learn more at Cash Matters',
+          url: url
+        };
+
+        if (navigator.share) {
+          navigator.share(shareData)
+            .catch((err) => {
+              if (err.name !== 'AbortError') {
+                showShareModal(title, url);
+              }
+            });
+        } else {
+          showShareModal(title, url);
+        }
+      }
+
+      // Show share modal with social media options
+      function showShareModal(title, url) {
+        const encodedUrl = encodeURIComponent(url);
+        const encodedTitle = encodeURIComponent(title + ' - Cash Matters');
+        const encodedText = encodeURIComponent('Check out this resource from Cash Matters: ' + title);
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'share-modal';
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999;';
+
+        modal.innerHTML = `
+          <div style="background: white; border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%; text-align: center;">
+            <h4 style="margin-bottom: 1.5rem; color: #1f2937;">Share this resource</h4>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" 
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #000; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-twitter-x" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #0077b5; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #25d366; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i>
+              </a>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <input type="text" value="${url}" readonly 
+                     style="width: 100%; padding: 0.5rem; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.875rem;"
+                     onclick="this.select();">
+            </div>
+            <button onclick="copyToClipboard('${url}', this)" 
+                    style="background: #007d7e; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500;">
+              <i class="bi bi-clipboard me-1"></i> Copy Link
+            </button>
+            <button onclick="this.closest('.share-modal').remove()" 
+                    style="background: #e5e7eb; color: #374151; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-left: 0.5rem;">
+              Close
+            </button>
+          </div>
+        `;
+
+        // Close on backdrop click
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            modal.remove();
+          }
+        });
+
+        document.body.appendChild(modal);
+      }
+
+      // Copy to clipboard function
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(function() {
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="bi bi-check me-1"></i> Copied!';
+          button.style.background = '#10b981';
+          setTimeout(function() {
+            button.innerHTML = originalHTML;
+            button.style.background = '#007d7e';
+          }, 2000);
+        }).catch(function(err) {
+          console.error('Failed to copy: ', err);
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          button.innerHTML = '<i class="bi bi-check me-1"></i> Copied!';
+        });
+      }
+
+      // Show notification toast
+      function showNotification(title, message) {
+        // Remove any existing notifications
+        const existing = document.querySelector('.cm-notification');
+        if (existing) existing.remove();
+
+        const notification = document.createElement('div');
+        notification.className = 'cm-notification';
+        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: white; border-radius: 12px; padding: 1.5rem; max-width: 350px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 9999; animation: slideIn 0.3s ease-out;';
+        notification.innerHTML = `
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #007d7e; color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <i class="bi bi-info-circle" style="font-size: 1.2rem;"></i>
+            </div>
+            <div style="flex: 1;">
+              <h5 style="margin: 0 0 0.5rem 0; font-weight: 600; color: #1f2937;">${title}</h5>
+              <p style="margin: 0; font-size: 0.875rem; color: #6b7280; line-height: 1.5;">${message}</p>
+            </div>
+            <button onclick="this.closest('.cm-notification').remove()" style="background: none; border: none; color: #9ca3af; cursor: pointer; font-size: 1.25rem; padding: 0; line-height: 1;">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        `;
+
+        // Add animation keyframes
+        if (!document.querySelector('#cm-notification-styles')) {
+          const style = document.createElement('style');
+          style.id = 'cm-notification-styles';
+          style.textContent = '@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }';
+          document.head.appendChild(style);
+        }
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(function() {
+          if (notification.parentNode) {
+            notification.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => notification.remove(), 300);
+          }
+        }, 5000);
       }
     </script>
   </body>
