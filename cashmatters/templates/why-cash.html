@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 {% load static wagtailcore_tags wagtailimages_tags %}
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why Cash Matters</title>
-    <!-- Favicon -->
+    <!-- Favicon - Teal "C" for better visibility -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
     <!-- Bootstrap 5.3 CSS -->
@@ -17,166 +18,91 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- Facts Styles -->
+    <!-- Why Cash Page Styles -->
     <style>
-        .facts-section {
-            margin-top: 3rem;
-            margin-bottom: 3rem;
+        /* Compact feature cards */
+        .feature-icon-card {
+            min-height: 200px !important;
+            padding: 1.5rem !important;
+        }
+        
+        .feature-icon-card h4 {
+            font-size: 1rem !important;
+            line-height: 1.4;
         }
 
-        .facts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        /* Custom SVG icons */
+        .custom-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 1rem;
+            opacity: 0.95;
         }
-
-        .fact-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 300px;
-            cursor: pointer;
-        }
-
-        .fact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .fact-background {
-            position: absolute;
-            top: 0;
-            left: 0;
+        
+        .custom-icon svg {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .fact-overlay {
-            position: relative;
-            z-index: 2;
-            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-            padding: 2rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-
-        .fact-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1rem;
-            filter: brightness(0) invert(1);
-        }
-
-        .fact-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .fact-sector {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .fact-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            z-index: 3;
-        }
-
-        .fact-card:hover .fact-content {
-            transform: translateY(0);
-        }
-
-        .fact-text {
-            margin-bottom: 1rem;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .fact-reveal {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .fact-reveal-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #43b1b0;
-        }
-
-        .fact-reveal-text {
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .fact-reveal-toggle {
-            background: #43b1b0;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        .fact-reveal-toggle:hover {
-            background: #3a9695;
-        }
-
-        .hidden {
-            display: none;
+            fill: currentColor;
         }
 
         /* Feature image container styling */
         .feature-img-container {
-            width: 120% !important;
+            flex: 0 0 240px;
+            width: 240px;
+            min-height: 200px;
             position: relative;
             overflow: hidden;
         }
 
         .feature-img-container img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
-
-        /* Color themes */
-        .color-blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .color-red { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .color-green { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .color-purple { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
-        .color-orange { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        
+        /* Compact content card */
+        .feature-content-card .p-5 {
+            padding: 1.5rem !important;
+        }
+        
+        .feature-content-card h3 {
+            font-size: 1.25rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        
+        .feature-content-card p {
+            font-size: 0.9rem !important;
+            line-height: 1.5 !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        /* Reduce spacing between rows */
+        .feature-row {
+            margin-bottom: 1.5rem !important;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 991px) {
+            .feature-icon-card {
+                min-height: 140px !important;
+            }
+            
+            .feature-img-container {
+                flex: 0 0 100%;
+                width: 100%;
+                height: 180px;
+                min-height: 180px;
+            }
+        }
     </style>
 </head>
 <body class="bg-light-cream">
 
     <!-- =========================================
-         1. HEADER (Fixed Dark)
+         1. HEADER & HERO
     ========================================== -->
-    <div class="header-wrapper">
+    <div class="hero-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
@@ -195,46 +121,78 @@
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger"><i class="bi bi-search fs-5"></i></button>
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
                     <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
                 </div>
             </div>
         </nav>
-    </div>
 
-    <!-- =========================================
-         2. HERO SECTION
-    ========================================== -->
-    <section class="hero-wrapper pt-5 pb-5">
-        <div class="container pt-4 pb-5">
-            <div class="row">
-                <!-- Headline -->
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h1 class="display-4 fw-bold text-white lh-1">
-                        {{ page.title|default:"Why Cash Matters" }}
-                    </h1>
-                </div>
-                <!-- Text Content -->
-                <div class="col-lg-8">
-                    <p class="text-white opacity-90 lead fw-light mb-4">
-                        {{ page.intro|default:"New technologies are changing the way we pay..." }}
-                    </p>
-                    <div class="text-white opacity-90 fw-light small">
-                        {{ page.page_header|richtext|default:"Because cash is resilient..." }}
-                    </div>
-                    <div class="d-flex align-items-center gap-4 mt-4 text-white small opacity-75">
-                        <span><i class="bi bi-share me-2"></i> Share</span>
-                        <span><i class="bi bi-clock me-2"></i> {{ page.date|date:"M d, Y"|default:"Nov 24, 2025" }}</span>
-                    </div>
-                </div>
+      <section class="hero-content position-relative pb-5">
+        <div class="container">
+          <div class="row pt-5 pb-4">
+            <div class="col-lg-6 pt-3">
+              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
+                Cash is simple,<br />safe, and
+                <span class="text-mint">for<br />everyone</span>
+              </h1>
             </div>
+            <div
+              class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
+            >
+              <p class="hero-desc text-white mb-4">
+                Research, reporting, and resources that show why physical cash
+                remains essential around the world.
+              </p>
+              <div>
+                <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                  Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Section (No overlap for Why Cash page) -->
+          <div class="why-cash-video-container mb-4">
+            <div
+              class="video-card position-relative w-100 rounded-4 overflow-hidden"
+            >
+              <video
+                id="hero-video"
+                class="img-fluid w-100"
+                loop
+                playsinline
+                preload="auto"
+                controls
+              >
+                <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="play-btn-wrapper">
+                <button id="play-btn" class="btn-play">
+                  <i class="bi bi-play-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
+    </div>
 
     <!-- =========================================
          3. MAIN CONTENT SECTION
     ========================================== -->
-    <section class="py-5">
-        <div class="container py-4">
+    <section class="py-4">
+        <div class="container py-2">
 
             {% if page and page.body %}
                 <!-- Dynamic content from StreamField -->
@@ -277,223 +235,275 @@
 
             <!-- Facts Section - Dynamic feature cards -->
             {% if page and page.facts %}
-            <section class="py-5">
-                <div class="container py-4">
+            <section class="py-3">
+                <div class="container">
                     {% for fact_block in page.facts %}
                         {% if forloop.counter == 1 %}
                         <!-- ROW 1: BLUE (Freedom) -->
-                        <div class="row g-4 mb-5 feature-row">
+                        <div class="row g-3 feature-row">
                             <!-- Icon Card (Left) -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-blue h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                    {% if fact_block.value.icon %}
-                                        {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
-                                    {% else %}
-                                        <i class="bi bi-send feature-icon mb-3"></i>
-                                    {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
+                                <div class="feature-icon-card bg-feature-blue h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                    <!-- Custom Freedom/Independence SVG Icon -->
+                                    <div class="custom-icon">
+                                        <svg viewBox="0 0 64 64" fill="currentColor">
+                                            <path d="M58 14c-4-3-9-2-12 1l-8 8c-2 2-5 2-7 0l-8-8c-3-3-8-4-12-1-5 4-5 11-1 15l20 22c2 2 5 2 7 0l20-22c4-4 4-11-1-15z"/>
+                                            <path d="M32 8V4M32 4l-4 4M32 4l4 4" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="fw-bold">{{ fact_block.value.related_sector|default:"Freedom & Independence" }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card (Right) -->
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                                    <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
-                                        <p class="text-muted small mb-4">
-                                            {{ fact_block.value.text }}
-                                        </p>
-                                        {% if fact_block.value.reveal_title or fact_block.value.reveal_text %}
-                                        <div class="fact-reveal hidden mb-3" id="reveal-{{ forloop.counter }}">
-                                            {% if fact_block.value.reveal_title %}
-                                            <h4 class="fact-reveal-title">{{ fact_block.value.reveal_title }}</h4>
-                                            {% endif %}
-                                            {% if fact_block.value.reveal_text %}
-                                            <p class="fact-reveal-text">{{ fact_block.value.reveal_text }}</p>
-                                            {% endif %}
-                                        </div>
-                                        <button class="btn btn-outline-mint btn-sm px-3 fw-bold mb-3" onclick="toggleReveal({{ forloop.counter }})">
-                                            Reveal More
-                                        </button>
-                                        {% endif %}
-                                        <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                            <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                            <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                        <h3 class="fw-bold">{{ fact_block.value.title|default:"Cash guarantees personal freedom" }}</h3>
+                                        <p class="text-muted">{{ fact_block.value.text|default:"Cash is the only payment method that functions independently without third party involvement. It provides protection against intrusion and ensures personal independence."|truncatewords:35 }}</p>
+                                        <div class="d-flex align-items-center gap-3 mt-auto">
+                                            <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                            <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
                                         </div>
                                     </div>
-                                    {% if fact_block.value.background_image %}
                                     <div class="feature-img-container">
-                                        {% image fact_block.value.background_image fill-400x300 as bg_img %}
-                                        <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="w-100 h-100 object-fit-cover">
-                                    {% else %}
-                                    <div class="feature-img-container">
-                                        <img src="https://images.unsplash.com/photo-1534068590799-09895a701e3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Woman with cash">
+                                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Financial freedom">
                                     </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                         {% elif forloop.counter == 2 %}
                         <!-- ROW 2: RED (Democratic) -->
-                        <div class="row g-4 mb-5 feature-row">
+                        <div class="row g-3 feature-row">
                             <!-- Icon Card -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-red h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                    {% if fact_block.value.icon %}
-                                        {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
-                                    {% else %}
-                                        <i class="bi bi-bank feature-icon mb-3"></i>
-                                    {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
+                                <div class="feature-icon-card bg-feature-red h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                    <!-- Custom Scales/Balance SVG Icon (Democratic) -->
+                                    <div class="custom-icon">
+                                        <svg viewBox="0 0 64 64" fill="currentColor">
+                                            <circle cx="32" cy="12" r="8"/>
+                                            <circle cx="12" cy="32" r="6"/>
+                                            <circle cx="52" cy="32" r="6"/>
+                                            <circle cx="32" cy="52" r="6"/>
+                                            <rect x="30" y="18" width="4" height="28" rx="2"/>
+                                            <rect x="16" y="30" width="32" height="4" rx="2"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="fw-bold">{{ fact_block.value.related_sector|default:"Democratic Payment" }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                                    <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
-                                        <p class="text-muted small mb-4">
-                                            {{ fact_block.value.text }}
-                                        </p>
-                                        {% if fact_block.value.reveal_title or fact_block.value.reveal_text %}
-                                        <div class="fact-reveal hidden mb-3" id="reveal-{{ forloop.counter }}">
-                                            {% if fact_block.value.reveal_title %}
-                                            <h4 class="fact-reveal-title">{{ fact_block.value.reveal_title }}</h4>
-                                            {% endif %}
-                                            {% if fact_block.value.reveal_text %}
-                                            <p class="fact-reveal-text">{{ fact_block.value.reveal_text }}</p>
-                                            {% endif %}
-                                        </div>
-                                        <button class="btn btn-outline-mint btn-sm px-3 fw-bold mb-3" onclick="toggleReveal({{ forloop.counter }})">
-                                            Reveal More
-                                        </button>
-                                        {% endif %}
-                                        <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                            <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                            <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                        <h3 class="fw-bold">{{ fact_block.value.title|default:"Cash is available to everyone" }}</h3>
+                                        <p class="text-muted">{{ fact_block.value.text|default:"Cash is the only form of payment with no threshold to its use. No bank account, credit rating, or internet access is needed when paying with cash."|truncatewords:35 }}</p>
+                                        <div class="d-flex align-items-center gap-3 mt-auto">
+                                            <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                            <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
                                         </div>
                                     </div>
-                                    {% if fact_block.value.background_image %}
                                     <div class="feature-img-container">
-                                        {% image fact_block.value.background_image fill-400x300 as bg_img %}
-                                        <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="w-100 h-100 object-fit-cover">
-                                    {% else %}
-                                    <div class="feature-img-container">
-                                        <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Buying fruit">
+                                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Shopping with cash">
                                     </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                         {% elif forloop.counter == 3 %}
-                        <!-- ROW 3: PURPLE (Privacy) -->
-                        <div class="row g-4 mb-5 feature-row">
+                        <!-- ROW 3: ORANGE (Lifeline/Inclusion) -->
+                        <div class="row g-3 feature-row">
                             <!-- Icon Card -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-orange h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                    {% if fact_block.value.icon %}
-                                        {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
-                                    {% else %}
-                                        <i class="bi bi-bank feature-icon mb-3"></i>
-                                    {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
+                                <div class="feature-icon-card bg-feature-orange h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                    <!-- Custom Hands/Lifeline SVG Icon -->
+                                    <div class="custom-icon">
+                                        <svg viewBox="0 0 64 64" fill="currentColor">
+                                            <path d="M32 8c-6 0-11 5-11 11 0 4 2 7 5 9v26c0 3 3 6 6 6s6-3 6-6V28c3-2 5-5 5-9 0-6-5-11-11-11z"/>
+                                            <path d="M16 24c-4 0-7 3-7 7v15c0 4 3 7 7 7h4V24h-4z" opacity="0.7"/>
+                                            <path d="M48 24h-4v29h4c4 0 7-3 7-7V31c0-4-3-7-7-7z" opacity="0.7"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="fw-bold">{{ fact_block.value.related_sector|default:"Financial Inclusion" }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                                    <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
-                                        <p class="text-muted small mb-4">
-                                            {{ fact_block.value.text }}
-                                        </p>
-                                        {% if fact_block.value.reveal_title or fact_block.value.reveal_text %}
-                                        <div class="fact-reveal hidden mb-3" id="reveal-{{ forloop.counter }}">
-                                            {% if fact_block.value.reveal_title %}
-                                            <h4 class="fact-reveal-title">{{ fact_block.value.reveal_title }}</h4>
-                                            {% endif %}
-                                            {% if fact_block.value.reveal_text %}
-                                            <p class="fact-reveal-text">{{ fact_block.value.reveal_text }}</p>
-                                            {% endif %}
-                                        </div>
-                                        <button class="btn btn-outline-mint btn-sm px-3 fw-bold mb-3" onclick="toggleReveal({{ forloop.counter }})">
-                                            Reveal More
-                                        </button>
-                                        {% endif %}
-                                        <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                            <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                            <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                        <h3 class="fw-bold">{{ fact_block.value.title|default:"Cash is a lifeline for millions" }}</h3>
+                                        <p class="text-muted">{{ fact_block.value.text|default:"Over 1.6 billion unbanked or underbanked people worldwide depend on cash to meet their daily needs. Cash ensures no one is excluded from the economy."|truncatewords:35 }}</p>
+                                        <div class="d-flex align-items-center gap-3 mt-auto">
+                                            <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                            <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
                                         </div>
                                     </div>
-                                    {% if fact_block.value.background_image %}
                                     <div class="feature-img-container">
-                                        {% image fact_block.value.background_image fill-400x300 as bg_img %}
-                                        <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="w-100 h-100 object-fit-cover">
-                                    {% else %}
-                                    <div class="feature-img-container">
-                                        <img src="https://images.unsplash.com/photo-1534068590799-09895a701e3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Woman shopping">
+                                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Community support">
                                     </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                         {% elif forloop.counter == 4 %}
-                        <!-- ROW 4: ORANGE/BROWN (Safety) -->
-                        <div class="row g-4 mb-5 feature-row">
+                        <!-- ROW 4: PURPLE (Safety) -->
+                        <div class="row g-3 feature-row">
                             <!-- Icon Card -->
                             <div class="col-lg-3 col-md-12">
-                                <div class="feature-icon-card bg-feature-purple h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
-                                    {% if fact_block.value.icon %}
-                                        {% image fact_block.value.icon fill-60x60 as icon_img %}
-                                        <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="feature-icon mb-3" style="width: 72px; height: 72px; object-fit: contain;">
-                                    {% else %}
-                                        <i class="bi bi-bank feature-icon mb-3"></i>
-                                    {% endif %}
-                                    <h4 class="fw-bold fs-5">{{ fact_block.value.related_sector }}</h4>
+                                <div class="feature-icon-card bg-feature-purple h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                    <!-- Custom Shield/Safety SVG Icon -->
+                                    <div class="custom-icon">
+                                        <svg viewBox="0 0 64 64" fill="currentColor">
+                                            <path d="M32 4L8 14v18c0 16 24 28 24 28s24-12 24-28V14L32 4z"/>
+                                            <path d="M28 32l6 6 12-12" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="fw-bold">{{ fact_block.value.related_sector|default:"Safe & Secure" }}</h4>
                                 </div>
                             </div>
                             <!-- Content Card -->
                             <div class="col-lg-9 col-md-12">
                                 <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
-                                    <div class="p-5 flex-grow-1">
-                                        <h3 class="fw-bold mb-3">{{ fact_block.value.title }}</h3>
-                                        <p class="text-muted small mb-4">
-                                            {{ fact_block.value.text }}
-                                        </p>
-                                        {% if fact_block.value.reveal_title or fact_block.value.reveal_text %}
-                                        <div class="fact-reveal hidden mb-3" id="reveal-{{ forloop.counter }}">
-                                            {% if fact_block.value.reveal_title %}
-                                            <h4 class="fact-reveal-title">{{ fact_block.value.reveal_title }}</h4>
-                                            {% endif %}
-                                            {% if fact_block.value.reveal_text %}
-                                            <p class="fact-reveal-text">{{ fact_block.value.reveal_text }}</p>
-                                            {% endif %}
-                                        </div>
-                                        <button class="btn btn-outline-mint btn-sm px-3 fw-bold mb-3" onclick="toggleReveal({{ forloop.counter }})">
-                                            Reveal More
-                                        </button>
-                                        {% endif %}
-                                        <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
-                                            <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
-                                            <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                        <h3 class="fw-bold">{{ fact_block.value.title|default:"Cash is safe and reliable" }}</h3>
+                                        <p class="text-muted">{{ fact_block.value.text|default:"Medical experts and central banks confirm that cash is a safe means of payment. It works during power outages, network failures, and in times of crisis."|truncatewords:35 }}</p>
+                                        <div class="d-flex align-items-center gap-3 mt-auto">
+                                            <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                            <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
                                         </div>
                                     </div>
-                                    {% if fact_block.value.background_image %}
                                     <div class="feature-img-container">
-                                        {% image fact_block.value.background_image fill-400x300 as bg_img %}
-                                        <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="w-100 h-100 object-fit-cover">
-                                    {% else %}
-                                    <div class="feature-img-container">
-                                        <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Couple shopping">
+                                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Secure transactions">
                                     </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                         {% endif %}
                     {% endfor %}
+                </div>
+            </section>
+            {% else %}
+            <!-- Static Fallback Cards (when no CMS facts available) -->
+            <section class="py-3">
+                <div class="container">
+                    <!-- ROW 1: Freedom -->
+                    <div class="row g-3 feature-row">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="feature-icon-card bg-feature-blue h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="custom-icon">
+                                    <svg viewBox="0 0 64 64" fill="currentColor">
+                                        <path d="M58 14c-4-3-9-2-12 1l-8 8c-2 2-5 2-7 0l-8-8c-3-3-8-4-12-1-5 4-5 11-1 15l20 22c2 2 5 2 7 0l20-22c4-4 4-11-1-15z"/>
+                                        <path d="M32 8V4M32 4l-4 4M32 4l4 4" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-bold">Freedom & Independence</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
+                                <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                    <h3 class="fw-bold">Only cash can be used without any intermediary</h3>
+                                    <p class="text-muted">Cash is the only payment method that functions independently without third party involvement. It provides protection and ensures personal independence.</p>
+                                    <div class="d-flex align-items-center gap-3 mt-auto">
+                                        <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                        <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    </div>
+                                </div>
+                                <div class="feature-img-container">
+                                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Financial freedom">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW 2: Democratic -->
+                    <div class="row g-3 feature-row">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="feature-icon-card bg-feature-red h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="custom-icon">
+                                    <svg viewBox="0 0 64 64" fill="currentColor">
+                                        <circle cx="32" cy="12" r="8"/>
+                                        <circle cx="12" cy="32" r="6"/>
+                                        <circle cx="52" cy="32" r="6"/>
+                                        <circle cx="32" cy="52" r="6"/>
+                                        <rect x="30" y="18" width="4" height="28" rx="2"/>
+                                        <rect x="16" y="30" width="32" height="4" rx="2"/>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-bold">Democratic Payment</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
+                                <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                    <h3 class="fw-bold">Cash is available to everyone, without exception</h3>
+                                    <p class="text-muted">Cash is the only form of payment with no threshold to its use. No bank account, credit rating, or internet access is needed when paying with cash.</p>
+                                    <div class="d-flex align-items-center gap-3 mt-auto">
+                                        <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                        <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    </div>
+                                </div>
+                                <div class="feature-img-container">
+                                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Shopping with cash">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW 3: Inclusion -->
+                    <div class="row g-3 feature-row">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="feature-icon-card bg-feature-orange h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="custom-icon">
+                                    <svg viewBox="0 0 64 64" fill="currentColor">
+                                        <path d="M32 8c-6 0-11 5-11 11 0 4 2 7 5 9v26c0 3 3 6 6 6s6-3 6-6V28c3-2 5-5 5-9 0-6-5-11-11-11z"/>
+                                        <path d="M16 24c-4 0-7 3-7 7v15c0 4 3 7 7 7h4V24h-4z" opacity="0.7"/>
+                                        <path d="M48 24h-4v29h4c4 0 7-3 7-7V31c0-4-3-7-7-7z" opacity="0.7"/>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-bold">Financial Inclusion</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
+                                <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                    <h3 class="fw-bold">Cash is a lifeline for many people</h3>
+                                    <p class="text-muted">Over 1.6 billion unbanked or underbanked people worldwide depend on cash to meet their daily needs. Cash ensures no one is excluded.</p>
+                                    <div class="d-flex align-items-center gap-3 mt-auto">
+                                        <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                        <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    </div>
+                                </div>
+                                <div class="feature-img-container">
+                                    <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Community support">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW 4: Safety -->
+                    <div class="row g-3 feature-row">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="feature-icon-card bg-feature-purple h-100 rounded-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+                                <div class="custom-icon">
+                                    <svg viewBox="0 0 64 64" fill="currentColor">
+                                        <path d="M32 4L8 14v18c0 16 24 28 24 28s24-12 24-28V14L32 4z"/>
+                                        <path d="M28 32l6 6 12-12" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <h4 class="fw-bold">Safe & Secure</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
+                                <div class="p-5 flex-grow-1 d-flex flex-column justify-content-center">
+                                    <h3 class="fw-bold">Cash is safe and works in any crisis</h3>
+                                    <p class="text-muted">Medical experts and central banks confirm that cash is safe. It works during power outages, network failures, and in times of crisis.</p>
+                                    <div class="d-flex align-items-center gap-3 mt-auto">
+                                        <a href="{% url 'news' %}" class="text-mint text-decoration-underline fw-bold small">Related articles</a>
+                                        <a href="{% url 'support' %}" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                                    </div>
+                                </div>
+                                <div class="feature-img-container">
+                                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Secure transactions">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
             {% endif %}
@@ -609,20 +619,14 @@
         </div>
     </footer>
 
-    <!-- Facts Reveal Functionality -->
+    <!-- Page animations (minimal) -->
     <script>
-        function toggleReveal(factId) {
-            const revealElement = document.getElementById('reveal-' + factId);
-            const button = event.target;
-
-            if (revealElement.classList.contains('hidden')) {
-                revealElement.classList.remove('hidden');
-                button.textContent = 'Hide Details ↑';
-            } else {
-                revealElement.classList.add('hidden');
-                button.textContent = 'Reveal More →';
-            }
-        }
+        // Smooth scroll enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.feature-row').forEach((row, index) => {
+                row.style.animationDelay = (index * 0.1) + 's';
+            });
+        });
     </script>
 
     <!-- Search Overlay -->
@@ -644,6 +648,37 @@
                 }
             });
         });
+    </script>
+
+    <!-- Hero Video Play Button Script -->
+    <script>
+      // Video play button functionality
+      const playBtn = document.getElementById('play-btn');
+      const video = document.getElementById('hero-video');
+      
+      if (playBtn && video) {
+        playBtn.addEventListener('click', function() {
+          video.play().then(() => {
+            playBtn.style.display = 'none';
+          }).catch(error => {
+            console.error('Video play failed:', error);
+          });
+        });
+
+        // Hide play button when video starts playing
+        video.addEventListener('play', function() {
+          playBtn.style.display = 'none';
+        });
+
+        // Show play button when video is paused or ended
+        video.addEventListener('pause', function() {
+          playBtn.style.display = 'flex';
+        });
+
+        video.addEventListener('ended', function() {
+          playBtn.style.display = 'flex';
+        });
+      }
     </script>
 </body>
 </html>

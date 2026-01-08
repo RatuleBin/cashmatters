@@ -7,8 +7,11 @@
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
     --brand-yellow: #F0E66A; 
-    --brand-footer: #3bc5ac;
+    --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
+    /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
+    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 html, body {
@@ -21,10 +24,36 @@ html, body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   TYPOGRAPHY - ITC Avant Garde Gothic Alternative
+   All headings use Poppins (geometric sans-serif)
+   ========================================= */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-header);
+    font-weight: 600;
+}
+
+/* Section titles and large headings */
+.section-title,
+.hero-title,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-header);
+    font-weight: 700;
+}
+
+/* Navigation uses header font */
+.navbar,
+.navbar *,
+.main-navigation,
+.main-navigation * {
+    font-family: var(--font-header);
 }
 
 .bg-light-cream, .section-bg {
@@ -153,6 +182,18 @@ body {
 @media (max-width: 991px) {
     .hero-wrapper { padding-bottom: 120px; }
     .video-overlap-container { margin-bottom: -150px; }
+}
+
+/* Why Cash Page Video (No overlap) */
+.why-cash-video-container {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 0;
+}
+.why-cash-video-container .video-card {
+    aspect-ratio: 16/9;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 .video-card {
     aspect-ratio: 16/7; background: #000; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
@@ -354,13 +395,32 @@ body {
     }
 }
 
-.main-footer { background-color: var(--brand-footer); }
+.main-footer { 
+    background-color: var(--brand-footer); 
+}
+.main-footer a:not(.btn),
+.main-footer p,
+.main-footer span,
+.main-footer li {
+    color: #ffffff !important;
+}
+.main-footer .opacity-90 {
+    opacity: 1 !important; /* Ensure text is fully visible for accessibility */
+}
 .social-circle {
     width: 40px; height: 40px; background-color: #fff;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     color: var(--brand-footer); transition: 0.2s; text-decoration: none;
 }
-.social-circle:hover { transform: translateY(-3px); color: #33b896; }
+.social-circle:hover { transform: translateY(-3px); color: #005c5d; }
+.footer-ica-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+.footer-ica-logo {
+    height: 35px;
+    width: auto;
+}
 .btn-dark-custom {
     background-color: #06232d; color: #fff; transition: background 0.3s;
 }
@@ -463,5 +523,415 @@ body {
     
     .feature-row {
         margin-bottom: 3rem !important; /* Less gap on mobile */
+    }
+}
+
+
+/* =========================================
+   8. ABOUT PAGE - WHY CASH MATTERS SECTION
+   ========================================= */
+
+/* Readable text for Why Cash Matters feature boxes */
+.why-cash-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .why-cash-text {
+        font-size: 1.05rem;
+    }
+}
+
+
+/* =========================================
+   9. HOMEPAGE HERO CAROUSEL
+   ========================================= */
+
+/* Hero carousel container */
+.hero-carousel-container {
+    min-height: 400px;
+}
+
+.min-vh-hero {
+    min-height: 450px;
+}
+
+/* Content Type Badges */
+.hero-content-type-badge .badge {
+    background-color: var(--brand-mint) !important;
+    color: #002e26 !important;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-content-type-badge .badge.type-blog {
+    background-color: #4CD1C2 !important;
+}
+
+.hero-content-type-badge .badge.type-news {
+    background-color: #FFD700 !important;
+    color: #1a1a1a !important;
+}
+
+.hero-content-type-badge .badge.type-podcast {
+    background-color: #9B59B6 !important;
+    color: #fff !important;
+}
+
+.hero-content-type-badge .badge.type-video,
+.hero-content-type-badge .badge.type-interview {
+    background-color: #E74C3C !important;
+    color: #fff !important;
+}
+
+.hero-content-type-badge .badge.type-report,
+.hero-content-type-badge .badge.type-studies {
+    background-color: #3498DB !important;
+    color: #fff !important;
+}
+
+/* Hero Title Animation */
+#hero-slide-title {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#hero-slide-title.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+#hero-slide-intro {
+    transition: opacity 0.3s ease 0.1s;
+}
+
+#hero-slide-intro.fade-out {
+    opacity: 0;
+}
+
+/* Carousel Dots */
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+    border-color: var(--brand-mint);
+}
+
+.carousel-dot.active {
+    background: var(--brand-mint);
+    border-color: var(--brand-mint);
+    transform: scale(1.2);
+}
+
+/* Carousel Controls */
+.btn-carousel {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.btn-carousel:hover {
+    background: var(--brand-mint);
+    border-color: var(--brand-mint);
+    color: #002e26;
+}
+
+.btn-carousel:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 209, 194, 0.4);
+}
+
+/* Hero Media Container */
+.hero-media-container {
+    aspect-ratio: 16/10;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.hero-media-img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.hero-media-img:hover {
+    transform: scale(1.02);
+}
+
+.hero-media-img.fade-out {
+    opacity: 0;
+}
+
+.hero-media-item video {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Media Type Overlay */
+.hero-media-type-overlay .badge {
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+}
+
+/* Auto-play progress bar */
+.carousel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--brand-mint);
+    width: 0%;
+    transition: width linear;
+}
+
+.carousel-progress.active {
+    animation: carouselProgress 6s linear forwards;
+}
+
+@keyframes carouselProgress {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .hero-carousel-container {
+        min-height: auto;
+    }
+    
+    .min-vh-hero {
+        min-height: auto;
+    }
+    
+    .hero-media-container {
+        aspect-ratio: 16/9;
+    }
+    
+    .carousel-controls {
+        margin-top: 0.5rem;
+    }
+}
+
+/* =========================================
+   10. ABOUT PAGE - TEAM SECTION
+   ========================================= */
+
+.team-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Team card with modern glassmorphism effect */
+.team-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--brand-mint), #2CB1FF, var(--brand-mint));
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.team-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(0, 31, 41, 0.15);
+}
+
+/* Team member photo */
+.team-photo-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+}
+
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 30px rgba(0, 31, 41, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-card:hover .team-photo {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(76, 209, 194, 0.25);
+}
+
+/* Photo decorative ring */
+.team-photo-ring {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px dashed var(--brand-mint);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.4s ease;
+    animation: rotate 20s linear infinite paused;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.team-card:hover .team-photo-ring {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+/* Team member info */
+.team-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.25rem;
+}
+
+.team-role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-mint);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.team-bio {
+    color: #6c757d;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+}
+
+/* LinkedIn button with animation */
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-linkedin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-linkedin:hover::before {
+    left: 100%;
+}
+
+.btn-linkedin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 119, 181, 0.35);
+    color: #fff;
+}
+
+.btn-linkedin svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-linkedin:hover svg {
+    transform: scale(1.1);
+}
+
+/* Section heading animation */
+.team-section-title {
+    position: relative;
+    display: inline-block;
+}
+
+.team-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--brand-mint);
+    border-radius: 2px;
+}
+
+/* Fade-in animation for cards */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .team-photo-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .team-name {
+        font-size: 1.3rem;
+    }
+    
+    .team-bio {
+        font-size: 0.95rem;
     }
 }

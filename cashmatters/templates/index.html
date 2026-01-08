@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 {% load static wagtailimages_tags %}
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cash Matters - Senior Dev Build</title>
-    <!-- Favicon -->
+    <!-- Favicon - Teal "C" for better visibility -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
     <!-- Bootstrap 5.3 CSS -->
@@ -13,9 +14,9 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <!-- Bootstrap Icons -->
@@ -25,6 +26,82 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    
+    <!-- Header Navigation Styles -->
+    <style>
+      /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
+      .navbar,
+      .navbar * {
+        font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+      }
+      
+      /* All headings use Poppins */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+      }
+      
+      .navbar .nav-link {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      /* Modern hover animations for menu items */
+      .navbar .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4CD1C2, #8de4af);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(-50%);
+      }
+      
+      .navbar .nav-link:hover::before,
+      .navbar .nav-link.active::before {
+        width: 100%;
+      }
+      
+      .navbar .nav-link:hover {
+        color: #4CD1C2 !important;
+        transform: translateY(-2px);
+      }
+      
+      /* Search button animation */
+      .search-trigger {
+        transition: all 0.3s ease;
+      }
+      .search-trigger:hover {
+        color: #4CD1C2 !important;
+        transform: scale(1.15);
+      }
+      
+      /* Support Cash CTA Button */
+      .btn-support-cash {
+        background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+        color: #002e26 !important;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.8rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+      }
+      .btn-support-cash:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+        background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
+        color: #002e26 !important;
+      }
+    </style>
   </head>
   <body class="bg-light-cream">
     <!-- =========================================
@@ -62,71 +139,183 @@
                 <a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a>
+                <a class="nav-link text-white" href="#podcast-section">Podcast</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a>
               </li>
             </ul>
           </div>
           <div class="d-none d-lg-flex align-items-center gap-3">
-            <button class="btn text-white p-0 search-trigger">
+            <button class="btn text-white p-0 search-trigger" aria-label="Search">
               <i class="bi bi-search fs-5"></i>
             </button>
-            <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2"
-              >Subscribe</a
-            >
+            <!-- Language Switcher -->
+            <div class="dropdown">
+              <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                <i class="bi bi-globe2"></i>
+                <span class="small" id="current-lang">EN</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+              </ul>
+            </div>
+            <a href="{% url 'support' %}" class="btn btn-support-cash">
+              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
           </div>
         </div>
       </nav>
 
+      <!-- Dynamic Hero Carousel (Requirements 7, 8, 9) -->
       <section class="hero-content position-relative">
         <div class="container">
-          <div class="row pt-5 pb-5 mb-5">
-            <div class="col-lg-6 pt-3">
-              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
-                Cash is simple,<br />safe, and
-                <span class="text-mint">for<br />everyone</span>
-              </h1>
-            </div>
-            <div
-              class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
-            >
-              <p class="hero-desc text-white mb-4">
-                Research, reporting, and resources that show why physical cash
-                remains essential around the world.
-              </p>
-              <div>
-                <a href="#" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                  Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
-                </a>
+          <!-- Dynamic Content Carousel -->
+          <div class="hero-carousel-container position-relative pt-4 pb-5">
+            <div class="row align-items-center min-vh-hero">
+              <!-- Left Side: Content Info -->
+              <div class="col-lg-6 pt-3">
+                <!-- Content Type Badge -->
+                <div class="hero-content-type-badge mb-3">
+                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem;">
+                    <i id="hero-type-icon" class="bi bi-newspaper me-1"></i>
+                    <span id="hero-type-text">News</span>
+                  </span>
+                </div>
+                
+                <h1 id="hero-slide-title" class="hero-title text-white fw-bold lh-1 mb-4">
+                  {% if hero_posts %}
+                    {{ hero_posts.0.title }}
+                  {% else %}
+                    Cash is simple, safe, and <span class="text-mint">for everyone</span>
+                  {% endif %}
+                </h1>
+                
+                <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
+                  {% if hero_posts %}
+                    {{ hero_posts.0.intro }}
+                  {% else %}
+                    Research, reporting, and resources that show why physical cash remains essential around the world.
+                  {% endif %}
+                </p>
+                
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                  <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                  </a>
+                  <span id="hero-slide-date" class="text-white opacity-75 small">
+                    <i class="bi bi-clock me-1"></i>
+                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+                  </span>
+                  {% if hero_posts.0.author_profile %}
+                  <span id="hero-slide-author" class="text-white opacity-75 small">
+                    <i class="bi bi-person me-1"></i>
+                    {{ hero_posts.0.author_profile.name }}
+                  </span>
+                  {% endif %}
+                </div>
+                
+                <!-- Carousel Navigation Dots -->
+                <div class="hero-carousel-nav mt-4 pt-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
+                      {% for post in hero_posts %}
+                        <button class="carousel-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                      {% empty %}
+                        <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+                      {% endfor %}
+                    </div>
+                    <div class="carousel-controls d-flex gap-2 ms-auto">
+                      <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                      <button class="btn btn-carousel" id="hero-next" aria-label="Next">
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
+                      <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
+                        <i class="bi bi-pause-fill" id="pause-icon"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Video Bridge Element -->
-          <div class="video-overlap-container">
-            <div
-              class="video-card position-relative w-100 rounded-4 overflow-hidden"
-            >
-              <video
-                id="hero-video"
-                class="img-fluid w-100"
-                loop
-                playsinline
-                preload="auto"
-                controls
-              >
-                <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              <div class="play-btn-wrapper">
-                <button id="play-btn" class="btn-play">
-                  <i class="bi bi-play-fill"></i>
-                </button>
+              
+              <!-- Right Side: Featured Image/Video -->
+              <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="hero-media-container position-relative rounded-4 overflow-hidden shadow-lg">
+                  <!-- Image Display (default) -->
+                  <div id="hero-media-image" class="hero-media-item">
+                    {% if hero_posts.0.wide_thumbnail %}
+                      <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}" 
+                           class="w-100 hero-media-img" 
+                           alt="{{ hero_posts.0.title }}"
+                           onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'">
+                    {% else %}
+                      <img id="hero-slide-image" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop" 
+                           class="w-100 hero-media-img" 
+                           alt="Featured content">
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Video Display (for video content) -->
+                  <div id="hero-media-video" class="hero-media-item" style="display: none;">
+                    <video id="hero-video" class="w-100" loop playsinline preload="auto" controls>
+                      <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="play-btn-wrapper">
+                      <button id="play-btn" class="btn-play">
+                        <i class="bi bi-play-fill"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Content Type Overlay Icon -->
+                  <div class="hero-media-type-overlay position-absolute" style="top: 15px; right: 15px;">
+                    <span id="hero-media-type-icon" class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
+                      <i class="bi bi-newspaper"></i>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
+    
+    <!-- Hero Carousel Data (for JavaScript) -->
+    <script type="application/json" id="hero-posts-data">
+      [
+        {% for post in hero_posts %}
+        {
+          "id": {{ post.id }},
+          "title": "{{ post.title|escapejs }}",
+          "intro": "{{ post.intro|escapejs }}",
+          "url": "{{ post.url_path }}",
+          "date": "{{ post.date|date:'M d, Y' }}",
+          "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
+          "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop{% endif %}",
+          "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
+          "vimeo_id": "{{ post.vimeo_id|default:'' }}",
+          "has_video": {% if post.vimeo_id %}true{% else %}false{% endif %}
+        }{% if not forloop.last %},{% endif %}
+        {% empty %}
+        {
+          "id": 0,
+          "title": "Cash is simple, safe, and for everyone",
+          "intro": "Research, reporting, and resources that show why physical cash remains essential around the world.",
+          "url": "/why-cash/",
+          "date": "Latest",
+          "author": "",
+          "image": "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop",
+          "type": "news",
+          "vimeo_id": "",
+          "has_video": false
+        }
+        {% endfor %}
+      ]
+    </script>
 
     <!-- =========================================
          2. FEATURED CONTENT (GSAP ANIMATION)
@@ -369,15 +558,15 @@
                   watches...
                 </p>
 
-                <div
-                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
-                >
-                  <span class="fw-bold small text-dark">8,236 downloads</span>
-                  <a
-                    href="#"
-                    class="text-mint fw-bold text-decoration-none small"
-                  >
-                    Download PDF <i class="bi bi-download ms-1"></i>
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-1')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
                   </a>
                 </div>
               </div>
@@ -425,15 +614,15 @@
                   watches...
                 </p>
 
-                <div
-                  class="d-flex justify-content-between align-items-center pt-2 mt-auto"
-                >
-                  <span class="fw-bold small text-dark">8,236 downloads</span>
-                  <a
-                    href="#"
-                    class="text-mint fw-bold text-decoration-none small"
-                  >
-                    Download PDF <i class="bi bi-download ms-1"></i>
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-2')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
                   </a>
                 </div>
               </div>
@@ -443,7 +632,7 @@
       </div>
     </section>
 
-    <section class="section-bg py-5">
+    <section id="key-facts" class="section-bg py-5">
       <div class="container">
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-end mb-5">
@@ -475,12 +664,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-chile', 'Cash used for 22% of POS payments in Chile')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -508,12 +697,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-poland', 'Cash used for 32% of POS payments in Poland')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -550,12 +739,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-norway', 'Cash used for 09% of POS payments in Norway')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
             </div>
@@ -576,12 +765,12 @@
                   </p>
                 </div>
                 <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-download"></i> Download</a
-                  >
-                  <a href="#" class="text-reset text-decoration-none"
-                    ><i class="bi bi-share"></i> Share</a
-                  >
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-spain', 'Cash used for 33% of POS payments in Spain')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
                 </div>
               </div>
               <!-- Image -->
@@ -600,7 +789,7 @@
     <!-- =========================================
          6. PODCAST & VIDEO
     ========================================== -->
-    <section class="section-bg py-5">
+    <section id="podcast-section" class="section-bg py-5">
       <div class="container">
         <!-- Section Header -->
         <div class="row align-items-end mb-5">
@@ -802,117 +991,135 @@
       <div class="container pt-4">
         <div class="row g-5 mb-5">
           <!-- Brand & Social -->
-          <div class="col-lg-4 col-md-12">
+          <div class="col-lg-3 col-md-6">
             <a class="navbar-brand d-inline-block mb-4" href="{% url 'index' %}">
               <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="50">
             </a>
-            <p class="small opacity-90 mb-4 pe-lg-5" style="line-height: 1.6">
+            <p class="small mb-3 pe-lg-3" style="line-height: 1.6">
               Cash Matters is an independent initiative dedicated to preserving
               payment choice for everyone.
             </p>
+            <p class="small mb-4">
+              <i class="bi bi-envelope me-1"></i> 
+              <a href="#" class="text-white text-decoration-none hover-u contact-email" data-user="info" data-domain="cashmatters.org">info@cashmatters.org</a>
+            </p>
+            <!-- Social Icons: LinkedIn, Instagram, TikTok, Facebook, YouTube -->
             <div class="d-flex gap-3">
-              <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer"
-                 class="text-white text-decoration-none hover-u d-flex align-items-center gap-1"
-                 title="Follow us on TikTok">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                </svg>
-              </a>
-
-              <a href="https://www.youtube.com/channel/UCx1y8ZZeAZQTVgvAC0kjtgQ" target="_blank" rel="noopener noreferrer"
-                 class="text-white text-decoration-none hover-u d-flex align-items-center gap-1"
-                 title="Subscribe to our YouTube channel">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </a>
-
+              <!-- LinkedIn -->
               <a href="https://www.linkedin.com/company/cashmattersorg/" target="_blank" rel="noopener noreferrer"
-                 class="text-white text-decoration-none hover-u d-flex align-items-center gap-1"
+                 class="text-white text-decoration-none hover-u d-flex align-items-center"
                  title="Connect with us on LinkedIn">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>
-
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/cashmattersorg/" target="_blank" rel="noopener noreferrer"
+                 class="text-white text-decoration-none hover-u d-flex align-items-center"
+                 title="Follow us on Instagram">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <!-- TikTok -->
+              <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer"
+                 class="text-white text-decoration-none hover-u d-flex align-items-center"
+                 title="Follow us on TikTok">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                </svg>
+              </a>
+              <!-- Facebook -->
               <a href="https://www.facebook.com/CashMattersOrg/" target="_blank" rel="noopener noreferrer"
-                 class="text-white text-decoration-none hover-u d-flex align-items-center gap-1"
+                 class="text-white text-decoration-none hover-u d-flex align-items-center"
                  title="Like us on Facebook">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <!-- YouTube -->
+              <a href="https://www.youtube.com/channel/UCx1y8ZZeAZQTVgvAC0kjtgQ" target="_blank" rel="noopener noreferrer"
+                 class="text-white text-decoration-none hover-u d-flex align-items-center"
+                 title="Subscribe to our YouTube channel">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
             </div>
           </div>
 
-          <!-- Links 1 -->
-          <div class="col-lg-2 col-md-4 col-6">
-            <h6 class="fw-bold mb-4">Get to know us</h6>
-            <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-              <li>
-                <a href="#" class="text-white text-decoration-none hover-u"
-                  >Our aim</a
-                >
-              </li>
+          <!-- Navigation Column 1 -->
+          <div class="col-lg-2 col-md-3 col-6">
+            <h6 class="fw-bold mb-4">Navigation</h6>
+            <ul class="list-unstyled d-flex flex-column gap-3 small">
+              <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
+              <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
+              <li><a href="/blog/" class="text-white text-decoration-none hover-u">Blogs</a></li>
+              <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
             </ul>
           </div>
 
-          <!-- Links 2 -->
-          <div class="col-lg-2 col-md-4 col-6">
-            <h6 class="fw-bold mb-4">Get informed</h6>
-            <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-              <li>
-                <a href="#" class="text-white text-decoration-none hover-u"
-                  >Why Cash?</a
-                >
-              </li>
-              <li>
-                <a href="#" class="text-white text-decoration-none hover-u"
-                  >News</a
-                >
-              </li>
+          <!-- Navigation Column 2 -->
+          <div class="col-lg-2 col-md-3 col-6">
+            <h6 class="fw-bold mb-4">Resources</h6>
+            <ul class="list-unstyled d-flex flex-column gap-3 small">
+              <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+              <li><a href="#podcast-section" class="text-white text-decoration-none hover-u">Podcast</a></li>
+              <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+              <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
             </ul>
           </div>
 
-          <!-- Subscribe -->
-          <div class="col-lg-4 col-md-12">
+          <!-- Subscribe Section -->
+          <div class="col-lg-5 col-md-12">
             <h4 class="fw-bold mb-3">
               Stay up to date with<br />Cash Matters.
             </h4>
-            <form class="mt-4">
+            <form class="mt-4" id="footer-subscribe-form" action="https://cashmatters.us22.list-manage.com/subscribe/post" method="POST" target="_blank">
+              <!-- Mailchimp hidden fields - replace with your actual values -->
+              <input type="hidden" name="u" value="YOUR_MAILCHIMP_U_VALUE">
+              <input type="hidden" name="id" value="YOUR_MAILCHIMP_LIST_ID">
               <div class="input-group p-1 bg-white rounded-2">
                 <input
                   type="email"
+                  name="MERGE0"
                   class="form-control border-0 shadow-none ps-3"
                   placeholder="Enter your email address"
+                  required
                 />
                 <button
                   class="btn btn-dark-custom rounded-2 px-4 fw-bold"
-                  type="button"
+                  type="submit"
                 >
                   Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
                 </button>
               </div>
             </form>
-            <p class="extra-small opacity-75 mt-3">
-              We’ll never sell your details to anyone else, promise! For more
-              information on how we store your data, please see our privacy
-              policy.
+            <p class="extra-small mt-3" style="opacity: 0.85;">
+              Subscribe to receive news, updates, and insights about cash and payment choice directly in your inbox.
             </p>
           </div>
         </div>
 
+        <!-- ICA Initiative Section -->
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
+          <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
+          <!-- Note: Replace with actual ICA logo when available -->
+          <img src="{% static 'images/CM-Logo-Linear-White.png' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 30px;">
+        </div>
+
         <!-- Footer Bottom -->
         <div
-          class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small opacity-75 gap-3"
+          class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small gap-3"
+          style="opacity: 0.9;"
         >
           <span class="mb-2 mb-lg-0 text-center text-lg-start"
-            >© Copyright 2025, All Rights Reserved by Cash Matters</span
+            >© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span
           >
           <span class="mb-2 mb-lg-0 text-center"
             >Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span
           >
-          <a href="#" class="text-white text-decoration-none hover-u text-center text-lg-end"
+          <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end"
             >Privacy Policy</a
           >
         </div>
@@ -921,6 +1128,9 @@
 
     <!-- Search Overlay Modal -->
     {% include 'components/search_overlay.html' %}
+
+    <!-- Cookie Consent Banner -->
+    {% include 'components/cookie_consent.html' %}
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -933,11 +1143,24 @@
     <!-- Global link handler: external links open in new tab, internal in same tab -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // External links handler
             document.querySelectorAll('a[href^="http"]').forEach(function(link) {
                 if (!link.href.includes(window.location.hostname)) {
                     link.setAttribute('target', '_blank');
                     link.setAttribute('rel', 'noopener noreferrer');
                 }
+            });
+
+            // Email protection - reveal and link on click
+            document.querySelectorAll('.contact-email').forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var user = this.getAttribute('data-user');
+                    var domain = this.getAttribute('data-domain');
+                    var email = user + '@' + domain;
+                    this.href = 'mailto:' + email;
+                    window.location.href = 'mailto:' + email;
+                });
             });
         });
     </script>
@@ -966,55 +1189,236 @@
         );
       }
 
-      // Video play button functionality
+      // =========================================
+      // HERO CAROUSEL FUNCTIONALITY
+      // Supports: Blog, News, Reports (text), Podcast (audio), Interviews (video)
+      // =========================================
+      (function() {
+        // Get hero posts data from JSON
+        const heroDataElement = document.getElementById('hero-posts-data');
+        if (!heroDataElement) return;
+        
+        let heroPosts = [];
+        try {
+          heroPosts = JSON.parse(heroDataElement.textContent);
+        } catch(e) {
+          console.error('Failed to parse hero posts data:', e);
+          return;
+        }
+        
+        if (heroPosts.length === 0) return;
+        
+        // Elements
+        const titleEl = document.getElementById('hero-slide-title');
+        const introEl = document.getElementById('hero-slide-intro');
+        const linkEl = document.getElementById('hero-slide-link');
+        const dateEl = document.getElementById('hero-slide-date');
+        const authorEl = document.getElementById('hero-slide-author');
+        const imageEl = document.getElementById('hero-slide-image');
+        const typeBadge = document.getElementById('hero-type-badge');
+        const typeIcon = document.getElementById('hero-type-icon');
+        const typeText = document.getElementById('hero-type-text');
+        const mediaTypeIcon = document.getElementById('hero-media-type-icon');
+        const carouselDots = document.getElementById('hero-carousel-dots');
+        const prevBtn = document.getElementById('hero-prev');
+        const nextBtn = document.getElementById('hero-next');
+        const pauseBtn = document.getElementById('hero-pause');
+        const pauseIcon = document.getElementById('pause-icon');
+        const imageContainer = document.getElementById('hero-media-image');
+        const videoContainer = document.getElementById('hero-media-video');
+        
+        let currentSlide = 0;
+        let autoPlayInterval = null;
+        let isPlaying = true;
+        const AUTO_PLAY_INTERVAL = 6000; // 6 seconds
+        
+        // Content type configurations
+        const typeConfig = {
+          'blog': { icon: 'bi-pencil-square', label: 'Blog', color: 'type-blog' },
+          'news': { icon: 'bi-newspaper', label: 'News', color: 'type-news' },
+          'podcast': { icon: 'bi-mic-fill', label: 'Podcast', color: 'type-podcast' },
+          'interview': { icon: 'bi-camera-video-fill', label: 'Interview', color: 'type-video' },
+          'video': { icon: 'bi-play-circle-fill', label: 'Video', color: 'type-video' },
+          'report': { icon: 'bi-file-earmark-text', label: 'Report', color: 'type-report' },
+          'studies': { icon: 'bi-graph-up', label: 'Studies', color: 'type-studies' },
+          'key facts': { icon: 'bi-lightbulb', label: 'Key Facts', color: 'type-studies' },
+          'default': { icon: 'bi-newspaper', label: 'Article', color: 'type-news' }
+        };
+        
+        function getTypeConfig(type) {
+          const lowerType = (type || '').toLowerCase();
+          return typeConfig[lowerType] || typeConfig['default'];
+        }
+        
+        function updateSlide(index, animate = true) {
+          if (index < 0 || index >= heroPosts.length) return;
+          
+          const post = heroPosts[index];
+          const config = getTypeConfig(post.type);
+          
+          if (animate) {
+            // Fade out animation
+            if (titleEl) titleEl.classList.add('fade-out');
+            if (introEl) introEl.classList.add('fade-out');
+            if (imageEl) imageEl.classList.add('fade-out');
+            
+            setTimeout(() => {
+              // Update content
+              applySlideContent(post, config);
+              
+              // Fade in
+              if (titleEl) titleEl.classList.remove('fade-out');
+              if (introEl) introEl.classList.remove('fade-out');
+              if (imageEl) imageEl.classList.remove('fade-out');
+            }, 400);
+          } else {
+            applySlideContent(post, config);
+          }
+          
+          // Update dots
+          updateDots(index);
+          currentSlide = index;
+        }
+        
+        function applySlideContent(post, config) {
+          if (titleEl) titleEl.innerHTML = post.title;
+          if (introEl) introEl.textContent = post.intro;
+          if (linkEl) linkEl.href = post.url;
+          if (dateEl) dateEl.innerHTML = '<i class="bi bi-clock me-1"></i>' + post.date;
+          
+          if (authorEl) {
+            if (post.author) {
+              authorEl.innerHTML = '<i class="bi bi-person me-1"></i>' + post.author;
+              authorEl.style.display = 'inline';
+            } else {
+              authorEl.style.display = 'none';
+            }
+          }
+          
+          if (imageEl) imageEl.src = post.image;
+          
+          // Update type badge
+          if (typeBadge) {
+            typeBadge.className = 'badge rounded-pill px-3 py-2 fw-bold text-uppercase ' + config.color;
+          }
+          if (typeIcon) {
+            typeIcon.className = 'bi ' + config.icon + ' me-1';
+          }
+          if (typeText) {
+            typeText.textContent = config.label;
+          }
+          if (mediaTypeIcon) {
+            mediaTypeIcon.innerHTML = '<i class="bi ' + config.icon + '"></i>';
+          }
+          
+          // Handle video content
+          if (post.has_video && videoContainer && imageContainer) {
+            imageContainer.style.display = 'none';
+            videoContainer.style.display = 'block';
+          } else if (videoContainer && imageContainer) {
+            imageContainer.style.display = 'block';
+            videoContainer.style.display = 'none';
+          }
+        }
+        
+        function updateDots(index) {
+          if (!carouselDots) return;
+          const dots = carouselDots.querySelectorAll('.carousel-dot');
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+        
+        function nextSlide() {
+          const next = (currentSlide + 1) % heroPosts.length;
+          updateSlide(next);
+        }
+        
+        function prevSlide() {
+          const prev = (currentSlide - 1 + heroPosts.length) % heroPosts.length;
+          updateSlide(prev);
+        }
+        
+        function startAutoPlay() {
+          if (autoPlayInterval) clearInterval(autoPlayInterval);
+          autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+          isPlaying = true;
+          if (pauseIcon) pauseIcon.className = 'bi bi-pause-fill';
+        }
+        
+        function stopAutoPlay() {
+          if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+          }
+          isPlaying = false;
+          if (pauseIcon) pauseIcon.className = 'bi bi-play-fill';
+        }
+        
+        function toggleAutoPlay() {
+          if (isPlaying) {
+            stopAutoPlay();
+          } else {
+            startAutoPlay();
+          }
+        }
+        
+        // Event listeners
+        if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
+        if (pauseBtn) pauseBtn.addEventListener('click', toggleAutoPlay);
+        
+        // Dot click handlers
+        if (carouselDots) {
+          carouselDots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+              updateSlide(i);
+              startAutoPlay();
+            });
+          });
+        }
+        
+        // Start autoplay
+        if (heroPosts.length > 1) {
+          startAutoPlay();
+        }
+        
+        // Pause on hover
+        const heroContainer = document.querySelector('.hero-carousel-container');
+        if (heroContainer && heroPosts.length > 1) {
+          heroContainer.addEventListener('mouseenter', stopAutoPlay);
+          heroContainer.addEventListener('mouseleave', startAutoPlay);
+        }
+        
+        // Initialize first slide
+        updateSlide(0, false);
+      })();
+
+      // Video play button functionality (for video slides)
       const playBtn = document.getElementById('play-btn');
       const video = document.getElementById('hero-video');
       
-      playBtn.addEventListener('click', function() {
-        console.log('Play button clicked');
-        console.log('Video readyState:', video.readyState);
-        
-        video.play().then(() => {
-          console.log('Video started playing');
-          playBtn.style.display = 'none';
-        }).catch(error => {
-          console.error('Video play failed:', error);
-          alert('Unable to play video: ' + error.message);
+      if (playBtn && video) {
+        playBtn.addEventListener('click', function() {
+          video.play().then(() => {
+            playBtn.style.display = 'none';
+          }).catch(error => {
+            console.error('Video play failed:', error);
+          });
         });
-      });
 
-      // Hide play button when video starts playing
-      video.addEventListener('play', function() {
-        console.log('Video play event');
-        playBtn.style.display = 'none';
-      });
+        video.addEventListener('play', function() {
+          playBtn.style.display = 'none';
+        });
 
-      // Show play button when video is paused or ended
-      video.addEventListener('pause', function() {
-        console.log('Video pause event');
-        playBtn.style.display = 'flex';
-      });
+        video.addEventListener('pause', function() {
+          playBtn.style.display = 'flex';
+        });
 
-      video.addEventListener('ended', function() {
-        console.log('Video ended event');
-        playBtn.style.display = 'flex';
-      });
-
-      // Check if video loaded
-      video.addEventListener('loadeddata', function() {
-        console.log('Video loaded successfully, readyState:', this.readyState);
-      });
-
-      video.addEventListener('error', function(e) {
-        console.error('Video loading error:', e);
-        alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
-      });
-
-      // Preload video on page load
-      window.addEventListener('load', function() {
-        video.load(); // Force load
-        console.log('Video preload initiated');
-      });
+        video.addEventListener('ended', function() {
+          playBtn.style.display = 'flex';
+        });
+      }
 
       // Podcast Video play button functionality
       const podcastPlayBtn = document.getElementById('podcast-play-btn');
@@ -1060,6 +1464,199 @@
           console.error('Podcast video loading error:', e);
           alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
         });
+      }
+
+      // =========================================
+      // DOWNLOAD, SHARE, AND PRINT FUNCTIONALITY
+      // =========================================
+
+      // Download Report - Shows notification that PDF will be available
+      function downloadReport(event, title) {
+        event.preventDefault();
+        showNotification('Download Started', 'The PDF for "' + title + '" is being prepared. Full download functionality will be available when reports are uploaded to the system.');
+      }
+
+      // Share Report - Uses Web Share API with fallback to modal
+      function shareReport(event, title, url) {
+        event.preventDefault();
+        
+        const shareData = {
+          title: title + ' - Cash Matters',
+          text: 'Check out this research from Cash Matters: ' + title,
+          url: url
+        };
+
+        // Try Web Share API first (mobile-friendly)
+        if (navigator.share) {
+          navigator.share(shareData)
+            .catch((err) => {
+              if (err.name !== 'AbortError') {
+                showShareModal(title, url);
+              }
+            });
+        } else {
+          // Fallback to custom share modal
+          showShareModal(title, url);
+        }
+      }
+
+      // Print Report - Opens print dialog for the card
+      function printReport(event, cardId) {
+        event.preventDefault();
+        showNotification('Print', 'Print functionality allows you to print report details. For full print support, please view the complete report page.');
+        window.print();
+      }
+
+      // Download Key Fact - Downloads fact as image or shows notification
+      function downloadKeyFact(event, factId, title) {
+        event.preventDefault();
+        showNotification('Download Fact Card', 'The fact card "' + title + '" will be downloaded as an image. Full download functionality available on the Key Facts page.');
+      }
+
+      // Share Key Fact - Uses Web Share API with fallback
+      function shareKeyFact(event, title, url) {
+        event.preventDefault();
+        
+        const shareData = {
+          title: 'Cash Matters Key Fact',
+          text: title + ' - Learn more at Cash Matters',
+          url: url
+        };
+
+        if (navigator.share) {
+          navigator.share(shareData)
+            .catch((err) => {
+              if (err.name !== 'AbortError') {
+                showShareModal(title, url);
+              }
+            });
+        } else {
+          showShareModal(title, url);
+        }
+      }
+
+      // Show share modal with social media options
+      function showShareModal(title, url) {
+        const encodedUrl = encodeURIComponent(url);
+        const encodedTitle = encodeURIComponent(title + ' - Cash Matters');
+        const encodedText = encodeURIComponent('Check out this resource from Cash Matters: ' + title);
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'share-modal';
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999;';
+
+        modal.innerHTML = `
+          <div style="background: white; border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%; text-align: center;">
+            <h4 style="margin-bottom: 1.5rem; color: #1f2937;">Share this resource</h4>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" 
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #000; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-twitter-x" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #0077b5; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
+              </a>
+              <a href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank"
+                 style="width: 50px; height: 50px; border-radius: 50%; background: #25d366; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i>
+              </a>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <input type="text" value="${url}" readonly 
+                     style="width: 100%; padding: 0.5rem; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.875rem;"
+                     onclick="this.select();">
+            </div>
+            <button onclick="copyToClipboard('${url}', this)" 
+                    style="background: #007d7e; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500;">
+              <i class="bi bi-clipboard me-1"></i> Copy Link
+            </button>
+            <button onclick="this.closest('.share-modal').remove()" 
+                    style="background: #e5e7eb; color: #374151; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-left: 0.5rem;">
+              Close
+            </button>
+          </div>
+        `;
+
+        // Close on backdrop click
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            modal.remove();
+          }
+        });
+
+        document.body.appendChild(modal);
+      }
+
+      // Copy to clipboard function
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(function() {
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="bi bi-check me-1"></i> Copied!';
+          button.style.background = '#10b981';
+          setTimeout(function() {
+            button.innerHTML = originalHTML;
+            button.style.background = '#007d7e';
+          }, 2000);
+        }).catch(function(err) {
+          console.error('Failed to copy: ', err);
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          button.innerHTML = '<i class="bi bi-check me-1"></i> Copied!';
+        });
+      }
+
+      // Show notification toast
+      function showNotification(title, message) {
+        // Remove any existing notifications
+        const existing = document.querySelector('.cm-notification');
+        if (existing) existing.remove();
+
+        const notification = document.createElement('div');
+        notification.className = 'cm-notification';
+        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: white; border-radius: 12px; padding: 1.5rem; max-width: 350px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 9999; animation: slideIn 0.3s ease-out;';
+        notification.innerHTML = `
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #007d7e; color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <i class="bi bi-info-circle" style="font-size: 1.2rem;"></i>
+            </div>
+            <div style="flex: 1;">
+              <h5 style="margin: 0 0 0.5rem 0; font-weight: 600; color: #1f2937;">${title}</h5>
+              <p style="margin: 0; font-size: 0.875rem; color: #6b7280; line-height: 1.5;">${message}</p>
+            </div>
+            <button onclick="this.closest('.cm-notification').remove()" style="background: none; border: none; color: #9ca3af; cursor: pointer; font-size: 1.25rem; padding: 0; line-height: 1;">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        `;
+
+        // Add animation keyframes
+        if (!document.querySelector('#cm-notification-styles')) {
+          const style = document.createElement('style');
+          style.id = 'cm-notification-styles';
+          style.textContent = '@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }';
+          document.head.appendChild(style);
+        }
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(function() {
+          if (notification.parentNode) {
+            notification.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => notification.remove(), 300);
+          }
+        }, 5000);
       }
     </script>
   </body>

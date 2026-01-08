@@ -7,8 +7,29 @@
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
     --brand-yellow: #F0E66A; 
-    --brand-footer: #3bc5ac;
+    --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
+    /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
+    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* =========================================
+   TYPOGRAPHY - ITC Avant Garde Gothic Alternative
+   All headings use Poppins (geometric sans-serif)
+   ========================================= */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-header);
+    font-weight: 600;
+}
+
+/* Section titles and large headings */
+.section-title,
+.hero-title,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-header);
+    font-weight: 700;
 }
 
 html, body {
@@ -21,10 +42,94 @@ html, body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   HEADER / NAVIGATION STYLES (Global)
+   ========================================= */
+
+/* Header Font - ITC Avant Garde Gothic Alternative */
+.navbar,
+.navbar *,
+.main-navigation,
+.main-navigation * {
+    font-family: var(--font-header);
+}
+
+.navbar .nav-link,
+.nav-item > a {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modern hover animations for menu items */
+.navbar .nav-link::before,
+.nav-item > a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-mint), #8de4af);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+}
+
+.navbar .nav-link:hover::before,
+.navbar .nav-link.active::before,
+.nav-item > a:hover::before,
+.nav-item.active > a::before {
+    width: 100%;
+}
+
+.navbar .nav-link:hover,
+.nav-item > a:hover {
+    color: var(--brand-mint) !important;
+    transform: translateY(-2px);
+}
+
+/* Search button animation */
+.search-trigger {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.search-trigger:hover {
+    color: var(--brand-mint) !important;
+    transform: scale(1.15);
+}
+
+/* Support Cash CTA Button */
+.btn-support-cash {
+    background: linear-gradient(135deg, var(--brand-mint) 0%, var(--brand-mint-hover) 100%);
+    color: #002e26 !important;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.btn-support-cash:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+    background: linear-gradient(135deg, #5ce0cf 0%, var(--brand-mint) 100%);
+    color: #002e26 !important;
 }
 
 .bg-light-cream, .section-bg {
@@ -344,13 +449,32 @@ body {
     }
 }
 
-.main-footer { background-color: var(--brand-footer); }
+.main-footer { 
+    background-color: var(--brand-footer); 
+}
+.main-footer a:not(.btn),
+.main-footer p,
+.main-footer span,
+.main-footer li {
+    color: #ffffff !important;
+}
+.main-footer .opacity-90 {
+    opacity: 1 !important; /* Ensure text is fully visible for accessibility */
+}
 .social-circle {
     width: 40px; height: 40px; background-color: #fff;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     color: var(--brand-footer); transition: 0.2s; text-decoration: none;
 }
-.social-circle:hover { transform: translateY(-3px); color: #33b896; }
+.social-circle:hover { transform: translateY(-3px); color: #005c5d; }
+.footer-ica-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+.footer-ica-logo {
+    height: 35px;
+    width: auto;
+}
 .btn-dark-custom {
     background-color: #06232d; color: #fff; transition: background 0.3s;
 }

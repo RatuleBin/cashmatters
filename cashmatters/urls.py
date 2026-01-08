@@ -1,9 +1,11 @@
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.translation import activate
 import os
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -15,7 +17,7 @@ from blog.api import api_router
 
 # Frontend views
 def index(request):
-    """Serve the homepage with latest blog posts"""
+    """Serve the homepage with latest blog posts and dynamic hero carousel"""
     from blog.models import ArticlePage, BlogPage
     from itertools import chain
 
@@ -41,9 +43,26 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent featured posts
 
+    # Get hero posts for dynamic carousel (all content types)
+    # Prioritize featured content, then fall back to latest
+    hero_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
+    hero_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
+
+    # Combine hero posts - prioritize variety of content types
+    hero_posts_combined = sorted(
+        chain(hero_articles, hero_blog_posts),
+        key=lambda x: (x.featured, x.date),
+        reverse=True
+    )[:5]  # Take 5 for carousel variety
+
     context = {
         'latest_posts': combined_posts,
         'featured_posts': featured_posts,
+        'hero_posts': hero_posts_combined,
     }
     return render(request, 'index.html', context)
 
@@ -219,6 +238,16 @@ def blogs_dashboard_redirect(request):
 def about(request):
     """Serve the about page"""
     return render(request, 'about.html')
+
+
+def privacy(request):
+    """Serve the privacy policy page"""
+    return render(request, 'privacy.html')
+
+
+def write_for_us(request):
+    """Serve the Write for Us page"""
+    return render(request, 'write_for_us.html')
 
 
 def create_blog_page(request):
@@ -459,11 +488,37 @@ def blogs_dashboard(request):
     return render(request, 'blogs_dashboard.html', context)
 
 
+# Language switch view
+def set_language(request):
+    """Handle language switching via GET parameter"""
+    from django.utils import translation
+    from django.conf import settings
+    
+    lang = request.GET.get('lang', 'en-gb')
+    if lang in [code for code, name in settings.LANGUAGES]:
+        translation.activate(lang)
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    
+    # Redirect back to the referring page or home
+    next_url = request.META.get('HTTP_REFERER', '/')
+    # Remove any existing lang parameter from the URL
+    if '?lang=' in next_url:
+        next_url = next_url.split('?lang=')[0]
+    elif '&lang=' in next_url:
+        next_url = next_url.replace(f'&lang={lang}', '')
+    
+    return redirect(next_url)
+
+
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),  # Django language switching
+    path("set-language/", set_language, name="set_language"),  # Custom language switch
     path("", index, name="index"),  # Root URL serves the homepage
     path("news/", news, name="news"),  # News page
     path("about/", about, name="about"),  # About page
+    path("privacy/", privacy, name="privacy"),  # Privacy Policy page
     path("support/", support, name="support"),  # Support page
+    path("write-for-us/", write_for_us, name="write_for_us"),  # Write for Us page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
     path("add-blog/", create_blog_page, name="create_blog_page"),
