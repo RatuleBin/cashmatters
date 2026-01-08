@@ -157,56 +157,154 @@
         </div>
       </nav>
 
+      <!-- Dynamic Hero Carousel (Requirements 7, 8, 9) -->
       <section class="hero-content position-relative">
         <div class="container">
-          <div class="row pt-5 pb-5 mb-5">
-            <div class="col-lg-6 pt-3">
-              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
-                Cash is simple,<br />safe, and
-                <span class="text-mint">for<br />everyone</span>
-              </h1>
-            </div>
-            <div
-              class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
-            >
-              <p class="hero-desc text-white mb-4">
-                Research, reporting, and resources that show why physical cash
-                remains essential around the world.
-              </p>
-              <div>
-                <a href="#" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                  Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
-                </a>
+          <!-- Dynamic Content Carousel -->
+          <div class="hero-carousel-container position-relative pt-4 pb-5">
+            <div class="row align-items-center min-vh-hero">
+              <!-- Left Side: Content Info -->
+              <div class="col-lg-6 pt-3">
+                <!-- Content Type Badge -->
+                <div class="hero-content-type-badge mb-3">
+                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem;">
+                    <i id="hero-type-icon" class="bi bi-newspaper me-1"></i>
+                    <span id="hero-type-text">News</span>
+                  </span>
+                </div>
+                
+                <h1 id="hero-slide-title" class="hero-title text-white fw-bold lh-1 mb-4">
+                  {% if hero_posts %}
+                    {{ hero_posts.0.title }}
+                  {% else %}
+                    Cash is simple, safe, and <span class="text-mint">for everyone</span>
+                  {% endif %}
+                </h1>
+                
+                <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
+                  {% if hero_posts %}
+                    {{ hero_posts.0.intro }}
+                  {% else %}
+                    Research, reporting, and resources that show why physical cash remains essential around the world.
+                  {% endif %}
+                </p>
+                
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                  <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                  </a>
+                  <span id="hero-slide-date" class="text-white opacity-75 small">
+                    <i class="bi bi-clock me-1"></i>
+                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+                  </span>
+                  {% if hero_posts.0.author_profile %}
+                  <span id="hero-slide-author" class="text-white opacity-75 small">
+                    <i class="bi bi-person me-1"></i>
+                    {{ hero_posts.0.author_profile.name }}
+                  </span>
+                  {% endif %}
+                </div>
+                
+                <!-- Carousel Navigation Dots -->
+                <div class="hero-carousel-nav mt-4 pt-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
+                      {% for post in hero_posts %}
+                        <button class="carousel-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                      {% empty %}
+                        <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+                      {% endfor %}
+                    </div>
+                    <div class="carousel-controls d-flex gap-2 ms-auto">
+                      <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                      <button class="btn btn-carousel" id="hero-next" aria-label="Next">
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
+                      <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
+                        <i class="bi bi-pause-fill" id="pause-icon"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Video Bridge Element -->
-          <div class="video-overlap-container">
-            <div
-              class="video-card position-relative w-100 rounded-4 overflow-hidden"
-            >
-              <video
-                id="hero-video"
-                class="img-fluid w-100"
-                loop
-                playsinline
-                preload="auto"
-                controls
-              >
-                <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              <div class="play-btn-wrapper">
-                <button id="play-btn" class="btn-play">
-                  <i class="bi bi-play-fill"></i>
-                </button>
+              
+              <!-- Right Side: Featured Image/Video -->
+              <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="hero-media-container position-relative rounded-4 overflow-hidden shadow-lg">
+                  <!-- Image Display (default) -->
+                  <div id="hero-media-image" class="hero-media-item">
+                    {% if hero_posts.0.wide_thumbnail %}
+                      <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}" 
+                           class="w-100 hero-media-img" 
+                           alt="{{ hero_posts.0.title }}"
+                           onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'">
+                    {% else %}
+                      <img id="hero-slide-image" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop" 
+                           class="w-100 hero-media-img" 
+                           alt="Featured content">
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Video Display (for video content) -->
+                  <div id="hero-media-video" class="hero-media-item" style="display: none;">
+                    <video id="hero-video" class="w-100" loop playsinline preload="auto" controls>
+                      <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+                    </video>
+                    <div class="play-btn-wrapper">
+                      <button id="play-btn" class="btn-play">
+                        <i class="bi bi-play-fill"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Content Type Overlay Icon -->
+                  <div class="hero-media-type-overlay position-absolute" style="top: 15px; right: 15px;">
+                    <span id="hero-media-type-icon" class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
+                      <i class="bi bi-newspaper"></i>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
+    
+    <!-- Hero Carousel Data (for JavaScript) -->
+    <script type="application/json" id="hero-posts-data">
+      [
+        {% for post in hero_posts %}
+        {
+          "id": {{ post.id }},
+          "title": "{{ post.title|escapejs }}",
+          "intro": "{{ post.intro|escapejs }}",
+          "url": "{{ post.url_path }}",
+          "date": "{{ post.date|date:'M d, Y' }}",
+          "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
+          "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop{% endif %}",
+          "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
+          "vimeo_id": "{{ post.vimeo_id|default:'' }}",
+          "has_video": {% if post.vimeo_id %}true{% else %}false{% endif %}
+        }{% if not forloop.last %},{% endif %}
+        {% empty %}
+        {
+          "id": 0,
+          "title": "Cash is simple, safe, and for everyone",
+          "intro": "Research, reporting, and resources that show why physical cash remains essential around the world.",
+          "url": "/why-cash/",
+          "date": "Latest",
+          "author": "",
+          "image": "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop",
+          "type": "news",
+          "vimeo_id": "",
+          "has_video": false
+        }
+        {% endfor %}
+      ]
+    </script>
 
     <!-- =========================================
          2. FEATURED CONTENT (GSAP ANIMATION)
@@ -1080,55 +1178,236 @@
         );
       }
 
-      // Video play button functionality
+      // =========================================
+      // HERO CAROUSEL FUNCTIONALITY
+      // Supports: Blog, News, Reports (text), Podcast (audio), Interviews (video)
+      // =========================================
+      (function() {
+        // Get hero posts data from JSON
+        const heroDataElement = document.getElementById('hero-posts-data');
+        if (!heroDataElement) return;
+        
+        let heroPosts = [];
+        try {
+          heroPosts = JSON.parse(heroDataElement.textContent);
+        } catch(e) {
+          console.error('Failed to parse hero posts data:', e);
+          return;
+        }
+        
+        if (heroPosts.length === 0) return;
+        
+        // Elements
+        const titleEl = document.getElementById('hero-slide-title');
+        const introEl = document.getElementById('hero-slide-intro');
+        const linkEl = document.getElementById('hero-slide-link');
+        const dateEl = document.getElementById('hero-slide-date');
+        const authorEl = document.getElementById('hero-slide-author');
+        const imageEl = document.getElementById('hero-slide-image');
+        const typeBadge = document.getElementById('hero-type-badge');
+        const typeIcon = document.getElementById('hero-type-icon');
+        const typeText = document.getElementById('hero-type-text');
+        const mediaTypeIcon = document.getElementById('hero-media-type-icon');
+        const carouselDots = document.getElementById('hero-carousel-dots');
+        const prevBtn = document.getElementById('hero-prev');
+        const nextBtn = document.getElementById('hero-next');
+        const pauseBtn = document.getElementById('hero-pause');
+        const pauseIcon = document.getElementById('pause-icon');
+        const imageContainer = document.getElementById('hero-media-image');
+        const videoContainer = document.getElementById('hero-media-video');
+        
+        let currentSlide = 0;
+        let autoPlayInterval = null;
+        let isPlaying = true;
+        const AUTO_PLAY_INTERVAL = 6000; // 6 seconds
+        
+        // Content type configurations
+        const typeConfig = {
+          'blog': { icon: 'bi-pencil-square', label: 'Blog', color: 'type-blog' },
+          'news': { icon: 'bi-newspaper', label: 'News', color: 'type-news' },
+          'podcast': { icon: 'bi-mic-fill', label: 'Podcast', color: 'type-podcast' },
+          'interview': { icon: 'bi-camera-video-fill', label: 'Interview', color: 'type-video' },
+          'video': { icon: 'bi-play-circle-fill', label: 'Video', color: 'type-video' },
+          'report': { icon: 'bi-file-earmark-text', label: 'Report', color: 'type-report' },
+          'studies': { icon: 'bi-graph-up', label: 'Studies', color: 'type-studies' },
+          'key facts': { icon: 'bi-lightbulb', label: 'Key Facts', color: 'type-studies' },
+          'default': { icon: 'bi-newspaper', label: 'Article', color: 'type-news' }
+        };
+        
+        function getTypeConfig(type) {
+          const lowerType = (type || '').toLowerCase();
+          return typeConfig[lowerType] || typeConfig['default'];
+        }
+        
+        function updateSlide(index, animate = true) {
+          if (index < 0 || index >= heroPosts.length) return;
+          
+          const post = heroPosts[index];
+          const config = getTypeConfig(post.type);
+          
+          if (animate) {
+            // Fade out animation
+            if (titleEl) titleEl.classList.add('fade-out');
+            if (introEl) introEl.classList.add('fade-out');
+            if (imageEl) imageEl.classList.add('fade-out');
+            
+            setTimeout(() => {
+              // Update content
+              applySlideContent(post, config);
+              
+              // Fade in
+              if (titleEl) titleEl.classList.remove('fade-out');
+              if (introEl) introEl.classList.remove('fade-out');
+              if (imageEl) imageEl.classList.remove('fade-out');
+            }, 400);
+          } else {
+            applySlideContent(post, config);
+          }
+          
+          // Update dots
+          updateDots(index);
+          currentSlide = index;
+        }
+        
+        function applySlideContent(post, config) {
+          if (titleEl) titleEl.innerHTML = post.title;
+          if (introEl) introEl.textContent = post.intro;
+          if (linkEl) linkEl.href = post.url;
+          if (dateEl) dateEl.innerHTML = '<i class="bi bi-clock me-1"></i>' + post.date;
+          
+          if (authorEl) {
+            if (post.author) {
+              authorEl.innerHTML = '<i class="bi bi-person me-1"></i>' + post.author;
+              authorEl.style.display = 'inline';
+            } else {
+              authorEl.style.display = 'none';
+            }
+          }
+          
+          if (imageEl) imageEl.src = post.image;
+          
+          // Update type badge
+          if (typeBadge) {
+            typeBadge.className = 'badge rounded-pill px-3 py-2 fw-bold text-uppercase ' + config.color;
+          }
+          if (typeIcon) {
+            typeIcon.className = 'bi ' + config.icon + ' me-1';
+          }
+          if (typeText) {
+            typeText.textContent = config.label;
+          }
+          if (mediaTypeIcon) {
+            mediaTypeIcon.innerHTML = '<i class="bi ' + config.icon + '"></i>';
+          }
+          
+          // Handle video content
+          if (post.has_video && videoContainer && imageContainer) {
+            imageContainer.style.display = 'none';
+            videoContainer.style.display = 'block';
+          } else if (videoContainer && imageContainer) {
+            imageContainer.style.display = 'block';
+            videoContainer.style.display = 'none';
+          }
+        }
+        
+        function updateDots(index) {
+          if (!carouselDots) return;
+          const dots = carouselDots.querySelectorAll('.carousel-dot');
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+        
+        function nextSlide() {
+          const next = (currentSlide + 1) % heroPosts.length;
+          updateSlide(next);
+        }
+        
+        function prevSlide() {
+          const prev = (currentSlide - 1 + heroPosts.length) % heroPosts.length;
+          updateSlide(prev);
+        }
+        
+        function startAutoPlay() {
+          if (autoPlayInterval) clearInterval(autoPlayInterval);
+          autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+          isPlaying = true;
+          if (pauseIcon) pauseIcon.className = 'bi bi-pause-fill';
+        }
+        
+        function stopAutoPlay() {
+          if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+          }
+          isPlaying = false;
+          if (pauseIcon) pauseIcon.className = 'bi bi-play-fill';
+        }
+        
+        function toggleAutoPlay() {
+          if (isPlaying) {
+            stopAutoPlay();
+          } else {
+            startAutoPlay();
+          }
+        }
+        
+        // Event listeners
+        if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
+        if (pauseBtn) pauseBtn.addEventListener('click', toggleAutoPlay);
+        
+        // Dot click handlers
+        if (carouselDots) {
+          carouselDots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+              updateSlide(i);
+              startAutoPlay();
+            });
+          });
+        }
+        
+        // Start autoplay
+        if (heroPosts.length > 1) {
+          startAutoPlay();
+        }
+        
+        // Pause on hover
+        const heroContainer = document.querySelector('.hero-carousel-container');
+        if (heroContainer && heroPosts.length > 1) {
+          heroContainer.addEventListener('mouseenter', stopAutoPlay);
+          heroContainer.addEventListener('mouseleave', startAutoPlay);
+        }
+        
+        // Initialize first slide
+        updateSlide(0, false);
+      })();
+
+      // Video play button functionality (for video slides)
       const playBtn = document.getElementById('play-btn');
       const video = document.getElementById('hero-video');
       
-      playBtn.addEventListener('click', function() {
-        console.log('Play button clicked');
-        console.log('Video readyState:', video.readyState);
-        
-        video.play().then(() => {
-          console.log('Video started playing');
-          playBtn.style.display = 'none';
-        }).catch(error => {
-          console.error('Video play failed:', error);
-          alert('Unable to play video: ' + error.message);
+      if (playBtn && video) {
+        playBtn.addEventListener('click', function() {
+          video.play().then(() => {
+            playBtn.style.display = 'none';
+          }).catch(error => {
+            console.error('Video play failed:', error);
+          });
         });
-      });
 
-      // Hide play button when video starts playing
-      video.addEventListener('play', function() {
-        console.log('Video play event');
-        playBtn.style.display = 'none';
-      });
+        video.addEventListener('play', function() {
+          playBtn.style.display = 'none';
+        });
 
-      // Show play button when video is paused or ended
-      video.addEventListener('pause', function() {
-        console.log('Video pause event');
-        playBtn.style.display = 'flex';
-      });
+        video.addEventListener('pause', function() {
+          playBtn.style.display = 'flex';
+        });
 
-      video.addEventListener('ended', function() {
-        console.log('Video ended event');
-        playBtn.style.display = 'flex';
-      });
-
-      // Check if video loaded
-      video.addEventListener('loadeddata', function() {
-        console.log('Video loaded successfully, readyState:', this.readyState);
-      });
-
-      video.addEventListener('error', function(e) {
-        console.error('Video loading error:', e);
-        alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
-      });
-
-      // Preload video on page load
-      window.addEventListener('load', function() {
-        video.load(); // Force load
-        console.log('Video preload initiated');
-      });
+        video.addEventListener('ended', function() {
+          playBtn.style.display = 'flex';
+        });
+      }
 
       // Podcast Video play button functionality
       const podcastPlayBtn = document.getElementById('podcast-play-btn');

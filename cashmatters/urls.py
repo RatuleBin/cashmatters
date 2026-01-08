@@ -15,7 +15,7 @@ from blog.api import api_router
 
 # Frontend views
 def index(request):
-    """Serve the homepage with latest blog posts"""
+    """Serve the homepage with latest blog posts and dynamic hero carousel"""
     from blog.models import ArticlePage, BlogPage
     from itertools import chain
 
@@ -41,9 +41,26 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent featured posts
 
+    # Get hero posts for dynamic carousel (all content types)
+    # Prioritize featured content, then fall back to latest
+    hero_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
+    hero_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
+
+    # Combine hero posts - prioritize variety of content types
+    hero_posts_combined = sorted(
+        chain(hero_articles, hero_blog_posts),
+        key=lambda x: (x.featured, x.date),
+        reverse=True
+    )[:5]  # Take 5 for carousel variety
+
     context = {
         'latest_posts': combined_posts,
         'featured_posts': featured_posts,
+        'hero_posts': hero_posts_combined,
     }
     return render(request, 'index.html', context)
 

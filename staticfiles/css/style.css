@@ -183,6 +183,18 @@ h1, h2, h3, h4, h5, h6,
     .hero-wrapper { padding-bottom: 120px; }
     .video-overlap-container { margin-bottom: -150px; }
 }
+
+/* Why Cash Page Video (No overlap) */
+.why-cash-video-container {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 0;
+}
+.why-cash-video-container .video-card {
+    aspect-ratio: 16/9;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
 .video-card {
     aspect-ratio: 16/7; background: #000; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
@@ -534,7 +546,191 @@ h1, h2, h3, h4, h5, h6,
 
 
 /* =========================================
-   9. ABOUT PAGE - TEAM SECTION
+   9. HOMEPAGE HERO CAROUSEL
+   ========================================= */
+
+/* Hero carousel container */
+.hero-carousel-container {
+    min-height: 400px;
+}
+
+.min-vh-hero {
+    min-height: 450px;
+}
+
+/* Content Type Badges */
+.hero-content-type-badge .badge {
+    background-color: var(--brand-mint) !important;
+    color: #002e26 !important;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-content-type-badge .badge.type-blog {
+    background-color: #4CD1C2 !important;
+}
+
+.hero-content-type-badge .badge.type-news {
+    background-color: #FFD700 !important;
+    color: #1a1a1a !important;
+}
+
+.hero-content-type-badge .badge.type-podcast {
+    background-color: #9B59B6 !important;
+    color: #fff !important;
+}
+
+.hero-content-type-badge .badge.type-video,
+.hero-content-type-badge .badge.type-interview {
+    background-color: #E74C3C !important;
+    color: #fff !important;
+}
+
+.hero-content-type-badge .badge.type-report,
+.hero-content-type-badge .badge.type-studies {
+    background-color: #3498DB !important;
+    color: #fff !important;
+}
+
+/* Hero Title Animation */
+#hero-slide-title {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#hero-slide-title.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+#hero-slide-intro {
+    transition: opacity 0.3s ease 0.1s;
+}
+
+#hero-slide-intro.fade-out {
+    opacity: 0;
+}
+
+/* Carousel Dots */
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+    border-color: var(--brand-mint);
+}
+
+.carousel-dot.active {
+    background: var(--brand-mint);
+    border-color: var(--brand-mint);
+    transform: scale(1.2);
+}
+
+/* Carousel Controls */
+.btn-carousel {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.btn-carousel:hover {
+    background: var(--brand-mint);
+    border-color: var(--brand-mint);
+    color: #002e26;
+}
+
+.btn-carousel:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 209, 194, 0.4);
+}
+
+/* Hero Media Container */
+.hero-media-container {
+    aspect-ratio: 16/10;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.hero-media-img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.hero-media-img:hover {
+    transform: scale(1.02);
+}
+
+.hero-media-img.fade-out {
+    opacity: 0;
+}
+
+.hero-media-item video {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Media Type Overlay */
+.hero-media-type-overlay .badge {
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+}
+
+/* Auto-play progress bar */
+.carousel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--brand-mint);
+    width: 0%;
+    transition: width linear;
+}
+
+.carousel-progress.active {
+    animation: carouselProgress 6s linear forwards;
+}
+
+@keyframes carouselProgress {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .hero-carousel-container {
+        min-height: auto;
+    }
+    
+    .min-vh-hero {
+        min-height: auto;
+    }
+    
+    .hero-media-container {
+        aspect-ratio: 16/9;
+    }
+    
+    .carousel-controls {
+        margin-top: 0.5rem;
+    }
+}
+
+/* =========================================
+   10. ABOUT PAGE - TEAM SECTION
    ========================================= */
 
 .team-section {

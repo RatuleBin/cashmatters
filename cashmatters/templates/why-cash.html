@@ -100,9 +100,9 @@
 <body class="bg-light-cream">
 
     <!-- =========================================
-         1. HEADER (Fixed Dark)
+         1. HEADER & HERO
     ========================================== -->
-    <div class="header-wrapper">
+    <div class="hero-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
@@ -125,33 +125,57 @@
                 </div>
             </div>
         </nav>
-    </div>
 
-    <!-- =========================================
-         2. HERO SECTION
-    ========================================== -->
-    <section class="hero-wrapper pt-4 pb-4">
-        <div class="container pt-3 pb-3">
-            <div class="row align-items-center">
-                <!-- Headline -->
-                <div class="col-lg-5 mb-3 mb-lg-0">
-                    <h1 class="display-5 fw-bold text-white lh-1">
-                        <span class="text-mint">Why</span> Cash<br>Matters
-                    </h1>
-                </div>
-                <!-- Text Content -->
-                <div class="col-lg-7">
-                    <p class="text-white opacity-90 lead fw-light mb-3">
-                        {{ page.intro|default:"Cash safeguards personal independence, ensures stable currency systems, and remains the most secure payment method available to everyone." }}
-                    </p>
-                    <div class="d-flex align-items-center gap-4 text-white small opacity-75">
-                        <span><i class="bi bi-share me-2"></i> Share</span>
-                        <span><i class="bi bi-clock me-2"></i> {{ page.date|date:"M d, Y"|default:"Nov 24, 2025" }}</span>
-                    </div>
-                </div>
+      <section class="hero-content position-relative pb-5">
+        <div class="container">
+          <div class="row pt-5 pb-4">
+            <div class="col-lg-6 pt-3">
+              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
+                Cash is simple,<br />safe, and
+                <span class="text-mint">for<br />everyone</span>
+              </h1>
             </div>
+            <div
+              class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
+            >
+              <p class="hero-desc text-white mb-4">
+                Research, reporting, and resources that show why physical cash
+                remains essential around the world.
+              </p>
+              <div>
+                <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                  Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Section (No overlap for Why Cash page) -->
+          <div class="why-cash-video-container mb-4">
+            <div
+              class="video-card position-relative w-100 rounded-4 overflow-hidden"
+            >
+              <video
+                id="hero-video"
+                class="img-fluid w-100"
+                loop
+                playsinline
+                preload="auto"
+                controls
+              >
+                <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="play-btn-wrapper">
+                <button id="play-btn" class="btn-play">
+                  <i class="bi bi-play-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
+    </div>
 
     <!-- =========================================
          3. MAIN CONTENT SECTION
@@ -613,6 +637,37 @@
                 }
             });
         });
+    </script>
+
+    <!-- Hero Video Play Button Script -->
+    <script>
+      // Video play button functionality
+      const playBtn = document.getElementById('play-btn');
+      const video = document.getElementById('hero-video');
+      
+      if (playBtn && video) {
+        playBtn.addEventListener('click', function() {
+          video.play().then(() => {
+            playBtn.style.display = 'none';
+          }).catch(error => {
+            console.error('Video play failed:', error);
+          });
+        });
+
+        // Hide play button when video starts playing
+        video.addEventListener('play', function() {
+          playBtn.style.display = 'none';
+        });
+
+        // Show play button when video is paused or ended
+        video.addEventListener('pause', function() {
+          playBtn.style.display = 'flex';
+        });
+
+        video.addEventListener('ended', function() {
+          playBtn.style.display = 'flex';
+        });
+      }
     </script>
 </body>
 </html>
