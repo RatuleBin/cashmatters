@@ -1,7 +1,7 @@
 {% load static wagtailcore_tags wagtailuserbar %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
     <head>
         <meta charset="utf-8" />
         <title>
@@ -235,6 +235,21 @@
                         <button class="btn text-white p-0 search-trigger" style="background: none; border: none;" aria-label="Search">
                             <i class="bi bi-search"></i>
                         </button>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link text-white d-flex align-items-center gap-1" aria-label="Select Language">
+                            <i class="bi bi-globe2"></i>
+                            <span class="d-none d-md-inline" id="current-lang">EN</span>
+                        </a>
+                        <div class="dropdown">
+                            <a href="{% url 'set_language' %}?lang=en-gb" class="d-flex align-items-center gap-2" data-lang="en-gb">
+                                <span>🇬🇧</span> English (UK)
+                            </a>
+                            <a href="{% url 'set_language' %}?lang=de" class="d-flex align-items-center gap-2" data-lang="de">
+                                <span>🇩🇪</span> Deutsch
+                            </a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'support' %}" class="btn btn-support-cash">

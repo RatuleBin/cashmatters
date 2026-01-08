@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +44,17 @@
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
@@ -125,11 +136,12 @@
                             <h4 class="fw-bold mb-2">Pius</h4>
                             <p class="text-muted mb-4">Editor</p>
                             
-                            <!-- Email Link -->
-                            <a href="mailto:pius@cashmatters.org" 
-                               class="btn btn-mint fw-bold rounded-2 px-4 py-2 w-100">
+                            <!-- Email Link (Obfuscated) -->
+                            <a href="#" 
+                               class="btn btn-mint fw-bold rounded-2 px-4 py-2 w-100 contact-email"
+                               data-user="pius" data-domain="cashmatters.org">
                                 <i class="bi bi-envelope me-2"></i>
-                                pius@cashmatters.org
+                                <span class="email-text">Contact Editor</span>
                             </a>
                             
                             <p class="text-muted small mt-4 mb-0">
@@ -216,8 +228,9 @@
                         <p class="mb-5 lead opacity-90 fw-light">
                             We're excited to read your submission. Send your article or pitch directly to our editor and join the conversation.
                         </p>
-                        <a href="mailto:pius@cashmatters.org" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            <i class="bi bi-envelope me-2"></i> Email pius@cashmatters.org
+                        <a href="#" class="btn btn-mint fw-bold rounded-2 px-4 py-3 contact-email"
+                           data-user="pius" data-domain="cashmatters.org">
+                            <i class="bi bi-envelope me-2"></i> <span class="email-text">Contact Our Editor</span>
                         </a>
                     </div>
                 </div>

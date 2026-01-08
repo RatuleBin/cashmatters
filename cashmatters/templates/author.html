@@ -2,7 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +52,17 @@
                 <!-- Right Actions -->
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
@@ -100,7 +111,8 @@
                 <div class="d-flex gap-3 flex-wrap align-items-center">
                     {% if author %}
                         {% if author.email %}
-                            <a href="mailto:{{ author.email }}" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="Email">
+                            <a href="#" class="btn btn-outline-dark btn-sm rounded-pill px-3 author-email-link" 
+                               data-email="{{ author.email }}" title="Email">
                                 <i class="bi bi-envelope me-1"></i> Email
                             </a>
                         {% endif %}
@@ -384,6 +396,19 @@
                 toast.show();
             }
         }
+        
+        // Author email protection - reveal and link on click
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.author-email-link').forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var email = this.getAttribute('data-email');
+                    if (email) {
+                        window.location.href = 'mailto:' + email;
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

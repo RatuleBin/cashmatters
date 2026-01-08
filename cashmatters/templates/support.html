@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static wagtailcore_tags wagtailimages_tags %}
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,6 +76,17 @@
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
+                    <!-- Language Switcher -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash active-nav">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>

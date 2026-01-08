@@ -1,9 +1,11 @@
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.translation import activate
 import os
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -486,7 +488,31 @@ def blogs_dashboard(request):
     return render(request, 'blogs_dashboard.html', context)
 
 
+# Language switch view
+def set_language(request):
+    """Handle language switching via GET parameter"""
+    from django.utils import translation
+    from django.conf import settings
+    
+    lang = request.GET.get('lang', 'en-gb')
+    if lang in [code for code, name in settings.LANGUAGES]:
+        translation.activate(lang)
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    
+    # Redirect back to the referring page or home
+    next_url = request.META.get('HTTP_REFERER', '/')
+    # Remove any existing lang parameter from the URL
+    if '?lang=' in next_url:
+        next_url = next_url.split('?lang=')[0]
+    elif '&lang=' in next_url:
+        next_url = next_url.replace(f'&lang={lang}', '')
+    
+    return redirect(next_url)
+
+
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),  # Django language switching
+    path("set-language/", set_language, name="set_language"),  # Custom language switch
     path("", index, name="index"),  # Root URL serves the homepage
     path("news/", news, name="news"),  # News page
     path("about/", about, name="about"),  # About page
