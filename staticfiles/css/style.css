@@ -938,6 +938,34 @@ h1, h2, h3, h4, h5, h6,
     transform: scale(1.1);
 }
 
+/* Team Social Icons */
+.team-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-mint) 0%, #3ab5a7 100%);
+    color: var(--brand-dark-teal);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.team-social-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(76, 209, 194, 0.4);
+    color: var(--brand-dark-teal);
+}
+
+.team-social-icon svg {
+    transition: transform 0.3s ease;
+}
+
+.team-social-icon:hover svg {
+    transform: scale(1.15);
+}
+
 /* Section heading animation */
 .team-section-title {
     position: relative;
