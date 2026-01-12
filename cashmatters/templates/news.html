@@ -11,10 +11,10 @@
             Search Results - {{ search_query }} - Cash Matters
         {% elif active_category == 'studies' %}
             Studies & Research - Cash Matters
-        {% elif active_category == 'key-fact' %}
+        {% elif active_category == 'key-facts' %}
             Key Facts - Cash Matters
         {% elif active_category == 'podcast' %}
-            Podcasts & Audio - Cash Matters
+            Podcasts - Cash Matters
         {% else %}
             News & Articles - Cash Matters
         {% endif %}
@@ -57,7 +57,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a></li>
+                        <!-- Write for Us link moved to footer only -->
                     </ul>
                 </div>
 
@@ -85,28 +85,75 @@
          2. FILTERS & SUB-NAV
     ========================================== -->
     <div class="container mt-5 pt-4">
-        <!-- Links & Search -->
+        <!-- Category Links -->
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
             <div class="sub-nav-links d-flex gap-4 fs-5 fw-medium">
                 <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">News</a>
-                <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies</a>
-                <a href="{% url 'news' %}?category=key-fact{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-fact' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key Fact</a>
-                <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcast</a>
+                <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
+                <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
+                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key facts</a>
             </div>
-            <div class="search-container">
-                <form method="GET" action="{% url 'news' %}" class="d-flex gap-2" id="search-form">
-                    {% if active_category %}
-                        <input type="hidden" name="category" value="{{ active_category }}">
-                    {% endif %}
+        </div>
+
+        <!-- Advanced Filters Row -->
+        <div class="row mb-4 g-3 align-items-end">
+            <form method="GET" action="{% url 'news' %}" class="row g-3 align-items-end" id="filter-form">
+                {% if active_category %}
+                    <input type="hidden" name="category" value="{{ active_category }}">
+                {% endif %}
+                
+                <!-- Search -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label small text-muted fw-medium">Search</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 rounded-start-2">
                             <i class="bi bi-search text-muted"></i>
                         </span>
                         <input type="text" name="q" class="form-control border-start-0 rounded-end-2 px-3 py-2" placeholder="Search articles..." value="{{ request.GET.q }}" id="search-input">
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small text-muted fw-medium">From Date</label>
+                    <input type="date" name="date_from" class="form-control rounded-2 py-2" value="{{ request.GET.date_from }}" id="date-from">
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <label class="form-label small text-muted fw-medium">To Date</label>
+                    <input type="date" name="date_to" class="form-control rounded-2 py-2" value="{{ request.GET.date_to }}" id="date-to">
+                </div>
+
+                <!-- Content Type Filter -->
+                <div class="col-lg-2 col-md-4">
+                    <label class="form-label small text-muted fw-medium">Content Type</label>
+                    <select name="content_type" class="form-select rounded-2 py-2" id="content-type">
+                        <option value="">All Types</option>
+                        <option value="news" {% if request.GET.content_type == 'news' %}selected{% endif %}>News</option>
+                        <option value="research" {% if request.GET.content_type == 'research' %}selected{% endif %}>Research</option>
+                        <option value="reports" {% if request.GET.content_type == 'reports' %}selected{% endif %}>Reports</option>
+                        <option value="opinion" {% if request.GET.content_type == 'opinion' %}selected{% endif %}>Opinion</option>
+                        <option value="editorial" {% if request.GET.content_type == 'editorial' %}selected{% endif %}>Editorial</option>
+                        <option value="commentary" {% if request.GET.content_type == 'commentary' %}selected{% endif %}>Commentary</option>
+                    </select>
+                </div>
+
+                <!-- Filter Button -->
+                <div class="col-lg-2 col-md-4">
+                    <button type="submit" class="btn btn-dark-teal rounded-2 py-2 w-100">
+                        <i class="bi bi-funnel me-1"></i> Apply Filters
+                    </button>
+                </div>
+            </form>
         </div>
+
+        <!-- Clear Filters Link -->
+        {% if request.GET.q or request.GET.date_from or request.GET.date_to or request.GET.content_type %}
+        <div class="mb-3">
+            <a href="{% url 'news' %}{% if active_category %}?category={{ active_category }}{% endif %}" class="text-muted small text-decoration-none">
+                <i class="bi bi-x-circle me-1"></i> Clear all filters
+            </a>
+        </div>
+        {% endif %}
     </div>
 
     <!-- =========================================
@@ -119,10 +166,10 @@
                     Search Results for "{{ search_query }}"
                 {% elif active_category == 'studies' %}
                     Studies & Research
-                {% elif active_category == 'key-fact' %}
+                {% elif active_category == 'key-facts' %}
                     Key Facts
                 {% elif active_category == 'podcast' %}
-                    Podcasts & Audio
+                    Podcasts
                 {% else %}
                     Latest News
                 {% endif %}
@@ -422,14 +469,14 @@
             const articlesContainer = document.querySelector('.row.g-4');
             const loadMoreContainer = document.getElementById('load-more-container');
             const searchInput = document.getElementById('search-input');
-            const searchForm = document.getElementById('search-form');
+            const filterForm = document.getElementById('filter-form');
 
             // Handle search input - submit form on Enter key
             if (searchInput) {
                 searchInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        searchForm.submit();
+                        filterForm.submit();
                     }
                 });
             }
@@ -437,13 +484,17 @@
             if (loadMoreBtn) {
                 loadMoreBtn.addEventListener('click', function() {
                     const nextPage = this.getAttribute('data-next-page');
+                    
+                    // Get current URL parameters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('page', nextPage);
 
                     // Show loading state
                     this.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Loading...';
                     this.disabled = true;
 
-                    // Make AJAX request
-                    fetch(`?page=${nextPage}`, {
+                    // Make AJAX request with all current filters
+                    fetch(`?${urlParams.toString()}`, {
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
                         }
