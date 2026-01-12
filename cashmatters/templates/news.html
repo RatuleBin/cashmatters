@@ -64,16 +64,15 @@
                 <!-- Right Actions -->
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
-                    <!-- Language Switcher -->
-                    {% get_current_language as LANGUAGE_CODE %}
+                    <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
                         <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                             <i class="bi bi-globe2"></i>
-                            <span class="small">{% if LANGUAGE_CODE == 'de' %}DE{% else %}EN{% endif %}</span>
+                            <span class="small" id="current-lang">EN</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'en-gb' or LANGUAGE_CODE == 'en' %} active{% endif %}" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'de' %} active{% endif %}" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> Deutsch</a></li>
                         </ul>
                     </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
@@ -473,5 +472,55 @@
             }
         });
     </script>
+
+    <!-- Google Translate Integration -->
+    <div id="google_translate_element" style="display: none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,de',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+        
+        function translatePage(lang) {
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = lang;
+                select.dispatchEvent(new Event('change'));
+                updateLanguageDisplay(lang);
+                localStorage.setItem('preferredLanguage', lang);
+            } else {
+                setTimeout(function() { translatePage(lang); }, 500);
+            }
+        }
+        
+        function updateLanguageDisplay(lang) {
+            var displays = document.querySelectorAll('[id^="current-lang"]');
+            displays.forEach(function(el) {
+                el.textContent = lang === 'de' ? 'DE' : 'EN';
+            });
+            document.querySelectorAll('.lang-switch-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && savedLang !== 'en') {
+                setTimeout(function() { translatePage(savedLang); }, 1000);
+            }
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        .goog-te-banner-frame, .skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+        .goog-te-gadget { display: none !important; }
+    </style>
 </body>
 </html>
