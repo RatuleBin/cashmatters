@@ -64,6 +64,17 @@ h1, h2, h3, h4, h5, h6,
     background-color: var(--brand-dark);
 }
 
+.btn-dark-teal {
+    background-color: var(--brand-dark);
+    border-color: var(--brand-dark);
+    color: #fff;
+}
+.btn-dark-teal:hover {
+    background-color: #005a5a;
+    border-color: #005a5a;
+    color: #fff;
+}
+
 .bg-yellow {
     background-color: var(--brand-yellow) !important;
 }

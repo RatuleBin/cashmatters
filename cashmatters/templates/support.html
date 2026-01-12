@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cash Matters - Support & Assets</title>
-    <!-- Favicon - Teal "C" for better visibility -->
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
+    <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
@@ -272,7 +271,7 @@
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
                                 <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-facebook"></i> Share</a>
+                                <a href="#" onclick="shareAsset('We Support Cash Matters Banner (Black)', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
                             </div>
                         </div>
 
@@ -286,7 +285,7 @@
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
                                 <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-facebook"></i> Share</a>
+                                <a href="#" onclick="shareAsset('We Support Cash Matters Banner (White)', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
                             </div>
                         </div>
                     </div>
@@ -624,15 +623,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-5 py-4 bg-light rounded-3">
-                        <i class="bi bi-envelope-heart display-4 text-mint mb-3"></i>
-                        <h4 class="fw-bold">Interested in our merchandise?</h4>
-                        <p class="text-muted mb-4">Our gift shop is coming soon! Subscribe to be notified when products become available.</p>
-                        <form class="d-flex justify-content-center gap-2 flex-wrap px-3" style="max-width: 500px; margin: 0 auto;">
-                            <input type="email" class="form-control" placeholder="Enter your email" style="max-width: 300px;">
-                            <button type="button" class="btn btn-mint fw-bold px-4">Notify Me</button>
-                        </form>
-                    </div>
                 </div>
 
             </div>
@@ -687,17 +677,21 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get to know us</h6>
+                    <h6 class="fw-bold mb-4">Navigation</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
                         <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
-                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get informed</h6>
+                    <h6 class="fw-bold mb-4">Resources</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-                        <li><a href="#" class="text-white text-decoration-none hover-u">News</a></li>
+                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-12">
@@ -715,8 +709,13 @@
                     </p>
                 </div>
             </div>
+            <!-- ICA Initiative Section -->
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
+                <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
+                <img src="{% static 'images/ICA-logo.png' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
+            </div>
             <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small opacity-75 gap-3">
-                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters</span>
+                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span>
                 <span class="mb-2 mb-lg-0 text-center">Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span>
                 <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end">Privacy Policy</a>
             </div>

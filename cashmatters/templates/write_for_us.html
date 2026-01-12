@@ -6,10 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write for Us - Cash Matters</title>
-    <!-- Favicon - Teal "C" for better visibility -->
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
+    <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
@@ -231,12 +230,8 @@
                     <a class="navbar-brand d-inline-block mb-4" href="{% url 'index' %}">
                         <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="50">
                     </a>
-                    <p class="small opacity-90 mb-3 pe-lg-5" style="line-height: 1.6;">
+                    <p class="small opacity-90 mb-4 pe-lg-5" style="line-height: 1.6;">
                         Cash Matters is an independent initiative dedicated to preserving payment choice for everyone.
-                    </p>
-                    <p class="small opacity-90 mb-4">
-                        <i class="bi bi-envelope me-1"></i> 
-                        <a href="#" class="text-white text-decoration-none hover-u contact-email" data-user="info" data-domain="cashmatters.org">info@cashmatters.org</a>
                     </p>
                     <div class="d-flex gap-3">
                         <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer"
@@ -273,17 +268,21 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get to know us</h6>
+                    <h6 class="fw-bold mb-4">Navigation</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
                         <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
-                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get informed</h6>
+                    <h6 class="fw-bold mb-4">Resources</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="{{ why_cash_page.url }}" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-                        <li><a href="{% url 'news' %}" class="text-white text-decoration-none hover-u">News</a></li>
+                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-12">
@@ -301,8 +300,13 @@
                     </p>
                 </div>
             </div>
+            <!-- ICA Initiative Section -->
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
+                <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
+                <img src="{% static 'images/ICA-logo.png' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
+            </div>
             <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small opacity-75 gap-3">
-                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters</span>
+                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span>
                 <span class="mb-2 mb-lg-0 text-center">Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span>
                 <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end">Privacy Policy</a>
             </div>

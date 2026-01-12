@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why Cash Matters</title>
-    <!-- Favicon - Teal "C" for better visibility -->
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
+    <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
@@ -584,17 +583,25 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get to know us</h6>
+                    <h6 class="fw-bold mb-4">Navigation</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Our aim</a></li>
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
+                        <li><a href="{% url 'news' %}" class="text-white text-decoration-none hover-u">News & Articles</a></li>
+                        <li><a href="{% url 'blog:blog_index' %}" class="text-white text-decoration-none hover-u">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <h6 class="fw-bold mb-4">Get informed</h6>
+                    <h6 class="fw-bold mb-4">Resources</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="#" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-                        <li><a href="#" class="text-white text-decoration-none hover-u">News</a></li>
+                        <li><a href="{% url 'why_cash' %}" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
                     </ul>
+                    <!-- ICA Logo -->
+                    <div class="mt-4">
+                        <img src="{% static 'images/ICA-logo.png' %}" alt="ICA Logo" height="60" class="opacity-90">
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <h4 class="fw-bold mb-3">Stay up to date with<br>Cash Matters.</h4>
