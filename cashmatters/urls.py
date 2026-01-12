@@ -124,10 +124,14 @@ def news(request):
     from django.http import JsonResponse
     from django.template.loader import render_to_string
     from django.db.models import Q
+    from datetime import datetime
 
-    # Get search query and category
+    # Get search query and filters
     search_query = request.GET.get('q', '').strip()
     category = request.GET.get('category', '').strip()
+    date_from = request.GET.get('date_from', '').strip()
+    date_to = request.GET.get('date_to', '').strip()
+    content_type = request.GET.get('content_type', '').strip()
 
     # Get all published articles and blog posts with author_profile preloaded
     articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')
@@ -135,18 +139,51 @@ def news(request):
 
     # Apply category filter if specified
     if category:
-        # Map category names to article type names
+        # Map category names to article type names (updated mapping)
         category_mapping = {
             'news': ['News'],
-            'studies': ['Studies', 'Research'],
-            'key-fact': ['Key Facts', 'Key Fact'],
-            'podcast': ['Podcast', 'Audio']
+            'studies': ['Studies', 'Research', 'Studies & Research'],
+            'key-facts': ['Key Facts', 'Key Fact'],
+            'podcast': ['Podcast', 'Podcasts', 'Audio']
         }
 
         article_type_names = category_mapping.get(category.lower(), [])
         if article_type_names:
             articles = articles.filter(article_types__name__in=article_type_names)
             blog_posts = blog_posts.filter(article_types__name__in=article_type_names)
+
+    # Apply content type filter if specified
+    if content_type:
+        # Map content type to article type names
+        content_type_mapping = {
+            'news': ['News'],
+            'research': ['Research', 'Studies', 'Studies & Research'],
+            'reports': ['Reports', 'Report'],
+            'opinion': ['Opinion'],
+            'editorial': ['Editorial'],
+            'commentary': ['Commentary']
+        }
+        content_type_names = content_type_mapping.get(content_type.lower(), [])
+        if content_type_names:
+            articles = articles.filter(article_types__name__in=content_type_names)
+            blog_posts = blog_posts.filter(article_types__name__in=content_type_names)
+
+    # Apply date range filter
+    if date_from:
+        try:
+            date_from_parsed = datetime.strptime(date_from, '%Y-%m-%d').date()
+            articles = articles.filter(date__gte=date_from_parsed)
+            blog_posts = blog_posts.filter(date__gte=date_from_parsed)
+        except ValueError:
+            pass  # Invalid date format, skip filter
+
+    if date_to:
+        try:
+            date_to_parsed = datetime.strptime(date_to, '%Y-%m-%d').date()
+            articles = articles.filter(date__lte=date_to_parsed)
+            blog_posts = blog_posts.filter(date__lte=date_to_parsed)
+        except ValueError:
+            pass  # Invalid date format, skip filter
 
     # Apply search filter if query exists
     if search_query:
@@ -194,6 +231,10 @@ def news(request):
         print(f"DEBUG: Search query: '{search_query}'")
     if category:
         print(f"DEBUG: Category filter: '{category}'")
+    if content_type:
+        print(f"DEBUG: Content type filter: '{content_type}'")
+    if date_from or date_to:
+        print(f"DEBUG: Date range: {date_from} to {date_to}")
 
     context = {
         'articles': page_obj,  # Now this is a page object, not the full list

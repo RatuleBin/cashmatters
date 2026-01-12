@@ -39,7 +39,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'write_for_us' %}">Write for Us</a></li>
+                        <!-- Write for Us link moved to footer only -->
                     </ul>
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
@@ -91,7 +91,7 @@
         <div class="container py-4">
             <div class="row align-items-start">
                 <!-- Text content -->
-                <div class="col-lg-7 col-md-12">
+                <div class="col-lg-8 col-md-12">
                     <h2 class="fw-bold mb-4">We Want to Hear From You</h2>
                     <p class="text-muted fs-5 mb-4">
                         Cash Matters welcomes contributions from writers, researchers, economists, and advocates who share our commitment to preserving payment choice. Whether you're an academic, industry expert, or passionate advocate, we'd love to hear your perspective.
@@ -116,38 +116,14 @@
                         <li class="mb-2">Provide high-quality images if available</li>
                         <li class="mb-2">Cite all sources and statistics</li>
                     </ul>
-                </div>
 
-                <!-- Editor Contact Card -->
-                <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0">
-                    <div class="card border-0 rounded-4 shadow-lg overflow-hidden">
-                        <div class="bg-dark-teal p-4 text-center">
-                            <h5 class="text-white fw-bold mb-0">Contact Our Editor</h5>
-                        </div>
-                        <div class="card-body p-4 text-center">
-                            <!-- Editor Photo -->
-                            <div class="mb-4">
-                                <img src="{% static 'images/pius-editor.jpg' %}" 
-                                     alt="Pius - Editor" 
-                                     class="rounded-circle shadow"
-                                     style="width: 150px; height: 150px; object-fit: cover;"
-                                     onerror="this.src='https://ui-avatars.com/api/?name=Pius&size=150&background=007d7e&color=fff&bold=true'">
-                            </div>
-                            <h4 class="fw-bold mb-2">Pius</h4>
-                            <p class="text-muted mb-4">Editor</p>
-                            
-                            <!-- Email Link (Obfuscated) -->
-                            <a href="#" 
-                               class="btn btn-mint fw-bold rounded-2 px-4 py-2 w-100 contact-email"
-                               data-user="pius" data-domain="cashmatters.org">
-                                <i class="bi bi-envelope me-2"></i>
-                                <span class="email-text">Contact Editor</span>
-                            </a>
-                            
-                            <p class="text-muted small mt-4 mb-0">
-                                Send your article submissions and inquiries directly to our editor.
-                            </p>
-                        </div>
+                    <!-- Contact Our Editor Button -->
+                    <div class="mt-5">
+                        <a href="mailto:pius@cashmatters.org?subject=Article%20Submission%20for%20Cash%20Matters" 
+                           class="btn btn-dark-teal fw-bold rounded-2 px-5 py-3">
+                            <i class="bi bi-envelope me-2"></i>
+                            Contact Our Editor
+                        </a>
                     </div>
                 </div>
             </div>
@@ -228,9 +204,9 @@
                         <p class="mb-5 lead opacity-90 fw-light">
                             We're excited to read your submission. Send your article or pitch directly to our editor and join the conversation.
                         </p>
-                        <a href="#" class="btn btn-mint fw-bold rounded-2 px-4 py-3 contact-email"
-                           data-user="pius" data-domain="cashmatters.org">
-                            <i class="bi bi-envelope me-2"></i> <span class="email-text">Contact Our Editor</span>
+                        <a href="mailto:pius@cashmatters.org?subject=Article%20Submission%20for%20Cash%20Matters" 
+                           class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+                            <i class="bi bi-envelope me-2"></i> Contact Our Editor
                         </a>
                     </div>
                 </div>

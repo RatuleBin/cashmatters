@@ -228,9 +228,7 @@
                     <li class="nav-item{% if '/podcast/' in request.path %} active{% endif %}">
                         <a href="/#podcast-section">Podcast</a>
                     </li>
-                    <li class="nav-item{% if '/write-for-us/' in request.path %} active{% endif %}">
-                        <a href="{% url 'write_for_us' %}">Write for Us</a>
-                    </li>
+                    <!-- Write for Us link moved to footer only -->
                     <li class="nav-item">
                         <button class="btn text-white p-0 search-trigger" style="background: none; border: none;" aria-label="Search">
                             <i class="bi bi-search"></i>
