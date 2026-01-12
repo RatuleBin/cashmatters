@@ -493,11 +493,16 @@ def set_language(request):
     """Handle language switching via GET parameter"""
     from django.utils import translation
     from django.conf import settings
+    from django.http import HttpResponseRedirect
+    
+    # Django 4.0+ removed translation.LANGUAGE_SESSION_KEY
+    # The session key for language is '_language'
+    LANGUAGE_SESSION_KEY = '_language'
     
     lang = request.GET.get('lang', 'en-gb')
     if lang in [code for code, name in settings.LANGUAGES]:
         translation.activate(lang)
-        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+        request.session[LANGUAGE_SESSION_KEY] = lang
     
     # Redirect back to the referring page or home
     next_url = request.META.get('HTTP_REFERER', '/')
@@ -507,7 +512,16 @@ def set_language(request):
     elif '&lang=' in next_url:
         next_url = next_url.replace(f'&lang={lang}', '')
     
-    return redirect(next_url)
+    # Create response with language cookie for persistence
+    response = HttpResponseRedirect(next_url)
+    response.set_cookie(
+        settings.LANGUAGE_COOKIE_NAME,  # 'django_language'
+        lang,
+        max_age=365 * 24 * 60 * 60,  # 1 year
+        path='/',
+        samesite='Lax',
+    )
+    return response
 
 
 urlpatterns = [

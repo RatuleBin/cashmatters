@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags i18n %}
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
@@ -151,14 +151,15 @@
               <i class="bi bi-search fs-5"></i>
             </button>
             <!-- Language Switcher -->
+            {% get_current_language as LANGUAGE_CODE %}
             <div class="dropdown">
               <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                 <i class="bi bi-globe2"></i>
-                <span class="small" id="current-lang">EN</span>
+                <span class="small" id="current-lang">{% if LANGUAGE_CODE == 'de' %}DE{% else %}EN{% endif %}</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'en-gb' or LANGUAGE_CODE == 'en' %} active{% endif %}" href="{% url 'set_language' %}?lang=en-gb"><span>🇬🇧</span> English (UK)</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'de' %} active{% endif %}" href="{% url 'set_language' %}?lang=de"><span>🇩🇪</span> Deutsch</a></li>
               </ul>
             </div>
             <a href="{% url 'support' %}" class="btn btn-support-cash">

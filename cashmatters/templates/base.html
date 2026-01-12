@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load static wagtailcore_tags wagtailuserbar i18n %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -237,16 +237,17 @@
                         </button>
                     </li>
                     <!-- Language Switcher -->
+                    {% get_current_language as LANGUAGE_CODE %}
                     <li class="nav-item has-dropdown">
                         <a href="#" class="nav-link text-white d-flex align-items-center gap-1" aria-label="Select Language">
                             <i class="bi bi-globe2"></i>
-                            <span class="d-none d-md-inline" id="current-lang">EN</span>
+                            <span class="d-none d-md-inline" id="current-lang">{% if LANGUAGE_CODE == 'de' %}DE{% else %}EN{% endif %}</span>
                         </a>
                         <div class="dropdown">
-                            <a href="{% url 'set_language' %}?lang=en-gb" class="d-flex align-items-center gap-2" data-lang="en-gb">
+                            <a href="{% url 'set_language' %}?lang=en-gb" class="d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'en-gb' or LANGUAGE_CODE == 'en' %} active{% endif %}" data-lang="en-gb">
                                 <span>🇬🇧</span> English (UK)
                             </a>
-                            <a href="{% url 'set_language' %}?lang=de" class="d-flex align-items-center gap-2" data-lang="de">
+                            <a href="{% url 'set_language' %}?lang=de" class="d-flex align-items-center gap-2{% if LANGUAGE_CODE == 'de' %} active{% endif %}" data-lang="de">
                                 <span>🇩🇪</span> Deutsch
                             </a>
                         </div>

@@ -84,6 +84,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",  # Required for language switching
                 "cashmatters.context_processors.why_cash_page",
             ],
         },
@@ -176,6 +177,10 @@ LANGUAGES = [
     ('en-gb', 'English (UK)'),
     ('de', 'Deutsch'),
 ]
+
+# Language cookie settings
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_COOKIE_AGE = 365 * 24 * 60 * 60  # 1 year
 
 # Path where translations are stored
 LOCALE_PATHS = [
