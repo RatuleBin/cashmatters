@@ -18,7 +18,7 @@ from blog.api import api_router
 # Frontend views
 def index(request):
     """Serve the homepage with latest blog posts and dynamic hero carousel"""
-    from blog.models import ArticlePage, BlogPage
+    from blog.models import ArticlePage, BlogPage, ArticleType
     from itertools import chain
 
     # Get latest 3 published articles and blog posts with author_profile preloaded
@@ -43,21 +43,70 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent featured posts
 
-    # Get hero posts for dynamic carousel (all content types)
-    # Prioritize featured content, then fall back to latest
-    hero_articles = ArticlePage.objects.live().select_related(
+    # Get hero posts for dynamic carousel - ONE POST FROM EACH CATEGORY
+    # Fetch all distinct ArticleTypes (categories)
+    all_categories = ArticleType.objects.all()
+    
+    hero_posts_by_category = []
+    seen_post_ids = set()  # Avoid duplicates
+    
+    for category in all_categories:
+        # Try to get an ArticlePage with this category first
+        article = ArticlePage.objects.live().select_related(
+            'author_profile'
+        ).prefetch_related('article_types').filter(
+            article_types=category
+        ).order_by('-featured', '-date').first()
+        
+        if article and article.id not in seen_post_ids:
+            hero_posts_by_category.append(article)
+            seen_post_ids.add(article.id)
+            continue
+            
+        # If no ArticlePage, try BlogPage
+        blog_post = BlogPage.objects.live().select_related(
+            'author_profile'
+        ).prefetch_related('article_types').filter(
+            article_types=category
+        ).order_by('-featured', '-date').first()
+        
+        if blog_post and blog_post.id not in seen_post_ids:
+            hero_posts_by_category.append(blog_post)
+            seen_post_ids.add(blog_post.id)
+    
+    # If we have less than 3 posts from categories, fill with latest posts
+    if len(hero_posts_by_category) < 3:
+        additional_articles = ArticlePage.objects.live().select_related(
         'author_profile'
-    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
-    hero_blog_posts = BlogPage.objects.live().select_related(
+        ).prefetch_related('article_types').exclude(
+            id__in=seen_post_ids
+        ).order_by('-featured', '-date')[:5]
+        
+        additional_blogs = BlogPage.objects.live().select_related(
         'author_profile'
-    ).prefetch_related('article_types').order_by('-featured', '-date')[:5]
+        ).prefetch_related('article_types').exclude(
+            id__in=seen_post_ids
+        ).order_by('-featured', '-date')[:5]
 
-    # Combine hero posts - prioritize variety of content types
+        additional_combined = sorted(
+            chain(additional_articles, additional_blogs),
+            key=lambda x: x.date,
+            reverse=True
+        )
+        
+        for post in additional_combined:
+            if len(hero_posts_by_category) >= 5:
+                break
+            if post.id not in seen_post_ids:
+                hero_posts_by_category.append(post)
+                seen_post_ids.add(post.id)
+    
+    # Sort hero posts by date (newest first) for better carousel order
     hero_posts_combined = sorted(
-        chain(hero_articles, hero_blog_posts),
-        key=lambda x: (x.featured, x.date),
+        hero_posts_by_category,
+        key=lambda x: x.date,
         reverse=True
-    )[:5]  # Take 5 for carousel variety
+    )[:8]  # Max 8 slides for variety across all categories
 
     context = {
         'latest_posts': combined_posts,
