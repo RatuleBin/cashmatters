@@ -225,8 +225,8 @@
                     <li class="nav-item{% if '/about/' in request.path %} active{% endif %}">
                         <a href="{% url 'about' %}">About</a>
                     </li>
-                    <li class="nav-item{% if '/podcast/' in request.path %} active{% endif %}">
-                        <a href="/#podcast-section">Podcast</a>
+                    <li class="nav-item{% if '/podcast/' in request.path or 'category=podcast' in request.get_full_path %} active{% endif %}">
+                        <a href="{% url 'news' %}?category=podcast">Podcast</a>
                     </li>
                     <!-- Write for Us link moved to footer only -->
                     <li class="nav-item">
@@ -332,7 +332,7 @@
                         <h6 class="fw-bold mb-4">Resources</h6>
                         <ul class="list-unstyled d-flex flex-column gap-3 small">
                             <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-                            <li><a href="/#podcast-section" class="text-white text-decoration-none hover-u">Podcast</a></li>
+                            <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
                             <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
                             <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
                         </ul>
