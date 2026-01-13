@@ -165,99 +165,101 @@
         </div>
       </nav>
 
-      <!-- Dynamic Hero Carousel (Requirements 7, 8, 9) -->
+      <!-- Dynamic Hero Carousel (Modern Split Layout) -->
       <section class="hero-content position-relative">
         <div class="container">
-          <!-- Dynamic Content Carousel - Full Width Hero -->
-          <div class="hero-carousel-container position-relative pt-4 pb-5">
-            <div class="row align-items-center min-vh-hero">
-              <!-- Left Side: Content Info -->
-              <div class="col-lg-5 pt-3">
-                <!-- Content Type Badge -->
-                <div class="hero-content-type-badge mb-3">
-                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem;">
-                    <i id="hero-type-icon" class="bi bi-newspaper me-1"></i>
-                    <span id="hero-type-text">News</span>
-                  </span>
-                </div>
-                
-                <h1 id="hero-slide-title" class="hero-title text-white fw-bold lh-1 mb-4">
-                  {% if hero_posts %}
-                    {{ hero_posts.0.title }}
-                  {% else %}
-                    Cash is simple, safe, and <span class="text-mint">for everyone</span>
-                  {% endif %}
-                </h1>
-                
-                <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
-                  {% if hero_posts %}
-                    {{ hero_posts.0.intro }}
-                  {% else %}
-                    Research, reporting, and resources that show why physical cash remains essential around the world.
-                  {% endif %}
-                </p>
-                
-                <div class="d-flex align-items-center gap-3 flex-wrap">
-                  <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
-                  </a>
-                  <span id="hero-slide-date" class="text-white opacity-75 small">
-                    <i class="bi bi-clock me-1"></i>
-                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-                  </span>
-                  {% if hero_posts.0.author_profile %}
-                  <span id="hero-slide-author" class="text-white opacity-75 small">
-                    <i class="bi bi-person me-1"></i>
-                    {{ hero_posts.0.author_profile.name }}
-                  </span>
-                  {% endif %}
-                </div>
-                
-                <!-- Carousel Navigation Dots -->
-                <div class="hero-carousel-nav mt-4 pt-3">
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
-                      {% for post in hero_posts %}
-                        <button class="carousel-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
-                      {% empty %}
-                        <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
-                      {% endfor %}
-                    </div>
-                    <div class="carousel-controls d-flex gap-2 ms-auto">
-                      <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
-                        <i class="bi bi-chevron-left"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-next" aria-label="Next">
-                        <i class="bi bi-chevron-right"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
-                        <i class="bi bi-pause-fill" id="pause-icon"></i>
-                      </button>
+          <!-- Hero Slide Card - Modern Split Design -->
+          <div class="hero-slide-card mt-4 mb-5">
+            <div class="row g-0 align-items-stretch">
+              <!-- Left Side: Content Info (Dark Teal Background) -->
+              <div class="col-lg-6">
+                <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
+                  <!-- Content Type Badge -->
+                  <div class="hero-content-type-badge mb-3">
+                    <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem;">
+                      <i id="hero-type-icon" class="bi bi-newspaper me-1"></i>
+                      <span id="hero-type-text">News</span>
+                    </span>
+                  </div>
+                  
+                  <h1 id="hero-slide-title" class="hero-title text-white fw-bold mb-4">
+                    {% if hero_posts %}
+                      {{ hero_posts.0.title }}
+                    {% else %}
+                      Cash is simple, safe, and <span class="text-mint">for everyone</span>
+                    {% endif %}
+                  </h1>
+                  
+                  <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
+                    {% if hero_posts %}
+                      {{ hero_posts.0.intro }}
+                    {% else %}
+                      Research, reporting, and resources that show why physical cash remains essential around the world.
+                    {% endif %}
+                  </p>
+                  
+                  <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
+                    <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                      Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                    </a>
+                    <span id="hero-slide-date" class="text-white opacity-75 small">
+                      <i class="bi bi-clock me-1"></i>
+                      {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+                    </span>
+                    {% if hero_posts.0.author_profile %}
+                    <span id="hero-slide-author" class="text-white opacity-75 small">
+                      <i class="bi bi-person me-1"></i>
+                      {{ hero_posts.0.author_profile.name }}
+                    </span>
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Carousel Navigation Dots -->
+                  <div class="hero-carousel-nav mt-auto pt-3">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
+                        {% for post in hero_posts %}
+                          <button class="carousel-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                        {% empty %}
+                          <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+                        {% endfor %}
+                      </div>
+                      <div class="carousel-controls d-flex gap-2 ms-auto">
+                        <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
+                          <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-carousel" id="hero-next" aria-label="Next">
+                          <i class="bi bi-chevron-right"></i>
+                        </button>
+                        <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
+                          <i class="bi bi-pause-fill" id="pause-icon"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <!-- Right Side: Featured Image/Video - Larger Display -->
-              <div class="col-lg-7 mt-4 mt-lg-0">
-                <div class="hero-media-container position-relative rounded-4 overflow-hidden shadow-lg">
+              <!-- Right Side: Featured Image/Video -->
+              <div class="col-lg-6">
+                <div class="hero-image-panel h-100 position-relative">
                   <!-- Image Display (default) -->
-                  <div id="hero-media-image" class="hero-media-item">
+                  <div id="hero-media-image" class="hero-media-item h-100">
                     {% if hero_posts.0.wide_thumbnail %}
                       <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}" 
-                           class="w-100 hero-media-img" 
+                           class="w-100 h-100 hero-media-img" 
                            alt="{{ hero_posts.0.title }}"
                            onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'">
                     {% else %}
                       <img id="hero-slide-image" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop" 
-                           class="w-100 hero-media-img" 
+                           class="w-100 h-100 hero-media-img" 
                            alt="Featured content">
                     {% endif %}
                   </div>
                   
                   <!-- Video Display (for video content) -->
-                  <div id="hero-media-video" class="hero-media-item" style="display: none;">
-                    <video id="hero-video" class="w-100" loop playsinline preload="auto" controls>
+                  <div id="hero-media-video" class="hero-media-item h-100" style="display: none;">
+                    <video id="hero-video" class="w-100 h-100" loop playsinline preload="auto" controls style="object-fit: cover;">
                       <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
                     </video>
                     <div class="play-btn-wrapper">

@@ -21,34 +21,15 @@ def index(request):
     from blog.models import ArticlePage, BlogPage, ArticleType
     from itertools import chain
 
-    # Get latest 3 published articles and blog posts with author_profile preloaded
-    articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')[:3]
-    blog_posts = BlogPage.objects.live().select_related('author_profile').order_by('-date')[:3]
-
-    # Combine and sort by date (newest first)
-    combined_posts = sorted(
-        chain(articles, blog_posts),
-        key=lambda x: x.date,
-        reverse=True
-    )[:3]  # Take only the 3 most recent
-
-    # Get featured posts for the Featured Content section
-    featured_articles = ArticlePage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
-    featured_blog_posts = BlogPage.objects.live().select_related('author_profile').filter(featured=True).order_by('-date')[:3]
-
-    # Combine featured posts
-    featured_posts = sorted(
-        chain(featured_articles, featured_blog_posts),
-        key=lambda x: x.date,
-        reverse=True
-    )[:3]  # Take only the 3 most recent featured posts
-
-    # Get hero posts for dynamic carousel - ONE POST FROM EACH CATEGORY
-    # Fetch all distinct ArticleTypes (categories)
+    # Track all used post IDs to prevent duplicates across sections
+    used_post_ids = set()
+    
+    # =========================================
+    # 1. HERO POSTS - Get one post from each category (highest priority)
+    # =========================================
     all_categories = ArticleType.objects.all()
     
     hero_posts_by_category = []
-    seen_post_ids = set()  # Avoid duplicates
     
     for category in all_categories:
         # Try to get an ArticlePage with this category first
@@ -56,11 +37,11 @@ def index(request):
             'author_profile'
         ).prefetch_related('article_types').filter(
             article_types=category
-        ).order_by('-featured', '-date').first()
+        ).exclude(id__in=used_post_ids).order_by('-featured', '-date').first()
         
-        if article and article.id not in seen_post_ids:
+        if article:
             hero_posts_by_category.append(article)
-            seen_post_ids.add(article.id)
+            used_post_ids.add(article.id)
             continue
             
         # If no ArticlePage, try BlogPage
@@ -68,24 +49,24 @@ def index(request):
             'author_profile'
         ).prefetch_related('article_types').filter(
             article_types=category
-        ).order_by('-featured', '-date').first()
+        ).exclude(id__in=used_post_ids).order_by('-featured', '-date').first()
         
-        if blog_post and blog_post.id not in seen_post_ids:
+        if blog_post:
             hero_posts_by_category.append(blog_post)
-            seen_post_ids.add(blog_post.id)
+            used_post_ids.add(blog_post.id)
     
     # If we have less than 3 posts from categories, fill with latest posts
     if len(hero_posts_by_category) < 3:
         additional_articles = ArticlePage.objects.live().select_related(
-        'author_profile'
+            'author_profile'
         ).prefetch_related('article_types').exclude(
-            id__in=seen_post_ids
+            id__in=used_post_ids
         ).order_by('-featured', '-date')[:5]
         
         additional_blogs = BlogPage.objects.live().select_related(
-        'author_profile'
+            'author_profile'
         ).prefetch_related('article_types').exclude(
-            id__in=seen_post_ids
+            id__in=used_post_ids
         ).order_by('-featured', '-date')[:5]
 
         additional_combined = sorted(
@@ -97,9 +78,8 @@ def index(request):
         for post in additional_combined:
             if len(hero_posts_by_category) >= 5:
                 break
-            if post.id not in seen_post_ids:
-                hero_posts_by_category.append(post)
-                seen_post_ids.add(post.id)
+            hero_posts_by_category.append(post)
+            used_post_ids.add(post.id)
     
     # Sort hero posts by date (newest first) for better carousel order
     hero_posts_combined = sorted(
@@ -108,8 +88,48 @@ def index(request):
         reverse=True
     )[:8]  # Max 8 slides for variety across all categories
 
+    # =========================================
+    # 2. FEATURED POSTS - Exclude posts already in hero
+    # =========================================
+    featured_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).filter(featured=True).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    
+    featured_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).filter(featured=True).exclude(id__in=used_post_ids).order_by('-date')[:5]
+
+    # Combine featured posts
+    featured_posts = sorted(
+        chain(featured_articles, featured_blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:3]  # Take only the 3 most recent featured posts
+    
+    # Add featured post IDs to used set
+    for post in featured_posts:
+        used_post_ids.add(post.id)
+
+    # =========================================
+    # 3. LATEST POSTS - Exclude posts already in hero AND featured
+    # =========================================
+    latest_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    
+    latest_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).exclude(id__in=used_post_ids).order_by('-date')[:5]
+
+    # Combine and sort by date (newest first)
+    latest_posts = sorted(
+        chain(latest_articles, latest_blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:3]  # Take only the 3 most recent
+
     context = {
-        'latest_posts': combined_posts,
+        'latest_posts': latest_posts,
         'featured_posts': featured_posts,
         'hero_posts': hero_posts_combined,
     }
