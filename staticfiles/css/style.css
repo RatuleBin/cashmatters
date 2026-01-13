@@ -558,19 +558,29 @@ h1, h2, h3, h4, h5, h6,
 
 
 /* =========================================
-   9. HOMEPAGE HERO CAROUSEL (Full Width)
+   9. HOMEPAGE HERO CAROUSEL (Modern Split Layout)
    ========================================= */
 
-/* Hero carousel container - Full height/width */
-.hero-carousel-container {
-    min-height: 75vh;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+/* Hero Slide Card - Modern Split Design */
+.hero-slide-card {
+    background: transparent;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    min-height: 450px;
 }
 
-.min-vh-hero {
-    min-height: 70vh;
-    align-items: center;
+/* Left Panel - Text Content */
+.hero-text-panel {
+    background: linear-gradient(145deg, #0B3942 0%, #07272d 100%);
+    min-height: 450px;
+}
+
+/* Right Panel - Image */
+.hero-image-panel {
+    background: #0a2e36;
+    min-height: 450px;
+    overflow: hidden;
 }
 
 /* Full-width hero layout */
@@ -579,13 +589,16 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
 .hero-desc {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    max-width: 600px;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.6;
+    max-width: 100%;
+    opacity: 0.9;
 }
 
 /* Content Type Badges */
@@ -688,40 +701,36 @@ h1, h2, h3, h4, h5, h6,
     box-shadow: 0 0 0 3px rgba(76, 209, 194, 0.4);
 }
 
-/* Hero Media Container - Large Full-Width Display */
-.hero-media-container {
-    aspect-ratio: 16/9;
-    background: #000;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
-    min-height: 400px;
-}
-
+/* Hero Media Image */
 .hero-media-img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease, opacity 0.4s ease;
-    border-radius: 20px;
 }
 
 .hero-media-img:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
 .hero-media-img.fade-out {
     opacity: 0;
 }
 
+.hero-media-item {
+    height: 100%;
+}
+
 .hero-media-item video {
     height: 100%;
     object-fit: cover;
-    border-radius: 20px;
 }
 
 /* Media Type Overlay */
 .hero-media-type-overlay .badge {
     backdrop-filter: blur(10px);
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 /* Auto-play progress bar */
@@ -751,23 +760,27 @@ h1, h2, h3, h4, h5, h6,
         padding-bottom: 80px;
     }
     
-    .hero-carousel-container {
-        min-height: auto;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    
-    .min-vh-hero {
+    .hero-slide-card {
+        border-radius: 16px;
         min-height: auto;
     }
     
-    .hero-media-container {
-        aspect-ratio: 16/9;
+    .hero-text-panel {
+        min-height: 320px;
+        border-radius: 16px 16px 0 0;
+    }
+    
+    .hero-image-panel {
         min-height: 280px;
+        border-radius: 0 0 16px 16px;
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+    
+    .hero-desc {
+        font-size: 0.95rem;
     }
     
     .carousel-controls {
@@ -775,18 +788,37 @@ h1, h2, h3, h4, h5, h6,
     }
 }
 
-/* Large screens - make hero even more prominent */
+/* Large screens - make hero more prominent */
 @media (min-width: 1200px) {
-    .hero-carousel-container {
-        min-height: 80vh;
+    .hero-slide-card {
+        min-height: 520px;
     }
     
-    .hero-media-container {
-        min-height: 500px;
+    .hero-text-panel {
+        min-height: 520px;
+    }
+    
+    .hero-image-panel {
+        min-height: 520px;
     }
     
     .hero-title {
-        font-size: 4rem;
+        font-size: 3rem;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+    .hero-slide-card {
+        min-height: 560px;
+    }
+    
+    .hero-text-panel {
+        min-height: 560px;
+    }
+    
+    .hero-image-panel {
+        min-height: 560px;
     }
 }
 
