@@ -355,7 +355,7 @@
                 </h3>
                 <div class="meta-links d-flex gap-4 small fw-bold mt-4">
                   <a href="{{ post.url_path }}" class="text-decoration-none"><i class="bi bi-book"></i> Read</a>
-                  <span><i class="bi bi-share"></i> Share</span>
+                  <a href="#" onclick="shareArticle(event, '{{ post.title|escapejs }}', '{{ post.url_path }}')" class="text-decoration-none" style="cursor: pointer;"><i class="bi bi-share"></i> Share</a>
                   {% if post.source_link %}
                     <a href="{{ post.source_link }}" target="_blank" class="text-decoration-none"><i class="bi bi-box-arrow-up-right"></i> Source</a>
                   {% endif %}
@@ -509,7 +509,7 @@
               In-depth research on cash, payments, and<br />financial inclusion
             </p>
           </div>
-          <a href="#" class="text-mint fw-bold text-decoration-none small"
+          <a href="{% url 'news' %}?category=studies" class="text-mint fw-bold text-decoration-none small"
             >See all Studies & Reports <i class="bi bi-arrow-up-right"></i
           ></a>
         </div>
@@ -641,7 +641,7 @@
               In-depth research on cash, payments, and<br />financial inclusion
             </p>
           </div>
-          <a href="#" class="text-mint fw-bold text-decoration-none small"
+          <a href="{% url 'news' %}?category=key-facts" class="text-mint fw-bold text-decoration-none small"
             >See all Key Facts <i class="bi bi-arrow-up-right"></i
           ></a>
         </div>
@@ -966,7 +966,7 @@
                 preserving payment choice for everyone. Your support helps us
                 continue this important work.
               </p>
-              <a href="#" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+              <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
                 Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
               </a>
             </div>
@@ -1102,7 +1102,7 @@
         <!-- ICA Initiative Section -->
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
           <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
-          <img src="{% static 'images/ICA-logo.png' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
+          <img src="{% static 'images/ICA-logo-white.webp' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
         </div>
 
         <!-- Footer Bottom -->
@@ -1494,6 +1494,33 @@
         } else {
           // Fallback to custom share modal
           showShareModal(title, url);
+        }
+      }
+
+      // Share Article - for featured articles carousel
+      function shareArticle(event, title, urlPath) {
+        event.preventDefault();
+        
+        // Construct full URL from relative path
+        const fullUrl = window.location.origin + urlPath;
+        
+        const shareData = {
+          title: title + ' - Cash Matters',
+          text: 'Check out this article from Cash Matters: ' + title,
+          url: fullUrl
+        };
+
+        // Try Web Share API first (mobile-friendly)
+        if (navigator.share) {
+          navigator.share(shareData)
+            .catch((err) => {
+              if (err.name !== 'AbortError') {
+                showShareModal(title, fullUrl);
+              }
+            });
+        } else {
+          // Fallback to custom share modal
+          showShareModal(title, fullUrl);
         }
       }
 

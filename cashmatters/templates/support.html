@@ -70,7 +70,8 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <!-- Write for Us link moved to footer only -->
+                        <!-- Support Cash button for mobile -->
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash active-nav">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
@@ -712,7 +713,7 @@
             <!-- ICA Initiative Section -->
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
                 <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
-                <img src="{% static 'images/ICA-logo.png' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
+                <img src="{% static 'images/ICA-logo-white.webp' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
             </div>
             <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small opacity-75 gap-3">
                 <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span>
