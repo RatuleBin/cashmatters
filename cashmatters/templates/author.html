@@ -232,13 +232,13 @@
     <!-- =========================================
          4. SUPPORT CTA
     ========================================== -->
-    <section class="support-section text-white overflow-hidden">
-        <div class="container-fluid p-0">
-            <div class="row g-0 align-items-center">
-                <div class="col-lg-5 py-5">
+    <section class="support-section text-white overflow-hidden" style="max-height: 600px;">
+        <div class="container-fluid p-0 h-100">
+            <div class="row g-0 align-items-center h-100">
+                <div class="col-lg-5 py-4">
                     <div class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto" style="max-width: 650px;">
-                        <h2 class="fw-bold mb-4 display-5">Support Our Work</h2>
-                        <p class="mb-5 lead opacity-90 fw-light">
+                        <h2 class="fw-bold mb-3">Support Our Work</h2>
+                        <p class="mb-4 opacity-90 fw-light">
                             Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
@@ -246,9 +246,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-7 h-100 position-relative">
+                <div class="col-lg-7 position-relative" style="height: 600px;">
                     <div class="curved-mask-wrapper h-100">
-                        <img src="{% static 'home-page-images/support_our_work.jpg' %}" class="w-100 h-100 object-fit-cover" alt="Hands holding coins">
+                        <img src="{% static 'home-page-images/support_our_work.jpg' %}" class="w-100 h-100" style="object-fit: cover; object-position: center 30%;" alt="Hands holding coins">
                     </div>
                 </div>
             </div>
