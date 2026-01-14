@@ -365,6 +365,27 @@ def write_for_us(request):
     return render(request, 'write_for_us.html')
 
 
+def new_page(request):
+    """Serve the Why Cash Matters Feature page - with Wagtail page fallback"""
+    from blog.models import WhyCashMattersFeaturePage
+    
+    # Try to get the Wagtail page first (including drafts for preview)
+    try:
+        # First try to get published page, then any page
+        page = (WhyCashMattersFeaturePage.objects.live().first() or 
+                WhyCashMattersFeaturePage.objects.first())
+        if page:
+            print(f"Found page: {page.title}, Cards: {len(page.feature_cards)}")
+            # Use Wagtail's serve method to render the page
+            return page.serve(request)
+    except Exception as e:
+        print(f"Error loading WhyCashMattersFeaturePage: {e}")
+    
+    # Fallback to static template if no Wagtail page exists
+    print("Falling back to static template")
+    return render(request, 'new_page.html')
+
+
 def create_blog_page(request):
     """Redirect to Wagtail admin for creating blog posts with clean URL"""
     from blog.models import BlogIndexPage
@@ -648,6 +669,7 @@ urlpatterns = [
     path("privacy/", privacy, name="privacy"),  # Privacy Policy page
     path("support/", support, name="support"),  # Support page
     path("write-for-us/", write_for_us, name="write_for_us"),  # Write for Us page
+    path("new-page/", new_page, name="new_page"),  # Why Cash Matters Feature page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
     path("add-blog/", create_blog_page, name="create_blog_page"),

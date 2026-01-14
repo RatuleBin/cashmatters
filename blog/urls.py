@@ -8,4 +8,6 @@ urlpatterns = [
     path('support/', views.create_support_page, name='create_support_page'),
     path('why-cash/', views.create_why_cash_matters_page,
          name='create_why_cash_matters_page'),
+    path('feature-page/', views.create_why_cash_feature_page,
+         name='create_why_cash_feature_page'),
 ]
