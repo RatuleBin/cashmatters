@@ -5,6 +5,7 @@ from wagtail.images import get_image_model
 from wagtail.rich_text import RichText
 from .forms import BlogPostForm
 from .models import BlogIndexPage, BlogPage, SupportPage, WhyCashMattersPage
+from .models import WhyCashMattersFeaturePage
 import json
 
 
@@ -304,3 +305,36 @@ def create_why_cash_matters_page(request):
         messages.error(request, f"Error setting up why cash matters page: {e}")
         return redirect('/admin/')
 
+
+@login_required
+def create_why_cash_feature_page(request):
+    """Create or edit WhyCashMattersFeaturePage (singleton) - for new-page URL"""
+    from wagtail.models import Page
+    from django.contrib import messages
+
+    # Check if a WhyCashMattersFeaturePage already exists
+    existing_feature_page = WhyCashMattersFeaturePage.objects.first()
+    if existing_feature_page:
+        # Redirect to edit the existing page
+        return redirect(f'/admin/pages/{existing_feature_page.id}/edit/')
+
+    # If no page exists, create one under the root page
+    try:
+        root_page = Page.objects.get(id=1)  # Root page
+        feature_page = WhyCashMattersFeaturePage(
+            title="Why Cash Matters Feature",
+            slug="new-page",
+            page_title="Why Cash Matters",
+            page_date="Apr 1, 2025",
+            intro_text="New technologies are changing the way we pay, and cash remains the most attractive option for many."
+        )
+        root_page.add_child(instance=feature_page)
+        feature_page.save_revision().publish()
+        messages.success(request, f"Successfully created Why Cash Matters Feature Page!")
+
+        # Redirect to edit the newly created page
+        return redirect(f'/admin/pages/{feature_page.id}/edit/')
+
+    except Exception as e:
+        messages.error(request, f"Error setting up feature page: {e}")
+        return redirect('/admin/')

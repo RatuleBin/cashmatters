@@ -994,3 +994,110 @@ class WhyCashMattersPage(Page):
         form.fields['locations'].widget = CheckboxSelectMultiple()
         form.fields['sectors'].widget = CheckboxSelectMultiple()
         return form
+
+
+class WhyCashFeatureCardBlock(StructBlock):
+    """
+    Individual feature card for Why Cash Matters Feature Page
+    """
+    title = CharBlock(required=True, help_text="Card title")
+    description = TextBlock(required=True, help_text="Card description")
+    icon_type = CharBlock(
+        required=False,
+        help_text="Icon type: svg, emoji, or image"
+    )
+    icon_svg_code = TextBlock(
+        required=False,
+        help_text="SVG code for the icon (if icon_type is svg)"
+    )
+    icon_emoji = CharBlock(
+        required=False,
+        max_length=10,
+        help_text="Emoji character (if icon_type is emoji)"
+    )
+    icon_image = ImageChooserBlock(
+        required=False,
+        help_text="Upload icon image (if icon_type is image)"
+    )
+    modal_image = ImageChooserBlock(
+        required=False,
+        help_text="Background image for modal popup (optional)"
+    )
+    color = CharBlock(
+        required=False,
+        choices=[
+            ('blue', 'Blue'),
+            ('red', 'Red'),
+            ('gold', 'Gold'),
+            ('green', 'Green'),
+        ],
+        default='blue',
+        help_text="Icon color theme"
+    )
+    card_size = CharBlock(
+        required=False,
+        choices=[
+            ('large', 'Large (Top Featured)'),
+            ('small', 'Small (Bottom Grid)'),
+        ],
+        default='small',
+        help_text="Card size"
+    )
+
+    class Meta:
+        template = 'blog/blocks/why_cash_feature_card.html'
+        icon = 'form'
+        label = 'Feature Card'
+
+
+class WhyCashMattersFeaturePage(Page):
+    """
+    Dynamic Why Cash Matters Feature Page with editable cards
+    """
+    template = "new_page.html"
+    max_count = 1  # Only allow one instance
+    
+    # Page header
+    page_title = models.CharField(
+        max_length=255,
+        default="Why Cash Matters",
+        help_text="Main page title"
+    )
+    page_date = models.CharField(
+        max_length=100,
+        blank=True,
+        default="Apr 1, 2025",
+        help_text="Display date"
+    )
+    intro_text = models.TextField(
+        help_text="Introduction paragraph"
+    )
+    
+    # Feature cards
+    feature_cards = StreamField([
+        ('card', WhyCashFeatureCardBlock()),
+    ], blank=True, use_json_field=True,
+       help_text="Add feature cards (first 2 will be large, rest will be in bottom grid)")
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('page_title'),
+            FieldPanel('page_date'),
+            FieldPanel('intro_text'),
+        ], heading="Page Header"),
+        FieldPanel('feature_cards'),
+    ]
+
+    def clean(self):
+        """Ensure only one WhyCashMattersFeaturePage can exist"""
+        super().clean()
+        
+        from django.contrib.contenttypes.models import ContentType
+        feature_ct = ContentType.objects.get_for_model(WhyCashMattersFeaturePage)
+        existing_pages = Page.objects.filter(
+            content_type=feature_ct
+        ).exclude(pk=self.pk)
+        if existing_pages.exists():
+            raise ValidationError({
+                'title': 'Only one Why Cash Matters Feature page allowed.'
+            })
