@@ -353,15 +353,15 @@
     <!-- =========================================
          8. SUPPORT CTA
     ========================================== -->
-    <section class="support-section text-white overflow-hidden">
-        <div class="container-fluid p-0">
+    <section class="support-section text-white overflow-hidden" style="max-height: 700px;">
+        <div class="container-fluid p-0 h-100">
             <!-- Fluid container to allow image to touch edge -->
-            <div class="row g-0 align-items-center">
+            <div class="row g-0 align-items-center h-100">
                 <!-- Text Content (Left) -->
-                <div class="col-lg-5 py-5">
+                <div class="col-lg-5 py-4">
                     <div class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto" style="max-width: 650px">
-                        <h2 class="fw-bold mb-4 display-5">Join Our Movement</h2>
-                        <p class="mb-5 lead opacity-90 fw-light">
+                        <h2 class="fw-bold mb-3">Join Our Movement</h2>
+                        <p class="mb-4 opacity-90 fw-light">
                             Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
@@ -371,9 +371,9 @@
                 </div>
 
                 <!-- Curved Image (Right) -->
-                <div class="col-lg-7 h-100 position-relative">
+                <div class="col-lg-7 position-relative" style="height: 700px;">
                     <div class="curved-mask-wrapper h-100">
-                        <img src="{% static 'images/about/foot.jpeg' %}" class="w-100 h-100 object-fit-cover" alt="Hands holding coins">
+                        <img src="{% static 'home-page-images/support_our_work.jpg' %}" class="w-100 h-100" style="object-fit: cover; object-position: center 40%;" alt="Woman with cash">
                     </div>
                 </div>
             </div>
