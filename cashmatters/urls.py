@@ -368,7 +368,7 @@ def write_for_us(request):
 def new_page(request):
     """Serve the Why Cash Matters Feature page - with Wagtail page fallback"""
     from blog.models import WhyCashMattersFeaturePage
-    
+
     # Try to get the Wagtail page first (including drafts for preview)
     try:
         # First try to get published page, then any page
@@ -380,7 +380,6 @@ def new_page(request):
             return page.serve(request)
     except Exception as e:
         print(f"Error loading WhyCashMattersFeaturePage: {e}")
-    
     # Fallback to static template if no Wagtail page exists
     print("Falling back to static template")
     return render(request, 'new_page.html')
