@@ -249,9 +249,9 @@
                       <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}" 
                            class="w-100 h-100 hero-media-img" 
                            alt="{{ hero_posts.0.title }}"
-                           onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'">
+                           onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
                     {% else %}
-                      <img id="hero-slide-image" src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop" 
+                      <img id="hero-slide-image" src="{% static 'images/homepage/featured-fallback.jpg' %}" 
                            class="w-100 h-100 hero-media-img" 
                            alt="Featured content">
                     {% endif %}
@@ -294,7 +294,7 @@
           "url": "{{ post.url_path }}",
           "date": "{{ post.date|date:'M d, Y' }}",
           "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
-          "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop{% endif %}",
+          "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}",
           "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
           "vimeo_id": "{{ post.vimeo_id|default:'' }}",
           "has_video": {% if post.vimeo_id %}true{% else %}false{% endif %}
@@ -307,7 +307,7 @@
           "url": "/why-cash/",
           "date": "Latest",
           "author": "",
-          "image": "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop",
+          "image": "{% static 'images/homepage/featured-fallback.jpg' %}",
           "type": "news",
           "vimeo_id": "",
           "has_video": false
@@ -367,18 +367,18 @@
                     src="{{ post.wide_thumbnail.file.url }}"
                     class="img-fluid h-100 w-100 object-fit-cover"
                     alt="{{ post.title }}"
-                    onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'"
+                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
                   />
                 {% elif post.tall_thumbnail %}
                   <img
                     src="{{ post.tall_thumbnail.file.url }}"
                     class="img-fluid h-100 w-100 object-fit-cover"
                     alt="{{ post.title }}"
-                    onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop'"
+                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
                   />
                 {% else %}
                   <img
-                    src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop"
+                    src="{% static 'images/homepage/featured-fallback.jpg' %}"
                     class="img-fluid h-100 w-100 object-fit-cover"
                     alt="{{ post.title }}"
                   />
@@ -427,11 +427,11 @@
                       src="{{ post.wide_thumbnail.file.url }}"
                       class="w-100 h-100 object-fit-cover transition-img"
                       alt="{{ post.title }}"
-                      onerror="this.src='https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800'"
+                      onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
                     />
                   {% else %}
                     <img
-                      src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800"
+                      src="{% static 'images/homepage/featured-fallback.jpg' %}"
                       class="w-100 h-100 object-fit-cover transition-img"
                       alt="{{ post.title }}"
                     />
