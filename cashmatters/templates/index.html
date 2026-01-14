@@ -362,26 +362,72 @@
                 </div>
               </div>
               <div class="col-lg-7">
-                {% if post.wide_thumbnail %}
-                  <img
-                    src="{{ post.wide_thumbnail.file.url }}"
-                    class="img-fluid h-100 w-100 object-fit-cover"
-                    alt="{{ post.title }}"
-                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
-                  />
-                {% elif post.tall_thumbnail %}
-                  <img
-                    src="{{ post.tall_thumbnail.file.url }}"
-                    class="img-fluid h-100 w-100 object-fit-cover"
-                    alt="{{ post.title }}"
-                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
-                  />
+                {% if forloop.counter == 1 %}
+                  {% if post.wide_thumbnail %}
+                    <img
+                      src="{{ post.wide_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-01.jpg' %}'"
+                    />
+                  {% elif post.tall_thumbnail %}
+                    <img
+                      src="{{ post.tall_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-01.jpg' %}'"
+                    />
+                  {% else %}
+                    <img
+                      src="{% static 'images/homepage/featured-01.jpg' %}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                    />
+                  {% endif %}
+                {% elif forloop.counter == 2 %}
+                  {% if post.wide_thumbnail %}
+                    <img
+                      src="{{ post.wide_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-02.jpg' %}'"
+                    />
+                  {% elif post.tall_thumbnail %}
+                    <img
+                      src="{{ post.tall_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-02.jpg' %}'"
+                    />
+                  {% else %}
+                    <img
+                      src="{% static 'images/homepage/featured-02.jpg' %}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                    />
+                  {% endif %}
                 {% else %}
-                  <img
-                    src="{% static 'images/homepage/featured-fallback.jpg' %}"
-                    class="img-fluid h-100 w-100 object-fit-cover"
-                    alt="{{ post.title }}"
-                  />
+                  {% if post.wide_thumbnail %}
+                    <img
+                      src="{{ post.wide_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-03.jpg' %}'"
+                    />
+                  {% elif post.tall_thumbnail %}
+                    <img
+                      src="{{ post.tall_thumbnail.file.url }}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-03.jpg' %}'"
+                    />
+                  {% else %}
+                    <img
+                      src="{% static 'images/homepage/featured-03.jpg' %}"
+                      class="img-fluid h-100 w-100 object-fit-cover"
+                      alt="{{ post.title }}"
+                    />
+                  {% endif %}
                 {% endif %}
               </div>
             </div>
