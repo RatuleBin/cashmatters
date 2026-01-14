@@ -21,6 +21,11 @@ def index(request):
     from blog.models import ArticlePage, BlogPage, ArticleType
     from itertools import chain
 
+    # Posts to hide from homepage (by title)
+    hidden_titles = [
+        "95% of physical payment locations accept cash throughout the euro area",
+    ]
+
     # Track all used post IDs to prevent duplicates across sections
     used_post_ids = set()
     
@@ -37,7 +42,7 @@ def index(request):
             'author_profile'
         ).prefetch_related('article_types').filter(
             article_types=category
-        ).exclude(id__in=used_post_ids).order_by('-featured', '-date').first()
+        ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-featured', '-date').first()
         
         if article:
             hero_posts_by_category.append(article)
@@ -49,7 +54,7 @@ def index(request):
             'author_profile'
         ).prefetch_related('article_types').filter(
             article_types=category
-        ).exclude(id__in=used_post_ids).order_by('-featured', '-date').first()
+        ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-featured', '-date').first()
         
         if blog_post:
             hero_posts_by_category.append(blog_post)
@@ -61,13 +66,13 @@ def index(request):
             'author_profile'
         ).prefetch_related('article_types').exclude(
             id__in=used_post_ids
-        ).order_by('-featured', '-date')[:5]
+        ).exclude(title__in=hidden_titles).order_by('-featured', '-date')[:5]
         
         additional_blogs = BlogPage.objects.live().select_related(
             'author_profile'
         ).prefetch_related('article_types').exclude(
             id__in=used_post_ids
-        ).order_by('-featured', '-date')[:5]
+        ).exclude(title__in=hidden_titles).order_by('-featured', '-date')[:5]
 
         additional_combined = sorted(
             chain(additional_articles, additional_blogs),
@@ -93,11 +98,11 @@ def index(request):
     # =========================================
     featured_articles = ArticlePage.objects.live().select_related(
         'author_profile'
-    ).filter(featured=True).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    ).filter(featured=True).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
     
     featured_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
-    ).filter(featured=True).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    ).filter(featured=True).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
 
     # Combine featured posts
     featured_posts = sorted(
@@ -115,11 +120,11 @@ def index(request):
     # =========================================
     latest_articles = ArticlePage.objects.live().select_related(
         'author_profile'
-    ).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
     
     latest_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
-    ).exclude(id__in=used_post_ids).order_by('-date')[:5]
+    ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
 
     # Combine and sort by date (newest first)
     latest_posts = sorted(
