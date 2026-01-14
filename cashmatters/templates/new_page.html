@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+{% load static wagtailimages_tags i18n %}
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Cash Matters - Cash Matters</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
+    <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Header Navigation Styles -->
+    <style>
+        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
+        .navbar,
+        .navbar * {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+        
+        /* All headings use Poppins */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+        
+        .navbar .nav-link {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Modern hover animations for menu items */
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4CD1C2, #8de4af);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+        
+        .navbar .nav-link:hover::before,
+        .navbar .nav-link.active::before {
+            width: 100%;
+        }
+        
+        .navbar .nav-link:hover {
+            color: #4CD1C2 !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Search button animation */
+        .search-trigger {
+            transition: all 0.3s ease;
+        }
+        .search-trigger:hover {
+            color: #4CD1C2 !important;
+            transform: scale(1.15);
+        }
+        
+        /* Support Cash CTA Button */
+        .btn-support-cash {
+            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+            color: #002e26 !important;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+        }
+        .btn-support-cash:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
+            color: #002e26 !important;
+        }
+
+        /* Page specific styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #3d3d3d;
+            --darker-bg:rgb(63, 30, 30);
+            --text-light: #ffffff;
+            --text-muted: #a8a8a8;
+            --accent-blue: #4a8fc7;
+            --accent-red: #d97070;
+            --accent-gold: #b8995f;
+            --accent-green: #6fa857;
+            --card-bg: #3a3a3a;
+        }
+
+        body {
+            background-color: #f5f3ed; /* Light cream background */
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .cash-matters-hero {
+            padding: 80px 60px;
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: var(--dark-bg);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: flex-start;
+            margin-bottom: 120px;
+        }
+
+        /* Main title styling */
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 35px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            text-transform: none;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 50px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .meta-icon {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .hero-text {
+            font-size: 15px;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.75);
+            letter-spacing: 0.3px;
+        }
+
+        /* Feature cards in top section */
+        .feature-cards-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card-top {
+            background-color: rgba(45, 45, 45, 0.6);
+            padding: 60px 40px;
+            border-radius: 0;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .card-top:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(45, 45, 45, 0.8);
+        }
+
+        .card-top .icon-wrapper {
+            width: 140px;
+            height: 140px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-top .icon {
+            font-size: 100px;
+        }
+
+        .card-top .title {
+            font-size: 19px;
+            font-weight: 500;
+            line-height: 1.55;
+            letter-spacing: 0.2px;
+            color: var(--text-light);
+        }
+
+        .card-top .plus-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--text-light);
+        }
+
+        .card-top .plus-btn:hover {
+            border-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Bottom feature grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .card {
+            background-color: rgba(45, 45, 45, 0.6);
+            padding: 50px 30px;
+            border-radius: 0;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            min-height: 320px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(45, 45, 45, 0.8);
+        }
+
+        .card .icon-wrapper {
+            width: 110px;
+            height: 110px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card .icon {
+            font-size: 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card .title {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.65;
+            letter-spacing: 0.2px;
+            color: var(--text-light);
+        }
+
+        .card .plus-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .card .plus-btn:hover {
+            opacity: 1;
+        }
+
+        /* Icon colors */
+        .icon-blue { color: var(--accent-blue); }
+        .icon-red { color: var(--accent-red); }
+        .icon-gold { color: var(--accent-gold); }
+        .icon-green { color: var(--accent-green); }
+
+        /* Modal popup styling for professional appearance */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Fixed modal display by removing display:none and adding display:flex always */
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 1050;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #4a9bbe 0%, #2d7aa3 100%);
+            width: 90%;
+            max-width: 900px;
+            border-radius: 0;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .modal-image-section {
+            background: linear-gradient(135deg, rgba(74, 158, 190, 0.9) 0%, rgba(45, 122, 163, 0.9) 100%);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .modal-image-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 158, 190, 0.6), rgba(45, 122, 163, 0.4));
+        }
+
+        /* Remove the hardcoded emoji */
+
+        .modal-content-section {
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #4a9bbe 0%, #2d7aa3 100%);
+            position: relative;
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.3;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.7;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .modal-description a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: right;
+        }
+
+        .modal-link {
+            color: white;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .modal-link:hover {
+            opacity: 0.8;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+            padding: 0;
+            width: auto;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cash-matters-hero {
+                padding: 60px 40px;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cash-matters-hero {
+                padding: 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-grid {
+                gap: 40px;
+            }
+
+            .hero-meta {
+                gap: 30px;
+                font-size: 12px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-cards-top {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .card,
+            .card-top {
+                min-height: auto;
+                padding: 40px 25px;
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-width: 95%;
+            }
+
+            .modal-image-section {
+                min-height: 250px;
+            }
+
+            .modal-content-section {
+                padding: 40px 30px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .modal-description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light-cream">
+    <!-- =========================================
+         HEADER & NAVIGATION
+    ========================================== -->
+    <div class="header-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                    </ul>
+                </div>
+                <div class="d-none d-lg-flex align-items-center gap-3">
+                    <button class="btn text-white p-0 search-trigger" aria-label="Search">
+                        <i class="bi bi-search fs-5"></i>
+                    </button>
+                    <!-- Language Switcher (Google Translate) -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small" id="current-lang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash">
+                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <section class="cash-matters-hero">
+        <!-- Header Section -->
+        <div class="hero-grid">
+            <div>
+                <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                            <line x1="9" y1="13" x2="9" y2="17"/>
+                            <line x1="15" y1="13" x2="15" y2="17"/>
+                        </svg>
+                        <span>{{ page.page_date|default:"Apr 1, 2025" }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24">
+                            <circle cx="18" cy="5" r="3"/>
+                            <path d="M9.27 6.75A6.49 6.49 0 105.64 19"/>
+                        </svg>
+                        <span>Share</span>
+                    </div>
+                </div>
+                <p class="hero-text">
+                    {{ page.intro_text|default:"New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!" }}
+                </p>
+            </div>
+
+            <!-- Top Feature Cards (Large) -->
+            <div class="feature-cards-top">
+                {% for card in page.feature_cards %}
+                    {% if forloop.counter <= 2 %}
+                    <div class="card-top">
+                        <button class="plus-btn" onclick="openModal(
+                            '{{ card.value.title|escapejs }}', 
+                            '{{ card.value.description|escapejs }}',
+                            {% if card.value.icon_svg_code %}
+                                `{{ card.value.icon_svg_code|safe|escapejs }}`
+                            {% elif card.value.icon_emoji %}
+                                `<span class=&quot;icon icon-{{ card.value.color }}&quot; style=&quot;font-size: 150px;&quot;>{{ card.value.icon_emoji }}</span>`
+                            {% elif card.value.icon_image %}
+                                `<img src=&quot;{{ card.value.icon_image.file.url }}&quot; alt=&quot;{{ card.value.title }}&quot; style=&quot;width: 150px; height: 150px; object-fit: contain;&quot;>`
+                            {% else %}
+                                `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 150px; height: 150px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;60&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
+                            {% endif %}
+                        )">+</button>
+                        <div class="icon-wrapper">
+                            {% if card.value.icon_svg_code %}
+                                {{ card.value.icon_svg_code|safe }}
+                            {% elif card.value.icon_emoji %}
+                                <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{ card.value.icon_emoji }}</span>
+                            {% elif card.value.icon_image %}
+                                <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}" style="width: 100px; height: 100px; object-fit: contain;">
+                            {% else %}
+                                <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 100px; height: 100px;">
+                                    <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3"/>
+                                </svg>
+                            {% endif %}
+                        </div>
+                        <div class="title">{{ card.value.title }}</div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Bottom Feature Grid -->
+        <div class="features-grid">
+            {% for card in page.feature_cards %}
+                {% if forloop.counter > 2 %}
+                <div class="card">
+                    <button class="plus-btn" onclick="openModal(
+                        '{{ card.value.title|escapejs }}', 
+                        '{{ card.value.description|escapejs }}',
+                        {% if card.value.icon_svg_code %}
+                            `{{ card.value.icon_svg_code|safe|escapejs }}`
+                        {% elif card.value.icon_emoji %}
+                            `<span class=&quot;icon icon-{{ card.value.color }}&quot; style=&quot;font-size: 150px;&quot;>{{ card.value.icon_emoji }}</span>`
+                        {% elif card.value.icon_image %}
+                            `<img src=&quot;{{ card.value.icon_image.file.url }}&quot; alt=&quot;{{ card.value.title }}&quot; style=&quot;width: 150px; height: 150px; object-fit: contain;&quot;>`
+                        {% else %}
+                            `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 150px; height: 150px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;50&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
+                        {% endif %}
+                    )">+</button>
+                    <div class="icon-wrapper">
+                        {% if card.value.icon_svg_code %}
+                            {{ card.value.icon_svg_code|safe }}
+                        {% elif card.value.icon_emoji %}
+                            <span class="icon icon-{{ card.value.color }}" style="font-size: 85px;">{{ card.value.icon_emoji }}</span>
+                        {% elif card.value.icon_image %}
+                            <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}" style="width: 80px; height: 80px; object-fit: contain;">
+                        {% else %}
+                            <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 80px; height: 80px;">
+                                <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" stroke-width="3"/>
+                            </svg>
+                        {% endif %}
+                    </div>
+                    <div class="title">{{ card.value.title }}</div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+    <footer class="main-footer text-white pt-5 pb-4">
+        <div class="container pt-4">
+            <div class="row g-5 mb-5">
+                <!-- Brand & Social -->
+                <div class="col-lg-3 col-md-6">
+                    <a class="navbar-brand d-inline-block mb-4" href="{% url 'index' %}">
+                        <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="50">
+                    </a>
+                    <p class="small mb-4 pe-lg-3" style="line-height: 1.6">
+                        Cash Matters is an independent initiative dedicated to preserving payment choice for everyone.
+                    </p>
+                    <!-- Social Icons: LinkedIn, Instagram, TikTok, Facebook, YouTube -->
+                    <div class="d-flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/company/cashmattersorg/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u d-flex align-items-center" title="Connect with us on LinkedIn">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/cashmattersorg/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u d-flex align-items-center" title="Follow us on Instagram">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u d-flex align-items-center" title="Follow us on TikTok">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/CashMattersOrg/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u d-flex align-items-center" title="Like us on Facebook">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/channel/UCx1y8ZZeAZQTVgvAC0kjtgQ" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u d-flex align-items-center" title="Subscribe to our YouTube channel">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Column 1 -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="fw-bold mb-4">Navigation</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-3 small">
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
+                        <li><a href="/blog/" class="text-white text-decoration-none hover-u">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Column 2 -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="fw-bold mb-4">Resources</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-3 small">
+                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
+                    </ul>
+                </div>
+
+                <!-- Subscribe Section -->
+                <div class="col-lg-5 col-md-12">
+                    <h4 class="fw-bold mb-3">
+                        Stay up to date with<br />Cash Matters.
+                    </h4>
+                    <form class="mt-4" id="footer-subscribe-form" action="https://cashmatters.us22.list-manage.com/subscribe/post" method="POST" target="_blank">
+                        <!-- Mailchimp hidden fields - replace with your actual values -->
+                        <input type="hidden" name="u" value="YOUR_MAILCHIMP_U_VALUE">
+                        <input type="hidden" name="id" value="YOUR_MAILCHIMP_LIST_ID">
+                        <div class="input-group p-1 bg-white rounded-2">
+                            <input type="email" name="MERGE0" class="form-control border-0 shadow-none ps-3" placeholder="Enter your email address" required />
+                            <button class="btn btn-dark-custom rounded-2 px-4 fw-bold" type="submit">
+                                Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p class="extra-small mt-3" style="opacity: 0.85;">
+                        Subscribe to receive news, updates, and insights about cash and payment choice directly in your inbox.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ICA Initiative Section -->
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
+                <span class="footer-ica-text text-center">An initiative by International Currency Association</span>
+                <img src="{% static 'images/ICA-logo-white.webp' %}" alt="International Currency Association" class="footer-ica-logo" style="height: 40px;">
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small gap-3" style="opacity: 0.9;">
+                <span class="mb-2 mb-lg-0 text-center text-lg-start">© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span>
+                <span class="mb-2 mb-lg-0 text-center">Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span>
+                <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal popup for professional interactions -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-image-section" id="modalIconSection">
+                <!-- Icon will be inserted here dynamically -->
+            </div>
+            <div class="modal-content-section">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <div>
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="modalTitle">Title</h2>
+                    </div>
+                    <p class="modal-description" id="modalDescription">Description</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-link" onclick="handleLinkClick(event)">Related news and articles</a>
+                    <a class="modal-link" onclick="handleLinkClick(event)">Support cash resources</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript for modal functionality -->
+    <script>
+        function openModal(title, description, iconHtml) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            
+            // Insert icon HTML into modal
+            const iconSection = document.getElementById('modalIconSection');
+            if (iconHtml) {
+                iconSection.innerHTML = '<div class="icon-wrapper" style="display: flex; justify-content: center; align-items: center; height: 100%;">' + iconHtml + '</div>';
+            } else {
+                iconSection.innerHTML = '';
+            }
+            
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleLinkClick(event) {
+            event.preventDefault();
+            console.log('Link clicked');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('modalOverlay').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeModal();
+                }
+            });
+
+            // Close modal on ESC key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

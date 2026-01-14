@@ -55,6 +55,16 @@ def register_why_cash_matters_page_menu_item():
     )
 
 
+@hooks.register('register_admin_menu_item')
+def register_why_cash_feature_page_menu_item():
+    return MenuItem(
+        'Why Cash Feature Page',
+        reverse('blog:create_why_cash_feature_page'),
+        icon_name='doc-full-inverse',
+        order=10003
+    )
+
+
 @hooks.register('insert_global_admin_js')
 def global_admin_js():
     """Add JS to redirect to blogs dashboard after saving a blog post"""
