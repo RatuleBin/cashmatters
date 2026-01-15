@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cash Matters - Senior Dev Build</title>
+    <title>Cash Matters - A Pro-Cash Movement</title>
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
@@ -99,6 +99,15 @@
         box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
         background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
         color: #002e26 !important;
+      }
+      
+      /* Author link in hero section */
+      .author-link {
+        transition: all 0.3s ease;
+      }
+      .author-link:hover {
+        color: #4CD1C2 !important;
+        opacity: 1 !important;
       }
     </style>
   </head>
@@ -207,10 +216,10 @@
                       {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
                     </span>
                     {% if hero_posts.0.author_profile %}
-                    <span id="hero-slide-author" class="text-white opacity-75 small">
+                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}" class="text-white opacity-75 small text-decoration-none author-link">
                       <i class="bi bi-person me-1"></i>
                       {{ hero_posts.0.author_profile.name }}
-                    </span>
+                    </a>
                     {% endif %}
                   </div>
                   
@@ -294,6 +303,8 @@
           "url": "{{ post.url_path }}",
           "date": "{{ post.date|date:'M d, Y' }}",
           "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
+          "author_id": {% if post.author_profile %}{{ post.author_profile.id }}{% else %}null{% endif %},
+          "author_name": "{% if post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
           "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}",
           "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
           "vimeo_id": "{{ post.vimeo_id|default:'' }}",
@@ -1338,7 +1349,15 @@
           
           if (authorEl) {
             if (post.author) {
+              // Build author URL: prefer author_id, fall back to author_name
+              var authorUrl = '';
+              if (post.author_id) {
+                authorUrl = '/author/id/' + post.author_id + '/';
+              } else if (post.author_name) {
+                authorUrl = '/author/' + encodeURIComponent(post.author_name) + '/';
+              }
               authorEl.innerHTML = '<i class="bi bi-person me-1"></i>' + post.author;
+              authorEl.href = authorUrl;
               authorEl.style.display = 'inline';
             } else {
               authorEl.style.display = 'none';
