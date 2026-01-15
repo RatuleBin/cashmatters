@@ -9,18 +9,18 @@
         <article class="article-content">
             <header class="article-header">
                 <h1>{{ page.title }}</h1>
-                
+
                 {% if page.page_header_image %}
                 {% image page.page_header_image fill-800x400 as header_img %}
                 <img src="{{ header_img.url }}" alt="{{ header_img.alt }}" class="header-image">
                 {% endif %}
-                
+
                 {% if page.page_header %}
                 <div class="page-header">
                     {{ page.page_header|richtext }}
                 </div>
                 {% endif %}
-                
+
                 <div class="article-meta">
                     <time datetime="{{ page.date }}">{{ page.date|date:"F j, Y" }}</time>
                     {% if page.article_types.all %}
@@ -32,17 +32,17 @@
                     {% endif %}
                 </div>
             </header>
-            
+
             {% if page.intro %}
             <div class="article-intro">
                 {{ page.intro }}
             </div>
             {% endif %}
-            
+
             <div class="article-body">
                 {{ page.body }}
             </div>
-            
+
             {% if page.source_link %}
             <div class="source-link">
                 <a href="{{ page.source_link }}" target="_blank" rel="noopener">View Source</a>
@@ -54,13 +54,19 @@
 
 <style>
 .article-page {
-    padding: 2rem 0;
+    padding: 6rem 0 2rem 0;
+    background-color: #f5f5f5;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .article-header {
@@ -70,7 +76,9 @@
 .article-header h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: #1a1a1a;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .header-image {

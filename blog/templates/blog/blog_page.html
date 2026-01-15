@@ -461,7 +461,7 @@
 <body>
     <!-- Navigation -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-1 pb-1">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -470,8 +470,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-2 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
@@ -591,7 +591,7 @@
                     <div class="sidebar-section">
                         <h5 class="sidebar-title mb-3">Featured</h5>
                         <div class="list-group">
-                            <a href="{{ why_cash_page.url }}" class="list-group-item list-group-item-action">
+                            <a href="{% url 'new_page' %}" class="list-group-item list-group-item-action">
                                 Why Cash Matters
                             </a>
                             <a href="{% url 'support' %}" class="list-group-item list-group-item-action">
@@ -602,32 +602,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="mb-3">Stay up to date with Cash Matters.</h2>
-                    <p class="mb-4">Join the Cash Matters community and we'll keep you posted about the latest developments in cash happening around the globe.</p>
-                    <form class="row g-3 justify-content-center">
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="first name">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="company">
-                        </div>
-                        <div class="col-md-10">
-                            <input type="email" class="form-control" placeholder="your email address">
-                        </div>
-                        <div class="col-md-10">
-                            <button type="submit" class="btn btn-dark-custom btn-lg w-100">Subscribe</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

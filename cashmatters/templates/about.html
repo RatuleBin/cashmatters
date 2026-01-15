@@ -34,7 +34,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
@@ -100,7 +100,7 @@
                     </p>
                     <div class="d-flex gap-3">
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Join Our Movement</a>
-                        <a href="{{ why_cash_page.url }}" class="btn btn-outline-dark fw-bold px-4 py-2">Learn More</a>
+                        <a href="{% url 'new_page' %}" class="btn btn-outline-dark fw-bold px-4 py-2">Learn More</a>
                     </div>
                 </div>
 

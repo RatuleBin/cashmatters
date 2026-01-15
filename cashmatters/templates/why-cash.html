@@ -112,7 +112,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
@@ -594,7 +594,7 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <h6 class="fw-bold mb-4">Resources</h6>
                     <ul class="list-unstyled d-flex flex-column gap-3 small opacity-90">
-                        <li><a href="{{ why_cash_page.url }}" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
+                        <li><a href="{% url 'new_page' %}" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
                         <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
                     </ul>

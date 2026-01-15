@@ -100,8 +100,9 @@
         }
 
         :root {
+            --brand-cream: #F9F7F2;
             --dark-bg: #3d3d3d;
-            --darker-bg:rgb(63, 30, 30);
+            --darker-bg: rgb(63, 30, 30);
             --text-light: #ffffff;
             --text-muted: #a8a8a8;
             --accent-blue: #4a8fc7;
@@ -112,8 +113,8 @@
         }
 
         body {
-            background-color: #f5f3ed; /* Light cream background */
-            color: var(--text-light);
+            background-color: var(--brand-cream);
+            color: #1f2937;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             font-size: 16px;
             line-height: 1.6;
@@ -121,9 +122,8 @@
 
         .cash-matters-hero {
             padding: 80px 60px;
-            max-width: 100%;
             margin: 0 auto;
-            background-color: var(--dark-bg);
+            border-radius: 0;
         }
 
         .hero-grid {
@@ -142,6 +142,7 @@
             line-height: 1.15;
             letter-spacing: -1px;
             text-transform: none;
+            color: #1f2937;
         }
 
         .hero-meta {
@@ -149,7 +150,7 @@
             gap: 50px;
             margin-bottom: 50px;
             font-size: 13px;
-            color: var(--text-muted);
+            color: #6b7280;
         }
 
         .meta-item {
@@ -169,44 +170,45 @@
         .hero-text {
             font-size: 15px;
             line-height: 1.75;
-            color: rgba(255, 255, 255, 0.75);
+            color: #4b5563;
             letter-spacing: 0.3px;
         }
 
         /* Feature cards in top section */
         .feature-cards-top {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .card-top {
-            background-color: rgba(45, 45, 45, 0.6);
-            padding: 60px 40px;
-            border-radius: 0;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 350px;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
             transition: all 0.3s ease;
         }
 
         .card-top:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background-color: rgba(45, 45, 45, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
         }
 
         .card-top .icon-wrapper {
-            width: 140px;
-            height: 140px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .card-top .icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .card-top .icon {
@@ -214,34 +216,43 @@
         }
 
         .card-top .title {
-            font-size: 19px;
-            font-weight: 500;
-            line-height: 1.55;
-            letter-spacing: 0.2px;
-            color: var(--text-light);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: center;
+            margin: 0;
         }
 
         .card-top .plus-btn {
             position: absolute;
-            top: 25px;
-            right: 25px;
-            width: 45px;
-            height: 45px;
-            border: 2px solid rgba(255, 255, 255, 0.35);
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 28px;
+            color: #999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: transparent;
-            color: var(--text-light);
+            z-index: 2;
         }
 
         .card-top .plus-btn:hover {
-            border-color: rgba(255, 255, 255, 0.8);
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: #f8f9fa;
+            color: #666;
+            transform: scale(1.05);
         }
 
         /* Bottom feature grid */
@@ -294,7 +305,7 @@
             font-weight: 400;
             line-height: 1.65;
             letter-spacing: 0.2px;
-            color: var(--text-light);
+            color: #ffffff;
         }
 
         .card .plus-btn {
@@ -303,7 +314,7 @@
             right: 20px;
             font-size: 28px;
             cursor: pointer;
-            color: var(--text-light);
+            color: #ffffff;
             opacity: 0.6;
             transition: opacity 0.3s ease;
             background: none;
@@ -521,8 +532,8 @@
 
             .card,
             .card-top {
-                min-height: auto;
-                padding: 40px 25px;
+                min-height: 350px;
+                height: 350px;
             }
 
             .modal-content {
@@ -548,7 +559,7 @@
         }
     </style>
 </head>
-<body class="bg-light-cream">
+<body>
     <!-- =========================================
          HEADER & NAVIGATION
     ========================================== -->
@@ -563,7 +574,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{{ why_cash_page.url }}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
@@ -592,9 +603,11 @@
         </nav>
     </div>
 
-    <section class="cash-matters-hero">
-        <!-- Header Section -->
-        <div class="hero-grid">
+    <!-- Main Content Container -->
+    <div class="container my-5 py-4">
+        <section class="cash-matters-hero">
+            <!-- Header Section -->
+            <div class="hero-grid">
             <div>
                 <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
                 <div class="hero-meta">
@@ -621,6 +634,7 @@
             </div>
 
             <!-- Top Feature Cards (Large) -->
+            <!-- Top Feature Cards (Large) -->
             <div class="feature-cards-top">
                 {% for card in page.feature_cards %}
                     {% if forloop.counter <= 2 %}
@@ -644,7 +658,7 @@
                             {% elif card.value.icon_emoji %}
                                 <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{ card.value.icon_emoji }}</span>
                             {% elif card.value.icon_image %}
-                                <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}" style="width: 100px; height: 100px; object-fit: contain;">
+                                <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
                             {% else %}
                                 <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 100px; height: 100px;">
                                     <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -694,7 +708,8 @@
                 {% endif %}
             {% endfor %}
         </div>
-    </section>
+        </section>
+    </div>
 
     <!-- =========================================
          FOOTER
