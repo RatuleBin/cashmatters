@@ -258,46 +258,82 @@
         /* Bottom feature grid */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 80px;
+            margin-top: 20px;
         }
 
         .card {
-            background-color: rgba(45, 45, 45, 0.6);
-            padding: 50px 30px;
-            border-radius: 0;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 350px;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            min-height: 320px;
             transition: all 0.3s ease;
         }
 
         .card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background-color: rgba(45, 45, 45, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
         }
 
         .card .icon-wrapper {
-            width: 110px;
-            height: 110px;
-            margin-bottom: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            flex: 1;
+            position: relative;
+        }
+
+        .card .icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .card .icon {
-            font-size: 85px;
+            font-size: 100px;
+        }
+
+        .card .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: center;
+            margin: 0;
+        }
+
+        .card .plus-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 28px;
+            color: #999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .card .plus-btn:hover {
+            background-color: #f8f9fa;
+            color: #666;
+            transform: scale(1.05);
+        }
         }
 
         .card .title {
@@ -610,34 +646,15 @@
             <div class="hero-grid">
             <div>
                 <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
-                <div class="hero-meta">
-                    <div class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 24 24">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                            <line x1="9" y1="13" x2="9" y2="17"/>
-                            <line x1="15" y1="13" x2="15" y2="17"/>
-                        </svg>
-                        <span>{{ page.page_date|default:"Apr 1, 2025" }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 24 24">
-                            <circle cx="18" cy="5" r="3"/>
-                            <path d="M9.27 6.75A6.49 6.49 0 105.64 19"/>
-                        </svg>
-                        <span>Share</span>
-                    </div>
-                </div>
                 <p class="hero-text">
                     {{ page.intro_text|default:"New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!" }}
                 </p>
             </div>
 
             <!-- Top Feature Cards (Large) -->
-            <!-- Top Feature Cards (Large) -->
             <div class="feature-cards-top">
                 {% for card in page.feature_cards %}
-                    {% if forloop.counter <= 2 %}
+                    {% if forloop.counter == 1 %}
                     <div class="card-top">
                         <button class="plus-btn" onclick="openModal(
                             '{{ card.value.title|escapejs }}', 
@@ -675,10 +692,10 @@
         <!-- Bottom Feature Grid -->
         <div class="features-grid">
             {% for card in page.feature_cards %}
-                {% if forloop.counter > 2 %}
+                {% if forloop.counter > 1 %}
                 <div class="card">
                     <button class="plus-btn" onclick="openModal(
-                        '{{ card.value.title|escapejs }}', 
+                        '{{ card.value.title|escapejs }}',
                         '{{ card.value.description|escapejs }}',
                         {% if card.value.icon_svg_code %}
                             `{{ card.value.icon_svg_code|safe|escapejs }}`
@@ -687,19 +704,19 @@
                         {% elif card.value.icon_image %}
                             `<img src=&quot;{{ card.value.icon_image.file.url }}&quot; alt=&quot;{{ card.value.title }}&quot; style=&quot;width: 150px; height: 150px; object-fit: contain;&quot;>`
                         {% else %}
-                            `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 150px; height: 150px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;50&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
+                            `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 150px; height: 150px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;60&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
                         {% endif %}
                     )">+</button>
                     <div class="icon-wrapper">
                         {% if card.value.icon_svg_code %}
                             {{ card.value.icon_svg_code|safe }}
                         {% elif card.value.icon_emoji %}
-                            <span class="icon icon-{{ card.value.color }}" style="font-size: 85px;">{{ card.value.icon_emoji }}</span>
+                            <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{ card.value.icon_emoji }}</span>
                         {% elif card.value.icon_image %}
-                            <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}" style="width: 80px; height: 80px; object-fit: contain;">
+                            <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
                         {% else %}
-                            <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 80px; height: 80px;">
-                                <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 100px; height: 100px;">
+                                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3"/>
                             </svg>
                         {% endif %}
                     </div>
@@ -833,10 +850,6 @@
                     </div>
                     <p class="modal-description" id="modalDescription">Description</p>
                 </div>
-                <div class="modal-footer">
-                    <a class="modal-link" onclick="handleLinkClick(event)">Related news and articles</a>
-                    <a class="modal-link" onclick="handleLinkClick(event)">Support cash resources</a>
-                </div>
             </div>
         </div>
     </div>
@@ -852,7 +865,14 @@
             // Insert icon HTML into modal
             const iconSection = document.getElementById('modalIconSection');
             if (iconHtml) {
-                iconSection.innerHTML = '<div class="icon-wrapper" style="display: flex; justify-content: center; align-items: center; height: 100%;">' + iconHtml + '</div>';
+                // Check if iconHtml contains an image
+                if (iconHtml.includes('<img')) {
+                    // For images, make them fill the entire modal section
+                    iconSection.innerHTML = iconHtml.replace('style="width: 150px; height: 150px; object-fit: contain;"', 'style="width: 100%; height: 100%; object-fit: cover;"');
+                } else {
+                    // For other icons (SVG, emoji), use centered wrapper
+                    iconSection.innerHTML = '<div class="icon-wrapper" style="display: flex; justify-content: center; align-items: center; height: 100%;">' + iconHtml + '</div>';
+                }
             } else {
                 iconSection.innerHTML = '';
             }
@@ -864,11 +884,6 @@
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-        }
-
-        function handleLinkClick(event) {
-            event.preventDefault();
-            console.log('Link clicked');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
