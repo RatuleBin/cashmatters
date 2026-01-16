@@ -337,14 +337,6 @@
             transform: translate(-50%, -50%) scale(1.05);
         }
 
-        .card .title {
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.65;
-            letter-spacing: 0.2px;
-            color: #ffffff;
-        }
-
         /* Icon colors */
         .icon-blue { color: var(--accent-blue); }
         .icon-red { color: var(--accent-red); }
@@ -435,17 +427,21 @@
 
         .modal-description {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.95);
+            color: #ffffff;
             line-height: 1.7;
             margin: 0;
-            font-weight: 300;
+            font-weight: 400;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         .modal-description a {
-            color: white;
+            color: #ffeb3b;
             text-decoration: underline;
             font-weight: 600;
+        }
+
+        .modal-description a:hover {
+            color: #fff59d;
         }
 
         .modal-footer {
@@ -851,9 +847,20 @@
             const iconSection = document.getElementById('modalIconSection');
             if (iconHtml) {
                 // Check if iconHtml contains an image
-                if (iconHtml.includes('<img')) {
+                if (iconHtml.includes('<img') || iconHtml.includes('&lt;img')) {
                     // For images, make them fill the entire modal section
-                    iconSection.innerHTML = iconHtml.replace('style="width: 150px; height: 150px; object-fit: contain;"', 'style="width: 100%; height: 100%; object-fit: cover;"');
+                    // First decode HTML entities
+                    let decodedHtml = iconHtml
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&amp;/g, '&');
+                    
+                    // Now replace any size styles with full-size styles
+                    let updatedHtml = decodedHtml
+                        .replace(/style\s*=\s*"[^"]*"/gi, 'style="width: 100%; height: 100%; object-fit: cover;"');
+                    
+                    iconSection.innerHTML = updatedHtml;
                 } else {
                     // For other icons (SVG, emoji), use centered wrapper
                     iconSection.innerHTML = '<div class="icon-wrapper" style="display: flex; justify-content: center; align-items: center; height: 100%;">' + iconHtml + '</div>';
