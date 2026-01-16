@@ -231,17 +231,18 @@
 
         .card-top .plus-btn {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 44px;
             height: 44px;
-            background: white;
+            background: #007d7e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            color: #999;
+            color: white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
             border: none;
             cursor: pointer;
@@ -250,9 +251,9 @@
         }
 
         .card-top .plus-btn:hover {
-            background-color: #f8f9fa;
-            color: #666;
-            transform: scale(1.05);
+            background-color: #005a5a;
+            color: #fff;
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         /* Bottom feature grid */
@@ -292,7 +293,7 @@
         }
 
         .card .icon {
-            font-size: 100px;
+            font-size: 80px;
         }
 
         .card .title {
@@ -311,17 +312,18 @@
 
         .card .plus-btn {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 44px;
             height: 44px;
-            background: white;
+            background: #007d7e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            color: #999;
+            color: white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
             border: none;
             cursor: pointer;
@@ -330,10 +332,9 @@
         }
 
         .card .plus-btn:hover {
-            background-color: #f8f9fa;
-            color: #666;
-            transform: scale(1.05);
-        }
+            background-color: #005a5a;
+            color: #fff;
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         .card .title {
@@ -342,24 +343,6 @@
             line-height: 1.65;
             letter-spacing: 0.2px;
             color: #ffffff;
-        }
-
-        .card .plus-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #ffffff;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        .card .plus-btn:hover {
-            opacity: 1;
         }
 
         /* Icon colors */
@@ -702,11 +685,11 @@
                         {% if card.value.icon_svg_code %}
                             `{{ card.value.icon_svg_code|safe|escapejs }}`
                         {% elif card.value.icon_emoji %}
-                            `<span class=&quot;icon icon-{{ card.value.color }}&quot; style=&quot;font-size: 150px;&quot;>{{ card.value.icon_emoji }}</span>`
+                            `<span class=&quot;icon icon-{{ card.value.color }}&quot; style=&quot;font-size: 120px;&quot;>{{ card.value.icon_emoji }}</span>`
                         {% elif card.value.icon_image %}
-                            `<img src=&quot;{{ card.value.icon_image.file.url }}&quot; alt=&quot;{{ card.value.title }}&quot; style=&quot;width: 150px; height: 150px; object-fit: contain;&quot;>`
+                            `<img src=&quot;{{ card.value.icon_image.file.url }}&quot; alt=&quot;{{ card.value.title }}&quot; style=&quot;width: 120px; height: 120px; object-fit: contain;&quot;>`
                         {% else %}
-                            `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 150px; height: 150px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;60&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
+                            `<svg class=&quot;icon icon-{{ card.value.color }}&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 120px; height: 120px;&quot;><circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;60&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;3&quot;/></svg>`
                         {% endif %}
                     )">+</button>
                     <div class="icon-wrapper">
@@ -862,7 +845,7 @@
     <script>
         function openModal(title, description, iconHtml) {
             document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalDescription').innerHTML = description;
             
             // Insert icon HTML into modal
             const iconSection = document.getElementById('modalIconSection');

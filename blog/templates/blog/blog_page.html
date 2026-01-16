@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
 <html lang="en-GB">
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,11 @@
     <link rel="icon" href="{% static 'favicon.jpg' %}" type="image/jpeg">
     <link rel="shortcut icon" href="{% static 'favicon.jpg' %}" type="image/jpeg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/cashmatters.css' %}">
-    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         /* Blog Page Custom Styles */
         .blog-page {
@@ -461,7 +461,7 @@
 <body>
     <!-- Navigation -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-1 pb-1">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -470,16 +470,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-                    <ul class="navbar-nav gap-lg-4 gap-2 mb-2 mb-lg-0 align-items-center">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a></li>
                     </ul>
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
-                    <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
+                    <button class="btn text-white p-0 search-trigger" aria-label="Search">
+                        <i class="bi bi-search fs-5"></i>
+                    </button>
+                    <!-- Language Switcher (Google Translate) -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small" id="current-lang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English (UK)</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> Deutsch</a></li>
+                        </ul>
+                    </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
@@ -502,15 +514,25 @@
                         <div class="meta-info text-center mt-3">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
                             {% if page.author_profile %}
-                            <span class="ms-3">
-                                <i class="bi bi-person"></i>
+                            <span class="ms-3 d-flex align-items-center gap-2">
+                                {% if page.author_profile.profile_image %}
+                                    {% image page.author_profile.profile_image fill-32x32 as profile_img %}
+                                    <img src="{{ profile_img.url }}" alt="{{ page.author_profile.name }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                {% else %}
+                                    <i class="bi bi-person-circle" style="font-size: 32px;"></i>
+                                {% endif %}
                                 <a href="{% url 'author_profile_by_id' page.author_profile.id %}" class="text-decoration-none" style="color: inherit;">
                                     {{ page.author_profile.name }}
                                 </a>
                             </span>
                             {% elif page.author %}
-                            <span class="ms-3">
-                                <i class="bi bi-person"></i>
+                            <span class="ms-3 d-flex align-items-center gap-2">
+                                {% if page.author_image %}
+                                    {% image page.author_image fill-32x32 as author_img %}
+                                    <img src="{{ author_img.url }}" alt="{{ page.author }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                {% else %}
+                                    <i class="bi bi-person-circle" style="font-size: 32px;"></i>
+                                {% endif %}
                                 <a href="{% url 'author_profile' page.author %}" class="text-decoration-none" style="color: inherit;">
                                     {{ page.author }}
                                 </a>
@@ -703,5 +725,32 @@
 
     <!-- Search Overlay JS -->
     <script src="{% static 'js/search-overlay.js' %}"></script>
+    
+    <!-- Language Switcher JS -->
+    <script>
+        function translatePage(lang) {
+            // Update current language display
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            
+            // Update active state of language buttons
+            document.querySelectorAll('.lang-switch-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Here you would implement actual translation logic
+            // For now, just store the preference
+            localStorage.setItem('preferred-language', lang);
+            
+            // You could integrate with Google Translate or another translation service here
+            console.log('Language switched to:', lang);
+        }
+        
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferred-language') || 'en';
+            document.getElementById('current-lang').textContent = savedLang.toUpperCase();
+        });
+    </script>
 </body>
 </html>

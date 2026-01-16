@@ -5,7 +5,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.search import index
 from wagtail.images import get_image_model
 from wagtail import blocks
-from wagtail.blocks import CharBlock, TextBlock, StructBlock
+from wagtail.blocks import CharBlock, TextBlock, RichTextBlock, StructBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -1001,7 +1001,10 @@ class WhyCashFeatureCardBlock(StructBlock):
     Individual feature card for Why Cash Matters Feature Page
     """
     title = CharBlock(required=True, help_text="Card title")
-    description = TextBlock(required=True, help_text="Card description")
+    description = RichTextBlock(
+        required=True,
+        help_text="Card description (supports links and formatting)"
+    )
     icon_type = CharBlock(
         required=False,
         help_text="Icon type: svg, emoji, or image"
