@@ -313,7 +313,7 @@
 
         /* Navigation */
         .header-wrapper {
-            background: #001F29 !important;
+            background: radial-gradient(circle at 10% 20%, #0c3b49 0%, #001F29 60%) !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
@@ -326,7 +326,7 @@
         .navbar * {
             font-family: 'ITC Avant Garde Gothic', 'Avant Garde', 'AvantGarde', 'Century Gothic', 'CenturyGothic', 'Poppins', sans-serif;
         }
-        
+
         /* All headings use ITC Avant Garde Gothic with fallbacks */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'ITC Avant Garde Gothic', 'Avant Garde', 'AvantGarde', 'Century Gothic', 'CenturyGothic', 'Poppins', sans-serif;
@@ -349,7 +349,7 @@
             font-size: 0.85rem;
             position: relative;
         }
-        
+
         .nav-link::before {
             content: '';
             position: absolute;
@@ -361,7 +361,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
         }
-        
+
         .nav-link:hover::before,
         .nav-link.active-nav::before {
             width: 100%;
@@ -372,7 +372,7 @@
             color: #43b1b0 !important;
             transform: translateY(-2px);
         }
-        
+
         /* Support Cash CTA Button */
         .btn-support-cash {
             background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
@@ -406,7 +406,7 @@
 
         /* Footer */
         .main-footer {
-            background-color: #3bc5ac;
+            background-color: #007d7e;
             margin-top: 0;
         }
 
@@ -725,27 +725,27 @@
 
     <!-- Search Overlay JS -->
     <script src="{% static 'js/search-overlay.js' %}"></script>
-    
+
     <!-- Language Switcher JS -->
     <script>
         function translatePage(lang) {
             // Update current language display
             document.getElementById('current-lang').textContent = lang.toUpperCase();
-            
+
             // Update active state of language buttons
             document.querySelectorAll('.lang-switch-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-            
+
             // Here you would implement actual translation logic
             // For now, just store the preference
             localStorage.setItem('preferred-language', lang);
-            
+
             // You could integrate with Google Translate or another translation service here
             console.log('Language switched to:', lang);
         }
-        
+
         // Initialize language on page load
         document.addEventListener('DOMContentLoaded', function() {
             const savedLang = localStorage.getItem('preferred-language') || 'en';
