@@ -261,34 +261,49 @@
                                 {% endif %}
                             </span>
                         </div>
-                        {% if article.author_profile %}
-                        <div class="mb-2 small text-muted d-flex align-items-center">
-                            {% if article.author_profile.profile_image %}
-                                {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
-                                <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author_profile.name }}">
-                            {% else %}
-                                <i class="bi bi-person me-1"></i>
-                            {% endif %}
-                            <a href="{% url 'author_profile_by_id' article.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
-                                {{ article.author_profile.name }}
-                            </a>
-                        </div>
-                        {% elif article.author %}
-                        <div class="mb-2 small text-muted d-flex align-items-center">
-                            {% if article.author_image %}
-                                <img src="{{ article.author_image.file.url }}" class="rounded-circle me-2" style="width: 48px; height: 48px; object-fit: cover;" alt="{{ article.author }}">
-                            {% else %}
-                                <i class="bi bi-person me-1"></i>
-                            {% endif %}
-                            <a href="{% url 'author_profile' article.author %}" class="text-decoration-none text-mint fw-medium">
-                                {{ article.author }}
-                            </a>
-                        </div>
-                        {% endif %}
+            {% if active_category != 'podcast' %}
+                {% if article.author_profile %}
+                <div class="mb-2 small text-muted d-flex align-items-center">
+                    {% if article.author_profile.profile_image %}
+                        {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
+                        <img src="{{ author_thumb.url }}" class="rounded-circle me-2"
+                            style="width:48px;height:48px;object-fit:cover;"
+                            alt="{{ article.author_profile.name }}">
+                    {% else %}
+                        <i class="bi bi-person me-1"></i>
+                    {% endif %}
+                    <a href="{% url 'author_profile_by_id' article.author_profile.id %}"
+                    class="text-decoration-none text-mint fw-medium">
+                        {{ article.author_profile.name }}
+                    </a>
+                </div>
+                {% elif article.author %}
+                <div class="mb-2 small text-muted d-flex align-items-center">
+                    {% if article.author_image %}
+                        <img src="{{ article.author_image.file.url }}"
+                            class="rounded-circle me-2"
+                            style="width:48px;height:48px;object-fit:cover;"
+                            alt="{{ article.author }}">
+                    {% else %}
+                        <i class="bi bi-person me-1"></i>
+                    {% endif %}
+                    <a href="{% url 'author_profile' article.author %}"
+                    class="text-decoration-none text-mint fw-medium">
+                        {{ article.author }}
+                    </a>
+                </div>
+                {% endif %}
+            {% endif %}
+
                         <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
-                        <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
+                     <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
+                        {% if active_category == 'podcast' %}
+                            Listen Now <i class="bi bi-play-fill ms-1"></i>
+                        {% else %}
                             Read More <i class="bi bi-arrow-up-right ms-1"></i>
-                        </a>
+                        {% endif %}
+                    </a>
+
                     </div>
                 </div>
             </div>
