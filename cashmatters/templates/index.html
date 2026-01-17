@@ -444,404 +444,8 @@
         </div>
       </div>
     </section>
-
-    <!-- =========================================
-         3. LATEST NEWS
-    ========================================== -->
-    <section class="section-bg py-5">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-end mb-4">
-          <div>
-            <h2 class="fw-bold mb-2">Latest News</h2>
-            <p class="text-muted mb-0">
-              Stay updated on cash and payment trends<br />worldwide
-            </p>
-          </div>
-          <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small"
-            >See all news <i class="bi bi-arrow-up-right"></i
-          ></a>
-        </div>
-
-        <div class="row g-4">
-          {% for post in latest_posts %}
-          <!-- News Card -->
-          <div class="col-md-4">
-            <div
-              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
-            >
-              <div class="img-wrapper">
-                <a href="{{ post.url_path }}" class="text-decoration-none">
-                  {% if post.wide_thumbnail %}
-                    <img
-                      src="{{ post.wide_thumbnail.file.url }}"
-                      class="w-100 h-100 object-fit-cover transition-img"
-                      alt="{{ post.title }}"
-                      onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
-                    />
-                  {% else %}
-                    <img
-                      src="{% static 'images/homepage/featured-fallback.jpg' %}"
-                      class="w-100 h-100 object-fit-cover transition-img"
-                      alt="{{ post.title }}"
-                    />
-                  {% endif %}
-                </a>
-              </div>
-              <div class="card-body p-4 d-flex flex-column">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3 small"
-                >
-                  <span class="text-muted"
-                    ><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span
-                  >
-                  <span
-                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                    style="font-size: 0.75rem"
-                    >{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span
-                  >
-                </div>
-                {% if post.author_profile %}
-                <div class="mb-2 small text-muted d-flex align-items-center">
-                    {% if post.author_profile.profile_image %}
-                        {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
-                        <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author_profile.name }}">
-                    {% else %}
-                        <i class="bi bi-person me-1"></i>
-                    {% endif %}
-                    <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
-                        {{ post.author_profile.name }}
-                    </a>
-                </div>
-                {% elif post.author %}
-                <div class="mb-2 small text-muted d-flex align-items-center">
-                    {% if post.author_image %}
-                        <img src="{{ post.author_image.file.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author }}">
-                    {% else %}
-                        <i class="bi bi-person me-1"></i>
-                    {% endif %}
-                    <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
-                        {{ post.author }}
-                    </a>
-                </div>
-                {% endif %}
-                <h5 class="fw-bold mb-4 flex-grow-1">
-                  {{ post.title }}
-                </h5>
-                <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small"
-                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-          {% empty %}
-          <!-- No posts message -->
-          <div class="col-12">
-            <div class="alert alert-info text-center">
-              <p class="mb-0">No news articles available yet. Please check back later!</p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================
-         5. STUDIES & REPORTS (NEW SECTION)
-    ========================================== -->
-    <section class="section-bg py-5">
-      <div class="container">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-end mb-4">
-          <div>
-            <h2 class="fw-bold mb-2">Studies & Reports</h2>
-            <p class="text-muted mb-0">
-              In-depth research on cash, payments, and<br />financial inclusion
-            </p>
-          </div>
-          <a href="{% url 'news' %}?category=studies" class="text-mint fw-bold text-decoration-none small"
-            >See all Studies & Reports <i class="bi bi-arrow-up-right"></i
-          ></a>
-        </div>
-
-        <!-- Cards Row -->
-        <div class="row g-4">
-          <!-- Report Card 1 -->
-          <div class="col-md-6">
-            <div
-              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
-            >
-              <!-- Image -->
-              <div class="img-wrapper" style="height: 280px">
-                <img
-                  src="{% static 'images/homepage/studies-local-economies.jpg' %}"
-                  class="w-100 h-100 object-fit-cover transition-img"
-                  alt="Cash transaction at local shop - Photo by Swastik Arora"
-                />
-              </div>
-
-              <!-- Content -->
-              <div class="card-body p-4 d-flex flex-column">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3 small"
-                >
-                  <span class="text-muted fw-medium"
-                    >Consumer Behavior • Americas • 2023</span
-                  >
-                  <span
-                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                    style="font-size: 0.75rem"
-                    >Studies</span
-                  >
-                </div>
-
-                <h4 class="fw-bold mb-3">
-                  Why Cash Underpins Security, Freedom, and Social Stability
-                </h4>
-
-                <p
-                  class="text-muted small mb-4 flex-grow-1"
-                  style="line-height: 1.6"
-                >
-                  There is a moment in almost every childhood when money becomes
-                  real: the first time a child feels the weight of a coin, or
-                  watches...
-                </p>
-
-                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
-                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                  <a href="#" onclick="printReport(event, 'report-card-1')" class="text-reset text-decoration-none hover-mint" title="Print this report">
-                    <i class="bi bi-printer"></i> Print
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Report Card 2 -->
-          <div class="col-md-6">
-            <div
-              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
-            >
-              <!-- Image -->
-              <div class="img-wrapper" style="height: 280px">
-                <img
-                  src="{% static 'images/homepage/studies-digital-age.jpg' %}"
-                  class="w-100 h-100 object-fit-cover transition-img"
-                  alt="The Case for Cash in a Digital Age"
-                />
-              </div>
-
-              <!-- Content -->
-              <div class="card-body p-4 d-flex flex-column">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3 small"
-                >
-                  <span class="text-muted fw-medium"
-                    >Consumer Behavior • Americas • 2023</span
-                  >
-                  <span
-                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                    style="font-size: 0.75rem"
-                    >Studies</span
-                  >
-                </div>
-
-                <h4 class="fw-bold mb-3">
-                  Why Cash Underpins Security, Freedom, and Social Stability
-                </h4>
-
-                <p
-                  class="text-muted small mb-4 flex-grow-1"
-                  style="line-height: 1.6"
-                >
-                  There is a moment in almost every childhood when money becomes
-                  real: the first time a child feels the weight of a coin, or
-                  watches...
-                </p>
-
-                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
-                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                  <a href="#" onclick="printReport(event, 'report-card-2')" class="text-reset text-decoration-none hover-mint" title="Print this report">
-                    <i class="bi bi-printer"></i> Print
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="key-facts" class="section-bg py-5">
-      <div class="container">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-end mb-5">
-          <div>
-            <h2 class="fw-bold mb-2">Key Facts</h2>
-            <p class="text-muted mb-0">
-              In-depth research on cash, payments, and<br />financial inclusion
-            </p>
-          </div>
-          <a href="{% url 'news' %}?category=key-facts" class="text-mint fw-bold text-decoration-none small"
-            >See all Key Facts <i class="bi bi-arrow-up-right"></i
-          ></a>
-        </div>
-
-        <!-- Uniform Grid -->
-        <div class="row g-4">
-          <!-- COLUMN 1 (Card Top, Image Bottom) -->
-          <div class="col-lg-3 col-md-6">
-            <div class="d-flex flex-column gap-4 h-100">
-              <!-- Stat Card -->
-              <div
-                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
-              >
-                <div>
-                  <h2 class="display-3 fw-bold text-stat-yellow mb-0">22%</h2>
-                  <p class="small fw-bold mt-3">
-                    Cash is used for 22% of POS payments in
-                    <strong>Chile</strong>
-                  </p>
-                </div>
-                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" onclick="downloadKeyFact(event, 'fact-chile', 'Cash used for 22% of POS payments in Chile')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                </div>
-              </div>
-              <!-- Image -->
-              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-                <img
-                  src="{% static 'images/homepage/keyfacts-chile.jpg' %}"
-                  class="w-100 h-100 object-fit-cover"
-                  alt="Farm fresh cash transaction in Chile"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMN 2 (Card Top, Image Bottom) -->
-          <div class="col-lg-3 col-md-6">
-            <div class="d-flex flex-column gap-4 h-100">
-              <!-- Stat Card -->
-              <div
-                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
-              >
-                <div>
-                  <h2 class="display-3 fw-bold text-stat-blue mb-0">27%</h2>
-                  <p class="small fw-bold mt-3">
-                    Cash is used for 32% of POS payments in
-                    <strong>Poland</strong>
-                  </p>
-                </div>
-                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" onclick="downloadKeyFact(event, 'fact-poland', 'Cash used for 32% of POS payments in Poland')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                </div>
-              </div>
-              <!-- Image -->
-              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-                <img
-                  src="{% static 'images/homepage/keyfacts-poland.jpg' %}"
-                  class="w-100 h-100 object-fit-cover"
-                  alt="Euro banknotes in wallet - Poland cash usage"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMN 3 (Image Top, Card Bottom - REVERSED) -->
-          <div class="col-lg-3 col-md-6">
-            <div class="d-flex flex-column gap-4 h-100">
-              <!-- Image (On Top here) -->
-              <div
-                class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0"
-              >
-                <img
-                  src="{% static 'images/homepage/keyfacts-norway.jpg' %}"
-                  class="w-100 h-100 object-fit-cover"
-                  alt="ATM withdrawal - Cash usage in Norway"
-                />
-              </div>
-              <!-- Stat Card (On Bottom here) -->
-              <div
-                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1"
-              >
-                <div>
-                  <h2 class="display-3 fw-bold text-stat-teal mb-0">09%</h2>
-                  <p class="small fw-bold mt-3">
-                    Cash is used for 09% of POS payments in
-                    <strong>Norway</strong>
-                  </p>
-                </div>
-                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" onclick="downloadKeyFact(event, 'fact-norway', 'Cash used for 09% of POS payments in Norway')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMN 4 (Card Top, Image Bottom) -->
-          <div class="col-lg-3 col-md-6">
-            <div class="d-flex flex-column gap-4 h-100">
-              <!-- Stat Card -->
-              <div
-                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
-              >
-                <div>
-                  <h2 class="display-3 fw-bold text-stat-rust mb-0">33%</h2>
-                  <p class="small fw-bold mt-3">
-                    Cash is used for 33% of POS payments in
-                    <strong>Spain</strong>
-                  </p>
-                </div>
-                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                  <a href="#" onclick="downloadKeyFact(event, 'fact-spain', 'Cash used for 33% of POS payments in Spain')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                    <i class="bi bi-share"></i> Share
-                  </a>
-                </div>
-              </div>
-              <!-- Image -->
-              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-                <img
-                  src="{% static 'images/homepage/keyfacts-spain.jpg' %}"
-                  class="w-100 h-100 object-fit-cover"
-                  alt="Cash transaction during power outage in Madrid, Spain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================
-         6. PODCAST & VIDEO
+   <!-- =========================================
+         3. PODCAST & VIDEO
     ========================================== -->
     <section id="podcast-section" class="section-bg py-5">
       <div class="container">
@@ -1002,6 +606,406 @@
         </div>
       </div>
     </section>
+
+
+       <!-- =========================================
+         4. STUDIES & REPORTS (NEW SECTION)
+    ========================================== -->
+    <section class="section-bg py-5">
+      <div class="container">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <h2 class="fw-bold mb-2">Studies & Reports</h2>
+            <p class="text-muted mb-0">
+              In-depth research on cash, payments, and<br />financial inclusion
+            </p>
+          </div>
+          <a href="{% url 'news' %}?category=studies" class="text-mint fw-bold text-decoration-none small"
+            >See all Studies & Reports <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <!-- Cards Row -->
+        <div class="row g-4">
+          <!-- Report Card 1 -->
+          <div class="col-md-6">
+            <div
+              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
+            >
+              <!-- Image -->
+              <div class="img-wrapper" style="height: 280px">
+                <img
+                  src="{% static 'images/homepage/studies-local-economies.jpg' %}"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                  alt="Cash transaction at local shop - Photo by Swastik Arora"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted fw-medium"
+                    >Consumer Behavior • Americas • 2023</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >Studies</span
+                  >
+                </div>
+
+                <h4 class="fw-bold mb-3">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h4>
+
+                <p
+                  class="text-muted small mb-4 flex-grow-1"
+                  style="line-height: 1.6"
+                >
+                  There is a moment in almost every childhood when money becomes
+                  real: the first time a child feels the weight of a coin, or
+                  watches...
+                </p>
+
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-1')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Card 2 -->
+          <div class="col-md-6">
+            <div
+              class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card"
+            >
+              <!-- Image -->
+              <div class="img-wrapper" style="height: 280px">
+                <img
+                  src="{% static 'images/homepage/studies-digital-age.jpg' %}"
+                  class="w-100 h-100 object-fit-cover transition-img"
+                  alt="The Case for Cash in a Digital Age"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted fw-medium"
+                    >Consumer Behavior • Americas • 2023</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >Studies</span
+                  >
+                </div>
+
+                <h4 class="fw-bold mb-3">
+                  Why Cash Underpins Security, Freedom, and Social Stability
+                </h4>
+
+                <p
+                  class="text-muted small mb-4 flex-grow-1"
+                  style="line-height: 1.6"
+                >
+                  There is a moment in almost every childhood when money becomes
+                  real: the first time a child feels the weight of a coin, or
+                  watches...
+                </p>
+
+                <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
+                  <a href="#" onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')" class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)" class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                  <a href="#" onclick="printReport(event, 'report-card-2')" class="text-reset text-decoration-none hover-mint" title="Print this report">
+                    <i class="bi bi-printer"></i> Print
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ <!-- =========================================
+         5. Key Facts
+    ========================================== -->
+    <section id="key-facts" class="section-bg py-5">
+      <div class="container">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-end mb-5">
+          <div>
+            <h2 class="fw-bold mb-2">Key Facts</h2>
+            <p class="text-muted mb-0">
+              In-depth research on cash, payments, and<br />financial inclusion
+            </p>
+          </div>
+          <a href="{% url 'news' %}?category=key-facts" class="text-mint fw-bold text-decoration-none small"
+            >See all Key Facts <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <!-- Uniform Grid -->
+        <div class="row g-4">
+          <!-- COLUMN 1 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-yellow mb-0">22%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 22% of POS payments in
+                    <strong>Chile</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-chile', 'Cash used for 22% of POS payments in Chile')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="{% static 'images/homepage/keyfacts-chile.jpg' %}"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Farm fresh cash transaction in Chile"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 2 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-blue mb-0">27%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 32% of POS payments in
+                    <strong>Poland</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-poland', 'Cash used for 32% of POS payments in Poland')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="{% static 'images/homepage/keyfacts-poland.jpg' %}"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Euro banknotes in wallet - Poland cash usage"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 3 (Image Top, Card Bottom - REVERSED) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Image (On Top here) -->
+              <div
+                class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0"
+              >
+                <img
+                  src="{% static 'images/homepage/keyfacts-norway.jpg' %}"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="ATM withdrawal - Cash usage in Norway"
+                />
+              </div>
+              <!-- Stat Card (On Bottom here) -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-teal mb-0">09%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 09% of POS payments in
+                    <strong>Norway</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-norway', 'Cash used for 09% of POS payments in Norway')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 4 (Card Top, Image Bottom) -->
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column gap-4 h-100">
+              <!-- Stat Card -->
+              <div
+                class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <h2 class="display-3 fw-bold text-stat-rust mb-0">33%</h2>
+                  <p class="small fw-bold mt-3">
+                    Cash is used for 33% of POS payments in
+                    <strong>Spain</strong>
+                  </p>
+                </div>
+                <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                  <a href="#" onclick="downloadKeyFact(event, 'fact-spain', 'Cash used for 33% of POS payments in Spain')" class="text-reset text-decoration-none hover-mint" title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                  <a href="#" onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')" class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                    <i class="bi bi-share"></i> Share
+                  </a>
+                </div>
+              </div>
+              <!-- Image -->
+              <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+                <img
+                  src="{% static 'images/homepage/keyfacts-spain.jpg' %}"
+                  class="w-100 h-100 object-fit-cover"
+                  alt="Cash transaction during power outage in Madrid, Spain"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =========================================
+         6. LATEST NEWS
+    ========================================== -->
+    <section class="section-bg py-5">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <h2 class="fw-bold mb-2">Latest News</h2>
+            <p class="text-muted mb-0">
+              Stay updated on cash and payment trends<br />worldwide
+            </p>
+          </div>
+          <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small"
+            >See all news <i class="bi bi-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <div class="row g-4">
+          {% for post in latest_posts %}
+          <!-- News Card -->
+          <div class="col-md-4">
+            <div
+              class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm"
+            >
+              <div class="img-wrapper">
+                <a href="{{ post.url_path }}" class="text-decoration-none">
+                  {% if post.wide_thumbnail %}
+                    <img
+                      src="{{ post.wide_thumbnail.file.url }}"
+                      class="w-100 h-100 object-fit-cover transition-img"
+                      alt="{{ post.title }}"
+                      onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'"
+                    />
+                  {% else %}
+                    <img
+                      src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                      class="w-100 h-100 object-fit-cover transition-img"
+                      alt="{{ post.title }}"
+                    />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="card-body p-4 d-flex flex-column">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3 small"
+                >
+                  <span class="text-muted"
+                    ><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span
+                  >
+                  <span
+                    class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
+                    style="font-size: 0.75rem"
+                    >{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span
+                  >
+                </div>
+                {% if post.author_profile %}
+                <div class="mb-2 small text-muted d-flex align-items-center">
+                    {% if post.author_profile.profile_image %}
+                        {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
+                        <img src="{{ author_thumb.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author_profile.name }}">
+                    {% else %}
+                        <i class="bi bi-person me-1"></i>
+                    {% endif %}
+                    <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
+                        {{ post.author_profile.name }}
+                    </a>
+                </div>
+                {% elif post.author %}
+                <div class="mb-2 small text-muted d-flex align-items-center">
+                    {% if post.author_image %}
+                        <img src="{{ post.author_image.file.url }}" class="rounded-circle me-2" style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author }}">
+                    {% else %}
+                        <i class="bi bi-person me-1"></i>
+                    {% endif %}
+                    <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
+                        {{ post.author }}
+                    </a>
+                </div>
+                {% endif %}
+                <h5 class="fw-bold mb-4 flex-grow-1">
+                  {{ post.title }}
+                </h5>
+                <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small"
+                  >Read More <i class="bi bi-arrow-up-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <!-- No posts message -->
+          <div class="col-12">
+            <div class="alert alert-info text-center">
+              <p class="mb-0">No news articles available yet. Please check back later!</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+
+ 
     <!-- =========================================
          7. SUPPORT CTA
     ========================================== -->
