@@ -797,22 +797,25 @@
                 <div style="background: white; border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%; text-align: center;">
                     <h4 style="margin-bottom: 1.5rem; color: #1f2937;">Share this resource</h4>
                     <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" 
-                           style="width: 50px; height: 50px; border-radius: 50%; background: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                            <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
-                        </a>
-                        <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}" target="_blank"
-                           style="width: 50px; height: 50px; border-radius: 50%; background: #000; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                            <i class="bi bi-twitter-x" style="font-size: 1.5rem;"></i>
-                        </a>
                         <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}" target="_blank"
                            style="width: 50px; height: 50px; border-radius: 50%; background: #0077b5; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                             <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i>
                         </a>
+
                         <a href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank"
                            style="width: 50px; height: 50px; border-radius: 50%; background: #25d366; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                             <i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i>
                         </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" 
+                           style="width: 50px; height: 50px; border-radius: 50%; background: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                            <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+                        </a>
+                    <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}" target="_blank"
+                        style="width: 50px; height: 50px; border-radius: 50%; background: #1DA1F2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                            <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
+                    </a>
+
+                       
                     </div>
                     <div style="margin-bottom: 1rem;">
                         <input type="text" value="${url}" readonly 
