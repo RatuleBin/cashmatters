@@ -657,28 +657,19 @@
                 <ul class="list-unstyled d-flex flex-column gap-3 small">
                     <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
                     <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
-                    <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Write for Us</a></li>
+                    <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Publish on cash matters</a></li>
                     <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
                 </ul>
             </div>
             <!-- Subscribe Section -->
-            <div class="col-lg-5 col-md-12">
-                <h4 class="fw-bold mb-3">Stay up to date with<br>Cash Matters.</h4>
-                <form class="mt-4" id="footer-subscribe-form" action="https://cashmatters.us22.list-manage.com/subscribe/post" method="POST" target="_blank">
-                    <!-- Mailchimp hidden fields - replace with your actual values -->
-                    <input type="hidden" name="u" value="YOUR_MAILCHIMP_U_VALUE">
-                    <input type="hidden" name="id" value="YOUR_MAILCHIMP_LIST_ID">
-                    <div class="input-group p-1 bg-white rounded-2">
-                        <input type="email" name="MERGE0" class="form-control border-0 shadow-none ps-3" placeholder="Enter your email address" required>
-                        <button class="btn btn-dark-custom rounded-2 px-4 fw-bold" type="submit">
-                            Subscribe <i class="bi bi-arrow-up-right ms-1 small"></i>
-                        </button>
-                    </div>
-                </form>
-                <p class="extra-small mt-3" style="opacity: 0.85;">
-                    Subscribe to receive news, updates, and insights about cash and payment choice directly in your inbox.
-                </p>
-            </div>
+            <div class="col-lg-4 col-md-12">
+                    <h4 class="fw-bold mb-3">Support Our Mission to<br>Preserve Payment Choice</h4>
+                                          <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i class="bi bi-arrow-up-right ms-2"></i></a>
+
+                    <p class="extra-small opacity-75 mt-3">
+                        Your support helps us advocate for cash as a vital payment option for everyone. Together, we can ensure financial inclusion and payment freedom.
+                    </p>
+                </div>
         </div>
         <!-- ICA Initiative Section -->
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 mb-4 pb-3">
