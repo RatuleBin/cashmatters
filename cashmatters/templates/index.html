@@ -1049,7 +1049,7 @@
     <!-- =========================================
          8. FOOTER
     ========================================== -->
-    <footer class="main-footer text-white pt-5 pb-4">
+     <footer class="main-footer text-white pt-5 pb-4">
       <div class="container pt-4">
         <div class="row g-5 mb-5">
           <!-- Brand & Social -->
@@ -1112,20 +1112,20 @@
             <ul class="list-unstyled d-flex flex-column gap-3 small">
               <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
               <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
-              <li><a href="/blog/" class="text-white text-decoration-none hover-u">Blogs</a></li>
-              <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
+              <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
+              <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Publish on cash matters</a></li>
             </ul>
           </div>
-
+          
           <!-- Navigation Column 2 -->
           <div class="col-lg-2 col-md-3 col-6">
             <h6 class="fw-bold mb-4">Resources</h6>
             <ul class="list-unstyled d-flex flex-column gap-3 small">
               <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash?</a></li>
-              <li><a href="{% url 'news' %}?category=podcast" class="text-white text-decoration-none hover-u">Podcast</a></li>
-              <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Publish on cash matters</a></li>
+              <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a></li>
               <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support Cash</a></li>
-            </ul>
+            <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org" class="text-white text-decoration-none hover-u" target="_blank"> Contact Us</a> </li>
+       </ul>
           </div>
 
            <div class="col-lg-4 col-md-12">
@@ -1149,15 +1149,39 @@
           class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small gap-3"
           style="opacity: 0.9;"
         >
-          <span class="mb-2 mb-lg-0 text-center text-lg-start"
-            >© Copyright 2025, All Rights Reserved by Cash Matters and International Currency Association.</span
-          >
-          <span class="mb-2 mb-lg-0 text-center"
-            >Web Design by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span
-          >
-          <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end"
+         <a href="{% url 'privacy' %}" class="text-white text-decoration-none hover-u text-center text-lg-end"
             >Privacy Policy</a
           >
+          <span class="mb-2 mb-lg-0 text-center text-lg-start hover-underline">
+            © 2017–2026 Cash Matters & International Currency Association
+        </span>
+
+        <style>
+        .hover-underline {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px; /* thickness of the line */
+            left: 0;
+            bottom: 0;
+            background-color: rgb(255, 255, 255); /* line color */
+            transition: width 0.3s ease;
+        }
+
+        .hover-underline:hover::after {
+            width: 100%;
+        }
+        </style>
+
+          <span class="mb-2 mb-lg-0 text-center hover-underline"
+            >Designed by <a href="https://www.piusfozan.in/" target="_blank" rel="noopener noreferrer" class="text-white text-decoration-none hover-u">Pius Fozan</a></span
+          >
+         
         </div>
       </div>
     </footer>
