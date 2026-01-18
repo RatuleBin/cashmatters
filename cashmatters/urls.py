@@ -429,32 +429,6 @@ def blogs_dashboard(request):
     from django.core.paginator import Paginator
     from django.contrib import messages
     from django.shortcuts import redirect
-    from wagtail.rich_text import RichText
-
-    def extract_text_from_streamfield(streamfield):
-        """Extract searchable text from StreamField"""
-        text_parts = []
-        if streamfield:
-            for block in streamfield:
-                block_type = block.block_type
-                value = block.value
-                
-                if block_type == 'paragraph':
-                    # RichTextBlock - value is RichText object
-                    if hasattr(value, 'source'):
-                        text_parts.append(value.source)
-                    else:
-                        text_parts.append(str(value))
-                elif block_type in ['heading', 'quote']:
-                    # CharBlock or TextBlock
-                    if isinstance(value, str):
-                        text_parts.append(value)
-                    elif hasattr(value, 'text'):
-                        text_parts.append(value.text)
-                    elif hasattr(value, 'quote'):
-                        text_parts.append(value.quote)
-                # Skip image, embed, document blocks for search
-        return ' '.join(text_parts)
 
     # Handle bulk actions
     if request.method == 'POST':
@@ -508,62 +482,46 @@ def blogs_dashboard(request):
     location_filter = request.GET.get('location', '')
     sector_filter = request.GET.get('sector', '')
     
-    # Base queryset - get all published articles and blog posts (like news page)
-    articles = ArticlePage.objects.live().order_by('-date')
-    blog_posts = BlogPage.objects.live().order_by('-date')
+    # Base queryset - get all published articles and blog posts
+    # Apply filters at database level for better performance
+    articles = ArticlePage.objects.live().select_related('author_profile').prefetch_related('article_types', 'locations', 'sectors')
+    blog_posts = BlogPage.objects.live().select_related('author_profile').prefetch_related('article_types', 'locations', 'sectors')
     
-    # Combine and sort by date (newest first)
+    # Apply category filter at database level
+    if category_filter:
+        articles = articles.filter(article_types__name=category_filter)
+        blog_posts = blog_posts.filter(article_types__name=category_filter)
+    
+    # Apply location filter at database level
+    if location_filter:
+        articles = articles.filter(locations__name=location_filter)
+        blog_posts = blog_posts.filter(locations__name=location_filter)
+    
+    # Apply sector filter at database level
+    if sector_filter:
+        articles = articles.filter(sectors__name=sector_filter)
+        blog_posts = blog_posts.filter(sectors__name=sector_filter)
+    
+    # Apply search filter at database level
+    if search_query:
+        from django.db.models import Q
+        articles = articles.filter(
+            Q(title__icontains=search_query) | Q(intro__icontains=search_query)
+        )
+        blog_posts = blog_posts.filter(
+            Q(title__icontains=search_query) | Q(intro__icontains=search_query)
+        )
+    
+    # Order by date
+    articles = articles.order_by('-date')
+    blog_posts = blog_posts.order_by('-date')
+    
+    # Combine and sort by date (newest first) - limit to avoid memory issues
     all_posts = sorted(
-        chain(articles, blog_posts),
-        key=lambda x: x.date,
+        chain(list(articles[:500]), list(blog_posts[:500])),
+        key=lambda x: x.date if x.date else x.first_published_at,
         reverse=True
     )
-    
-    # Apply search filter
-    if search_query:
-        filtered_posts = []
-        for post in all_posts:
-            # Build search text from title, intro, and body content
-            search_parts = [post.title, getattr(post, 'intro', '')]
-            
-            # Extract text from body StreamField for both ArticlePage and BlogPage
-            if hasattr(post, 'body') and post.body:
-                search_parts.append(extract_text_from_streamfield(post.body))
-            
-            search_text = ' '.join(search_parts)
-            if search_query.lower() in search_text.lower():
-                filtered_posts.append(post)
-        all_posts = filtered_posts
-    
-    # Apply category filter
-    if category_filter:
-        filtered_posts = []
-        for post in all_posts:
-            if hasattr(post, 'article_types') and post.article_types.filter(name=category_filter).exists():
-                filtered_posts.append(post)
-        all_posts = filtered_posts
-    
-    # Apply status filter (though all are already live)
-    if status_filter == 'draft':
-        # If we want to show drafts too, we'd need to get non-live posts
-        # But for now, keeping only live posts as requested
-        pass
-    
-    # Apply location filter
-    if location_filter:
-        filtered_posts = []
-        for post in all_posts:
-            if hasattr(post, 'locations') and post.locations.filter(name=location_filter).exists():
-                filtered_posts.append(post)
-        all_posts = filtered_posts
-    
-    # Apply sector filter
-    if sector_filter:
-        filtered_posts = []
-        for post in all_posts:
-            if hasattr(post, 'sectors') and post.sectors.filter(name=sector_filter).exists():
-                filtered_posts.append(post)
-        all_posts = filtered_posts
     
     # Pagination
     paginator = Paginator(all_posts, 20)  # 20 posts per page
