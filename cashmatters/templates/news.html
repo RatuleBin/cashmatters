@@ -157,6 +157,47 @@
         </div>
         {% endif %}
     </div>
+{% if active_category == 'podcast' and articles %}
+{% with hero_podcast=articles.0 %}
+<section class="container mb-5">
+    <div class="row align-items-center g-5">
+
+        <div class="col-lg-6">
+            <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold mb-3">
+                Podcast
+            </span>
+
+            <h1 class="display-4 fw-bold mb-4">
+                {{ hero_podcast.title }}
+            </h1>
+
+            {% if hero_podcast.intro %}
+            <p class="lead text-secondary mb-4">
+                {{ hero_podcast.intro|truncatewords:30 }}
+            </p>
+            {% endif %}
+
+            <a href="{{ hero_podcast.url_path }}" class="btn btn-dark-teal btn-lg">
+                <i class="bi bi-play-fill me-2"></i> Listen Now
+            </a>
+        </div>
+
+        <div class="col-lg-6">
+            {% if hero_podcast.wide_thumbnail %}
+            <img src="{{ hero_podcast.wide_thumbnail.file.url }}"
+            class="img-fluid rounded-4 shadow"
+            alt="{{ hero_podcast.title }}">
+            {% else %}
+            <img src="{% static 'images/podcast-thumbnail.png' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="{{ hero_podcast.title }}">
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+{% endwith %}
+{% endif %}
 
     <!-- =========================================
          3. FEATURED ARTICLE
@@ -204,7 +245,7 @@
                         <img src="{% static 'news-images/news-cover.png' %}" class="img-fluid rounded-1 w-100 mb-3" alt="Speaker">
                         <p class="text-secondary small">
                             The Compound Cash Value Index—developed by an independent group of economists...
-                            <a href="#" class="text-mint fw-bold text-decoration-none">Read More...</a>
+                            <a href="http://72.62.147.13/blog/measuring-what-really-matters-inside-the-compound-cash-value-index/" class="text-mint fw-bold text-decoration-none">Read More...</a>
                         </p>
                     </div>
                 </div>
