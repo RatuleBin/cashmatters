@@ -103,9 +103,12 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <p class="text-white opacity-90 mb-4 lead fw-light">
-                        We are an independent initiative dedicated to preserving payment choice for everyone. Our
-                        mission is to ensure that physical cash remains a viable and accessible payment option in an
-                        increasingly digital world.
+                      Cash Matters is a global platform, supported by the
+                       International Currency Association (ICA), dedicated 
+                       to promoting the role and relevance of cash as an essential
+                        part of the payment landscape, both now and in the future. 
+
+
                     </p>
                     <!-- <a href="#mission" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
                         Learn Our Mission <i class="bi bi-arrow-up-right ms-1"></i>
@@ -125,13 +128,12 @@
                 <div class="col-lg-5 col-md-12">
                     <h2 class="fw-bold mb-4">Our Mission</h2>
                     <p class="text-muted fs-5 mb-4">
-                        Cash Matters believes that everyone should have the freedom to choose how they pay. We advocate
-                        for the preservation of physical cash as an essential public good that promotes financial
-                        inclusion, privacy, and economic resilience.
+                       Cash Matters highlights the importance of cash as a foundation of democracy, personal freedom, and independence. It works in close cooperation with other organizations in the cash sector to maximize its global reach and impact.
+
                     </p>
                     <p class="text-muted fs-5 mb-4">
-                        In a world increasingly dominated by digital payments, we work to ensure that cash remains
-                        accessible, accepted, and valued by businesses, governments, and communities worldwide.
+                        The Cash Matters website serves as a comprehensive resource, offering a library of articles, studies on key cash-related issues, videos aimed at the general public, and a strong presence across major social media channels. These resources are designed for industry professionals, decision-makers, and the wider public, making information about the significance of cash easily accessible.
+
                     </p>
                     <div class="d-flex gap-3">
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash</a>
@@ -330,7 +332,7 @@
 
                                     <!-- Video -->
                                     <div class="ratio ratio-16x9 youtube-video" data-id="OBIXjfftuUg">
-                                        <img src="{% static 'images/about/msiion.jpeg' %}" class="img-fluid video-thumb" alt="">
+                                        <img src="{% static 'images/humancash.jpg' %}" class="img-fluid video-thumb" alt="">
                                         <div class="play-button">
                                             <i class="bi bi-play-fill"></i>
                                         </div>
@@ -355,7 +357,7 @@
 
                                     <!-- Video -->
                                     <div class="ratio ratio-16x9 youtube-video" data-id="YeFUC53pwCU">
-                                        <img src="{% static 'images/about/whycash.jpeg' %}" class="img-fluid video-thumb" alt="">
+                                        <img src="{% static 'images/handcash.jpg' %}" class="img-fluid video-thumb" alt="">
                                         <div class="play-button">
                                             <i class="bi bi-play-fill"></i>
                                         </div>
@@ -379,7 +381,7 @@
 
                                     <!-- Video -->
                                     <div class="ratio ratio-16x9 youtube-video" data-id="PO0hPyoRP0s">
-                                        <img src="{% static 'images/podcast-thumbnail.png' %}" class="img-fluid video-thumb" alt="">
+                                        <img src="{% static 'images/coinshand.jpg' %}" class="img-fluid video-thumb" alt="">
                                         <div class="play-button">
                                             <i class="bi bi-play-fill"></i>
                                         </div>
@@ -580,11 +582,11 @@
                 <!-- Navigation Column 1 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-u">Home</a></li>
-                        <li><a href="/news/" class="text-white text-decoration-none hover-u">News & Articles</a></li>
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-underline">Home</a></li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a></li>
                         <li><a href="{% url 'news' %}?category=podcast"
-                                class="text-white text-decoration-none hover-u">Podcast</a></li>
-                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-u">Publish
+                                class="text-white text-decoration-none hover-underline">Podcast</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">Publish
                                 on Cash Matters</a></li>
                     </ul>
                 </div>
@@ -592,14 +594,14 @@
                 <!-- Navigation Column 2 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-u">Why Cash Matters</a>
+                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
                         </li>
-                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-u">About Us</a>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About Us</a>
                         </li>
-                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-u">Support
+                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-underline">Support
                                 Cash</a></li>
                         <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org"
-                                class="text-white text-decoration-none hover-u" target="_blank"> Contact Us</a> </li>
+                                class="text-white text-decoration-none hover-underline" target="_blank"> Contact Us</a> </li>
                     </ul>
                 </div>
 
@@ -626,7 +628,7 @@
             <div class="border-top border-white border-opacity-25 pt-4 d-flex flex-column flex-lg-row justify-content-between align-items-center small gap-3"
                 style="opacity: 0.9;">
                 <a href="{% url 'privacy' %}"
-                    class="text-white text-decoration-none hover-u text-center text-lg-end">Privacy Policy</a>
+                    class="text-white text-decoration-none  text-center hover-underline text-lg-end">Privacy Policy</a>
                 <span class="mb-2 mb-lg-0 text-center text-lg-start hover-underline">
                     © 2017–2026 Cash Matters & International Currency Association
                 </span>
