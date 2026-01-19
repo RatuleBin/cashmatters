@@ -66,7 +66,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
@@ -105,7 +105,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold text-white lh-sm mb-4">
-                        {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Support Cash Matters{% endif %}
+                        {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Supporter Resources{% endif %}
                     </h1>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
@@ -115,10 +115,10 @@
                         </div>
                     {% else %}
                         <p class="text-white opacity-90 mb-4 lead fw-light">
-                            Join us in keeping cash relevant today and in the future by supporting our global pro-cash movement.
+                            Use these resources to help spread the message that cash is an essential part of payment infrastructure now and for the future.
                         </p>
                     {% endif %}
-                    <a href="{% if page.description_link %}{{ page.description_link }}{% else %}#{% endif %}" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
+                    <a href="{% url 'why_cash' %}" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
                         Discover Why Cash Matters <i class="bi bi-arrow-up-right ms-1"></i>
                     </a>
                 </div>
@@ -129,19 +129,23 @@
     <!-- =========================================
          3. INTRODUCTION SECTION
     ========================================== -->
-    {% if page.introduction %}
     <section class="py-5 bg-light">
         <div class="container py-4">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <div class="fs-5 text-muted">
-                        {{ page.introduction|richtext }}
-                    </div>
+                    {% if page.introduction %}
+                        <div class="fs-5 text-muted">
+                            {{ page.introduction|richtext }}
+                        </div>
+                    {% else %}
+                        <p class="fs-5 text-muted mb-0">
+                            Whether you are a consumer, retailer or cash industry professional, Cash Matters has developed a range of resources that you can use to help demonstrate your commitment and support to keeping cash as part of a fair and inclusive payments landscape.
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
-    {% endif %}
 
     <!-- =========================================
          4. DIGITAL ASSETS (TABS)
@@ -186,7 +190,7 @@
             </ul>
 
             <div class="mb-5 pb-4">
-                <p class="text-muted small">Download our logos and include them within your marketing materials and PR activity.</p>
+                <p class="text-muted">Download our logos and include them within your marketing materials and PR activity. Use the assets below to promote your commitment to supporting cash as a payment option.</p>
             </div>
 
             <!-- TAB CONTENTS -->
