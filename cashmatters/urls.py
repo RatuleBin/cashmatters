@@ -365,6 +365,11 @@ def write_for_us(request):
     return render(request, 'write_for_us.html')
 
 
+def why_cash(request):
+    """Serve the Why Cash Matters page"""
+    return render(request, 'why-cash.html')
+
+
 def new_page(request):
     """Serve the Why Cash Matters Feature page - with Wagtail page fallback"""
     from blog.models import WhyCashMattersFeaturePage
@@ -626,7 +631,8 @@ urlpatterns = [
     path("privacy/", privacy, name="privacy"),  # Privacy Policy page
     path("support/", support, name="support"),  # Support page
     path("write-for-us/", write_for_us, name="write_for_us"),  # Write for Us page
-    path("new-page/", new_page, name="new_page"),  # Why Cash Matters Feature page
+    path("why-cash/", why_cash, name="why_cash"),  # Why Cash Matters page
+    path("new-page/", new_page, name="new_page"),  # Why Cash Matters Feature page (legacy)
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
     path("add-blog/", create_blog_page, name="create_blog_page"),
