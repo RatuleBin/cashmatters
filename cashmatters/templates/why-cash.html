@@ -112,7 +112,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'support' %}">Support Cash</a></li>
@@ -144,7 +144,7 @@
         <div class="container">
           <div class="row pt-5 pb-4">
             <div class="col-lg-6 pt-3">
-              <h1 class="hero-title text-white fw-bold lh-1 mb-4 mb-lg-0">
+              <h1 class="display-4 text-white fw-bold lh-sm mb-4 mb-lg-0">
                 Cash is simple,<br />safe, and
                 <span class="text-mint">for<br />everyone</span>
               </h1>
@@ -152,7 +152,7 @@
             <div
               class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center"
             >
-              <p class="hero-desc text-white mb-4">
+              <p class="text-white opacity-90 mb-4 lead fw-light">
                 Research, reporting, and resources that show why physical cash
                 remains essential around the world.
               </p>
@@ -164,26 +164,58 @@
             </div>
           </div>
 
-          <!-- Video Section (No overlap for Why Cash page) -->
-          <div class="why-cash-video-container mb-4">
-            <div
-              class="video-card position-relative w-100 rounded-4 overflow-hidden"
-            >
-              <video
-                id="hero-video"
-                class="img-fluid w-100"
-                loop
-                playsinline
-                preload="auto"
-                controls
-              >
-                <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              <div class="play-btn-wrapper">
-                <button id="play-btn" class="btn-play">
-                  <i class="bi bi-play-fill"></i>
-                </button>
+          <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
+          <div class="why-cash-videos-container mb-4">
+            <div class="row g-4">
+              <!-- Video 1: Freedom Matters (2020) -->
+              <div class="col-lg-4 col-md-6">
+                <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                  <div class="ratio ratio-16x9">
+                    <iframe src="https://player.vimeo.com/video/488891865?title=0&byline=0&portrait=0"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
+                    <p class="text-muted small mb-0">How you spend your money is your business. Privacy matters. Freedom matters.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video 2: Choice Matters (2018) -->
+              <div class="col-lg-4 col-md-6">
+                <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                  <div class="ratio ratio-16x9">
+                    <iframe src="https://player.vimeo.com/video/417517809?title=0&byline=0&portrait=0"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                    <p class="text-muted small mb-0">Choices empower you. Make sure to keep the freedom to choose how you pay.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video 3: Cash Matters (2017) -->
+              <div class="col-lg-4 col-md-6">
+                <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                  <div class="ratio ratio-16x9">
+                    <iframe src="https://player.vimeo.com/video/417517552?title=0&byline=0&portrait=0"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
+                    <p class="text-muted small mb-0">In today's busy, always-on, digital world, Cash Matters.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -707,36 +739,7 @@
         });
     </script>
 
-    <!-- Hero Video Play Button Script -->
-    <script>
-      // Video play button functionality
-      const playBtn = document.getElementById('play-btn');
-      const video = document.getElementById('hero-video');
-      
-      if (playBtn && video) {
-        playBtn.addEventListener('click', function() {
-          video.play().then(() => {
-            playBtn.style.display = 'none';
-          }).catch(error => {
-            console.error('Video play failed:', error);
-          });
-        });
-
-        // Hide play button when video starts playing
-        video.addEventListener('play', function() {
-          playBtn.style.display = 'none';
-        });
-
-        // Show play button when video is paused or ended
-        video.addEventListener('pause', function() {
-          playBtn.style.display = 'flex';
-        });
-
-        video.addEventListener('ended', function() {
-          playBtn.style.display = 'flex';
-        });
-      }
-    </script>
+    <!-- Videos are now Vimeo embeds - no custom play button needed -->
 
     <!-- Google Translate Integration -->
     <div id="google_translate_element" style="display: none;"></div>
