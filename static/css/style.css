@@ -611,7 +611,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .hero-title {
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
     line-height: 1.2;
     letter-spacing: -0.5px;
 }
@@ -825,7 +825,7 @@ h1, h2, h3, h4, h5, h6,
     }
     
     .hero-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 }
 
