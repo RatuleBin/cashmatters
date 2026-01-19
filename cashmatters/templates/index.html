@@ -472,17 +472,15 @@
             >
               <!-- Video Container with Play Button Overlay -->
               <div class="video-card position-relative w-100">
-                <video
-                  id="podcast-video"
-                  class="img-fluid w-100"
-                  loop
-                  playsinline
-                  preload="auto"
-                  controls
-                >
-                  <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
+             <video
+  class="img-fluid w-100"
+  controls
+  preload="metadata"
+  poster="{% static 'images/podcast-thumbnail.png' %}"
+>
+  <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
+</video>
+
                 <div class="play-btn-wrapper">
                   <button id="podcast-play-btn" class="btn-play">
                     <i class="bi bi-play-fill"></i>
@@ -514,95 +512,72 @@
           </div>
 
           <!-- RIGHT COLUMN: Recent Episodes List -->
-          <div class="col-lg-5">
-            <h3 class="fw-bold mb-4">Recent Episodes</h3>
+    <div class="col-lg-5">
+  <h3 class="fw-bold mb-4">Recent Episodes</h3>
 
-            <div class="d-flex flex-column gap-3">
-              <!-- Episode Item 1: Cash & Childhood -->
-              <a
-                href="https://soundcloud.com/cashmatters-816319699/cash-childhood-and-the-real-value-of-money-why-physical-cash-is-essential-for-financial-skills"
-                target="_blank" rel="noopener noreferrer"
-                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
-              >
-                <div class="d-flex align-items-center gap-3">
-                  <div class="play-icon-circle flex-shrink-0">
-                    <i class="bi bi-play"></i>
-                  </div>
-                  <div>
-                    <h6 class="fw-bold text-dark mb-1">
-                      Cash, Childhood and the Real Value of Money
-                    </h6>
-                    <small class="text-muted"
-                      ><i class="bi bi-soundwave me-1"></i> SoundCloud • Cash Matters</small
-                    >
-                  </div>
-                </div>
-              </a>
+  <div class="d-flex flex-column p-1 gap-4">
+    <div class="row">
+      <div class="col-lg-6">
 
-              <!-- Episode Item 2: Canadian Cash Study -->
-              <a
-                href="https://soundcloud.com/cashmatters-816319699/why-79-of-canadians-refuse-to-go-cashless"
-                target="_blank" rel="noopener noreferrer"
-                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
-              >
-                <div class="d-flex align-items-center gap-3">
-                  <div class="play-icon-circle flex-shrink-0">
-                    <i class="bi bi-play"></i>
-                  </div>
-                  <div>
-                    <h6 class="fw-bold text-dark mb-1">
-                      Why 79% of Canadians Refuse to Go Cashless
-                    </h6>
-                    <small class="text-muted"
-                      ><i class="bi bi-soundwave me-1"></i> SoundCloud • Cash Matters</small
-                    >
-                  </div>
-                </div>
-              </a>
+        <iframe
+        width="100%"
+        height="166"
+        scrolling="no"
+      frameborder="no"
+      allow="autoplay"
+      class="rounded-4 shadow-sm"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/cash-childhood-and-the-real-value-of-money-why-physical-cash-is-essential-for-financial-skills">
+    </iframe>
+  </div>
+    <div class="col-lg-6">
 
-              <!-- Episode Item 3: The 9% Myth -->
-              <a
-                href="https://soundcloud.com/cashmatters-816319699/the-9-myth-what-cash-data-doesnt-tell-you-about-britains-real-relationship-with-cash"
-                target="_blank" rel="noopener noreferrer"
-                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none"
-              >
-                <div class="d-flex align-items-center gap-3">
-                  <div class="play-icon-circle flex-shrink-0">
-                    <i class="bi bi-play"></i>
-                  </div>
-                  <div>
-                    <h6 class="fw-bold text-dark mb-1">
-                      The 9% Myth: Britain's Real Relationship with Cash
-                    </h6>
-                    <small class="text-muted"
-                      ><i class="bi bi-soundwave me-1"></i> SoundCloud • Cash Matters</small
-                    >
-                  </div>
-                </div>
-              </a>
+      <iframe
+      width="100%"
+      height="166"
+      scrolling="no"
+      frameborder="no"
+      allow="autoplay"
+      class="rounded-4 shadow-sm"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/why-79-of-canadians-refuse-to-go-cashless">
+    </iframe>
+  </div>
+<div class="col-lg-6">
 
-              <!-- More Episodes Link -->
-              <a
-                href="https://soundcloud.com/cashmatters-816319699"
-                target="_blank" rel="noopener noreferrer"
-                class="episode-card card border-0 rounded-4 shadow-sm p-3 text-decoration-none bg-light"
-              >
-                <div class="d-flex align-items-center gap-3">
-                  <div class="play-icon-circle flex-shrink-0" style="background-color: var(--brand-mint);">
-                    <i class="bi bi-soundwave text-white"></i>
-                  </div>
-                  <div>
-                    <h6 class="fw-bold text-dark mb-1">
-                      View All Episodes on SoundCloud
-                    </h6>
-                    <small class="text-muted"
-                      ><i class="bi bi-arrow-up-right me-1"></i> Browse the full podcast library</small
-                    >
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
+  <iframe
+  width="100%"
+    height="166"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay"
+    class="rounded-4 shadow-sm"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/the-9-myth-what-cash-data-doesnt-tell-you-about-britains-real-relationship-with-cash">
+  </iframe>
+  
+</div>
+  
+<div class="col-lg-6">
+
+  <iframe
+  width="100%"
+    height="166"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay"
+    class="rounded-4 shadow-sm"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/the-9-myth-what-cash-data-doesnt-tell-you-about-britains-real-relationship-with-cash">
+  </iframe>
+  
+</div>
+  
+  </div>
+  </div>
+     <a href="" 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="btn btn-mint fw-bold mt-3 px-4 py-2 rounded-2">
+                  <i class="bi bi-soundwave me-2"></i>Listen More 
+                </a>
+</div>
+
         </div>
       </div>
     </section>
