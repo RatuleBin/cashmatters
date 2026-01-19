@@ -109,6 +109,44 @@
         color: #4CD1C2 !important;
         opacity: 1 !important;
       }
+      
+      /* Podcast Card Styles */
+      .podcast-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .podcast-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+      .podcast-thumb-wrapper {
+        overflow: hidden;
+      }
+      .podcast-thumb-wrapper img {
+        transition: transform 0.4s ease;
+      }
+      .podcast-card:hover .podcast-thumb-wrapper img {
+        transform: scale(1.05);
+      }
+      .podcast-play-overlay {
+        opacity: 0.9;
+        transition: all 0.3s ease;
+      }
+      .podcast-card:hover .podcast-play-overlay {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+      .play-icon-circle-lg {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #002e26;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 20px rgba(76, 209, 194, 0.4);
+      }
     </style>
   </head>
   <body class="bg-light-cream">
@@ -179,11 +217,11 @@
               <!-- Left Side: Content Info (Dark Teal Background) -->
               <div class="col-lg-6">
                 <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
-                  <!-- Content Type Badge -->
+                  <!-- Content Type Badge - Cover Story -->
                   <div class="hero-content-type-badge mb-3">
-                    <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem;">
-                      <i id="hero-type-icon" class="bi bi-newspaper me-1"></i>
-                      <span id="hero-type-text">News</span>
+                    <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+                      <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
+                      <span id="hero-type-text">Cover Story</span>
                     </span>
                   </div>
                   
@@ -274,10 +312,10 @@
                     </div>
                   </div>
                   
-                  <!-- Content Type Overlay Icon -->
+                  <!-- Content Type Overlay Icon - Cover Story -->
                   <div class="hero-media-type-overlay position-absolute" style="top: 15px; right: 15px;">
                     <span id="hero-media-type-icon" class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
-                      <i class="bi bi-newspaper"></i>
+                      <i class="bi bi-star-fill"></i>
                     </span>
                   </div>
                 </div>
@@ -330,7 +368,7 @@
       <div class="container">
         <div class="row mb-5 align-items-end">
           <div class="col-md-8">
-            <h2 class="section-title fw-bold">Editors Pick</h2>
+            <h2 class="section-title fw-bold">Editor's Pick</h2>
           </div>
           <div class="col-md-4 text-md-end">
             <p class="text-muted small mb-0">
@@ -449,140 +487,129 @@
       </div>
     </section>
    <!-- =========================================
-         3. PODCAST & VIDEO
+         3. PODCAST
     ========================================== -->
     <section id="podcast-section" class="section-bg py-5">
       <div class="container">
         <!-- Section Header -->
         <div class="row align-items-end mb-5">
           <div class="col-md-8">
-            <h2 class="fw-bold mb-2">Podcast & Video</h2>
+            <h2 class="fw-bold mb-2">Podcast</h2>
             <p class="text-muted mb-0">
               Conversations that matter about the future of<br />money
             </p>
           </div>
           <div class="col-md-4 text-md-end">
-            <a href="https://soundcloud.com/cashmatters-816319699" target="_blank" rel="noopener noreferrer" class="text-mint fw-bold text-decoration-none small"
-              ><i class="bi bi-soundwave me-1"></i> Listen on SoundCloud <i class="bi bi-arrow-up-right"></i
+            <a href="{% url 'news' %}?category=podcast" class="text-mint fw-bold text-decoration-none small"
+              >See all Podcasts <i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
         </div>
 
-        <div class="row g-5">
-          <!-- LEFT COLUMN: Featured Video (Local Video with Play Button) -->
-          <div class="col-lg-7">
-            <div
-              class="card border-0 rounded-4 shadow-sm overflow-hidden h-100"
-            >
-              <!-- Video Container with Play Button Overlay -->
-              <div class="video-card position-relative w-100">
-             <video
-  id="podcast-video"
-  class="img-fluid w-100"
-  controls
-  preload="metadata"
-  poster="{% static 'images/podcast-thumbnail.png' %}"
->
-  <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-</video>
-
-                <div class="play-btn-wrapper">
-                  <button id="podcast-play-btn" class="btn-play">
-                    <i class="bi bi-play-fill"></i>
-                  </button>
+        <!-- Podcast Episodes Grid - 3 Cards with Thumbnails -->
+        <div class="row g-4">
+          <!-- Podcast Episode 1 -->
+          <div class="col-md-4">
+            <a href="{% url 'news' %}?category=podcast" class="text-decoration-none">
+              <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
+                <!-- Thumbnail with Play Overlay -->
+                <div class="podcast-thumb-wrapper position-relative">
+                  <img src="{% static 'images/homepage/podcast-thumb-1.jpg' %}" 
+                       class="w-100 object-fit-cover" 
+                       alt="Cash, Childhood and the Real Value of Money"
+                       style="height: 200px;"
+                       onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
+                  <div class="podcast-play-overlay position-absolute top-50 start-50 translate-middle">
+                    <div class="play-icon-circle-lg">
+                      <i class="bi bi-play-fill"></i>
+                    </div>
+                  </div>
+                  <span class="badge bg-dark bg-opacity-75 position-absolute bottom-0 end-0 m-2 px-2 py-1 small">
+                    <i class="bi bi-clock me-1"></i>45 min
+                  </span>
+                </div>
+                <!-- Card Content -->
+                <div class="card-body p-4 bg-white">
+                  <div class="small text-muted mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-mic-fill text-mint"></i> Episode 12
+                    <span class="mx-1">•</span> Jan 2026
+                  </div>
+                  <h5 class="fw-bold text-dark mb-0">Cash, Childhood and the Real Value of Money</h5>
                 </div>
               </div>
-
-              <!-- Video Details -->
-              <div class="card-body p-4 bg-white">
-                <div
-                  class="small text-muted mb-3 d-flex align-items-center gap-2"
-                >
-                  <i class="bi bi-mic-fill me-1"></i> Podcast
-                  <span class="mx-1">•</span> Cash Matters
-                </div>
-                <h3 class="fw-bold mb-3">Cash, Childhood and the Real Value of Money</h3>
-                <p class="text-muted mb-0">
-                  Why physical cash is essential for financial skills. Exploring how 
-                  children learn the value of money through tangible currency and why 
-                  this matters for their financial future.
-                </p>
-                <a href="https://soundcloud.com/cashmatters-816319699/cash-childhood-and-the-real-value-of-money-why-physical-cash-is-essential-for-financial-skills" 
-                   target="_blank" rel="noopener noreferrer" 
-                   class="btn btn-mint fw-bold mt-3 px-4 py-2 rounded-2">
-                  <i class="bi bi-soundwave me-2"></i>Listen on SoundCloud
-                </a>
-              </div>
-            </div>
+            </a>
           </div>
 
-          <!-- RIGHT COLUMN: Recent Episodes List -->
-    <div class="col-lg-5">
-  <h3 class="fw-bold mb-4">Recent Episodes</h3>
+          <!-- Podcast Episode 2 -->
+          <div class="col-md-4">
+            <a href="{% url 'news' %}?category=podcast" class="text-decoration-none">
+              <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
+                <!-- Thumbnail with Play Overlay -->
+                <div class="podcast-thumb-wrapper position-relative">
+                  <img src="{% static 'images/homepage/podcast-thumb-2.jpg' %}" 
+                       class="w-100 object-fit-cover" 
+                       alt="Why 79% of Canadians Refuse to Go Cashless"
+                       style="height: 200px;"
+                       onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
+                  <div class="podcast-play-overlay position-absolute top-50 start-50 translate-middle">
+                    <div class="play-icon-circle-lg">
+                      <i class="bi bi-play-fill"></i>
+                    </div>
+                  </div>
+                  <span class="badge bg-dark bg-opacity-75 position-absolute bottom-0 end-0 m-2 px-2 py-1 small">
+                    <i class="bi bi-clock me-1"></i>38 min
+                  </span>
+                </div>
+                <!-- Card Content -->
+                <div class="card-body p-4 bg-white">
+                  <div class="small text-muted mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-mic-fill text-mint"></i> Episode 11
+                    <span class="mx-1">•</span> Dec 2025
+                  </div>
+                  <h5 class="fw-bold text-dark mb-0">Why 79% of Canadians Refuse to Go Cashless</h5>
+                </div>
+              </div>
+            </a>
+          </div>
 
-  <div class="d-flex flex-column p-1 gap-4">
-    <div class="row">
-      <div class="col-lg-6">
+          <!-- Podcast Episode 3 -->
+          <div class="col-md-4">
+            <a href="{% url 'news' %}?category=podcast" class="text-decoration-none">
+              <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
+                <!-- Thumbnail with Play Overlay -->
+                <div class="podcast-thumb-wrapper position-relative">
+                  <img src="{% static 'images/homepage/podcast-thumb-3.jpg' %}" 
+                       class="w-100 object-fit-cover" 
+                       alt="The 9% Myth: Britain's Real Relationship with Cash"
+                       style="height: 200px;"
+                       onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
+                  <div class="podcast-play-overlay position-absolute top-50 start-50 translate-middle">
+                    <div class="play-icon-circle-lg">
+                      <i class="bi bi-play-fill"></i>
+                    </div>
+                  </div>
+                  <span class="badge bg-dark bg-opacity-75 position-absolute bottom-0 end-0 m-2 px-2 py-1 small">
+                    <i class="bi bi-clock me-1"></i>42 min
+                  </span>
+                </div>
+                <!-- Card Content -->
+                <div class="card-body p-4 bg-white">
+                  <div class="small text-muted mb-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-mic-fill text-mint"></i> Episode 10
+                    <span class="mx-1">•</span> Nov 2025
+                  </div>
+                  <h5 class="fw-bold text-dark mb-0">The 9% Myth: Britain's Real Relationship with Cash</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
 
-        <iframe
-        width="100%"
-        height="166"
-        scrolling="no"
-      frameborder="no"
-      allow="autoplay"
-      class="rounded-4 shadow-sm"
-      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/cash-childhood-and-the-real-value-of-money-why-physical-cash-is-essential-for-financial-skills">
-    </iframe>
-  </div>
-    <div class="col-lg-6">
-
-      <iframe
-      width="100%"
-      height="166"
-      scrolling="no"
-      frameborder="no"
-      allow="autoplay"
-      class="rounded-4 shadow-sm"
-      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/why-79-of-canadians-refuse-to-go-cashless">
-    </iframe>
-  </div>
-<div class="col-lg-6">
-
-  <iframe
-  width="100%"
-    height="166"
-    scrolling="no"
-    frameborder="no"
-    allow="autoplay"
-    class="rounded-4 shadow-sm"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/the-9-myth-what-cash-data-doesnt-tell-you-about-britains-real-relationship-with-cash">
-  </iframe>
-  
-</div>
-  
-<div class="col-lg-6">
-
-  <iframe
-  width="100%"
-    height="166"
-    scrolling="no"
-    frameborder="no"
-    allow="autoplay"
-    class="rounded-4 shadow-sm"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/cashmatters-816319699/the-9-myth-what-cash-data-doesnt-tell-you-about-britains-real-relationship-with-cash">
-  </iframe>
-  
-</div>
-  
-  </div>
-  </div>
-     <a href="" 
-                   target="_blank" rel="noopener noreferrer" 
-                   class="btn btn-mint fw-bold mt-3 px-4 py-2 rounded-2">
-                  <i class="bi bi-soundwave me-2"></i>Listen More 
-                </a>
-</div>
-
+        <!-- Listen More Button -->
+        <div class="text-center mt-5">
+          <a href="{% url 'news' %}?category=podcast" class="btn btn-mint fw-bold px-5 py-3 rounded-2">
+            <i class="bi bi-mic-fill me-2"></i>Listen to More Episodes
+          </a>
         </div>
       </div>
     </section>
@@ -999,11 +1026,9 @@
               class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto"
               style="max-width: 650px"
             >
-              <h2 class="fw-bold mb-3">Support Our Work</h2>
-              <p class="mb-4 opacity-90 fw-light">
-                Cash Matters is an independent initiative dedicated to
-                preserving payment choice for everyone. Your support helps us
-                continue this important work.
+              <h2 class="fw-bold mb-3 display-5">Support Cash.<br>Preserve Payment Choice.</h2>
+              <p class="mb-4 opacity-90 fw-light fs-5">
+                For privacy. For inclusion. For everyday resilience.
               </p>
               <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
                 Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
@@ -1279,7 +1304,7 @@
           'video': { icon: 'bi-play-circle-fill', label: 'Video', color: 'type-video' },
           'report': { icon: 'bi-file-earmark-text', label: 'Report', color: 'type-report' },
           'studies': { icon: 'bi-graph-up', label: 'Studies', color: 'type-studies' },
-          'key facts': { icon: 'bi-lightbulb', label: 'Key Facts', color: 'type-studies' },
+          // 'key facts' removed from hero carousel - these should not appear in Cover Story section
           'default': { icon: 'bi-newspaper', label: 'Article', color: 'type-news' }
         };
         
@@ -1343,18 +1368,10 @@
           
           if (imageEl) imageEl.src = post.image;
           
-          // Update type badge
-          if (typeBadge) {
-            typeBadge.className = 'badge rounded-pill px-3 py-2 fw-bold text-uppercase ' + config.color;
-          }
-          if (typeIcon) {
-            typeIcon.className = 'bi ' + config.icon + ' me-1';
-          }
-          if (typeText) {
-            typeText.textContent = config.label;
-          }
+          // Type badge now always shows "Cover Story" - no dynamic changes needed
+          // Keep the static "Cover Story" label regardless of content type
           if (mediaTypeIcon) {
-            mediaTypeIcon.innerHTML = '<i class="bi ' + config.icon + '"></i>';
+            mediaTypeIcon.innerHTML = '<i class="bi bi-star-fill"></i>';
           }
           
           // Handle video content
@@ -1466,51 +1483,7 @@
         });
       }
 
-      // Podcast Video play button functionality
-      const podcastPlayBtn = document.getElementById('podcast-play-btn');
-      const podcastVideo = document.getElementById('podcast-video');
-
-      if (podcastPlayBtn && podcastVideo) {
-        podcastPlayBtn.addEventListener('click', function() {
-          console.log('Podcast play button clicked');
-          console.log('Podcast video readyState:', podcastVideo.readyState);
-
-          podcastVideo.play().then(() => {
-            console.log('Podcast video started playing');
-            podcastPlayBtn.style.display = 'none';
-          }).catch(error => {
-            console.error('Podcast video play failed:', error);
-            alert('Unable to play video: ' + error.message);
-          });
-        });
-
-        // Hide play button when video starts playing
-        podcastVideo.addEventListener('play', function() {
-          console.log('Podcast video play event');
-          podcastPlayBtn.style.display = 'none';
-        });
-
-        // Show play button when video is paused or ended
-        podcastVideo.addEventListener('pause', function() {
-          console.log('Podcast video pause event');
-          podcastPlayBtn.style.display = 'flex';
-        });
-
-        podcastVideo.addEventListener('ended', function() {
-          console.log('Podcast video ended event');
-          podcastPlayBtn.style.display = 'flex';
-        });
-
-        // Check if video loaded
-        podcastVideo.addEventListener('loadeddata', function() {
-          console.log('Podcast video loaded successfully, readyState:', this.readyState);
-        });
-
-        podcastVideo.addEventListener('error', function(e) {
-          console.error('Podcast video loading error:', e);
-          alert('Video failed to load: ' + e.target.error?.message || 'Unknown error');
-        });
-      }
+      // Podcast section now uses static cards with thumbnails - no video player needed
 
       // =========================================
       // DOWNLOAD, SHARE, AND PRINT FUNCTIONALITY
