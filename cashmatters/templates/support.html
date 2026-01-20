@@ -17,8 +17,25 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
-    <!-- Gift Shop Styles -->
+    <!-- Video Cards & Gift Shop Styles -->
     <style>
+        /* Video card styling */
+        .video-card-item {
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        .video-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+        }
+        .video-card-item .ratio {
+            background: #1a1a2e;
+        }
+        .video-card-item iframe {
+            border: none;
+        }
+        
+        /* Product card styling */
         .product-card {
             transition: all 0.3s ease;
         }
@@ -53,9 +70,9 @@
 <body class="bg-light-cream">
 
     <!-- =========================================
-         1. HEADER (Fixed)
+         1. HEADER & HERO
     ========================================== -->
-    <div class="header-wrapper">
+    <div class="hero-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
@@ -69,9 +86,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash active-nav">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'support' %}">Support Cash</a></li>
                     </ul>
                 </div>
                 <div class="d-none d-lg-flex align-items-center gap-3">
@@ -91,40 +106,95 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash active-nav">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
+                    <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
                 </div>
             </div>
         </nav>
-    </div>
 
-    <!-- =========================================
-         2. HERO SECTION
-    ========================================== -->
-    <section class="bg-dark-teal pt-5 pb-5">
-        <div class="container pt-4 pb-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold text-white lh-sm mb-4">
-                        {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Supporter Resources{% endif %}
-                    </h1>
-                </div>
-                <div class="col-lg-5 offset-lg-1">
-                    {% if page.description_content %}
-                        <div class="text-white opacity-90 mb-4 lead fw-light">
-                            {{ page.description_content|richtext }}
+        <section class="hero-content position-relative pb-5">
+            <div class="container">
+                <div class="row pt-5 pb-4">
+                    <div class="col-lg-6 pt-3">
+                        <h1 class="display-4 text-white fw-bold lh-sm mb-4 mb-lg-0">
+                            {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Supporter Resources{% endif %}
+                        </h1>
+                    </div>
+                    <div class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center">
+                        {% if page.description_content %}
+                            <div class="text-white opacity-90 mb-4 lead fw-light">
+                                {{ page.description_content|richtext }}
+                            </div>
+                        {% else %}
+                            <p class="text-white opacity-90 mb-4 lead fw-light">
+                                Use these resources to help spread the message that cash is an essential part of payment infrastructure now and for the future.
+                            </p>
+                        {% endif %}
+                        <div>
+                            <a href="{% url 'new_page' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                                Discover Why Cash Matters <i class="bi bi-arrow-up-right ms-1 small"></i>
+                            </a>
                         </div>
-                    {% else %}
-                        <p class="text-white opacity-90 mb-4 lead fw-light">
-                            Use these resources to help spread the message that cash is an essential part of payment infrastructure now and for the future.
-                        </p>
-                    {% endif %}
-                    <a href="{% url 'new_page' %}" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
-                        Discover Why Cash Matters <i class="bi bi-arrow-up-right ms-1"></i>
-                    </a>
+                    </div>
+                </div>
+
+                <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
+                <div class="why-cash-videos-container mb-4">
+                    <div class="row g-4">
+                        <!-- Video 1: Freedom Matters -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://player.vimeo.com/video/488891865?title=0&byline=0&portrait=0"
+                                            frameborder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
+                                    <p class="text-muted small mb-0">How you spend your money is your business. Privacy matters. Freedom matters.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 2: Choice Matters -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://player.vimeo.com/video/417517809?title=0&byline=0&portrait=0"
+                                            frameborder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                                    <p class="text-muted small mb-0">Choices empower you. Make sure to keep the freedom to choose how you pay.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 3: Cash Matters -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://player.vimeo.com/video/417517552?title=0&byline=0&portrait=0"
+                                            frameborder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
+                                    <p class="text-muted small mb-0">In today's busy, always-on, digital world, Cash Matters.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- =========================================
          3. INTRODUCTION SECTION
@@ -725,7 +795,7 @@
                 <!-- Navigation Column 2 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="/new-page/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
+                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
                         </li>
                         <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About Us</a>
                         </li>
