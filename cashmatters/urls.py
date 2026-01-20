@@ -133,10 +133,33 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent
 
+    # =========================================
+    # 4. PODCAST POSTS - Get latest podcast episodes
+    # =========================================
+    podcast_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').filter(
+        article_types__name__in=['Podcast', 'Podcasts', 'Audio']
+    ).order_by('-date')[:3]
+    
+    podcast_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').filter(
+        article_types__name__in=['Podcast', 'Podcasts', 'Audio']
+    ).order_by('-date')[:3]
+    
+    # Combine and sort podcast posts by date
+    podcast_posts = sorted(
+        chain(podcast_articles, podcast_blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:3]  # Take only the 3 most recent podcasts
+
     context = {
         'latest_posts': latest_posts,
         'featured_posts': featured_posts,
         'hero_posts': hero_posts_combined,
+        'podcast_posts': podcast_posts,
     }
     return render(request, 'index.html', context)
 
