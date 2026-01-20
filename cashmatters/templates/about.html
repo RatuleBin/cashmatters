@@ -39,10 +39,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash Matters</a></li>
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-white"
+                                href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'why_cash' %}">Why Cash
+                                Matters</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About
+                                Us</a></li>
                         <!-- Write for Us link moved to footer only -->
                     </ul>
                 </div>
@@ -99,10 +103,10 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <p class="text-white opacity-90 mb-4 lead fw-light">
-                      Cash Matters is a global platform, supported by the
-                       International Currency Association (ICA), dedicated 
-                       to promoting the role and relevance of cash as an essential
-                        part of the payment landscape, both now and in the future. 
+                        Cash Matters is a global platform, supported by the
+                        International Currency Association (ICA), dedicated
+                        to promoting the role and relevance of cash as an essential
+                        part of the payment landscape, both now and in the future.
 
 
                     </p>
@@ -124,11 +128,17 @@
                 <div class="col-lg-5 col-md-12">
                     <h2 class="fw-bold mb-4">Our Mission</h2>
                     <p class="text-muted fs-5 mb-4">
-                       Cash Matters highlights the importance of cash as a foundation of democracy, personal freedom, and independence. It works in close cooperation with other organizations in the cash sector to maximize its global reach and impact.
+                        Cash Matters highlights the importance of cash as a foundation of democracy, personal freedom,
+                        and independence. It works in close cooperation with other organizations in the cash sector to
+                        maximize its global reach and impact.
 
                     </p>
                     <p class="text-muted fs-5 mb-4">
-                        The Cash Matters website serves as a comprehensive resource, offering a library of articles, studies on key cash-related issues, videos aimed at the general public, and a strong presence across major social media channels. These resources are designed for industry professionals, decision-makers, and the wider public, making information about the significance of cash easily accessible.
+                        The Cash Matters website serves as a comprehensive resource, offering a library of articles,
+                        studies on key cash-related issues, videos aimed at the general public, and a strong presence
+                        across major social media channels. These resources are designed for industry professionals,
+                        decision-makers, and the wider public, making information about the significance of cash easily
+                        accessible.
 
                     </p>
                     <div class="d-flex gap-3">
@@ -256,148 +266,162 @@
     <!-- =========================================
      5. WHY CASH MATTERS - VIDEO CARDS
 ========================================== -->
-                <style>
-                .youtube-video {
-                    position: relative;
-                    cursor: pointer;
-                    background: #000;
-                }
 
-                .video-thumb {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
+<!-- ===================== STYLES ===================== -->
+<style>
+    .video-box {
+        position: relative;
+        cursor: pointer;
+        background: #000;
+        overflow: hidden;
+        border-radius: 12px;
+    }
 
-                .play-button {
-                    position: absolute;
-                    inset: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: rgba(0, 0, 0, 0.35);
-                    transition: 0.3s ease;
-                }
+    .video-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-                .play-button i {
-                    font-size: 52px;
-                    color: #fff;
-                    background: rgb(76, 209, 194);
-                    border-radius: 50%;
-                    padding: 10px 18px;
-                }
+    .play-button {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.35);
+        transition: 0.3s ease;
+    }
 
-                .youtube-video:hover .play-button {
-                    background: rgba(0, 0, 0, 0.55);
-                }
-                </style>
-                <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.querySelectorAll(".youtube-video").forEach(video => {
-                        video.addEventListener("click", function () {
-                            const id = this.dataset.id;
-                            this.innerHTML = `
-                                <iframe
-                                    src="https://www.youtube.com/embed/${id}?autoplay=1"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen
-                                    class="w-100 h-100">
-                                </iframe>
-                            `;
-                        });
-                    });
-                });
-                </script>
+    .play-button i {
+        font-size: 52px;
+        color: #fff;
+        background: rgb(76, 209, 194);
+        border-radius: 50%;
+        padding: 10px 18px;
+    }
 
-                <section class="py-5 bg-light">
-                    <div class="container py-4">
-                        <div class="text-center mb-5">
-                            <h2 class="fw-bold mb-3">Why Cash Matters</h2>
-                            <p class="text-muted fs-5">
-                                Cash is more than just a payment method—it's a fundamental right and a critical component of a
-                                resilient economy.
-                            </p>
-                        </div>
+    .video-box:hover .play-button {
+        background: rgba(0, 0, 0, 0.55);
+    }
 
-                        <div class="row g-4">
+    .video-box video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 
-                            <!-- Card 1 -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
+<!-- ===================== SCRIPT ===================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".video-box").forEach(box => {
+        box.addEventListener("click", function () {
 
-                                    <!-- Video -->
-                                    <div class="ratio ratio-16x9 youtube-video" data-id="OBIXjfftuUg">
-                                        <img src="{% static 'images/humancash.jpg' %}" class="img-fluid video-thumb" alt="">
-                                        <div class="play-button">
-                                            <i class="bi bi-play-fill"></i>
-                                        </div>
-                                    </div>
+            const videoSrc = this.dataset.video;
 
-                                    <!-- Content -->
-                                    <div class="p-4">
-                                        <h4 class="fw-bold text-dark-teal mb-2">Financial Inclusion</h4>
-                                        <p class="text-muted">
-                                            Accessible to everyone, regardless of age, income, or technological literacy. Cash bridges
-                                            the digital divide.
-                                        </p>
-                                        <span class="badge bg-light text-dark border">Universal Access</span>
-                                        <span class="badge bg-light text-dark border">No Barriers</span>
-                                    </div>
-                                </div>
-                            </div>
+            this.innerHTML = `
+                <video controls autoplay>
+                    <source src="${videoSrc}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+        });
+    });
+});
+</script>
 
-                            <!-- Card 2 -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
+<!-- ===================== SECTION ===================== -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
 
-                                    <!-- Video -->
-                                    <div class="ratio ratio-16x9 youtube-video" data-id="YeFUC53pwCU">
-                                        <img src="{% static 'images/handcash.jpg' %}" class="img-fluid video-thumb" alt="">
-                                        <div class="play-button">
-                                            <i class="bi bi-play-fill"></i>
-                                        </div>
-                                    </div>
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3">Why Cash Matters</h2>
+            <p class="text-muted fs-5">
+                Cash is more than just a payment method—it's a fundamental right and a critical component of a
+                resilient economy.
+            </p>
+        </div>
 
-                                    <!-- Content -->
-                                    <div class="p-4">
-                                        <h4 class="fw-bold text-dark-teal mb-2">Privacy & Security</h4>
-                                        <p class="text-muted">
-                                            Protects personal data and enables anonymous transactions without digital surveillance.
-                                        </p>
-                                        <span class="badge bg-light text-dark border">Data Protection</span>
-                                        <span class="badge bg-light text-dark border">Anonymous</span>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="row g-4">
 
-                            <!-- Card 3 -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
+            <!-- ================= CARD 1 ================= -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
 
-                                    <!-- Video -->
-                                    <div class="ratio ratio-16x9 youtube-video" data-id="PO0hPyoRP0s">
-                                        <img src="{% static 'images/coinshand.jpg' %}" class="img-fluid video-thumb" alt="">
-                                        <div class="play-button">
-                                            <i class="bi bi-play-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div class="p-4">
-                                        <h4 class="fw-bold text-dark-teal mb-2">Financial Freedom</h4>
-                                        <p class="text-muted">
-                                            Maintain control over your money without third-party restrictions or censorship.
-                                        </p>
-                                        <span class="badge bg-light text-dark border">Sovereignty</span>
-                                        <span class="badge bg-light text-dark border">No Censorship</span>
-                                    </div>
-                                </div>
-                            </div>
-
+                    <div class="ratio ratio-16x9 video-box"
+                         data-video="{% static 'videos/Cashisresilient .mp4' %}">
+                        <img src="{% static 'images/humancash.jpg' %}" class="video-thumb" alt="">
+                        <div class="play-button">
+                            <i class="bi bi-play-fill"></i>
                         </div>
                     </div>
-                </section>
+
+                    <div class="p-4">
+                        <h4 class="fw-bold text-dark-teal mb-2">Financial Inclusion</h4>
+                        <p class="text-muted">
+                            Accessible to everyone, regardless of age, income, or technological literacy.
+                            Cash bridges the digital divide.
+                        </p>
+                        <span class="badge bg-light text-dark border">Universal Access</span>
+                        <span class="badge bg-light text-dark border">No Barriers</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ================= CARD 2 ================= -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
+
+                    <div class="ratio ratio-16x9 video-box"
+                         data-video="{% static 'videos/Cashissecure.mp4' %}">
+                        <img src="{% static 'images/handcash.jpg' %}" class="video-thumb" alt="">
+                        <div class="play-button">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <h4 class="fw-bold text-dark-teal mb-2">Privacy & Security</h4>
+                        <p class="text-muted">
+                            Protects personal data and enables anonymous transactions without
+                            digital surveillance.
+                        </p>
+                        <span class="badge bg-light text-dark border">Data Protection</span>
+                        <span class="badge bg-light text-dark border">Anonymous</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ================= CARD 3 ================= -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
+
+                    <div class="ratio ratio-16x9 video-box"
+                         data-video="{% static 'videos/CashMattersOrg.mp4' %}">
+                        <img src="{% static 'images/coinshand.jpg' %}" class="video-thumb" alt="">
+                        <div class="play-button">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <h4 class="fw-bold text-dark-teal mb-2">Financial Freedom</h4>
+                        <p class="text-muted">
+                            Maintain control over your money without third-party restrictions or censorship.
+                        </p>
+                        <span class="badge bg-light text-dark border">Sovereignty</span>
+                        <span class="badge bg-light text-dark border">No Censorship</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 
 
@@ -511,7 +535,7 @@
     <!-- =========================================
          9. FOOTER
     ========================================== -->
-    <footer class="main-footer text-white pt-5 pb-4">
+  <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
             <div class="row g-5 mb-5">
                 <!-- Brand & Social -->
@@ -519,7 +543,7 @@
                     <a class="navbar-brand d-inline-block mb-4" href="{% url 'index' %}">
                         <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="50">
                     </a>
-                    <p class="small mb-4 pe-lg-3" style="line-height: 1.6">
+                    <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash Matters is an independent initiative dedicated to preserving
                         payment choice for everyone.
                     </p>
@@ -582,8 +606,13 @@
                         <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a></li>
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
-                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">Publish
-                                on Cash Matters</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
+                         <span class="hover-underline">
+
+                           Publish on Cash 
+                          </span>
+                           Matters
+                          </a></li>
                     </ul>
                 </div>
 
@@ -602,9 +631,8 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Support Our Mission to<br>Preserve Payment Choice</h4>
-                    <p class="extra-small opacity-75 mt-3">
-                        Protect Payment Choice
+                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
                     <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
@@ -633,13 +661,15 @@
                     .hover-underline {
                         position: relative;
                         cursor: pointer;
+                        font-size: 16px;
+                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif ;
                     }
 
                     .hover-underline::after {
                         content: '';
                         position: absolute;
                         width: 0;
-                        height: 1px;
+                        height: 2px;
                         /* thickness of the line */
                         left: 0;
                         bottom: 0;
