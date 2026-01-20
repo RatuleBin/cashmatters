@@ -655,7 +655,7 @@ urlpatterns = [
     path("support/", support, name="support"),  # Support page
     path("write-for-us/", write_for_us, name="write_for_us"),  # Write for Us page
     path("why-cash/", why_cash, name="why_cash"),  # Why Cash Matters page
-    path("new-page/", new_page, name="new_page"),  # Why Cash Matters Feature page (legacy)
+    path("why-cash-matters/", new_page, name="new_page"),  # Why Cash Matters Feature page
     path("django-admin/", admin.site.urls),
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
     path("add-blog/", create_blog_page, name="create_blog_page"),
