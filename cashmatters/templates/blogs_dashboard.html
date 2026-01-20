@@ -998,7 +998,7 @@
                     <a class="navbar-brand d-inline-block mb-4" href="{% url 'index' %}">
                         <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="50">
                     </a>
-                    <p class="small mb-4 pe-lg-3" style="line-height: 1.6">
+                    <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash Matters is an independent initiative dedicated to preserving
                         payment choice for everyone.
                     </p>
@@ -1061,8 +1061,13 @@
                         <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a></li>
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
-                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">Publish
-                                on Cash Matters</a></li>
+                        <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
+                         <span class="hover-underline">
+
+                           Publish on Cash 
+                          </span>
+                           Matters
+                          </a></li>
                     </ul>
                 </div>
 
@@ -1081,9 +1086,8 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Support Our Mission to<br>Preserve Payment Choice</h4>
-                    <p class="extra-small opacity-75 mt-3">
-                        Protect Payment Choice
+                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
                     <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
@@ -1112,13 +1116,15 @@
                     .hover-underline {
                         position: relative;
                         cursor: pointer;
+                        font-size: 16px;
+                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif ;
                     }
 
                     .hover-underline::after {
                         content: '';
                         position: absolute;
                         width: 0;
-                        height: 1px;
+                        height: 2px;
                         /* thickness of the line */
                         left: 0;
                         bottom: 0;
