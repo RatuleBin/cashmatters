@@ -73,67 +73,67 @@
          1. HEADER & HERO
     ========================================== -->
     <div class="hero-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
-            <div class="container">
-                <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+      <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="mainNav"
+          >
+              <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'support' %}">Support Cash</a></li>
+                        <!-- Write for Us link moved to footer only -->
                     </ul>
-                </div>
-                <div class="d-none d-lg-flex align-items-center gap-3">
-                    <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
-                    <!-- Language Switcher (Google Translate) -->
-                    <div class="dropdown">
-                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                            <i class="bi bi-globe2"></i>
-                            <span class="small" id="current-lang">EN</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn btn-outline-custom rounded-2 px-4 py-2 btn-sm">Subscribe</a>
-                </div>
+          </div>
+          <div class="d-none d-lg-flex align-items-center gap-3">
+            <button class="btn text-white p-0 search-trigger" aria-label="Search">
+              <i class="bi bi-search fs-5"></i>
+            </button>
+            <!-- Language Switcher (Google Translate) -->
+            <div class="dropdown">
+              <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                <i class="bi bi-globe2"></i>
+                <span class="small" id="current-lang">EN</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
+              </ul>
             </div>
-        </nav>
+            <a href="{% url 'support' %}" class="btn btn-support-cash">
+              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
 
         <section class="hero-content position-relative pb-5">
             <div class="container">
                 <div class="row pt-5 pb-4">
-                    <div class="col-lg-6 pt-3">
-                        <h1 class="display-4 text-white fw-bold lh-sm mb-4 mb-lg-0">
-                            {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Supporter Resources{% endif %}
+                    <div class="col-lg-8 pt-3">
+                        <h1 class="display-3 text-white fw-bold lh-sm mb-4">
+                            {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Let's grow awareness for cash around the world{% endif %}
                         </h1>
-                    </div>
-                    <div class="col-lg-5 offset-lg-1 d-flex flex-column justify-content-center">
-                        {% if page.description_content %}
-                            <div class="text-white opacity-90 mb-4 lead fw-light">
-                                {{ page.description_content|richtext }}
-                            </div>
-                        {% else %}
-                            <p class="text-white opacity-90 mb-4 lead fw-light">
-                                Use these resources to help spread the message that cash is an essential part of payment infrastructure now and for the future.
-                            </p>
-                        {% endif %}
-                        <div>
-                            <a href="{% url 'new_page' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                                Discover Why Cash Matters <i class="bi bi-arrow-up-right ms-1 small"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
 
@@ -197,21 +197,33 @@
     </div>
 
     <!-- =========================================
-         3. INTRODUCTION SECTION
+         3. INTRODUCTION SECTION WITH MEDIA CONTACTS
     ========================================== -->
     <section class="py-5 bg-light">
         <div class="container py-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
+            <div class="row">
+                <!-- Main Content Column -->
+                <div class="col-lg-7">
                     {% if page.introduction %}
-                        <div class="fs-5 text-muted">
+                        <div class="fs-5 text-muted mb-4">
                             {{ page.introduction|richtext }}
                         </div>
                     {% else %}
-                        <p class="fs-5 text-muted mb-0">
-                            Whether you are a consumer, retailer or cash industry professional, Cash Matters has developed a range of resources that you can use to help demonstrate your commitment and support to keeping cash as part of a fair and inclusive payments landscape.
+                        <p class="fs-5 text-muted mb-4">
+                            Join us in keeping cash relevant today and in the future by supporting our global pro-cash movement. Use our digital assets below so together we can promote our message around the world. <a href="#" class="text-mint text-decoration-none fw-bold">#cashmatters</a>.
                         </p>
                     {% endif %}
+                    <p class="fs-5 text-muted mb-0">
+                        Discover why Cash matters <a href="{% url 'new_page' %}" class="text-mint text-decoration-underline fw-bold">here</a>.
+                    </p>
+                </div>
+                <!-- Media Contacts Column -->
+                <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
+                    <h4 class="fw-bold text-dark mb-3">Media Contacts</h4>
+                    <p class="text-muted">
+                        If you would like to speak to a member of our team regarding our campaign please email 
+                        <a href="mailto:info@cashmatters.org" class="text-mint text-decoration-none fw-bold">info@cashmatters.org</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -709,7 +721,49 @@
     </section>
 
     <!-- =========================================
-         5. FOOTER (Reused)
+         5. STAY UP TO DATE / SUBSCRIBE SECTION
+    ========================================== -->
+    <section class="py-5 bg-white">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold text-dark mb-3">Stay up to date with Cash Matters.</h2>
+                    <p class="text-muted mb-5">
+                        Join the Cash Matters community and we'll keep you posted about the latest developments in cash happening around the globe.
+                    </p>
+                    
+                    <!-- Subscription Form -->
+                    <form action="#" method="post" class="mb-4">
+                        <div class="row g-3 justify-content-center mb-3">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-lg" placeholder="first name" name="first_name" style="border: 1px solid #dee2e6; border-radius: 4px;">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-lg" placeholder="company" name="company" style="border: 1px solid #dee2e6; border-radius: 4px;">
+                            </div>
+                        </div>
+                        <div class="row g-3 justify-content-center mb-4">
+                            <div class="col-md-10">
+                                <input type="email" class="form-control form-control-lg" placeholder="your email address" name="email" required style="border: 1px solid #dee2e6; border-radius: 4px;">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-outline-dark px-5 py-2 fw-bold" style="border-color: #007d7e; color: #007d7e;">Subscribe</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <p class="text-muted small">
+                        We'll never sell your details to anyone else, promise! For more information on how we store your data, please see our <a href="{% url 'privacy' %}" class="text-decoration-none" style="color: #007d7e;">privacy policy</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         6. FOOTER (Reused)
     ========================================== -->
   <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
