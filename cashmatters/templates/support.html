@@ -162,233 +162,197 @@
 
                 <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
 
-                <div class="why-cash-videos-container mb-4">
-                    <style>
-                        .video-actions {
-                            display: flex;
-                            gap: 10px;
-                            margin-top: 10px;
-                        }
+           <!-- =========================================
+     HERO VIDEOS SECTION
+========================================== -->
+<div class="why-cash-videos-container mb-4">
+    <style>
+        .video-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-                        .video-actions button,
-                        .video-actions a {
-                            font-size: 13px;
-                            padding: 6px 12px;
+        .video-actions button,
+        .video-actions a {
+            font-size: 13px;
+            padding: 6px 12px;
                             border-radius: 6px;
-                            border: none;
-                            cursor: pointer;
-                        }
+            border: none;
+            cursor: pointer;
+        }
 
-                        .btn-download {
-                            background: #00b396;
-                            color: #fff;
-                            text-decoration: none;
-                        }
+        .btn-download {
+            background: #00b396;
+            color: #fff;
+            text-decoration: none;
+        }
 
-                        .btn-embed {
-                            background: #e5e7eb;
-                            color: #111;
-                        }
+        .btn-embed {
+            background: #e5e7eb;
+            color: #111;
+        }
 
-                        /* Video player styling */
-                        video {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
+        /* Video player styling */
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-                        .play-button-overlay {
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            font-size: 2rem;
-                            color: white;
-                            cursor: pointer;
-                            background: #00b396;
-                            border-radius: 50%;
-                            width: 60px;
-                            height: 60px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            transition: background 0.3s;
-                        }
+        .play-button-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: #00b396;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            z-index: 10;
+        }
 
-                        .play-button-overlay:hover {
-                            background: rgba(0, 0, 0, 0.7);
-                        }
+        .play-button-overlay:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
 
-                        /* Embed modal styling */
-                        .embed-modal {
-                            position: fixed;
-                            inset: 0;
-                            background: rgba(0, 0, 0, 0.85);
-                            display: none;
-                            align-items: center;
-                            justify-content: center;
-                            z-index: 9999;
-                        }
+        /* Embed modal styling */
+        .embed-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
 
-                        .embed-modal-content {
-                            background: #fff;
-                            width: 90%;
-                            max-width: 720px;
-                            padding: 20px;
-                            border-radius: 12px;
-                            position: relative;
-                        }
+        .embed-modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 720px;
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+        }
 
-                        .embed-modal textarea {
-                            width: 100%;
-                            height: 140px;
-                            font-family: monospace;
-                            font-size: 14px;
-                            padding: 12px;
-                        }
+        .embed-modal textarea {
+            width: 100%;
+            height: 140px;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 12px;
+        }
 
-                        .embed-close {
-                            position: absolute;
-                            top: -12px;
-                            right: -12px;
-                            width: 36px;
-                            height: 36px;
-                            border-radius: 50%;
-                            background: #4CD1C2;
-                            color: #fff;
-                            border: none;
-                            cursor: pointer;
-                        }
-                    </style>
+        .embed-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #4CD1C2;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 
-                    <div class="row g-4">
-                        <!-- Video 1 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video id="video1" poster="{% static 'images/asdf.png' %}" preload="none">
-                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playVideo('video1', this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
-                                    <p class="text-muted small mb-2">
-                                        How you spend your money is your business. Privacy matters. Freedom matters.
-                                    </p>
-                                    <div class="video-actions">
-                                        <a href="{% static 'videos/sss.mp4' %}" download
-                                            class="btn-download">Download</a>
-                                        <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Video 2 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video id="video2" poster="{% static 'images/asd.png' %}" preload="none">
-                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playVideo('video2', this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">
-                                        Choices empower you. Make sure to keep the freedom to choose how you pay.
-                                    </p>
-                                    <div class="video-actions">
-                                        <a href="{% static 'videos/sa.mp4' %}" download
-                                            class="btn-download">Download</a>
-                                        <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Video 3 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video id="video3" poster="{% static 'images/sasa.png' %}" preload="none">
-                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playVideo('video3', this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
-                                    <p class="text-muted small mb-2">
-                                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
-                                    </p>
-                                    <div class="video-actions">
-                                        <a href="{% static 'videos/sas.mp4' %}" download
-                                            class="btn-download">Download</a>
-                                        <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- EMBED MODAL -->
-                    <div id="embedModal" class="embed-modal" onclick="closeEmbedModal()">
-                        <div class="embed-modal-content" onclick="event.stopPropagation()">
-                            <button class="embed-close" onclick="closeEmbedModal()">×</button>
-                            <h5 class="mb-2">Embed Code</h5>
-                            <textarea id="embedCode" readonly></textarea>
-                            <button class="btn mt-2" style="background-color: #0099CC;color: #fff;"
-                                onclick="copyEmbedCode()">Copy Code</button>
-                        </div>
-                    </div>
-
-                    <script>
-                        function playVideo(videoId, button) {
-                            const video = document.getElementById(videoId);
-                            video.controls = true;
-                            video.play();
-                            button.style.display = 'none';
-                        }
-
-                        function openEmbedModal(button) {
-                            const iframeCode = button.dataset.iframe;
-                            document.getElementById('embedCode').value = iframeCode;
-                            document.getElementById('embedModal').style.display = 'flex';
-                            document.body.style.overflow = 'hidden';
-                        }
-
-                        function closeEmbedModal() {
-                            document.getElementById('embedModal').style.display = 'none';
-                            document.body.style.overflow = '';
-                        }
-
-                        function copyEmbedCode() {
-                            const textarea = document.getElementById('embedCode');
-                            textarea.select();
-                            textarea.setSelectionRange(0, 99999);
-                            document.execCommand('copy');
-
-                            const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
-                            const originalText = btn.textContent;
-                            btn.textContent = 'Copied!';
-                            setTimeout(() => { btn.textContent = originalText; }, 2000);
-                        }
-
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') closeEmbedModal();
-                        });
-                    </script>
+    <div class="row g-4">
+        <!-- Video 1: Freedom Matters -->
+        <div class="col-lg-4 col-md-6">
+            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                <div class="ratio ratio-16x9 position-relative">
+                    <video id="heroVideo1" poster="{% static 'images/asdf.png' %}" preload="none">
+                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo1', this)">▶</div>
                 </div>
+                <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
+                    <p class="text-muted small mb-2">
+                        How you spend your money is your business. Privacy matters. Freedom matters.
+                    </p>
+                    <div class="video-actions">
+                        <a href="{% static 'videos/sss.mp4' %}" download class="btn-download">Download</a>
+                        <button class="btn-embed"
+                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                            onclick="openEmbedModal(this)">Embed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video 2: Choice Matters -->
+        <div class="col-lg-4 col-md-6">
+            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                <div class="ratio ratio-16x9 position-relative">
+                    <video id="heroVideo2" poster="{% static 'images/asd.png' %}" preload="none">
+                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo2', this)">▶</div>
+                </div>
+                <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                    <p class="text-muted small mb-2">
+                        Choices empower you. Make sure to keep the freedom to choose how you pay.
+                    </p>
+                    <div class="video-actions">
+                        <a href="{% static 'videos/sa.mp4' %}" download class="btn-download">Download</a>
+                        <button class="btn-embed"
+                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                            onclick="openEmbedModal(this)">Embed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video 3: Cash Matters -->
+        <div class="col-lg-4 col-md-6">
+            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                <div class="ratio ratio-16x9 position-relative">
+                    <video id="heroVideo3" poster="{% static 'images/sasa.png' %}" preload="none">
+                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo3', this)">▶</div>
+                </div>
+                <div class="bg-white p-3">
+                    <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
+                    <p class="text-muted small mb-2">
+                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
+                    </p>
+                    <div class="video-actions">
+                        <a href="{% static 'videos/sas.mp4' %}" download class="btn-download">Download</a>
+                        <button class="btn-embed"
+                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                            onclick="openEmbedModal(this)">Embed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMBED MODAL -->
+    <div id="embedModal" class="embed-modal" onclick="closeEmbedModal()">
+        <div class="embed-modal-content" onclick="event.stopPropagation()">
+            <button class="embed-close" onclick="closeEmbedModal()">×</button>
+            <h5 class="mb-2">Embed Code</h5>
+            <textarea id="embedCode" readonly></textarea>
+            <button class="btn mt-2" style="background-color: #0099CC;color: #fff;"
+                onclick="copyEmbedCode()">Copy Code</button>
+        </div>
+    </div>
+</div>
 
 
             </div>
@@ -455,10 +419,51 @@
 
             <!-- TABS NAVIGATION -->
             <!-- Custom styled tabs to match screenshot -->
-            <ul class="nav custom-asset-tabs justify-content-center mb-5 border-top border-bottom py-2 bg-white rounded-1"
-                id="assetTabs" role="tablist">
+            <style>
+                .custom-asset-tabs {
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .custom-asset-tabs .nav-item {
+                    flex: 0 0 auto;
+                }
+
+                .custom-asset-tabs::-webkit-scrollbar {
+                    height: 6px;
+                }
+
+                .custom-asset-tabs::-webkit-scrollbar-thumb {
+                    background: #ccc;
+                    border-radius: 10px;
+                }
+
+                @media (max-width: 576px) {
+                    .custom-asset-tabs {
+                        justify-content: center;
+                    }
+
+                    .custom-asset-tabs .nav-item {
+                        width: 50%;
+                        text-align: center;
+                    }
+
+                    .custom-asset-tabs .nav-link {
+                        width: 100%;
+                    }
+                }
+            </style>
+            <ul class="nav custom-asset-tabs justify-content-start justify-content-lg-center flex-nowrap
+           mb-5 border-top border-bottom py-2 bg-white rounded-1" id="assetTabs" role="tablist">
+
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos-content"
+                    <button class="nav-link active" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content"
+                        type="button" role="tab"><i class="bi bi-bag-heart me-1"></i>Gift Shop</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link " id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos-content"
                         type="button" role="tab">Logos</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -477,10 +482,7 @@
                     <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos-content"
                         type="button" role="tab">Videos</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content"
-                        type="button" role="tab"><i class="bi bi-bag-heart me-1"></i>Gift Shop</button>
-                </li>
+
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="avatar-tab" data-bs-toggle="tab" data-bs-target="#avatar-content"
                         type="button" role="tab">
@@ -849,413 +851,290 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="videos-content" role="tabpanel">
+                <!-- TAB 5: video CARDS -->
+                <div class="tab-pane fade show active" id="videos-content" role="tabpanel">
                     <div class="row g-4">
+
+                        <!-- STATIC VIDEO 1 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/488891865" frameborder="0"
-                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center px-2">
-                                <p class="text-muted small mb-0">Freedom Matters</p>
-                                <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/488891865"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/488891865&text=Freedom%20Matters%20-%20Cash%20Matters"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/488891865"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video class="asset-video" poster="{% static 'images/asdf.png' %}" preload="none">
+                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                                    </video>
+                                
+                                    
+                                <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
+
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
+                                    <p class="text-muted small mb-2">How you spend your money is your business. Privacy
+                                        matters.</p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sss.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe width="560" height="315" src="{% static "videos/sss.mp4" %}" frameborder="0" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <p class="text-muted small mb-0">Freedom Matters</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/488891865"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-facebook"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/488891865&text=Freedom%20Matters%20-%20Cash%20Matters"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-twitter-x"></i></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/488891865"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-linkedin"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- STATIC VIDEO 2 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/417517809" frameborder="0"
-                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center px-2">
-                                <p class="text-muted small mb-0">Choice Matters</p>
-                                <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809&text=Choice%20Matters%20-%20Cash%20Matters"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video class="asset-video" poster="{% static 'images/asd.png' %}" preload="none">
+                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
+                                        choose.</p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sa.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <p class="text-muted small mb-0">Choice Matters</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-facebook"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-twitter-x"></i></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-linkedin"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- IFRAME VIDEO 3 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/417517552" frameborder="0"
-                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center px-2">
-                                <p class="text-muted small mb-0">Cash Matters</p>
-                                <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517552"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517552&text=Cash%20Matters"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517552"
-                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
-                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video class="asset-video" poster="{% static 'images/sasa.png' %}" preload="none">
+                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
+                                    </video>
+                                <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
+                                </div>
+                                <div class="bg-white p-3">
+                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
+                                        choose.</p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sas.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center px-2">
+                                    <p class="text-muted small mb-0">Choice Matters</p>
+                                    <div class="d-flex gap-2">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-facebook"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-twitter-x"></i></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
+                                            target="_blank" class="text-reset text-decoration-none hover-mint small"><i
+                                                class="bi bi-linkedin"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
+            <script>
+    /* --------------------- HERO VIDEOS --------------------- */
+    function playHeroVideo(videoId, button) {
+        const video = document.getElementById(videoId);
+        if (!video) {
+            console.error('Video element not found:', videoId);
+            return;
+        }
 
-                <!-- TAB 6: MERCHANDISE / GIFT SHOP -->
-                <div class="tab-pane fade" id="merch-content" role="tabpanel">
-                    <div class="text-center mb-5">
-                        <h3 class="fw-bold text-dark mb-3">Cash Matters Gift Shop</h3>
-                        <p class="text-muted">Support our mission with official Cash Matters merchandise. Show the world
-                            that #CashMatters!</p>
-                    </div>
-                    <div class="row g-4">
-                        <!-- Mug -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center">
-                                        <i class="bi bi-cup-hot display-1 text-mint"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Cash Matters Mug</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Coffee Mug</h5>
-                                    <p class="card-text text-muted small">Ceramic mug with Cash Matters logo. Perfect
-                                        for your morning brew.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- T-Shirt -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center text-white">
-                                        <i class="bi bi-person-arms-up display-1"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Cash Matters Tee</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">T-Shirt</h5>
-                                    <p class="card-text text-muted small">Premium cotton t-shirt with "I Support Cash"
-                                        design.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Tote Bag -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center">
-                                        <i class="bi bi-bag display-1 text-mint"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Eco Tote Bag</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Canvas Tote</h5>
-                                    <p class="card-text text-muted small">Eco-friendly canvas bag with Cash Matters
-                                        branding.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Stickers -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center text-white">
-                                        <i class="bi bi-stickies display-1"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Sticker Pack</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Sticker Pack</h5>
-                                    <p class="card-text text-muted small">Set of 5 vinyl stickers with various Cash
-                                        Matters designs.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Notebook -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center">
-                                        <i class="bi bi-journal-text display-1 text-mint"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Notebook</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Notebook</h5>
-                                    <p class="card-text text-muted small">A5 lined notebook with Cash Matters cover
-                                        design.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Cap -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center text-white">
-                                        <i class="bi bi-hat display-1"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Baseball Cap</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Cap</h5>
-                                    <p class="card-text text-muted small">Adjustable cap with embroidered Cash Matters
-                                        badge.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Pin Badge -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center">
-                                        <i class="bi bi-pin-angle display-1 text-mint"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Enamel Pin</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Pin Badge</h5>
-                                    <p class="card-text text-muted small">Collectible enamel pin featuring Cash Matters
-                                        logo.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Poster -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
-                                    style="height: 200px;">
-                                    <div class="text-center text-white">
-                                        <i class="bi bi-image display-1"></i>
-                                        <p class="mt-2 mb-0 small fw-bold">Wall Poster</p>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">Poster</h5>
-                                    <p class="card-text text-muted small">High-quality print poster with key cash facts
-                                        infographic.</p>
-                                    <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- TAB X: AVATARS -->
+        video.controls = true;
+        
+        // Try playing with sound, fallback to muted if needed
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Successfully started playing
+                button.style.display = 'none';
+                
+                // When this video ends, show the play button again
+                video.onended = () => {
+                    button.style.display = 'flex';
+                };
+                
+            }).catch(error => {
+                console.log('Autoplay failed, trying muted:', error);
+                // Try muted play
+                video.muted = true;
+                video.play().then(() => {
+                    button.style.display = 'none';
+                    
+                    // When this video ends, show the play button again
+                    video.onended = () => {
+                        button.style.display = 'flex';
+                    };
+                    
+                }).catch(error2 => {
+                    console.error('Muted play also failed:', error2);
+                    // Just show controls and let user click
+                    video.controls = true;
+                    button.style.display = 'flex'; // Keep button visible
+                });
+            });
+        }
+    }
 
-                <div class="tab-pane fade" id="avatar-content" role="tabpanel">
-                    <div class="text-center mb-5">
-                        <h3 class="fw-bold text-dark mb-3">Avatar Collection</h3>
-                        <p class="text-muted">Choose your favorite avatar to represent you in the community!</p>
-                    </div>
-                    <!-- Avatar Cards -->
-                    <div class="row g-4">
-                        <!-- Avatar 1 -->
-                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/assa.png' %}')">
-                            <div class="card border-0 shadow-sm product-card d-inline-block">
-                                <div class="position-relative">
-                                    <img src="{% static 'images/assa.png' %}" class="img-fluid d-block" alt="Avatar 1">
-                                    <img src="{% static 'images/extra.png' %}"
-                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
-                                        alt="Overlay">
-                                </div>
-                                <div class="card-body text-center p-2">
-                                    <h5 class="card-title fw-bold mb-0">Avatar 1</h5>
-                                </div>
-                            </div>
-                        </div>
+    /* --------------------- TAB VIDEOS --------------------- */
+    function playTabVideo(button) {
+        const video = button.previousElementSibling;
+        if (!video) return;
 
-                        <!-- Avatar 2 -->
-                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/as.jpg' %}')">
-                            <div class="card border-0 shadow-sm product-card d-inline-block">
-                                <div class="position-relative">
-                                    <img src="{% static 'images/as.jpg' %}" class="img-fluid d-block" alt="Avatar 2">
-                                    <img src="{% static 'images/extra.png' %}"
-                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
-                                        alt="Overlay">
-                                </div>
-                                <div class="card-body text-center p-2">
-                                    <h5 class="card-title fw-bold mb-0">Avatar 2</h5>
-                                </div>
-                            </div>
-                        </div>
+        // Stop all other tab videos
+        document.querySelectorAll('.asset-video').forEach(v => {
+            if (v !== video) {
+                v.pause();
+                v.currentTime = 0;
+                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                if (overlay) overlay.style.display = 'flex';
+            }
+        });
 
-                        <!-- Avatar 3 -->
-                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/asa.jpg' %}')">
-                            <div class="card border-0 shadow-sm product-card d-inline-block">
-                                <div class="position-relative">
-                                    <img src="{% static 'images/asa.jpg' %}" class="img-fluid d-block" alt="Avatar 3">
-                                    <img src="{% static 'images/extra.png' %}"
-                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
-                                        alt="Overlay">
-                                </div>
-                                <div class="card-body text-center p-2">
-                                    <h5 class="card-title fw-bold mb-0">Avatar 3</h5>
-                                </div>
-                            </div>
-                        </div>
+        if (video.paused) {
+            video.controls = true;
+            
+            // Try playing with sound
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Successfully started playing
+                    button.style.display = 'none';
+                    
+                    // When video ends, show play button
+                    video.onended = () => {
+                        button.style.display = 'flex';
+                    };
+                    
+                }).catch(error => {
+                    console.log('Tab video autoplay failed, trying muted:', error);
+                    // Try muted play
+                    video.muted = true;
+                    video.play().then(() => {
+                        button.style.display = 'none';
+                        
+                        // When video ends, show play button
+                        video.onended = () => {
+                            button.style.display = 'flex';
+                        };
+                        
+                    }).catch(error2 => {
+                        console.error('Tab video muted play also failed:', error2);
+                        // Just show controls
+                        video.controls = true;
+                        button.style.display = 'flex';
+                    });
+                });
+            }
+        } else {
+            video.pause();
+            button.style.display = 'flex';
+        }
+    }
 
-                        <!-- Avatar 4 -->
-                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/assaa.png' %}')">
-                            <div class="card border-0 shadow-sm product-card d-inline-block">
-                                <div class="position-relative">
-                                    <img src="{% static 'images/assaa.png' %}" class="img-fluid d-block" alt="Avatar 4">
-                                    <img src="{% static 'images/extra.png' %}"
-                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
-                                        alt="Overlay">
-                                </div>
-                                <div class="card-body text-center p-2">
-                                    <h5 class="card-title fw-bold mb-0">Avatar 4</h5>
-                                </div>
-                            </div>
-                        </div>
+    /* --------------------- EMBED MODAL --------------------- */
+    function openEmbedModal(button) {
+        document.getElementById('embedCode').value = button.dataset.iframe;
+        const modal = document.getElementById('embedModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 
-                        <!-- Avatar 5 -->
-                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/saa.png' %}')">
-                            <div class="card border-0 shadow-sm product-card d-inline-block">
-                                <div class="position-relative">
-                                    <img src="{% static 'images/saa.png' %}" class="img-fluid d-block" alt="Avatar 5">
-                                    <img src="{% static 'images/extra.png' %}"
-                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
-                                        alt="Overlay">
-                                </div>
-                                <div class="card-body text-center p-2">
-                                    <h5 class="card-title fw-bold mb-0">Avatar 5</h5>
-                                </div>
-                            </div>
-                        </div>
+    function closeEmbedModal() {
+        const modal = document.getElementById('embedModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 
-                    </div>
+    function copyEmbedCode() {
+        const textarea = document.getElementById('embedCode');
+        textarea.select();
+        document.execCommand('copy');
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="avatarModalLabel">Create Your Avatar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <input type="file" id="uploadPhoto" accept="image/*" class="form-control mb-3">
-                                    <input type="text" id="userText" class="form-control mb-3"
-                                        placeholder="Enter your name or text">
+        const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = originalText; }, 2000);
+    }
 
-                                    <div class="avatar-preview position-relative mx-auto"
-                                        style="width:200px; height:200px;">
-                                        <img id="userPhoto" src=""
-                                            style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:none;">
-                                        <img id="overlayAvatar" src=""
-                                            style="width:100%; height:100%; position:absolute; top:0; left:0; display:none;">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="downloadAvatar" class="btn btn-primary">Download
-                                        Avatar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    /* --------------------- STOP TAB VIDEOS ON TAB SWITCH --------------------- */
+    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+        tab.addEventListener('shown.bs.tab', () => {
+            document.querySelectorAll('.asset-video').forEach(v => {
+                v.pause();
+                v.currentTime = 0;
+                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                if (overlay) overlay.style.display = 'flex';
+            });
+        });
+    });
 
-                    <script>
-                        let selectedAvatar = '';
+    /* --------------------- ESC KEY CLOSE EMBED MODAL --------------------- */
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeEmbedModal();
+    });
 
-                        // Function to open modal and set overlay avatar
-                        function openAvatarModal(avatarSrc) {
-                            selectedAvatar = avatarSrc;
-                            document.getElementById('overlayAvatar').src = avatarSrc;
-                            document.getElementById('overlayAvatar').style.display = 'block';
-                            document.getElementById('userPhoto').style.display = 'none';
-                            document.getElementById('uploadPhoto').value = '';
-                            document.getElementById('userText').value = '';
-                            new bootstrap.Modal(document.getElementById('avatarModal')).show();
-                        }
+    /* --------------------- DEBUG: CHECK ALL VIDEOS --------------------- */
+    window.addEventListener('load', function() {
+        console.log('Page loaded, checking videos:');
+        document.querySelectorAll('video').forEach(video => {
+            console.log('Video found:', video.id, 'src:', video.currentSrc);
+        });
+    });
+</script>
 
-                        // Handle user photo upload
-                        document.getElementById('uploadPhoto').addEventListener('change', function (e) {
-                            const file = e.target.files[0];
-                            if (file) {
-                                const userPhoto = document.getElementById('userPhoto');
-                                userPhoto.src = URL.createObjectURL(file);
-                                userPhoto.style.display = 'block';
-                            }
-                        });
 
-                        // Download final avatar
-                        document.getElementById('downloadAvatar').addEventListener('click', function () {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = 200;
-                            canvas.height = 200;
-                            const ctx = canvas.getContext('2d');
 
-                            const userPhoto = document.getElementById('userPhoto');
-                            const overlayAvatar = document.getElementById('overlayAvatar');
-                            const userText = document.getElementById('userText').value;
-
-                            const img = new Image();
-                            img.src = userPhoto.src || ''; // fallback if user didn't upload
-                            img.onload = function () {
-                                ctx.drawImage(img, 0, 0, 200, 200);
-
-                                const overlay = new Image();
-                                overlay.src = overlayAvatar.src;
-                                overlay.onload = function () {
-                                    ctx.drawImage(overlay, 0, 0, 200, 200);
-
-                                    // Add user text
-                                    if (userText) {
-                                        ctx.font = 'bold 20px Arial';
-                                        ctx.fillStyle = 'white';
-                                        ctx.textAlign = 'center';
-                                        ctx.fillText(userText, 100, 190);
-                                    }
-
-                                    const link = document.createElement('a');
-                                    link.download = 'my-avatar.png';
-                                    link.href = canvas.toDataURL('image/png');
-                                    link.click();
-                                }
-                            }
-                        });
-                    </script>
-
-                </div>
 
 
 
             </div>
-        </div>
     </section>
 
     <!-- =========================================
