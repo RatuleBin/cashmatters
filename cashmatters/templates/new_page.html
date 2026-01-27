@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static wagtailimages_tags i18n %}
 <html lang="en-GB">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,14 @@
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+
     <!-- Header Navigation Styles -->
     <style>
         /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
@@ -24,12 +27,17 @@
         .navbar * {
             font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
         }
-        
+
         /* All headings use Poppins */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
         }
-        
+
         .navbar .nav-link {
             font-weight: 500;
             letter-spacing: 0.5px;
@@ -38,7 +46,7 @@
             position: relative;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         /* Modern hover animations for menu items */
         .navbar .nav-link::before {
             content: '';
@@ -51,26 +59,27 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
         }
-        
+
         .navbar .nav-link:hover::before,
         .navbar .nav-link.active::before {
             width: 100%;
         }
-        
+
         .navbar .nav-link:hover {
             color: #4CD1C2 !important;
             transform: translateY(-2px);
         }
-        
+
         /* Search button animation */
         .search-trigger {
             transition: all 0.3s ease;
         }
+
         .search-trigger:hover {
             color: #4CD1C2 !important;
             transform: scale(1.15);
         }
-        
+
         /* Support Cash CTA Button */
         .btn-support-cash {
             background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
@@ -85,6 +94,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
         }
+
         .btn-support-cash:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
@@ -97,26 +107,31 @@
             transition: all 0.3s ease;
             background: #fff;
         }
+
         .video-card-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
         }
+
         .video-card-item .ratio {
             background: #1a1a2e;
         }
+
         .video-card-item iframe {
             border: none;
         }
-        
+
         /* Mint color utilities */
         .text-mint {
             color: #4CD1C2 !important;
         }
+
         .btn-mint {
             background-color: #4CD1C2;
             border-color: #4CD1C2;
             color: #002e26;
         }
+
         .btn-mint:hover {
             background-color: #3bbcae;
             border-color: #3bbcae;
@@ -378,10 +393,21 @@
         }
 
         /* Icon colors */
-        .icon-blue { color: var(--accent-blue); }
-        .icon-red { color: var(--accent-red); }
-        .icon-gold { color: var(--accent-gold); }
-        .icon-green { color: var(--accent-green); }
+        .icon-blue {
+            color: var(--accent-blue);
+        }
+
+        .icon-red {
+            color: var(--accent-red);
+        }
+
+        .icon-gold {
+            color: var(--accent-gold);
+        }
+
+        .icon-green {
+            color: var(--accent-green);
+        }
 
         /* Modal popup styling for professional appearance */
         .modal-overlay {
@@ -534,6 +560,7 @@
                 transform: translateY(-20px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -616,64 +643,73 @@
         }
     </style>
 </head>
+
 <body>
     <!-- =========================================
          HEADER & HERO
     ========================================== -->
     <div class="hero-wrapper">
-      <nav class="navbar navbar-expand-lg navbar-dark pt-4">
-        <div class="container">
-          <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-center"
-            id="mainNav"
-          >
-              <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-white"
+                                href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'new_page' %}">Why
+                                Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Write for Us link moved to footer only -->
                     </ul>
-          </div>
-          <div class="d-none d-lg-flex align-items-center gap-3">
-            <button class="btn text-white p-0 search-trigger" aria-label="Search">
-              <i class="bi bi-search fs-5"></i>
-            </button>
-            <!-- Language Switcher (Google Translate) -->
-            <div class="dropdown">
-              <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                <i class="bi bi-globe2"></i>
-                <span class="small" id="current-lang">EN</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
-              </ul>
+                </div>
+                <div class="d-none d-lg-flex align-items-center gap-3">
+                    <button class="btn text-white p-0 search-trigger" aria-label="Search">
+                        <i class="bi bi-search fs-5"></i>
+                    </button>
+                    <!-- Language Switcher (Google Translate) -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
+                            id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small" id="current-lang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown"
+                            style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
+                                    data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span>
+                                    English</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span>
+                                    German</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span>
+                                    French</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span>
+                                    Italian</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span>
+                                    Spanish</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span>
+                                    Dutch</a></li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash">
+                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                    </a>
+                </div>
             </div>
-            <a href="{% url 'support' %}" class="btn btn-support-cash">
-              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
-            </a>
-          </div>
-        </div>
-      </nav>
+        </nav>
 
         <!-- Hero Section with 3 Video Cards -->
         <section class="hero-content position-relative pb-5">
@@ -700,61 +736,359 @@
 
                 <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
                 <div class="why-cash-videos-container mb-4">
+                    <style>
+                        .video-actions {
+                            display: flex;
+                            gap: 10px;
+                            margin-top: 10px;
+                        }
+
+                        .video-actions button,
+                        .video-actions a {
+                            font-size: 13px;
+                            padding: 6px 12px;
+                            border-radius: 6px;
+                            border: none;
+                            cursor: pointer;
+                        }
+
+                        .btn-download {
+                            background: #00b396;
+                            color: #fff;
+                            text-decoration: none;
+                        }
+
+                        .btn-embed {
+                            background: #e5e7eb;
+                            color: #111;
+                        }
+
+                        /* Video player styling */
+                        video {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .play-button-overlay {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 2rem;
+                            color: white;
+                            cursor: pointer;
+                            background: #00b396;
+                            border-radius: 50%;
+                            width: 60px;
+                            height: 60px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: background 0.3s;
+                            z-index: 10;
+                        }
+
+                        .play-button-overlay:hover {
+                            background: rgba(0, 0, 0, 0.7);
+                        }
+
+                        /* Embed modal styling */
+                        .embed-modal {
+                            position: fixed;
+                            inset: 0;
+                            background: rgba(0, 0, 0, 0.85);
+                            display: none;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 9999;
+                        }
+
+                        .embed-modal-content {
+                            background: #fff;
+                            width: 90%;
+                            max-width: 720px;
+                            padding: 20px;
+                            border-radius: 12px;
+                            position: relative;
+                        }
+
+                        .embed-modal textarea {
+                            width: 100%;
+                            height: 140px;
+                            font-family: monospace;
+                            font-size: 14px;
+                            padding: 12px;
+                        }
+
+                        .embed-close {
+                            position: absolute;
+                            top: -12px;
+                            right: -12px;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            background: #4CD1C2;
+                            color: #fff;
+                            border: none;
+                            cursor: pointer;
+                        }
+                    </style>
+
                     <div class="row g-4">
                         <!-- Video 1: Freedom Matters -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/488891865?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="heroVideo1" poster="{% static 'images/asdf.png' %}" preload="none">
+                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo1', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
-                                    <p class="text-muted small mb-0">How you spend your money is your business. Privacy matters. Freedom matters.</p>
+                                    <p class="text-muted small mb-2">
+                                        How you spend your money is your business. Privacy matters. Freedom matters.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sss.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Video 2: Choice Matters -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/417517809?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="heroVideo2" poster="{% static 'images/asd.png' %}" preload="none">
+                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo2', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-0">Choices empower you. Make sure to keep the freedom to choose how you pay.</p>
+                                    <p class="text-muted small mb-2">
+                                        Choices empower you. Make sure to keep the freedom to choose how you pay.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sa.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Video 3: Cash Matters -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/417517552?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="heroVideo3" poster="{% static 'images/sasa.png' %}" preload="none">
+                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo3', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
-                                    <p class="text-muted small mb-0">In today's busy, always-on, digital world, Cash Matters.</p>
+                                    <p class="text-muted small mb-2">
+                                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sas.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- EMBED MODAL -->
+                    <div id="embedModal" class="embed-modal" onclick="closeEmbedModal()">
+                        <div class="embed-modal-content" onclick="event.stopPropagation()">
+                            <button class="embed-close" onclick="closeEmbedModal()">×</button>
+                            <h5 class="mb-2">Embed Code</h5>
+                            <textarea id="embedCode" readonly></textarea>
+                            <button class="btn mt-2" style="background-color: #0099CC;color: #fff;"
+                                onclick="copyEmbedCode()">Copy Code</button>
+                        </div>
+                    </div>
+                              <script>
+                    /* --------------------- HERO VIDEOS --------------------- */
+                    function playHeroVideo(videoId, button) {
+                        const video = document.getElementById(videoId);
+                        if (!video) {
+                            console.error('Video element not found:', videoId);
+                            return;
+                        }
+
+                        video.controls = true;
+
+                        // Try playing with sound, fallback to muted if needed
+                        const playPromise = video.play();
+
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                // Successfully started playing
+                                button.style.display = 'none';
+
+                                // When this video ends, show the play button again
+                                video.onended = () => {
+                                    button.style.display = 'flex';
+                                };
+
+                            }).catch(error => {
+                                console.log('Autoplay failed, trying muted:', error);
+                                // Try muted play
+                                video.muted = true;
+                                video.play().then(() => {
+                                    button.style.display = 'none';
+
+                                    // When this video ends, show the play button again
+                                    video.onended = () => {
+                                        button.style.display = 'flex';
+                                    };
+
+                                }).catch(error2 => {
+                                    console.error('Muted play also failed:', error2);
+                                    // Just show controls and let user click
+                                    video.controls = true;
+                                    button.style.display = 'flex'; // Keep button visible
+                                });
+                            });
+                        }
+                    }
+
+                    /* --------------------- TAB VIDEOS --------------------- */
+                    function playTabVideo(button) {
+                        const video = button.previousElementSibling;
+                        if (!video) return;
+
+                        // Stop all other tab videos
+                        document.querySelectorAll('.asset-video').forEach(v => {
+                            if (v !== video) {
+                                v.pause();
+                                v.currentTime = 0;
+                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                                if (overlay) overlay.style.display = 'flex';
+                            }
+                        });
+
+                        if (video.paused) {
+                            video.controls = true;
+
+                            // Try playing with sound
+                            const playPromise = video.play();
+
+                            if (playPromise !== undefined) {
+                                playPromise.then(() => {
+                                    // Successfully started playing
+                                    button.style.display = 'none';
+
+                                    // When video ends, show play button
+                                    video.onended = () => {
+                                        button.style.display = 'flex';
+                                    };
+
+                                }).catch(error => {
+                                    console.log('Tab video autoplay failed, trying muted:', error);
+                                    // Try muted play
+                                    video.muted = true;
+                                    video.play().then(() => {
+                                        button.style.display = 'none';
+
+                                        // When video ends, show play button
+                                        video.onended = () => {
+                                            button.style.display = 'flex';
+                                        };
+
+                                    }).catch(error2 => {
+                                        console.error('Tab video muted play also failed:', error2);
+                                        // Just show controls
+                                        video.controls = true;
+                                        button.style.display = 'flex';
+                                    });
+                                });
+                            }
+                        } else {
+                            video.pause();
+                            button.style.display = 'flex';
+                        }
+                    }
+
+                    /* --------------------- EMBED MODAL --------------------- */
+                    function openEmbedModal(button) {
+                        document.getElementById('embedCode').value = button.dataset.iframe;
+                        const modal = document.getElementById('embedModal');
+                        modal.style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    }
+
+                    function closeEmbedModal() {
+                        const modal = document.getElementById('embedModal');
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+
+                    function copyEmbedCode() {
+                        const textarea = document.getElementById('embedCode');
+                        textarea.select();
+                        document.execCommand('copy');
+
+                        const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => { btn.textContent = originalText; }, 2000);
+                    }
+
+                    /* --------------------- STOP TAB VIDEOS ON TAB SWITCH --------------------- */
+                    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+                        tab.addEventListener('shown.bs.tab', () => {
+                            document.querySelectorAll('.asset-video').forEach(v => {
+                                v.pause();
+                                v.currentTime = 0;
+                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                                if (overlay) overlay.style.display = 'flex';
+                            });
+                        });
+                    });
+
+                    /* --------------------- ESC KEY CLOSE EMBED MODAL --------------------- */
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape') closeEmbedModal();
+                    });
+
+                    /* --------------------- DEBUG: CHECK ALL VIDEOS --------------------- */
+                    window.addEventListener('load', function () {
+                        console.log('Page loaded, checking videos:');
+                        document.querySelectorAll('video').forEach(video => {
+                            console.log('Video found:', video.id, 'src:', video.currentSrc);
+                        });
+                    });
+                </script>
                 </div>
+
+
             </div>
-        </section>
+
+
+
+
+
+    </div>
+    </section>
     </div>
 
     <!-- Main Content Container -->
@@ -762,16 +1096,23 @@
         <section class="cash-matters-hero">
             <!-- Header Section -->
             <div class="hero-grid">
-            <div>
-                <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
-                <p class="hero-text">
-                    {{ page.intro_text|default:"New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!" }}
-                </p>
-            </div>
+                <div>
+                    <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
+                    <p class="hero-text">
+                        {{ page.intro_text|default:"New technologies are changing the way we pay, and cash remains the
+                        most attractive option for many. Because cash safeguards personal independence and freedom.
+                        Because cash ensures stable currency systems. Because cash is the most secure payment method.
+                        Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising
+                        fraud and personal data collection. Because cash means tangibility and immediate
+                        comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins
+                        reflect a nation's identity and its magic moments, presenting its most significant people,
+                        landmarks and values to the world. In short: cash matters!" }}
+                    </p>
+                </div>
 
-            <!-- Top Feature Cards (Large) -->
-            <div class="feature-cards-top">
-                {% for card in page.feature_cards %}
+                <!-- Top Feature Cards (Large) -->
+                <div class="feature-cards-top">
+                    {% for card in page.feature_cards %}
                     {% if forloop.counter == 1 %}
                     <div class="card-top">
                         <button class="plus-btn" onclick="openModal(
@@ -789,27 +1130,29 @@
                         )">+</button>
                         <div class="icon-wrapper">
                             {% if card.value.icon_svg_code %}
-                                {{ card.value.icon_svg_code|safe }}
+                            {{ card.value.icon_svg_code|safe }}
                             {% elif card.value.icon_emoji %}
-                                <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{ card.value.icon_emoji }}</span>
+                            <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{
+                                card.value.icon_emoji }}</span>
                             {% elif card.value.icon_image %}
-                                <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
+                            <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
                             {% else %}
-                                <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 100px; height: 100px;">
-                                    <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3"/>
-                                </svg>
+                            <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200"
+                                style="width: 100px; height: 100px;">
+                                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3" />
+                            </svg>
                             {% endif %}
                         </div>
                         <div class="title">{{ card.value.title }}</div>
                     </div>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
 
-        <!-- Bottom Feature Grid -->
-        <div class="features-grid">
-            {% for card in page.feature_cards %}
+            <!-- Bottom Feature Grid -->
+            <div class="features-grid">
+                {% for card in page.feature_cards %}
                 {% if forloop.counter > 1 %}
                 <div class="card">
                     <button class="plus-btn" onclick="openModal(
@@ -827,29 +1170,31 @@
                     )">+</button>
                     <div class="icon-wrapper">
                         {% if card.value.icon_svg_code %}
-                            {{ card.value.icon_svg_code|safe }}
+                        {{ card.value.icon_svg_code|safe }}
                         {% elif card.value.icon_emoji %}
-                            <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{ card.value.icon_emoji }}</span>
+                        <span class="icon icon-{{ card.value.color }}" style="font-size: 100px;">{{
+                            card.value.icon_emoji }}</span>
                         {% elif card.value.icon_image %}
-                            <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
+                        <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
                         {% else %}
-                            <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200" style="width: 100px; height: 100px;">
-                                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3"/>
-                            </svg>
+                        <svg class="icon icon-{{ card.value.color }}" viewBox="0 0 200 200"
+                            style="width: 100px; height: 100px;">
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="3" />
+                        </svg>
                         {% endif %}
                     </div>
                     <div class="title">{{ card.value.title }}</div>
                 </div>
                 {% endif %}
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
         </section>
     </div>
 
     <!-- =========================================
          FOOTER
     ========================================== -->
- <footer class="main-footer text-white pt-5 pb-4">
+    <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
             <div class="row g-5 mb-5">
                 <!-- Brand & Social -->
@@ -916,31 +1261,37 @@
                 <!-- Navigation Column 1 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-underline">Home</a></li>
-                        <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a></li>
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-underline">Home</a>
+                        </li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a>
+                        </li>
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                         <span class="hover-underline">
+                                <span class="hover-underline">
 
-                           Publish on Cash 
-                          </span>
-                           Matters
-                          </a></li>
+                                    Publish on Cash
+                                </span>
+                                Matters
+                            </a></li>
                     </ul>
                 </div>
 
                 <!-- Navigation Column 2 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
+                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why
+                                Cash Matters</a>
                         </li>
-                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About Us</a>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About
+                                Us</a>
                         </li>
-                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-underline">Support
+                        <li><a href="{% url 'support' %}"
+                                class="text-white text-decoration-none hover-underline">Support
                                 Cash</a></li>
                         <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org"
-                                class="text-white text-decoration-none hover-underline" target="_blank"> Contact Us</a> </li>
+                                class="text-white text-decoration-none hover-underline" target="_blank"> Contact Us</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -976,7 +1327,7 @@
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif ;
+                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
                     }
 
                     .hover-underline::after {
@@ -1036,9 +1387,9 @@
 
     <!-- Global link handler: external links open in new tab, internal in same tab -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // External links handler
-            document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+            document.querySelectorAll('a[href^="http"]').forEach(function (link) {
                 if (!link.href.includes(window.location.hostname)) {
                     link.setAttribute('target', '_blank');
                     link.setAttribute('rel', 'noopener noreferrer');
@@ -1046,8 +1397,8 @@
             });
 
             // Email protection - reveal and link on click
-            document.querySelectorAll('.contact-email').forEach(function(el) {
-                el.addEventListener('click', function(e) {
+            document.querySelectorAll('.contact-email').forEach(function (el) {
+                el.addEventListener('click', function (e) {
                     e.preventDefault();
                     var user = this.getAttribute('data-user');
                     var domain = this.getAttribute('data-domain');
@@ -1058,13 +1409,13 @@
             });
         });
     </script>
-    
+
     <!-- JavaScript for modal functionality -->
     <script>
         function openModal(title, description, iconHtml) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').innerHTML = description;
-            
+
             // Insert icon HTML into modal
             const iconSection = document.getElementById('modalIconSection');
             if (iconHtml) {
@@ -1077,11 +1428,11 @@
                         .replace(/&gt;/g, '>')
                         .replace(/&quot;/g, '"')
                         .replace(/&amp;/g, '&');
-                    
+
                     // Now replace any size styles with full-size styles
                     let updatedHtml = decodedHtml
                         .replace(/style\s*=\s*"[^"]*"/gi, 'style="width: 100%; height: 100%; object-fit: cover;"');
-                    
+
                     iconSection.innerHTML = updatedHtml;
                 } else {
                     // For other icons (SVG, emoji), use centered wrapper
@@ -1090,7 +1441,7 @@
             } else {
                 iconSection.innerHTML = '';
             }
-            
+
             document.getElementById('modalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1100,15 +1451,15 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('modalOverlay').addEventListener('click', function(event) {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('modalOverlay').addEventListener('click', function (event) {
                 if (event.target === this) {
                     closeModal();
                 }
             });
 
             // Close modal on ESC key
-            document.addEventListener('keydown', function(event) {
+            document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape') {
                     closeModal();
                 }
@@ -1126,7 +1477,7 @@
                 autoDisplay: false
             }, 'google_translate_element');
         }
-        
+
         function translatePage(lang) {
             var select = document.querySelector('.goog-te-combo');
             if (select) {
@@ -1135,36 +1486,47 @@
                 updateLanguageDisplay(lang);
                 localStorage.setItem('preferredLanguage', lang);
             } else {
-                setTimeout(function() { translatePage(lang); }, 500);
+                setTimeout(function () { translatePage(lang); }, 500);
             }
         }
-        
+
         function updateLanguageDisplay(lang) {
-            var langMap = {'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL'};
+            var langMap = { 'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL' };
             var displays = document.querySelectorAll('[id^="current-lang"]');
-            displays.forEach(function(el) {
+            displays.forEach(function (el) {
                 el.textContent = langMap[lang] || 'EN';
             });
-            document.querySelectorAll('.lang-switch-btn').forEach(function(btn) {
+            document.querySelectorAll('.lang-switch-btn').forEach(function (btn) {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-lang') === lang) {
                     btn.classList.add('active');
                 }
             });
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
             var savedLang = localStorage.getItem('preferredLanguage');
             if (savedLang && savedLang !== 'en') {
-                setTimeout(function() { translatePage(savedLang); }, 1000);
+                setTimeout(function () { translatePage(savedLang); }, 1000);
             }
         });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
-        .goog-te-banner-frame, .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-        .goog-te-gadget { display: none !important; }
+        .goog-te-banner-frame,
+        .skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        .goog-te-gadget {
+            display: none !important;
+        }
     </style>
 </body>
+
 </html>
