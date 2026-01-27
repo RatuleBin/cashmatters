@@ -159,6 +159,88 @@ sudo -u postgres pg_dump cashmatters_db > cashmatters_backup_$(date +%Y%m%d).sql
 tar -czf cashmatters_files_$(date +%Y%m%d).tar.gz /home/django/apps/cashmatters/
 ```
 
+## Docker Deployment with GitHub Actions
+
+### Prerequisites
+
+1. **Server Setup**: Ensure Docker and Docker Compose are installed on your server
+2. **SSH Access**: Ensure SSH password authentication is enabled for deployment
+3. **Project Directory**: Ensure your project is cloned at `/home/django/apps/cashmatters/`
+
+### Initial Server Setup for Docker
+
+Run the automated setup script on your server:
+
+```bash
+# Upload the setup script to your server
+scp setup-docker-deploy.sh user@72.62.147.13:~/
+
+# Run it on the server
+ssh user@72.62.147.13
+chmod +x setup-docker-deploy.sh
+./setup-docker-deploy.sh
+```
+
+This script will:
+- Create the application directory structure
+- Clone your repository
+- Set up basic permissions
+- Create the .env file from the example
+
+### GitHub Actions Setup
+
+1. **Create GitHub Secrets** in your repository settings:
+   - `SERVER_HOST`: Your server IP (72.62.147.13)
+   - `SERVER_USER`: SSH username (root)
+   - `SERVER_PASSWORD`: Your SSH password
+   - `SERVER_PORT`: SSH port (usually `22`)
+
+2. **Password Authentication**: Since you're using password authentication, simply ensure your root password is set and accessible for the deployment.
+
+### Deployment Workflow
+
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) will:
+- Trigger on pushes to the `main` branch
+- SSH into your server
+- Pull latest code changes
+- Run `docker compose down`
+- Build with `docker compose build --no-cache`
+- Start services with `docker compose up -d`
+
+### Manual Docker Deployment
+
+If you need to deploy manually:
+
+```bash
+# On your server
+cd /home/django/apps/cashmatters
+
+# Pull latest changes
+git pull origin main
+
+# Deploy with Docker Compose
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+
+# Check logs
+docker compose logs -f
+```
+
+### Environment Variables
+
+Create a `.env` file in your project root with production settings:
+
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit with your production values
+nano .env
+```
+
+The `.env.example` file contains all the required environment variables for production.
+
 ## Quick Deployment Script
 
 Run the automated deployment script:
