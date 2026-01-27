@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static wagtailcore_tags wagtailimages_tags %}
 <html lang="en-GB">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,14 @@
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+
     <!-- Video Cards & Gift Shop Styles -->
     <style>
         /* Video card styling */
@@ -24,42 +27,52 @@
             transition: all 0.3s ease;
             background: #fff;
         }
+
         .video-card-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
         }
+
         .video-card-item .ratio {
             background: #1a1a2e;
         }
+
         .video-card-item iframe {
             border: none;
         }
-        
+
         /* Product card styling */
         .product-card {
             transition: all 0.3s ease;
         }
+
         .product-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
         }
+
         .product-card .card-img-top {
             transition: all 0.3s ease;
         }
+
         .product-card:hover .card-img-top {
             opacity: 0.95;
         }
+
         .bg-mint {
             background-color: #00c9a7 !important;
         }
+
         .text-mint {
             color: #00c9a7 !important;
         }
+
         .btn-mint {
             background-color: #00c9a7;
             border-color: #00c9a7;
             color: #1f2937;
         }
+
         .btn-mint:hover {
             background-color: #00b396;
             border-color: #00b396;
@@ -67,131 +80,317 @@
         }
     </style>
 </head>
+
 <body class="bg-light-cream">
 
     <!-- =========================================
          1. HEADER & HERO
     ========================================== -->
     <div class="hero-wrapper">
-      <nav class="navbar navbar-expand-lg navbar-dark pt-4">
-        <div class="container">
-          <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-center"
-            id="mainNav"
-          >
-              <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-white"
+                                href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash
+                                Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Write for Us link moved to footer only -->
                     </ul>
-          </div>
-          <div class="d-none d-lg-flex align-items-center gap-3">
-            <button class="btn text-white p-0 search-trigger" aria-label="Search">
-              <i class="bi bi-search fs-5"></i>
-            </button>
-            <!-- Language Switcher (Google Translate) -->
-            <div class="dropdown">
-              <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                <i class="bi bi-globe2"></i>
-                <span class="small" id="current-lang">EN</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-                <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
-              </ul>
+                </div>
+                <div class="d-none d-lg-flex align-items-center gap-3">
+                    <button class="btn text-white p-0 search-trigger" aria-label="Search">
+                        <i class="bi bi-search fs-5"></i>
+                    </button>
+                    <!-- Language Switcher (Google Translate) -->
+                    <div class="dropdown">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
+                            id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="background: none; border: none;">
+                            <i class="bi bi-globe2"></i>
+                            <span class="small" id="current-lang">EN</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown"
+                            style="min-width: 150px;">
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
+                                    data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span>
+                                    English</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span>
+                                    German</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span>
+                                    French</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span>
+                                    Italian</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span>
+                                    Spanish</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#"
+                                    data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span>
+                                    Dutch</a></li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash">
+                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                    </a>
+                </div>
             </div>
-            <a href="{% url 'support' %}" class="btn btn-support-cash">
-              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
-            </a>
-          </div>
-        </div>
-      </nav>
+        </nav>
 
         <section class="hero-content position-relative pb-5">
             <div class="container">
                 <div class="row pt-5 pb-4">
                     <div class="col-lg-8 pt-3">
                         <h1 class="display-3 text-white fw-bold lh-sm mb-4">
-                            {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Let's grow awareness for cash around the world{% endif %}
+                            {% if page.page_header_title %}{{ page.page_header_title }}{% else %}Let's grow awareness
+                            for cash around the world{% endif %}
                         </h1>
                     </div>
                 </div>
 
                 <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
+
                 <div class="why-cash-videos-container mb-4">
+                    <style>
+                        .video-actions {
+                            display: flex;
+                            gap: 10px;
+                            margin-top: 10px;
+                        }
+
+                        .video-actions button,
+                        .video-actions a {
+                            font-size: 13px;
+                            padding: 6px 12px;
+                            border-radius: 6px;
+                            border: none;
+                            cursor: pointer;
+                        }
+
+                        .btn-download {
+                            background: #00b396;
+                            color: #fff;
+                            text-decoration: none;
+                        }
+
+                        .btn-embed {
+                            background: #e5e7eb;
+                            color: #111;
+                        }
+
+                        /* Video player styling */
+                        video {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .play-button-overlay {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 2rem;
+                            color: white;
+                            cursor: pointer;
+                            background: #00b396;
+                            border-radius: 50%;
+                            width: 60px;
+                            height: 60px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: background 0.3s;
+                        }
+
+                        .play-button-overlay:hover {
+                            background: rgba(0, 0, 0, 0.7);
+                        }
+
+                        /* Embed modal styling */
+                        .embed-modal {
+                            position: fixed;
+                            inset: 0;
+                            background: rgba(0, 0, 0, 0.85);
+                            display: none;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 9999;
+                        }
+
+                        .embed-modal-content {
+                            background: #fff;
+                            width: 90%;
+                            max-width: 720px;
+                            padding: 20px;
+                            border-radius: 12px;
+                            position: relative;
+                        }
+
+                        .embed-modal textarea {
+                            width: 100%;
+                            height: 140px;
+                            font-family: monospace;
+                            font-size: 14px;
+                            padding: 12px;
+                        }
+
+                        .embed-close {
+                            position: absolute;
+                            top: -12px;
+                            right: -12px;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            background: #4CD1C2;
+                            color: #fff;
+                            border: none;
+                            cursor: pointer;
+                        }
+                    </style>
+
                     <div class="row g-4">
-                        <!-- Video 1: Freedom Matters -->
+                        <!-- Video 1 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/488891865?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="video1" poster="{% static 'images/asdf.png' %}" preload="none">
+                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playVideo('video1', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
-                                    <p class="text-muted small mb-0">How you spend your money is your business. Privacy matters. Freedom matters.</p>
+                                    <p class="text-muted small mb-2">
+                                        How you spend your money is your business. Privacy matters. Freedom matters.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sss.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Video 2: Choice Matters -->
+                        <!-- Video 2 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/417517809?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="video2" poster="{% static 'images/asd.png' %}" preload="none">
+                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playVideo('video2', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-0">Choices empower you. Make sure to keep the freedom to choose how you pay.</p>
+                                    <p class="text-muted small mb-2">
+                                        Choices empower you. Make sure to keep the freedom to choose how you pay.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sa.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Video 3: Cash Matters -->
+                        <!-- Video 3 -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="https://player.vimeo.com/video/417517552?title=0&byline=0&portrait=0"
-                                            frameborder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
-                                            allowfullscreen>
-                                    </iframe>
+                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="ratio ratio-16x9 position-relative">
+                                    <video id="video3" poster="{% static 'images/sasa.png' %}" preload="none">
+                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playVideo('video3', this)">▶</div>
                                 </div>
                                 <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
-                                    <p class="text-muted small mb-0">In today's busy, always-on, digital world, Cash Matters.</p>
+                                    <p class="text-muted small mb-2">
+                                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
+                                    </p>
+                                    <div class="video-actions">
+                                        <a href="{% static 'videos/sas.mp4' %}" download
+                                            class="btn-download">Download</a>
+                                        <button class="btn-embed"
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- EMBED MODAL -->
+                    <div id="embedModal" class="embed-modal" onclick="closeEmbedModal()">
+                        <div class="embed-modal-content" onclick="event.stopPropagation()">
+                            <button class="embed-close" onclick="closeEmbedModal()">×</button>
+                            <h5 class="mb-2">Embed Code</h5>
+                            <textarea id="embedCode" readonly></textarea>
+                            <button class="btn mt-2" style="background-color: #0099CC;color: #fff;"
+                                onclick="copyEmbedCode()">Copy Code</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function playVideo(videoId, button) {
+                            const video = document.getElementById(videoId);
+                            video.controls = true;
+                            video.play();
+                            button.style.display = 'none';
+                        }
+
+                        function openEmbedModal(button) {
+                            const iframeCode = button.dataset.iframe;
+                            document.getElementById('embedCode').value = iframeCode;
+                            document.getElementById('embedModal').style.display = 'flex';
+                            document.body.style.overflow = 'hidden';
+                        }
+
+                        function closeEmbedModal() {
+                            document.getElementById('embedModal').style.display = 'none';
+                            document.body.style.overflow = '';
+                        }
+
+                        function copyEmbedCode() {
+                            const textarea = document.getElementById('embedCode');
+                            textarea.select();
+                            textarea.setSelectionRange(0, 99999);
+                            document.execCommand('copy');
+
+                            const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
+                            const originalText = btn.textContent;
+                            btn.textContent = 'Copied!';
+                            setTimeout(() => { btn.textContent = originalText; }, 2000);
+                        }
+
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') closeEmbedModal();
+                        });
+                    </script>
                 </div>
+
+
             </div>
         </section>
     </div>
@@ -205,24 +404,29 @@
                 <!-- Main Content Column -->
                 <div class="col-lg-7">
                     {% if page.introduction %}
-                        <div class="fs-5 text-muted mb-4">
-                            {{ page.introduction|richtext }}
-                        </div>
+                    <div class="fs-5 text-muted mb-4">
+                        {{ page.introduction|richtext }}
+                    </div>
                     {% else %}
-                        <p class="fs-5 text-muted mb-4">
-                            Join us in keeping cash relevant today and in the future by supporting our global pro-cash movement. Use our digital assets below so together we can promote our message around the world. <a href="#" class="text-mint text-decoration-none fw-bold">#cashmatters</a>.
-                        </p>
+                    <p class="fs-5 text-muted mb-4">
+                        Join us in keeping cash relevant today and in the future by supporting our global pro-cash
+                        movement. Use our digital assets below so together we can promote our message around the world.
+                        <a href="#" class="text-mint text-decoration-none fw-bold">#cashmatters</a>.
+                    </p>
                     {% endif %}
                     <p class="fs-5 text-muted mb-0">
-                        Discover why Cash matters <a href="{% url 'new_page' %}" class="text-mint text-decoration-underline fw-bold">here</a>.
+                        Discover why Cash matters <a href="{% url 'new_page' %}"
+                            class="text-mint text-decoration-underline fw-bold">here</a>.
                     </p>
                 </div>
                 <!-- Media Contacts Column -->
                 <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
                     <h4 class="fw-bold text-dark mb-3">Media Contacts</h4>
                     <p class="text-muted">
-                        If you would like to speak to a member of our team regarding our campaign please email 
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org" target="_blank" rel="noopener noreferrer" class="text-mint fw-bold" style="text-decoration: underline;">info@cashmatters.org</a>
+                        If you would like to speak to a member of our team regarding our campaign please email
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org" target="_blank"
+                            rel="noopener noreferrer" class="text-mint fw-bold"
+                            style="text-decoration: underline;">info@cashmatters.org</a>
                     </p>
                 </div>
             </div>
@@ -234,7 +438,7 @@
     ========================================== -->
     <section class="section-bg py-5">
         <div class="container py-4">
-            
+
             <!-- Section Header -->
             <div class="row align-items-end mb-5">
                 <div class="col-lg-6">
@@ -243,107 +447,156 @@
                 <div class="col-lg-6 text-lg-end mt-3 mt-lg-0">
                     <p class="text-muted small mb-0">
                         Use our digital assets below so together we can<br>
-                        promote our message around the world. <a href="#" class="text-mint text-decoration-none">#cashmatters.</a>
+                        promote our message around the world. <a href="#"
+                            class="text-mint text-decoration-none">#cashmatters.</a>
                     </p>
                 </div>
             </div>
 
             <!-- TABS NAVIGATION -->
             <!-- Custom styled tabs to match screenshot -->
-            <ul class="nav custom-asset-tabs justify-content-center mb-5 border-top border-bottom py-2 bg-white rounded-1" id="assetTabs" role="tablist">
+            <ul class="nav custom-asset-tabs justify-content-center mb-5 border-top border-bottom py-2 bg-white rounded-1"
+                id="assetTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos-content" type="button" role="tab">Logos</button>
+                    <button class="nav-link active" id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos-content"
+                        type="button" role="tab">Logos</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="banners-tab" data-bs-toggle="tab" data-bs-target="#banners-content" type="button" role="tab">Banners</button>
+                    <button class="nav-link" id="banners-tab" data-bs-toggle="tab" data-bs-target="#banners-content"
+                        type="button" role="tab">Banners</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="facts-tab" data-bs-toggle="tab" data-bs-target="#facts-content" type="button" role="tab">Fact Cards</button>
+                    <button class="nav-link" id="facts-tab" data-bs-toggle="tab" data-bs-target="#facts-content"
+                        type="button" role="tab">Fact Cards</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="post-tab" data-bs-toggle="tab" data-bs-target="#post-content" type="button" role="tab">Post Cards</button>
+                    <button class="nav-link" id="post-tab" data-bs-toggle="tab" data-bs-target="#post-content"
+                        type="button" role="tab">Post Cards</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos-content" type="button" role="tab">Videos</button>
+                    <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos-content"
+                        type="button" role="tab">Videos</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content" type="button" role="tab"><i class="bi bi-bag-heart me-1"></i>Gift Shop</button>
+                    <button class="nav-link" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content"
+                        type="button" role="tab"><i class="bi bi-bag-heart me-1"></i>Gift Shop</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="avatar-tab" data-bs-toggle="tab" data-bs-target="#avatar-content"
+                        type="button" role="tab">
+                        Avatars
+                    </button>
+                </li>
+
             </ul>
 
             <div class="mb-5 pb-4">
-                <p class="text-muted">Download our logos and include them within your marketing materials and PR activity. Use the assets below to promote your commitment to supporting cash as a payment option.</p>
+                <p class="text-muted">Download our logos and include them within your marketing materials and PR
+                    activity. Use the assets below to promote your commitment to supporting cash as a payment option.
+                </p>
             </div>
 
             <!-- TAB CONTENTS -->
             <div class="tab-content" id="assetTabsContent">
-                
+
                 <!-- TAB 1: LOGOS -->
                 <div class="tab-pane fade show active" id="logos-content" role="tabpanel">
                     <div class="row g-4">
                         <!-- Logo Linear Black -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Logo-Linear-Black.png' %}" alt="Cash Matters Logo Linear Black" class="img-fluid" style="max-height: 80px;">
+                                <img src="{% static 'images/support/logos/CM-Logo-Linear-Black.png' %}"
+                                    alt="Cash Matters Logo Linear Black" class="img-fluid" style="max-height: 80px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Logo-Linear-Black.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Logo Linear Black', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Logo-Linear-Black.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Logo Linear Black', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Logo Linear White -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-dark d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Logo-Linear-White.png' %}" alt="Cash Matters Logo Linear White" class="img-fluid" style="max-height: 80px;">
+                                <img src="{% static 'images/support/logos/CM-Logo-Linear-White.png' %}"
+                                    alt="Cash Matters Logo Linear White" class="img-fluid" style="max-height: 80px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Logo-Linear-White.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Logo Linear White', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Logo-Linear-White.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Logo Linear White', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Logo Stacked Black -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Logo-Stacked-Black.png' %}" alt="Cash Matters Logo Stacked Black" class="img-fluid" style="max-height: 120px;">
+                                <img src="{% static 'images/support/logos/CM-Logo-Stacked-Black.png' %}"
+                                    alt="Cash Matters Logo Stacked Black" class="img-fluid" style="max-height: 120px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Logo-Stacked-Black.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Logo Stacked Black', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Logo-Stacked-Black.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#"
+                                    onclick="shareAsset('Cash Matters Logo Stacked Black', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Logo Stacked White -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-dark d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Logo-Stacked-White.png' %}" alt="Cash Matters Logo Stacked White" class="img-fluid" style="max-height: 120px;">
+                                <img src="{% static 'images/support/logos/CM-Logo-Stacked-White.png' %}"
+                                    alt="Cash Matters Logo Stacked White" class="img-fluid" style="max-height: 120px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Logo-Stacked-White.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Logo Stacked White', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Logo-Stacked-White.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#"
+                                    onclick="shareAsset('Cash Matters Logo Stacked White', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Badge Black -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Badge-Black.png' %}" alt="Cash Matters Badge Black" class="img-fluid" style="max-height: 100px;">
+                                <img src="{% static 'images/support/logos/CM-Badge-Black.png' %}"
+                                    alt="Cash Matters Badge Black" class="img-fluid" style="max-height: 100px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Badge-Black.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Badge Black', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Badge-Black.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Badge Black', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Badge White -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-dark d-flex align-items-center justify-content-center p-4 mb-2">
-                                <img src="{% static 'images/support/logos/CM-Badge-White.png' %}" alt="Cash Matters Badge White" class="img-fluid" style="max-height: 100px;">
+                                <img src="{% static 'images/support/logos/CM-Badge-White.png' %}"
+                                    alt="Cash Matters Badge White" class="img-fluid" style="max-height: 100px;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/logos/CM-Badge-White.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Badge White', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/logos/CM-Badge-White.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Badge White', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                     </div>
@@ -354,29 +607,37 @@
                     <div class="row g-5 justify-content-center">
                         <!-- Banner 1 -->
                         <div class="col-lg-5 col-md-6">
-                            <div class="asset-card bg-black d-flex align-items-center justify-content-center p-5 mb-2" style="aspect-ratio: 1/1;">
-                                <div class="bg-white rounded-3 p-3 px-4 text-center">
-                                    <h4 class="fw-bold mb-0 text-dark">We support Cash</h4>
-                                    <small class="text-muted fw-bold text-end d-block">Matters<sup style="font-size: 8px;">®</sup></small>
-                                </div>
+                            <div class="asset-card mb-2" style="aspect-ratio: 1/1;">
+                                <img src="{% static 'images/support/11.png' %}" alt="We Support Cash Banner 1"
+                                    class="img-fluid rounded-3" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('We Support Cash Matters Banner (Black)', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/11.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint">
+                                    <i class="bi bi-download"></i> Download
+                                </a>
+                                <a href="#"
+                                    onclick="shareAsset('We Support Cash Matters Banner (Black)', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
 
                         <!-- Banner 2 -->
                         <div class="col-lg-5 col-md-6">
-                            <div class="asset-card bg-white d-flex align-items-center justify-content-center p-5 mb-2" style="aspect-ratio: 1/1;">
-                                <div class="bg-black rounded-3 p-3 px-4 text-center">
-                                    <h4 class="fw-bold mb-0 text-white">We support Cash</h4>
-                                    <small class="text-white opacity-50 fw-bold text-end d-block">Matters<sup style="font-size: 8px;">®</sup></small>
-                                </div>
+                            <div class="asset-card mb-2" style="aspect-ratio: 1/1;">
+                                <img src="{% static 'images/support/112.png' %}" alt="We Support Cash Banner 2"
+                                    class="img-fluid rounded-3" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="#" class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('We Support Cash Matters Banner (White)', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/112.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint">
+                                    <i class="bi bi-download"></i> Download
+                                </a>
+                                <a href="#"
+                                    onclick="shareAsset('We Support Cash Matters Banner (White)', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                     </div>
@@ -388,91 +649,137 @@
                         <!-- Fact Card 01 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-01.png' %}" alt="Fact Card 01" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-01.png' %}"
+                                    alt="Fact Card 01" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-01.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-01.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 03 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-03.png' %}" alt="Fact Card 03" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-03.png' %}"
+                                    alt="Fact Card 03" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-03.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-03.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 04 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-04.png' %}" alt="Fact Card 04" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-04.png' %}"
+                                    alt="Fact Card 04" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-04.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-04.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 05 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-05.png' %}" alt="Fact Card 05" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-05.png' %}"
+                                    alt="Fact Card 05" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-05.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-05.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 06 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-06.png' %}" alt="Fact Card 06" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-06.png' %}"
+                                    alt="Fact Card 06" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-06.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-06.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 07 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-07.png' %}" alt="Fact Card 07" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-07.png' %}"
+                                    alt="Fact Card 07" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-07.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-07.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 09 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-09.png' %}" alt="Fact Card 09" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-09.png' %}"
+                                    alt="Fact Card 09" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-09.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-09.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Fact Card 10 -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-10.png' %}" alt="Fact Card 10" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/CM-Fact-Card-10.png' %}"
+                                    alt="Fact Card 10" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-10.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/CM-Fact-Card-10.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Fact Card', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Additional Key Fact from old site -->
                         <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/fact-cards/key-fact-2120_g0hl7Ko.png' %}" alt="Key Fact" class="img-fluid">
+                                <img src="{% static 'images/support/fact-cards/key-fact-2120_g0hl7Ko.png' %}"
+                                    alt="Key Fact" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/fact-cards/key-fact-2120_g0hl7Ko.png' %}" download="key-fact-2120_g0hl7Ko.png" class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Key Fact', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/fact-cards/key-fact-2120_g0hl7Ko.png' %}"
+                                    download="key-fact-2120_g0hl7Ko.png"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Key Fact', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                     </div>
@@ -483,41 +790,61 @@
                         <!-- Post Card 01 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/post-cards/CM-Postcard-01.png' %}" alt="Post Card 01" class="img-fluid">
+                                <img src="{% static 'images/support/post-cards/CM-Postcard-01.png' %}"
+                                    alt="Post Card 01" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/post-cards/CM-Postcard-01.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/post-cards/CM-Postcard-01.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Post Card 02 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/post-cards/CM-Postcard-02.png' %}" alt="Post Card 02" class="img-fluid">
+                                <img src="{% static 'images/support/post-cards/CM-Postcard-02.png' %}"
+                                    alt="Post Card 02" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/post-cards/CM-Postcard-02.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/post-cards/CM-Postcard-02.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Post Card 03 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/post-cards/CM-Postcard-03.png' %}" alt="Post Card 03" class="img-fluid">
+                                <img src="{% static 'images/support/post-cards/CM-Postcard-03.png' %}"
+                                    alt="Post Card 03" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/post-cards/CM-Postcard-03.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/post-cards/CM-Postcard-03.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                         <!-- Post Card 04 -->
                         <div class="col-lg-3 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
-                                <img src="{% static 'images/support/post-cards/CM-Postcard-04.png' %}" alt="Post Card 04" class="img-fluid">
+                                <img src="{% static 'images/support/post-cards/CM-Postcard-04.png' %}"
+                                    alt="Post Card 04" class="img-fluid">
                             </div>
                             <div class="d-flex justify-content-end gap-3 small text-muted px-2">
-                                <a href="{% static 'images/support/post-cards/CM-Postcard-04.png' %}" download class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i> Download</a>
-                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)" class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i> Share</a>
+                                <a href="{% static 'images/support/post-cards/CM-Postcard-04.png' %}" download
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-download"></i>
+                                    Download</a>
+                                <a href="#" onclick="shareAsset('Cash Matters Postcard', window.location.href)"
+                                    class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
+                                    Share</a>
                             </div>
                         </div>
                     </div>
@@ -526,52 +853,64 @@
                     <div class="row g-4">
                         <div class="col-lg-4 col-md-6">
                             <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/488891865"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen; picture-in-picture"
-                                        allowfullscreen>
+                                <iframe src="https://player.vimeo.com/video/488891865" frameborder="0"
+                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="d-flex justify-content-between align-items-center px-2">
                                 <p class="text-muted small mb-0">Freedom Matters</p>
                                 <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/488891865" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/488891865&text=Freedom%20Matters%20-%20Cash%20Matters" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/488891865" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/488891865"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/488891865&text=Freedom%20Matters%20-%20Cash%20Matters"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/488891865"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/417517809"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen; picture-in-picture"
-                                        allowfullscreen>
+                                <iframe src="https://player.vimeo.com/video/417517809" frameborder="0"
+                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="d-flex justify-content-between align-items-center px-2">
                                 <p class="text-muted small mb-0">Choice Matters</p>
                                 <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809&text=Choice%20Matters%20-%20Cash%20Matters" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809&text=Choice%20Matters%20-%20Cash%20Matters"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="ratio ratio-16x9 mb-2">
-                                <iframe src="https://player.vimeo.com/video/417517552"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen; picture-in-picture"
-                                        allowfullscreen>
+                                <iframe src="https://player.vimeo.com/video/417517552" frameborder="0"
+                                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
                                 </iframe>
                             </div>
                             <div class="d-flex justify-content-between align-items-center px-2">
                                 <p class="text-muted small mb-0">Cash Matters</p>
                                 <div class="d-flex gap-2">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517552" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517552&text=Cash%20Matters" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517552" target="_blank" class="text-reset text-decoration-none hover-mint small" title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517552"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517552&text=Cash%20Matters"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517552"
+                                        target="_blank" class="text-reset text-decoration-none hover-mint small"
+                                        title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -582,13 +921,15 @@
                 <div class="tab-pane fade" id="merch-content" role="tabpanel">
                     <div class="text-center mb-5">
                         <h3 class="fw-bold text-dark mb-3">Cash Matters Gift Shop</h3>
-                        <p class="text-muted">Support our mission with official Cash Matters merchandise. Show the world that #CashMatters!</p>
+                        <p class="text-muted">Support our mission with official Cash Matters merchandise. Show the world
+                            that #CashMatters!</p>
                     </div>
                     <div class="row g-4">
                         <!-- Mug -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center">
                                         <i class="bi bi-cup-hot display-1 text-mint"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Cash Matters Mug</p>
@@ -596,7 +937,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Coffee Mug</h5>
-                                    <p class="card-text text-muted small">Ceramic mug with Cash Matters logo. Perfect for your morning brew.</p>
+                                    <p class="card-text text-muted small">Ceramic mug with Cash Matters logo. Perfect
+                                        for your morning brew.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -604,7 +946,8 @@
                         <!-- T-Shirt -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center text-white">
                                         <i class="bi bi-person-arms-up display-1"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Cash Matters Tee</p>
@@ -612,7 +955,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">T-Shirt</h5>
-                                    <p class="card-text text-muted small">Premium cotton t-shirt with "I Support Cash" design.</p>
+                                    <p class="card-text text-muted small">Premium cotton t-shirt with "I Support Cash"
+                                        design.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -620,7 +964,8 @@
                         <!-- Tote Bag -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center">
                                         <i class="bi bi-bag display-1 text-mint"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Eco Tote Bag</p>
@@ -628,7 +973,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Canvas Tote</h5>
-                                    <p class="card-text text-muted small">Eco-friendly canvas bag with Cash Matters branding.</p>
+                                    <p class="card-text text-muted small">Eco-friendly canvas bag with Cash Matters
+                                        branding.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -636,7 +982,8 @@
                         <!-- Stickers -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center text-white">
                                         <i class="bi bi-stickies display-1"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Sticker Pack</p>
@@ -644,7 +991,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Sticker Pack</h5>
-                                    <p class="card-text text-muted small">Set of 5 vinyl stickers with various Cash Matters designs.</p>
+                                    <p class="card-text text-muted small">Set of 5 vinyl stickers with various Cash
+                                        Matters designs.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -652,7 +1000,8 @@
                         <!-- Notebook -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center">
                                         <i class="bi bi-journal-text display-1 text-mint"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Notebook</p>
@@ -660,7 +1009,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Notebook</h5>
-                                    <p class="card-text text-muted small">A5 lined notebook with Cash Matters cover design.</p>
+                                    <p class="card-text text-muted small">A5 lined notebook with Cash Matters cover
+                                        design.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -668,7 +1018,8 @@
                         <!-- Cap -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center text-white">
                                         <i class="bi bi-hat display-1"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Baseball Cap</p>
@@ -676,7 +1027,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Cap</h5>
-                                    <p class="card-text text-muted small">Adjustable cap with embroidered Cash Matters badge.</p>
+                                    <p class="card-text text-muted small">Adjustable cap with embroidered Cash Matters
+                                        badge.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -684,7 +1036,8 @@
                         <!-- Pin Badge -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center">
                                         <i class="bi bi-pin-angle display-1 text-mint"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Enamel Pin</p>
@@ -692,7 +1045,8 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Pin Badge</h5>
-                                    <p class="card-text text-muted small">Collectible enamel pin featuring Cash Matters logo.</p>
+                                    <p class="card-text text-muted small">Collectible enamel pin featuring Cash Matters
+                                        logo.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
@@ -700,7 +1054,8 @@
                         <!-- Poster -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card h-100 border-0 shadow-sm product-card">
-                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+                                <div class="card-img-top bg-dark d-flex align-items-center justify-content-center p-4"
+                                    style="height: 200px;">
                                     <div class="text-center text-white">
                                         <i class="bi bi-image display-1"></i>
                                         <p class="mt-2 mb-0 small fw-bold">Wall Poster</p>
@@ -708,13 +1063,196 @@
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">Poster</h5>
-                                    <p class="card-text text-muted small">High-quality print poster with key cash facts infographic.</p>
+                                    <p class="card-text text-muted small">High-quality print poster with key cash facts
+                                        infographic.</p>
                                     <span class="badge bg-mint text-dark mb-3">Coming Soon</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- TAB X: AVATARS -->
+
+                <div class="tab-pane fade" id="avatar-content" role="tabpanel">
+                    <div class="text-center mb-5">
+                        <h3 class="fw-bold text-dark mb-3">Avatar Collection</h3>
+                        <p class="text-muted">Choose your favorite avatar to represent you in the community!</p>
+                    </div>
+                    <!-- Avatar Cards -->
+                    <div class="row g-4">
+                        <!-- Avatar 1 -->
+                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/assa.png' %}')">
+                            <div class="card border-0 shadow-sm product-card d-inline-block">
+                                <div class="position-relative">
+                                    <img src="{% static 'images/assa.png' %}" class="img-fluid d-block" alt="Avatar 1">
+                                    <img src="{% static 'images/extra.png' %}"
+                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
+                                        alt="Overlay">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h5 class="card-title fw-bold mb-0">Avatar 1</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Avatar 2 -->
+                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/as.jpg' %}')">
+                            <div class="card border-0 shadow-sm product-card d-inline-block">
+                                <div class="position-relative">
+                                    <img src="{% static 'images/as.jpg' %}" class="img-fluid d-block" alt="Avatar 2">
+                                    <img src="{% static 'images/extra.png' %}"
+                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
+                                        alt="Overlay">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h5 class="card-title fw-bold mb-0">Avatar 2</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Avatar 3 -->
+                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/asa.jpg' %}')">
+                            <div class="card border-0 shadow-sm product-card d-inline-block">
+                                <div class="position-relative">
+                                    <img src="{% static 'images/asa.jpg' %}" class="img-fluid d-block" alt="Avatar 3">
+                                    <img src="{% static 'images/extra.png' %}"
+                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
+                                        alt="Overlay">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h5 class="card-title fw-bold mb-0">Avatar 3</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Avatar 4 -->
+                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/assaa.png' %}')">
+                            <div class="card border-0 shadow-sm product-card d-inline-block">
+                                <div class="position-relative">
+                                    <img src="{% static 'images/assaa.png' %}" class="img-fluid d-block" alt="Avatar 4">
+                                    <img src="{% static 'images/extra.png' %}"
+                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
+                                        alt="Overlay">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h5 class="card-title fw-bold mb-0">Avatar 4</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Avatar 5 -->
+                        <div class="col-lg-3 col-md-6" onclick="openAvatarModal('{% static 'images/saa.png' %}')">
+                            <div class="card border-0 shadow-sm product-card d-inline-block">
+                                <div class="position-relative">
+                                    <img src="{% static 'images/saa.png' %}" class="img-fluid d-block" alt="Avatar 5">
+                                    <img src="{% static 'images/extra.png' %}"
+                                        class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: contain;"
+                                        alt="Overlay">
+                                </div>
+                                <div class="card-body text-center p-2">
+                                    <h5 class="card-title fw-bold mb-0">Avatar 5</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="avatarModalLabel">Create Your Avatar</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <input type="file" id="uploadPhoto" accept="image/*" class="form-control mb-3">
+                                    <input type="text" id="userText" class="form-control mb-3"
+                                        placeholder="Enter your name or text">
+
+                                    <div class="avatar-preview position-relative mx-auto"
+                                        style="width:200px; height:200px;">
+                                        <img id="userPhoto" src=""
+                                            style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:none;">
+                                        <img id="overlayAvatar" src=""
+                                            style="width:100%; height:100%; position:absolute; top:0; left:0; display:none;">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="downloadAvatar" class="btn btn-primary">Download
+                                        Avatar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        let selectedAvatar = '';
+
+                        // Function to open modal and set overlay avatar
+                        function openAvatarModal(avatarSrc) {
+                            selectedAvatar = avatarSrc;
+                            document.getElementById('overlayAvatar').src = avatarSrc;
+                            document.getElementById('overlayAvatar').style.display = 'block';
+                            document.getElementById('userPhoto').style.display = 'none';
+                            document.getElementById('uploadPhoto').value = '';
+                            document.getElementById('userText').value = '';
+                            new bootstrap.Modal(document.getElementById('avatarModal')).show();
+                        }
+
+                        // Handle user photo upload
+                        document.getElementById('uploadPhoto').addEventListener('change', function (e) {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const userPhoto = document.getElementById('userPhoto');
+                                userPhoto.src = URL.createObjectURL(file);
+                                userPhoto.style.display = 'block';
+                            }
+                        });
+
+                        // Download final avatar
+                        document.getElementById('downloadAvatar').addEventListener('click', function () {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = 200;
+                            canvas.height = 200;
+                            const ctx = canvas.getContext('2d');
+
+                            const userPhoto = document.getElementById('userPhoto');
+                            const overlayAvatar = document.getElementById('overlayAvatar');
+                            const userText = document.getElementById('userText').value;
+
+                            const img = new Image();
+                            img.src = userPhoto.src || ''; // fallback if user didn't upload
+                            img.onload = function () {
+                                ctx.drawImage(img, 0, 0, 200, 200);
+
+                                const overlay = new Image();
+                                overlay.src = overlayAvatar.src;
+                                overlay.onload = function () {
+                                    ctx.drawImage(overlay, 0, 0, 200, 200);
+
+                                    // Add user text
+                                    if (userText) {
+                                        ctx.font = 'bold 20px Arial';
+                                        ctx.fillStyle = 'white';
+                                        ctx.textAlign = 'center';
+                                        ctx.fillText(userText, 100, 190);
+                                    }
+
+                                    const link = document.createElement('a');
+                                    link.download = 'my-avatar.png';
+                                    link.href = canvas.toDataURL('image/png');
+                                    link.click();
+                                }
+                            }
+                        });
+                    </script>
+
+                </div>
+
+
 
             </div>
         </div>
@@ -723,7 +1261,7 @@
     <!-- =========================================
          5. FOOTER
     ========================================== -->
-  <footer class="main-footer text-white pt-5 pb-4">
+    <footer class="main-footer text-white pt-5 pb-4">
         <div class="container pt-4">
             <div class="row g-5 mb-5">
                 <!-- Brand & Social -->
@@ -790,31 +1328,37 @@
                 <!-- Navigation Column 1 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-underline">Home</a></li>
-                        <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a></li>
+                        <li><a href="{% url 'index' %}" class="text-white text-decoration-none hover-underline">Home</a>
+                        </li>
+                        <li><a href="/news/" class="text-white text-decoration-none hover-underline">News & Articles</a>
+                        </li>
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                         <span class="hover-underline">
+                                <span class="hover-underline">
 
-                           Publish on Cash 
-                          </span>
-                           Matters
-                          </a></li>
+                                    Publish on Cash
+                                </span>
+                                Matters
+                            </a></li>
                     </ul>
                 </div>
 
                 <!-- Navigation Column 2 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
+                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why
+                                Cash Matters</a>
                         </li>
-                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About Us</a>
+                        <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About
+                                Us</a>
                         </li>
-                        <li><a href="{% url 'support' %}" class="text-white text-decoration-none hover-underline">Support
+                        <li><a href="{% url 'support' %}"
+                                class="text-white text-decoration-none hover-underline">Support
                                 Cash</a></li>
                         <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org"
-                                class="text-white text-decoration-none hover-underline" target="_blank"> Contact Us</a> </li>
+                                class="text-white text-decoration-none hover-underline" target="_blank"> Contact Us</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -850,7 +1394,7 @@
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif ;
+                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
                     }
 
                     .hover-underline::after {
@@ -893,9 +1437,9 @@
 
     <!-- Global link handler: external links open in new tab, internal in same tab -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // External links handler
-            document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+            document.querySelectorAll('a[href^="http"]').forEach(function (link) {
                 if (!link.href.includes(window.location.hostname)) {
                     link.setAttribute('target', '_blank');
                     link.setAttribute('rel', 'noopener noreferrer');
@@ -906,7 +1450,7 @@
         // Share asset function - uses Web Share API with fallback
         function shareAsset(title, url) {
             event.preventDefault();
-            
+
             const shareData = {
                 title: title + ' - Cash Matters',
                 text: 'Check out this resource from Cash Matters: ' + title,
@@ -990,7 +1534,7 @@
             `;
 
             // Close on backdrop click
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('click', function (e) {
                 if (e.target === modal) {
                     modal.remove();
                 }
@@ -1001,15 +1545,15 @@
 
         // Copy to clipboard function
         function copyToClipboard(text, button) {
-            navigator.clipboard.writeText(text).then(function() {
+            navigator.clipboard.writeText(text).then(function () {
                 const originalHTML = button.innerHTML;
                 button.innerHTML = '<i class="bi bi-check me-1"></i> Copied!';
                 button.style.background = '#10b981';
-                setTimeout(function() {
+                setTimeout(function () {
                     button.innerHTML = originalHTML;
                     button.style.background = '#007d7e';
                 }, 2000);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error('Failed to copy: ', err);
             });
         }
@@ -1025,7 +1569,7 @@
                 autoDisplay: false
             }, 'google_translate_element');
         }
-        
+
         function translatePage(lang) {
             var select = document.querySelector('.goog-te-combo');
             if (select) {
@@ -1034,36 +1578,47 @@
                 updateLanguageDisplay(lang);
                 localStorage.setItem('preferredLanguage', lang);
             } else {
-                setTimeout(function() { translatePage(lang); }, 500);
+                setTimeout(function () { translatePage(lang); }, 500);
             }
         }
-        
+
         function updateLanguageDisplay(lang) {
-            var langMap = {'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL'};
+            var langMap = { 'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL' };
             var displays = document.querySelectorAll('[id^="current-lang"]');
-            displays.forEach(function(el) {
+            displays.forEach(function (el) {
                 el.textContent = langMap[lang] || 'EN';
             });
-            document.querySelectorAll('.lang-switch-btn').forEach(function(btn) {
+            document.querySelectorAll('.lang-switch-btn').forEach(function (btn) {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-lang') === lang) {
                     btn.classList.add('active');
                 }
             });
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
             var savedLang = localStorage.getItem('preferredLanguage');
             if (savedLang && savedLang !== 'en') {
-                setTimeout(function() { translatePage(savedLang); }, 1000);
+                setTimeout(function () { translatePage(savedLang); }, 1000);
             }
         });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
-        .goog-te-banner-frame, .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-        .goog-te-gadget { display: none !important; }
+        .goog-te-banner-frame,
+        .skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        .goog-te-gadget {
+            display: none !important;
+        }
     </style>
 </body>
+
 </html>
