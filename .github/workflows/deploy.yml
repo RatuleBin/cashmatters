@@ -1,7 +1,10 @@
 name: Deploy to Production
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Django CI"]
+    types:
+      - completed
     branches:
       - main
 
