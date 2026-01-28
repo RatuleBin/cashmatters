@@ -15,21 +15,21 @@ echo -e "${GREEN}🚀 Setting up CashMatters Docker deployment...${NC}"
 
 # Create application directory
 echo -e "${YELLOW}📁 Creating application directory...${NC}"
-sudo mkdir -p /home/django/apps
-sudo chown $USER:$USER /home/django/apps
+sudo mkdir -p /var/www
+sudo chown $USER:$USER /var/www
 
 # Clone repository (replace with your actual repo URL)
 echo -e "${YELLOW}📋 Cloning repository...${NC}"
-cd /home/django/apps
+cd /var/www
 git clone https://github.com/RatuleBin/cashmatters.git
 
 # Set proper permissions
 echo -e "${YELLOW}🔐 Setting permissions...${NC}"
-sudo chown -R $USER:$USER /home/django/apps/cashmatters
+sudo chown -R $USER:$USER /var/www/cashmatters
 
 # Create .env file from example
 echo -e "${YELLOW}⚙️ Setting up environment file...${NC}"
-cd /home/django/apps/cashmatters
+cd /var/www/cashmatters
 cp .env.example .env
 echo -e "${RED}⚠️  Please edit .env file with your production settings!${NC}"
 
