@@ -6,6 +6,7 @@ SECRET_KEY = "test-secret-key-not-for-production"
 # Allow test domains
 ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
 
+# Override database for tests (don't use dj_database_url)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
