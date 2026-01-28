@@ -857,8 +857,7 @@
             <div class="card-body p-4 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-3 small">
                 <span class="text-muted"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
-                <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">{% if
-                  post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span>
+                <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span>
               </div>
               {% if post.author_profile %}
               <div class="mb-2 small text-muted d-flex align-items-center">
