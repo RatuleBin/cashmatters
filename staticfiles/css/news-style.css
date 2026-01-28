@@ -19,7 +19,7 @@ html, body {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Alvant Grade", sans-serif !important;
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
@@ -171,17 +171,17 @@ body {
 .btn-support-cash {
     background: linear-gradient(135deg, var(--brand-mint) 0%, var(--brand-mint-hover) 100%);
     color: #002e26 !important;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
     font-weight: 600;
-    font-size: 0.9rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+    gap: 0.25rem;
+    border: none;
 }
 .btn-support-cash:hover {
     transform: translateY(-3px);
