@@ -6,15 +6,11 @@ SECRET_KEY = "test-secret-key-not-for-production"
 # Allow test domains
 ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
 
-# Override database for tests (don't use dj_database_url)
+# Use SQLite for tests (much faster and more reliable in CI)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
 
