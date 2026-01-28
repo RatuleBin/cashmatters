@@ -45,12 +45,6 @@ jobs:
         pip install -r requirements.txt
         pip install coverage pytest-django
 
-    - name: Run migrations
-      run: |
-        python manage.py migrate --settings=cashmatters.settings.test
-      env:
-        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
-
     - name: Run tests with coverage
       run: |
         coverage run --source='.' manage.py test --settings=cashmatters.settings.test --verbosity=2
