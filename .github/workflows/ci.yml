@@ -50,7 +50,7 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          cd /home/django/apps/cashmatters
+          cd /var/www/cashmatters
 
           # Pull latest changes (if using git on server)
           git pull origin main

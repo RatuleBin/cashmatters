@@ -165,7 +165,7 @@ tar -czf cashmatters_files_$(date +%Y%m%d).tar.gz /home/django/apps/cashmatters/
 
 1. **Server Setup**: Ensure Docker and Docker Compose are installed on your server
 2. **SSH Access**: Ensure SSH password authentication is enabled for deployment
-3. **Project Directory**: Ensure your project is cloned at `/home/django/apps/cashmatters/`
+3. **Project Directory**: Ensure your project is cloned at `/var/www/cashmatters/`
 
 ### Initial Server Setup for Docker
 
@@ -173,16 +173,16 @@ Run the automated setup script on your server:
 
 ```bash
 # Upload the setup script to your server
-scp setup-docker-deploy.sh user@72.62.147.13:~/
+scp setup-docker-deploy.sh root@72.62.147.13:~/
 
 # Run it on the server
-ssh user@72.62.147.13
+ssh root@72.62.147.13
 chmod +x setup-docker-deploy.sh
 ./setup-docker-deploy.sh
 ```
 
 This script will:
-- Create the application directory structure
+- Create the application directory structure at `/var/www/cashmatters/`
 - Clone your repository
 - Set up basic permissions
 - Create the .env file from the example
@@ -213,7 +213,7 @@ If you need to deploy manually:
 
 ```bash
 # On your server
-cd /home/django/apps/cashmatters
+cd /var/www/cashmatters
 
 # Pull latest changes
 git pull origin main
