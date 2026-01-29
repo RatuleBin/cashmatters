@@ -62,7 +62,7 @@
                 </div>
 
                 <!-- Right Actions -->
-                <div class="d-none d-lg-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
                     <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
@@ -79,7 +79,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>

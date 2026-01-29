@@ -186,11 +186,13 @@
             <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a>
             </li>
             <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
-            <li class="nav-item"><a class="nav-link text-white active-nav" href="{% url 'about' %}">About Us</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+            <!-- Support Cash button for mobile -->
+            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
             <!-- Write for Us link moved to footer only -->
           </ul>
         </div>
-        <div class="d-none d-lg-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-3">
           <button class="btn text-white p-0 search-trigger" aria-label="Search">
             <i class="bi bi-search fs-5"></i>
           </button>
@@ -216,7 +218,7 @@
                   onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
             </ul>
           </div>
-          <a href="{% url 'support' %}" class="btn btn-support-cash">
+          <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
             Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
           </a>
         </div>
