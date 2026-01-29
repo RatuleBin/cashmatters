@@ -26,6 +26,7 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./staticfiles:/cashmatters/staticfiles  # <- must match STATIC_ROOT
       - ./media:/cashmatters/media
+      - /etc/letsencrypt:/etc/letsencrypt:ro  # Mount SSL certificates
     depends_on:
       - cashmatters
     networks:
