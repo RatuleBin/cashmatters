@@ -8,7 +8,13 @@ DEBUG = False
 SECRET_KEY = "y6eR_h82UNx40JEYo9e211ah5usQHYkqsYB9Wf_cS27ePkCpEUAzIUimeMhC4SPnSJY"
 
 # ALLOWED_HOSTS - Update with your actual domain/IP
-ALLOWED_HOSTS = ["72.62.147.13", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "72.62.147.13",
+    "localhost",
+    "127.0.0.1",
+    "www.cashmatters.org",
+    "cashmatters.org"
+]
 
 # Database configuration for production - Neon PostgreSQL
 DATABASE_URL = (
