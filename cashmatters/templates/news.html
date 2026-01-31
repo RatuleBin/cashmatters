@@ -30,95 +30,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/news-style.css' %}">
-
-    <!-- Header Navigation Styles -->
-    <style>
-        *,
-        *::before,
-        *::after {
-            font-family: "Alvant Grade", sans-serif !important;
-        }
-
-        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-        .navbar,
-        .navbar * {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        /* All headings use Poppins */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        .navbar .nav-link {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Modern hover animations for menu items */
-        .navbar .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4CD1C2, #8de4af);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
-        }
-
-        .navbar .nav-link:hover::before,
-        .navbar .nav-link.active::before {
-            width: 100%;
-        }
-
-        .navbar .nav-link:hover {
-            color: #4CD1C2 !important;
-            transform: translateY(-2px);
-        }
-
-        /* Search button animation */
-        .search-trigger {
-            transition: all 0.3s ease;
-        }
-
-        .search-trigger:hover {
-            color: #4CD1C2 !important;
-            transform: scale(1.15);
-        }
-
-        /* Support Cash CTA Button */
-        .btn-support-cash {
-            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
-            color: #002e26 !important;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
-        }
-
-        .btn-support-cash:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
-            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
-            color: #002e26 !important;
-        }
-    </style>
 </head>
 <body class="bg-light-cream">
 
@@ -126,55 +37,49 @@
          1. HEADER (Fixed for Non-Hero Pages)
     ========================================== -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
+                <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Mobile Menu Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Navigation Links -->
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link text-white{% if not active_category or active_category != 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white{% if active_category == 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Support Cash button for mobile -->
                         <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
+
+                <!-- Right Actions -->
                 <div class="d-flex align-items-center gap-3">
-                    <button class="btn text-white p-0 search-trigger" aria-label="Search">
-                        <i class="bi bi-search fs-5"></i>
-                    </button>
+                    <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
                     <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
-                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
-                            id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                             <i class="bi bi-globe2"></i>
                             <span class="small" id="current-lang">EN</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
-                                data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de"
-                                onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr"
-                                onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it"
-                                onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es"
-                                onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl"
-                                onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
+                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
-                    </a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>
@@ -344,7 +249,7 @@
                         <img src="{% static 'news-images/news-cover.png' %}" class="img-fluid rounded-1 w-100 mb-3" alt="Speaker">
                         <p class="text-secondary small">
                             The Compound Cash Value Index—developed by an independent group of economists...
-                            <a href="http://72.62.147.13/blog/measuring-what-really-matters-inside-the-compound-cash-value-index/" class="text-mint fw-bold text-decoration-none">Read More...</a>
+                            <a href="/blog/measuring-what-really-matters-inside-the-compound-cash-value-index/" class="text-mint fw-bold text-decoration-none">Read More...</a>
                         </p>
                     </div>
                 </div>

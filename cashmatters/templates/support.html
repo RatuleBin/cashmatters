@@ -20,95 +20,6 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- Header Navigation Styles -->
-    <style>
-        *,
-        *::before,
-        *::after {
-            font-family: "Alvant Grade", sans-serif !important;
-        }
-
-        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-        .navbar,
-        .navbar * {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        /* All headings use Poppins */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        .navbar .nav-link {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Modern hover animations for menu items */
-        .navbar .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4CD1C2, #8de4af);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
-        }
-
-        .navbar .nav-link:hover::before,
-        .navbar .nav-link.active::before {
-            width: 100%;
-        }
-
-        .navbar .nav-link:hover {
-            color: #4CD1C2 !important;
-            transform: translateY(-2px);
-        }
-
-        /* Search button animation */
-        .search-trigger {
-            transition: all 0.3s ease;
-        }
-
-        .search-trigger:hover {
-            color: #4CD1C2 !important;
-            transform: scale(1.15);
-        }
-
-        /* Support Cash CTA Button */
-        .btn-support-cash {
-            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
-            color: #002e26 !important;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
-        }
-
-        .btn-support-cash:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
-            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
-            color: #002e26 !important;
-        }
-    </style>
-
     <!-- Video Cards & Gift Shop Styles -->
     <style>
         /* Video card styling */
@@ -1852,7 +1763,7 @@
                            style="width: 50px; height: 50px; border-radius: 50%; background: #25d366; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                             <i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i>
                         </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" 
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank"
                            style="width: 50px; height: 50px; border-radius: 50%; background: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none;">
                             <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
                         </a>
@@ -1861,18 +1772,18 @@
                             <i class="bi bi-twitter" style="font-size: 1.5rem;"></i>
                     </a>
 
-                       
+
                     </div>
                     <div style="margin-bottom: 1rem;">
-                        <input type="text" value="${url}" readonly 
+                        <input type="text" value="${url}" readonly
                                style="width: 100%; padding: 0.5rem; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.875rem;"
                                onclick="this.select();">
                     </div>
-                    <button onclick="copyToClipboard('${url}', this)" 
+                    <button onclick="copyToClipboard('${url}', this)"
                             style="background: #007d7e; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500;">
                         <i class="bi bi-clipboard me-1"></i> Copy Link
                     </button>
-                    <button onclick="this.closest('.share-modal').remove()" 
+                    <button onclick="this.closest('.share-modal').remove()"
                             style="background: #e5e7eb; color: #374151; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-left: 0.5rem;">
                         Close
                     </button>
