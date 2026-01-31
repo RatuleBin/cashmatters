@@ -1097,16 +1097,9 @@
             <!-- Header Section -->
             <div class="hero-grid">
                 <div>
-                    <h1 class="hero-title">{{ page.page_title|default:"Why Cash Matters" }}</h1>
+                    <h1 class="hero-title">{% if page.page_title %}{{ page.page_title }}{% else %}Why Cash Matters{% endif %}</h1>
                     <p class="hero-text">
-                        {{ page.intro_text|default:"New technologies are changing the way we pay, and cash remains the
-                        most attractive option for many. Because cash safeguards personal independence and freedom.
-                        Because cash ensures stable currency systems. Because cash is the most secure payment method.
-                        Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising
-                        fraud and personal data collection. Because cash means tangibility and immediate
-                        comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins
-                        reflect a nation's identity and its magic moments, presenting its most significant people,
-                        landmarks and values to the world. In short: cash matters!" }}
+                        {% if page.intro_text %}{{ page.intro_text }}{% else %}New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!{% endif %}
                     </p>
                 </div>
 
