@@ -14,95 +14,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- Header Navigation Styles -->
-    <style>
-        *,
-        *::before,
-        *::after {
-            font-family: "Alvant Grade", sans-serif !important;
-        }
-
-        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-        .navbar,
-        .navbar * {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        /* All headings use Poppins */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
-        .navbar .nav-link {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Modern hover animations for menu items */
-        .navbar .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4CD1C2, #8de4af);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
-        }
-
-        .navbar .nav-link:hover::before,
-        .navbar .nav-link.active::before {
-            width: 100%;
-        }
-
-        .navbar .nav-link:hover {
-            color: #4CD1C2 !important;
-            transform: translateY(-2px);
-        }
-
-        /* Search button animation */
-        .search-trigger {
-            transition: all 0.3s ease;
-        }
-
-        .search-trigger:hover {
-            color: #4CD1C2 !important;
-            transform: scale(1.15);
-        }
-
-        /* Support Cash CTA Button */
-        .btn-support-cash {
-            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
-            color: #002e26 !important;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
-        }
-
-        .btn-support-cash:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
-            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
-            color: #002e26 !important;
-        }
-    </style>
-
     <style>
         /* Blog Page Custom Styles */
         .blog-page {
@@ -401,120 +312,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Navigation */
-        .header-wrapper {
-            background: radial-gradient(circle at 10% 20%, #0c3b49 0%, #001F29 60%) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        /* Header Font - ITC Avant Garde Gothic */
-        .navbar,
-        .navbar * {
-            font-family: 'ITC Avant Garde Gothic', 'Avant Garde', 'AvantGarde', 'Century Gothic', 'CenturyGothic', 'Poppins', sans-serif;
-        }
-
-        /* All headings use ITC Avant Garde Gothic with fallbacks */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'ITC Avant Garde Gothic', 'Avant Garde', 'AvantGarde', 'Century Gothic', 'CenturyGothic', 'Poppins', sans-serif;
-        }
-
-        .navbar {
-            background: transparent !important;
-        }
-
-        .navbar-brand {
-            color: white !important;
-        }
-
-        .nav-link {
-            color: white !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            position: relative;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4CD1C2, #8de4af);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
-        }
-
-        .nav-link:hover::before,
-        .nav-link.active-nav::before {
-            width: 100%;
-        }
-
-        .nav-link:hover,
-        .nav-link.active-nav {
-            color: #43b1b0 !important;
-            transform: translateY(-2px);
-        }
-
-        /* Support Cash CTA Button */
-        .btn-support-cash {
-            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
-            color: #002e26 !important;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
-        }
-        .btn-support-cash:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
-            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
-            color: #002e26 !important;
-        }
-
-        .btn-outline-custom {
-            border-color: white;
-            color: white;
-        }
-
-        .btn-outline-custom:hover {
-            background: white;
-            color: #007d7e;
-        }
-
-        /* Footer */
-        .main-footer {
-            background-color: #007d7e;
-            margin-top: 0;
-        }
-
-        .main-footer .navbar-brand {
-            color: white !important;
-        }
-
-        .main-footer .btn-dark-custom {
-            background: #06232d;
-            border-color: #06232d;
-            color: white;
-        }
-
-        .main-footer .btn-dark-custom:hover {
-            background: #000;
-            border-color: #000;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-overlay h1 {
@@ -548,10 +345,10 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-light-cream">
     <!-- Navigation -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -565,9 +362,11 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+                        <!-- Support Cash button for mobile -->
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
-                <div class="d-none d-lg-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search">
                         <i class="bi bi-search fs-5"></i>
                     </button>
@@ -586,7 +385,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>
@@ -808,7 +607,7 @@
                 <!-- Navigation Column 2 -->
                 <div class="col-lg-2 col-md-3 col-6">
                     <ul class="list-unstyled d-flex flex-column gap-3 small">
-                        <li><a href="/why-cash/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
+                        <li><a href="/why-cash-matters/" class="text-white text-decoration-none hover-underline">Why Cash Matters</a>
                         </li>
                         <li><a href="{% url 'about' %}" class="text-white text-decoration-none hover-underline">About Us</a>
                         </li>
@@ -883,36 +682,79 @@
     <!-- Search Overlay -->
     {% include 'components/search_overlay.html' %}
 
+    <!-- Cookie Consent Banner -->
+    {% include 'components/cookie_consent.html' %}
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Search Overlay JS -->
     <script src="{% static 'js/search-overlay.js' %}"></script>
 
-    <!-- Language Switcher JS -->
+    <!-- Global link handler: external links open in new tab, internal in same tab -->
     <script>
-        function translatePage(lang) {
-            // Update current language display
-            document.getElementById('current-lang').textContent = lang.toUpperCase();
-
-            // Update active state of language buttons
-            document.querySelectorAll('.lang-switch-btn').forEach(btn => {
-                btn.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function () {
+            // External links handler
+            document.querySelectorAll('a[href^="http"]').forEach(function (link) {
+                if (!link.href.includes(window.location.hostname)) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
             });
-            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
 
-            // Here you would implement actual translation logic
-            // For now, just store the preference
-            localStorage.setItem('preferred-language', lang);
-
-            // You could integrate with Google Translate or another translation service here
-            console.log('Language switched to:', lang);
-        }
-
-        // Initialize language on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedLang = localStorage.getItem('preferred-language') || 'en';
-            document.getElementById('current-lang').textContent = savedLang.toUpperCase();
+            // Email protection - reveal and link on click
+            document.querySelectorAll('.contact-email').forEach(function (el) {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var user = this.getAttribute('data-user');
+                    var domain = this.getAttribute('data-domain');
+                    var email = user + '@' + domain;
+                    this.href = 'mailto:' + email;
+                    window.location.href = 'mailto:' + email;
+                });
+            });
         });
     </script>
+
+    <!-- Google Translate Integration -->
+    <div id="google_translate_element" style="display: none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,de,fr,it,es,nl',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        function translatePage(lang) {
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = lang;
+                select.dispatchEvent(new Event('change'));
+                updateLanguageDisplay(lang);
+                localStorage.setItem('preferredLanguage', lang);
+            } else {
+                setTimeout(function () { translatePage(lang); }, 500);
+            }
+        }
+
+        function updateLanguageDisplay(lang) {
+            var langMap = { 'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL' };
+            var displays = document.querySelectorAll('[id^="current-lang"]');
+            displays.forEach(function (el) {
+                el.textContent = langMap[lang] || 'EN';
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            var savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && savedLang !== 'en') {
+                setTimeout(function () { translatePage(savedLang); }, 1000);
+            }
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
