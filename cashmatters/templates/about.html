@@ -20,6 +20,95 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Header Navigation Styles -->
+    <style>
+        *,
+        *::before,
+        *::after {
+            font-family: "Alvant Grade", sans-serif !important;
+        }
+
+        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
+        .navbar,
+        .navbar * {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+
+        /* All headings use Poppins */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+
+        .navbar .nav-link {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Modern hover animations for menu items */
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4CD1C2, #8de4af);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .navbar .nav-link:hover::before,
+        .navbar .nav-link.active::before {
+            width: 100%;
+        }
+
+        .navbar .nav-link:hover {
+            color: #4CD1C2 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Search button animation */
+        .search-trigger {
+            transition: all 0.3s ease;
+        }
+
+        .search-trigger:hover {
+            color: #4CD1C2 !important;
+            transform: scale(1.15);
+        }
+
+        /* Support Cash CTA Button */
+        .btn-support-cash {
+            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+            color: #002e26 !important;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+        }
+
+        .btn-support-cash:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
+            color: #002e26 !important;
+        }
+    </style>
 </head>
 
 <body class="bg-light-cream">
@@ -28,7 +117,7 @@
          1. HEADER (Fixed Dark)
     ========================================== -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
