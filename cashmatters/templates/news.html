@@ -30,6 +30,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/news-style.css' %}">
+    <style>
+        @media (max-width: 992px) {
+  /* Hide everything in the navbar except the logo */
+    .navbar-toggler {
+    display: none !important;
+  }
+
+
+}
+    </style>
 </head>
 <body class="bg-light-cream">
 
@@ -557,6 +567,78 @@
             </div>
         </div>
     </footer>
+        <!-- templates/components/bottom_menu.html -->
+<div class="bottom_menu">
+
+                    <style>
+                      .bottom-menu {
+                        padding: 10px 0;
+                        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+                        z-index: 1000;
+                      }
+
+                      .bottom-menu a:hover {
+                        color: #ddd;
+                      }
+
+                      @media (min-width: 992px) {
+                        .bottom-menu {
+                          display: none !important;
+
+                        }
+
+                      }
+                    </style>
+                    <nav class="bottom-menu  fixed-bottom d-flex justify-content-around text-white" style="background-color: #001F29;">
+                      <a href="{% url 'index' %}" class="text-center text-white text-decoration-none">
+                        <i class="bi bi-house-fill"></i><br>Home
+                      </a>
+                      <a href="{% url 'news' %}" class="text-center text-white text-decoration-none">
+                        <i class="bi bi-newspaper"></i><br>News
+                      </a>
+                      <a href="{% url 'news' %}?category=podcast" class="text-center text-white text-decoration-none small">
+                        <i class="bi bi-mic-fill fs-5"></i><br>Podcast
+                      </a>
+
+                      <button class="btn text-white p-0 small" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+                        aria-controls="mobileMenu">
+                        <i class="bi bi-list fs-5"></i><br>Menu
+                      </button>
+                    </nav>
+
+
+
+
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel "
+                      style="background-color: #001F29; color: white !important;">
+                      <div class="offcanvas-header">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                          <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+                        </a>
+                        <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <ul class="navbar-nav gap-3">
+                          <li class="nav-item"><a class="nav-link text-dark" style="color: white !important;" href="{% url 'news' %}">News
+                              & Articles</a></li>
+                          <li class="nav-item"><a class="nav-link text-dark" style="color: white !important;"
+                              href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                          <li class="nav-item"><a class="nav-link text-dark" style="color: white !important;"
+                              href="{% url 'new_page' %}">Why Cash Matters</a></li>
+                          <li class="nav-item"><a class="nav-link text-dark" style="color: white !important;"
+                              href="{% url 'about' %}">About Us</a></li>
+                          <li class="nav-item mt-2">
+                            <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
+                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                            </a>
+                          </li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+</div>
     <!-- Search Overlay Modal -->
     {% include 'components/search_overlay.html' %}
 
