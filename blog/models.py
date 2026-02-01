@@ -612,7 +612,7 @@ class SupportPage(Page):
     """
     Support Cash page - promotes cash awareness and provides support resources
     """
-    template = "support_page.html"
+    template = "support.html"
     # Page Header
     page_header_title = models.CharField(
         max_length=200,
