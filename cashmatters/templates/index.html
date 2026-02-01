@@ -162,6 +162,31 @@
       font-size: 1.5rem;
       box-shadow: 0 4px 20px rgba(76, 209, 194, 0.4);
     }
+    /* Desktop default */
+.hero-image-panel {
+  border-radius: 20px;
+  overflow: hidden;
+}
+@media (min-width: 992px) {
+  .hero-image-panel {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+  }
+}
+/* Mobile: remove bottom radius */
+@media (max-width: 992px) {
+  .hero-image-panel {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+    .hero-text-panel {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+  
+}
+
+    
   </style>
 </head>
 
@@ -230,9 +255,9 @@
       <div class="container">
         <!-- Hero Slide Card - Modern Split Design -->
         <div class="hero-slide-card mt-4 mb-5">
-          <div class="row g-0 align-items-stretch">
+          <div class="row g-0  align-items-stretch">
             <!-- Left Side: Content Info (Dark Teal Background) -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-12 order-2 order-lg-1">
               <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
                 <!-- Content Type Badge - Cover Story -->
                 <div class="hero-content-type-badge mb-3">
@@ -305,7 +330,7 @@
             </div>
 
             <!-- Right Side: Featured Image/Video -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-12 order-1 order-lg-2">
               <div class="hero-image-panel h-100 position-relative">
                 <!-- Image Display (default) -->
                 <div id="hero-media-image" class="hero-media-item h-100">
