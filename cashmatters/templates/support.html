@@ -392,19 +392,19 @@
                     </p>
                     {% endif %}
                     <p class="fs-5 text-muted mb-0">
-                        Discover why Cash matters <a href="{% url 'new_page' %}"
-                            class="text-mint text-decoration-underline fw-bold">here</a>.
+                        <a href="{% url 'new_page' %}"
+                            class="btn fw-bold" style="background-color: #00b396;color: white; "> Discover Why Cash Matters</a>.
                     </p>
                 </div>
                 <!-- Media Contacts Column -->
                 <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
                     <h4 class="fw-bold text-dark mb-3">Media Contacts</h4>
                     <p class="text-muted">
-                        If you would like to speak to a member of our team regarding our campaign please email 
+                       Want to speak with someone from our team about the campaign? 
                         <br>
                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org" target="_blank"
-                            rel="noopener noreferrer" class="text-mint fw-bold"
-                            style="text-decoration: underline;">Email</a>.
+                            rel="noopener noreferrer" class=" btn fw-bold mt-3"
+                            style="background-color: #00b396;color: white; ">Email</a>.
                     </p>
                 </div>
             </div>
@@ -434,6 +434,7 @@
             <!-- TABS NAVIGATION -->
             <!-- Custom styled tabs to match screenshot -->
             <style>
+             
                 .custom-asset-tabs {
                     overflow-x: auto;
                     overflow-y: hidden;
@@ -452,6 +453,23 @@
                 .custom-asset-tabs::-webkit-scrollbar-thumb {
                     background: #ccc;
                     border-radius: 10px;
+                }
+
+                .custom-asset-tabs .nav-link:hover {
+                    background-color: #00b396 !important; /* Light gray on hover */
+                    color: #ffffff !important; /* Optional: change text color on hover */
+                    transition: background-color 0.3s !important;
+                }
+
+                /* Active tab background */
+                .custom-asset-tabs .nav-link.active {
+                    background-color: #00b396 !important; /* Blue for active tab */
+                    color: #fff !important; /* White text for active tab */
+                }
+           
+                /* Optional: smooth transition for hover and active states */
+                .custom-asset-tabs .nav-link {
+                    transition: background-color 0.3s, color 0.3s !important;
                 }
 
                 @media (max-width: 576px) {
