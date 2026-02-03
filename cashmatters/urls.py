@@ -653,7 +653,7 @@ urlpatterns = [
     path("about/", about, name="about"),  # About page
     path("privacy/", privacy, name="privacy"),  # Privacy Policy page
     path("support/", support, name="support"),  # Support page
-    path("write-for-us/", write_for_us, name="write_for_us"),  # Write for Us page
+    path("publish-on-cash-matters/", write_for_us, name="write_for_us"),  # Write for Us page
     path("why-cash/", why_cash, name="why_cash"),  # Why Cash Matters page
     path("why-cash-matters/", new_page, name="new_page"),  # Why Cash Matters Feature page
     path("django-admin/", admin.site.urls),
