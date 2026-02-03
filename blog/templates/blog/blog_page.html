@@ -353,7 +353,7 @@
 }
     </style>
 </head>
-<body onbeforeunload="window.scrollTo(0,0)" class="bg-light-cream">
+<body class="bg-light-cream">
     <!-- Navigation -->
     <div class="header-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
@@ -837,6 +837,14 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // scroll to top immediately
+    setTimeout(function() {
+      window.scrollTo(0, 0);
+    }, 10); // 10 milliseconds = 0.01 sec
+  });
+</script>
+
 </body>
 </html>
