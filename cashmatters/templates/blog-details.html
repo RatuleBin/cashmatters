@@ -739,4 +739,47 @@
             </div>
         </div>
     </footer>
+    <script>
+    // Force scroll to top on page load - comprehensive solution
+    (function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
+            window.scrollTo(0, 0);
+            
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
+            });
+            
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+        
+        // Run immediately when script loads
+        forceScrollToTop();
+        
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+        
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+        
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+        
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    })();
+</script>
 {% endblock %}
