@@ -459,17 +459,22 @@
                     background-color: #00b396 !important; /* Light gray on hover */
                     color: #ffffff !important; /* Optional: change text color on hover */
                     transition: background-color 0.3s !important;
+                    border-radius: 10px;
                 }
 
                 /* Active tab background */
                 .custom-asset-tabs .nav-link.active {
                     background-color: #00b396 !important; /* Blue for active tab */
                     color: #fff !important; /* White text for active tab */
+                                        border-radius: 10px;
+
                 }
            
                 /* Optional: smooth transition for hover and active states */
-                .custom-asset-tabs .nav-link {
-                    transition: background-color 0.3s, color 0.3s !important;
+             
+                .custom-asset-tabs .nav-link.active::before {
+                    content: ''; display: inline-block;
+                    width: 10px; height: 10px; background-color: white !important; border-radius: 50%;
                 }
 
                 @media (max-width: 576px) {
