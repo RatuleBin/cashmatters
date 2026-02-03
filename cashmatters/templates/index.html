@@ -286,23 +286,15 @@
                   {% endif %}
                 </h1>
 
-                <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
-                  {% if hero_posts %}
-                  {{ hero_posts.0.intro }}
-                  {% else %}
-                  Research, reporting, and resources that show why physical cash remains essential around the world.
-                  {% endif %}
-                </p>
-
-                <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
-                  <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}"
-                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
-                  </a>
-                  <span id="hero-slide-date" class="text-white opacity-75 small">
+              
+                  
+                <div class="d-flex align-items-center gap-3 flex-wrap mb-4 pt-5">
+                   <span id="hero-slide-date" class="text-white opacity-75 small">
                     <i class="bi bi-clock me-1"></i>
                     {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
                   </span>
+               
+               
                   {% if hero_posts.0.author_profile %}
                   <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
                     class="text-white opacity-75 small text-decoration-none author-link">
@@ -310,6 +302,10 @@
                     {{ hero_posts.0.author_profile.name }}
                   </a>
                   {% endif %}
+                     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}"
+                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                  </a>
                 </div>
 
                 <!-- Carousel Navigation Dots -->
@@ -1178,6 +1174,8 @@
             cursor: pointer;
             font-size: 16px;
             font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
+            padding-bottom: 6px;   /* gap between text & line */
+
           }
 
           .hover-underline::after {
