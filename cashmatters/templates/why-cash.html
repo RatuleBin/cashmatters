@@ -816,6 +816,14 @@
                     </div>
 
 </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // scroll to top immediately
+                setTimeout(function() {
+                window.scrollTo(0, 0);
+                }, 10); // 10 milliseconds = 0.01 sec
+            });
+        </script>
     <!-- Search Overlay -->
     {% include 'components/search_overlay.html' %}
 
@@ -889,13 +897,6 @@
         body { top: 0 !important; }
         .goog-te-gadget { display: none !important; }
     </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // scroll to top immediately
-                setTimeout(function() {
-                window.scrollTo(0, 0);
-                }, 10); // 10 milliseconds = 0.01 sec
-            });
-            </script>
+      
 </body>
 </html>
