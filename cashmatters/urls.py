@@ -163,13 +163,13 @@ def index(request):
     ).prefetch_related('article_types').filter(
         article_types__name__in=['Studies', 'Research', 'Studies & Research']
     ).order_by('-date')[:2]
-    
+
     studies_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
     ).prefetch_related('article_types').filter(
         article_types__name__in=['Studies', 'Research', 'Studies & Research']
     ).order_by('-date')[:2]
-    
+
     # Combine and sort studies posts by date
     studies_posts = sorted(
         chain(studies_articles, studies_blog_posts),
