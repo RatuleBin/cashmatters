@@ -46,16 +46,6 @@ def register_support_page_menu_item():
 
 
 @hooks.register('register_admin_menu_item')
-def register_why_cash_matters_page_menu_item():
-    return MenuItem(
-        'Why Cash Matters Page',
-        reverse('blog:create_why_cash_matters_page'),
-        icon_name='question',
-        order=10002
-    )
-
-
-@hooks.register('register_admin_menu_item')
 def register_why_cash_feature_page_menu_item():
     return MenuItem(
         'Why Cash Feature Page',
@@ -63,6 +53,21 @@ def register_why_cash_feature_page_menu_item():
         icon_name='doc-full-inverse',
         order=10003
     )
+
+
+@hooks.register('construct_main_menu')
+def hide_unwanted_menu_items(request, menu_items):
+    """Hide all menu items except Blogs Dashboard, Support Cash Page, Why Cash Feature Page, and Images"""
+    allowed_items = [
+        'Blogs Dashboard',
+        'Support Cash Page',
+        'Why Cash Feature Page',
+        'images',  # Wagtail's built-in images menu
+    ]
+    menu_items[:] = [
+        item for item in menu_items
+        if item.name in allowed_items or item.label in allowed_items
+    ]
 
 
 @hooks.register('insert_global_admin_js')
