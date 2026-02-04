@@ -637,13 +637,9 @@
                   style="font-size: 0.75rem">Studies</span>
               </div>
 
-              <h4 class="fw-bold mb-3">
+              <h4 class="fw-bold mb-3 flex-grow-1">
                 {{ study.title }}
               </h4>
-
-              <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6">
-                {{ study.intro|truncatewords:25 }}
-              </p>
 
               <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
                 <a href="{{ study.url_path }}"
