@@ -194,6 +194,21 @@
 
 
 }
+    /* Author avatar in hero */
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: inline-block;
+      vertical-align: middle;
+      border: 2px solid rgba(255,255,255,0.12);
+    }
+    .hero-author-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
 
     
@@ -295,13 +310,31 @@
                   </span>
                
                
-                  {% if hero_posts.0.author_profile %}
-                  <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-                    class="text-white opacity-75 small text-decoration-none author-link">
-                    <i class="bi bi-person me-1"></i>
-                    {{ hero_posts.0.author_profile.name }}
-                  </a>
-                  {% endif %}
+                  <div class="hero-author-wrap">
+                    <a id="hero-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
+                      {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
+                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar">
+                      {% elif hero_posts and hero_posts.0.author_image %}
+                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" alt="{{ hero_posts.0.author }}" class="author-avatar">
+                      {% else %}
+                      <img id="hero-author-avatar" src="{% static 'images/author-default.jpg' %}" alt="Author" class="author-avatar">
+                      {% endif %}
+                    </a>
+
+                    {% if hero_posts.0.author_profile %}
+                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
+                      class="text-white opacity-75 small text-decoration-none author-link">
+                      {{ hero_posts.0.author_profile.name }}
+                    </a>
+                    {% elif hero_posts.0.author %}
+                    <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
+                      <i class="bi bi-person me-1"></i>
+                      {{ hero_posts.0.author }}
+                    </a>
+                    {% else %}
+                    <a id="hero-slide-author" href="#" style="display:none"></a>
+                    {% endif %}
+                  </div>
                      <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}"
                     class="btn btn-mint fw-bold px-4 py-2 rounded-2">
                     Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
@@ -390,6 +423,7 @@
           "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
           "author_id": {% if post.author_profile %}{{ post.author_profile.id }}{% else %}null{% endif %},
           "author_name": "{% if post.author %}{{ post.author|escapejs }}{% else %}{% endif %}",
+          "author_image": "{% if post.author_profile and post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% else %}{% static 'images/author-default.jpg' %}{% endif %}",
           "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}",
           "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
           "vimeo_id": "{{ post.vimeo_id|default:'' }}",
@@ -1260,6 +1294,8 @@
       const linkEl = document.getElementById('hero-slide-link');
       const dateEl = document.getElementById('hero-slide-date');
       const authorEl = document.getElementById('hero-slide-author');
+      const authorAvatarEl = document.getElementById('hero-author-avatar');
+      const authorLinkEl = document.getElementById('hero-author-link');
       const imageEl = document.getElementById('hero-slide-image');
       const typeBadge = document.getElementById('hero-type-badge');
       const typeIcon = document.getElementById('hero-type-icon');
@@ -1346,6 +1382,29 @@
             authorEl.style.display = 'inline';
           } else {
             authorEl.style.display = 'none';
+          }
+        }
+
+        // Update avatar image and its link when available
+        if (authorAvatarEl) {
+          if (post.author_image) {
+            authorAvatarEl.src = post.author_image;
+            authorAvatarEl.style.display = 'inline-block';
+            if (authorLinkEl) {
+              if (post.author_id) {
+                authorLinkEl.href = '/author/id/' + post.author_id + '/';
+              } else if (post.author_name) {
+                authorLinkEl.href = '/author/' + encodeURIComponent(post.author_name) + '/';
+              } else {
+                authorLinkEl.href = '#';
+              }
+            }
+          } else {
+            // No image provided - keep server-rendered default or hide
+            // If no server-side default exists, hide to avoid broken image
+            if (!authorAvatarEl.src) {
+              authorAvatarEl.style.display = 'none';
+            }
           }
         }
 
