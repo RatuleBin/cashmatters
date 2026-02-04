@@ -270,7 +270,7 @@
             <div class="col-lg-6 col-12 order-2 order-lg-1">
               <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
                 <!-- Content Type Badge - Cover Story -->
-                <div class="hero-content-type-badge mb-3">
+                <div class="hero-content-type-badge mb-3 mt-5">
                   <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
                     style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
                     <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
@@ -286,23 +286,15 @@
                   {% endif %}
                 </h1>
 
-                <p id="hero-slide-intro" class="hero-desc text-white mb-4 opacity-90">
-                  {% if hero_posts %}
-                  {{ hero_posts.0.intro }}
-                  {% else %}
-                  Research, reporting, and resources that show why physical cash remains essential around the world.
-                  {% endif %}
-                </p>
-
+              
+                  
                 <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
-                  <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}"
-                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
-                  </a>
-                  <span id="hero-slide-date" class="text-white opacity-75 small">
+                   <span id="hero-slide-date" class="text-white opacity-75 small">
                     <i class="bi bi-clock me-1"></i>
                     {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
                   </span>
+               
+               
                   {% if hero_posts.0.author_profile %}
                   <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
                     class="text-white opacity-75 small text-decoration-none author-link">
@@ -310,6 +302,10 @@
                     {{ hero_posts.0.author_profile.name }}
                   </a>
                   {% endif %}
+                     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}"
+                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                  </a>
                 </div>
 
                 <!-- Carousel Navigation Dots -->
@@ -608,102 +604,75 @@
           & Reports <i class="bi bi-arrow-up-right"></i></a>
       </div>
 
-      <!-- Cards Row -->
+      <!-- Cards Row - Dynamic from Backend -->
       <div class="row g-4">
-        <!-- Report Card 1 -->
+        {% for study in studies_posts %}
+        <!-- Report Card {{ forloop.counter }} -->
         <div class="col-md-6">
           <div class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card">
             <!-- Image -->
             <div class="img-wrapper" style="height: 280px">
-              <img src="{% static 'images/homepage/studies-local-economies.jpg' %}"
+              {% if study.wide_thumbnail %}
+              <img src="{{ study.wide_thumbnail.file.url }}"
                 class="w-100 h-100 object-fit-cover transition-img"
-                alt="Cash transaction at local shop - Photo by Swastik Arora" />
+                alt="{{ study.title }}" onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'" />
+              {% elif study.tall_thumbnail %}
+              <img src="{{ study.tall_thumbnail.file.url }}"
+                class="w-100 h-100 object-fit-cover transition-img"
+                alt="{{ study.title }}" onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'" />
+              {% else %}
+              <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                class="w-100 h-100 object-fit-cover transition-img"
+                alt="{{ study.title }}" />
+              {% endif %}
             </div>
 
             <!-- Content -->
             <div class="card-body p-4 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-3 small">
-                <span class="text-muted fw-medium">Consumer Behavior • Americas • 2026</span>
+                <span class="text-muted fw-medium">
+                  {% if study.article_types.first %}{{ study.article_types.first.name }}{% else %}Studies{% endif %} • {{ study.date|date:"Y" }}
+                </span>
                 <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
                   style="font-size: 0.75rem">Studies</span>
               </div>
 
               <h4 class="fw-bold mb-3">
-                Why Cash Underpins Security, Freedom, and Social Stability
+                {{ study.title }}
               </h4>
 
               <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6">
-                There is a moment in almost every childhood when money becomes
-                real: the first time a child feels the weight of a coin, or
-                watches...
+                {{ study.intro|truncatewords:25 }}
               </p>
 
               <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
-                <a href="#"
-                  onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')"
-                  class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
-                  <i class="bi bi-download"></i> Download
+                <a href="{{ study.url_path }}"
+                  class="text-reset text-decoration-none hover-mint" title="Read this report">
+                  <i class="bi bi-book"></i> Read
                 </a>
                 <a href="#"
-                  onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)"
-                  class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
+                  onclick="shareArticle(event, '{{ study.title|escapejs }}', '{{ study.url_path }}')"
+                  class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link" style="cursor: pointer;">
                   <i class="bi bi-share"></i> Share
                 </a>
-                <a href="#" onclick="printReport(event, 'report-card-1')"
-                  class="text-reset text-decoration-none hover-mint" title="Print this report">
-                  <i class="bi bi-printer"></i> Print
+                {% if study.source_link %}
+                <a href="{{ study.source_link }}" target="_blank"
+                  class="text-reset text-decoration-none hover-mint" title="View source">
+                  <i class="bi bi-box-arrow-up-right"></i> Source
                 </a>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Report Card 2 -->
-        <div class="col-md-6">
-          <div class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card">
-            <!-- Image -->
-            <div class="img-wrapper" style="height: 280px">
-              <img src="{% static 'images/homepage/studies-digital-age.jpg' %}"
-                class="w-100 h-100 object-fit-cover transition-img" alt="The Case for Cash in a Digital Age" />
-            </div>
-
-            <!-- Content -->
-            <div class="card-body p-4 d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-center mb-3 small">
-                <span class="text-muted fw-medium">Consumer Behavior • Americas • 2026</span>
-                <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
-                  style="font-size: 0.75rem">Studies</span>
-              </div>
-
-              <h4 class="fw-bold mb-3">
-                Why Cash Underpins Security, Freedom, and Social Stability
-              </h4>
-
-              <p class="text-muted small mb-4 flex-grow-1" style="line-height: 1.6">
-                There is a moment in almost every childhood when money becomes
-                real: the first time a child feels the weight of a coin, or
-                watches...
-              </p>
-
-              <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
-                <a href="#"
-                  onclick="downloadReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability')"
-                  class="text-reset text-decoration-none hover-mint" title="Download this report as PDF">
-                  <i class="bi bi-download"></i> Download
-                </a>
-                <a href="#"
-                  onclick="shareReport(event, 'Why Cash Underpins Security, Freedom, and Social Stability', window.location.href)"
-                  class="text-reset text-decoration-none hover-mint" title="Share this report via social media or link">
-                  <i class="bi bi-share"></i> Share
-                </a>
-                <a href="#" onclick="printReport(event, 'report-card-2')"
-                  class="text-reset text-decoration-none hover-mint" title="Print this report">
-                  <i class="bi bi-printer"></i> Print
-                </a>
-              </div>
-            </div>
+        {% empty %}
+        <!-- Fallback: No studies available -->
+        <div class="col-12">
+          <div class="alert alert-info text-center">
+            <p class="mb-0">No studies & reports available yet. Please check back later!</p>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>
@@ -1178,6 +1147,8 @@
             cursor: pointer;
             font-size: 16px;
             font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
+            padding-bottom: 6px;   /* gap between text & line */
+
           }
 
           .hover-underline::after {
@@ -1782,6 +1753,54 @@
       display: none !important;
     }
   </style>
+
+
+
+
+
+  <script>
+    // Force scroll to top on page load - comprehensive solution
+    (function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
+            window.scrollTo(0, 0);
+            
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
+            });
+            
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+        
+        // Run immediately when script loads
+        forceScrollToTop();
+        
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+        
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+        
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+        
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    })();
+</script>
 </body>
 
 </html>
