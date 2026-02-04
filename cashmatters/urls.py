@@ -155,11 +155,34 @@ def index(request):
         reverse=True
     )[:3]  # Take only the 3 most recent podcasts
 
+    # =========================================
+    # 5. STUDIES & REPORTS POSTS
+    # =========================================
+    studies_articles = ArticlePage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').filter(
+        article_types__name__in=['Studies', 'Research', 'Studies & Research']
+    ).order_by('-date')[:2]
+    
+    studies_blog_posts = BlogPage.objects.live().select_related(
+        'author_profile'
+    ).prefetch_related('article_types').filter(
+        article_types__name__in=['Studies', 'Research', 'Studies & Research']
+    ).order_by('-date')[:2]
+    
+    # Combine and sort studies posts by date
+    studies_posts = sorted(
+        chain(studies_articles, studies_blog_posts),
+        key=lambda x: x.date,
+        reverse=True
+    )[:2]  # Take only the 2 most recent studies/reports
+
     context = {
         'latest_posts': latest_posts,
         'featured_posts': featured_posts,
         'hero_posts': hero_posts_combined,
         'podcast_posts': podcast_posts,
+        'studies_posts': studies_posts,
     }
     return render(request, 'index.html', context)
 
