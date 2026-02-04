@@ -392,19 +392,19 @@
                     </p>
                     {% endif %}
                     <p class="fs-5 text-muted mb-0">
-                        Discover why Cash matters <a href="{% url 'new_page' %}"
-                            class="text-mint text-decoration-underline fw-bold">here</a>.
+                        <a href="{% url 'new_page' %}"
+                            class="btn fw-bold" style="background-color: #00b396;color: white; "> Discover Why Cash Matters</a>
                     </p>
                 </div>
                 <!-- Media Contacts Column -->
                 <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
                     <h4 class="fw-bold text-dark mb-3">Media Contacts</h4>
                     <p class="text-muted">
-                        If you would like to speak to a member of our team regarding our campaign please email 
+                       Want to speak with someone from our team about the campaign? 
                         <br>
                         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@cashmatters.org" target="_blank"
-                            rel="noopener noreferrer" class="text-mint fw-bold"
-                            style="text-decoration: underline;">Email</a>.
+                            rel="noopener noreferrer" class=" btn fw-bold mt-3"
+                            style="background-color: #00b396;color: white; ">Email</a>
                     </p>
                 </div>
             </div>
@@ -434,6 +434,7 @@
             <!-- TABS NAVIGATION -->
             <!-- Custom styled tabs to match screenshot -->
             <style>
+             
                 .custom-asset-tabs {
                     overflow-x: auto;
                     overflow-y: hidden;
@@ -452,6 +453,28 @@
                 .custom-asset-tabs::-webkit-scrollbar-thumb {
                     background: #ccc;
                     border-radius: 10px;
+                }
+
+                .custom-asset-tabs .nav-link:hover {
+                    background-color: #00b396 !important; /* Light gray on hover */
+                    color: #ffffff !important; /* Optional: change text color on hover */
+                    transition: background-color 0.3s !important;
+                    border-radius: 10px;
+                }
+
+                /* Active tab background */
+                .custom-asset-tabs .nav-link.active {
+                    background-color: #00b396 !important; /* Blue for active tab */
+                    color: #fff !important; /* White text for active tab */
+                                        border-radius: 10px;
+
+                }
+           
+                /* Optional: smooth transition for hover and active states */
+             
+                .custom-asset-tabs .nav-link.active::before {
+                    content: ''; display: inline-block;
+                    width: 10px; height: 10px; background-color: white !important; border-radius: 50%;
                 }
 
                 @media (max-width: 576px) {
@@ -506,11 +529,7 @@
 
             </ul>
 
-            <div class="mb-5 pb-4">
-                <p class="text-muted">Download our logos and include them within your marketing materials and PR
-                    activity. Use the assets below to promote your commitment to supporting cash as a payment option.
-                </p>
-            </div>
+        
 
             <!-- TAB CONTENTS -->
             <div class="tab-content" id="assetTabsContent">
@@ -663,8 +682,7 @@
                 <div class="tab-pane fade show active" id="merch-content" role="tabpanel">
                     <div class="text-center mb-5">
                         <h3 class="fw-bold text-dark mb-3">Cash Matters Gift Shop</h3>
-                        <p class="text-muted">Support our mission with official Cash Matters merchandise. Show the world
-                            that #CashMatters!</p>
+                   
                     </div>
                     <div class="row g-4">
                         <!-- Mug -->
@@ -940,7 +958,7 @@
                             </div>
                         </div>
                         <!-- Additional Key Fact from old site -->
-                        <div class="col-lg-4 col-md-6">
+                        <!-- <div class="col-lg-4 col-md-6">
                             <div class="asset-card bg-white d-flex align-items-center justify-content-center p-3 mb-2">
                                 <img src="{% static 'images/support/fact-cards/key-fact-2120_g0hl7Ko.png' %}"
                                     alt="Key Fact" class="img-fluid">
@@ -954,7 +972,7 @@
                                     class="text-reset text-decoration-none hover-mint"><i class="bi bi-share"></i>
                                     Share</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- TAB 4: POST CARDS -->
@@ -1661,6 +1679,8 @@
                         cursor: pointer;
                         font-size: 16px;
                         font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
+                                                padding-bottom: 6px;   /* gap between text & line */
+
                     }
 
                     .hover-underline::after {
@@ -1955,7 +1975,55 @@
         .goog-te-gadget {
             display: none !important;
         }
+        
     </style>
+
+
+
+<script>
+    // Force scroll to top on page load - comprehensive solution
+    (function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
+            window.scrollTo(0, 0);
+            
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
+            });
+            
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+        
+        // Run immediately when script loads
+        forceScrollToTop();
+        
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+        
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+        
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+        
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    })();
+</script>
+    
 </body>
 
 </html>

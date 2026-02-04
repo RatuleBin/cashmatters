@@ -170,7 +170,8 @@
             </a>
         </div>
         {% endif %}
-    </div>
+        </div>
+    <!-- 
 {% if active_category == 'podcast' and articles %}
 {% with hero_podcast=articles.0 %}
 <section class="container mb-5">
@@ -211,14 +212,14 @@
     </div>
 </section>
 {% endwith %}
-{% endif %}
+{% endif %} -->
 
     <!-- =========================================
          3. FEATURED ARTICLE
     ========================================== -->
     <main class="container pb-5 mb-5 border-bottom border-secondary border-opacity-10">
         <article>
-            <h5 class="fw-bold text-dark-teal mb-3">
+            <!-- <h5 class="fw-bold text-dark-teal mb-3">
                 {% if search_query %}
                     Search Results for "{{ search_query }}"
                 {% elif active_category == 'studies' %}
@@ -230,10 +231,9 @@
                 {% else %}
                     Latest News
                 {% endif %}
-            </h5>
+            </h5> -->
 
-            {% if not active_category or active_category == 'news' %}
-            <!-- Featured Article - Only shown for News category or when no category selected -->
+            <!-- {% if not active_category or active_category == 'news' %}
             <div class="row mb-3">
                 <div class="col-lg-10">
                     <h1 class="fw-bold article-headline mb-4" style="font-size: 2.5rem;">
@@ -250,7 +250,6 @@
             </div>
 
             <div class="row g-5">
-                <!-- Content Column -->
                 <div class="col-lg-8">
                     <p class="lead fw-normal text-secondary mb-5 opacity-75">
                         Across governments, central banks, and financial institutions, debates about payment systems often revolve around cost, efficiency, and convenience. Yet these categories capture only a fraction of cash's real value.
@@ -264,7 +263,6 @@
                     </div>
                 </div>
 
-                <!-- Sidebar Column -->
                 <aside class="col-lg-4 ps-lg-5">
                     <div class="mb-5">
                         <h5 class="fw-normal mb-3">Share this News</h5>
@@ -280,7 +278,7 @@
                     </p>
                 </aside>
             </div>
-            {% endif %}
+            {% endif %} -->
         </article>
     </main>
 
@@ -793,5 +791,56 @@
         body { top: 0 !important; }
         .goog-te-gadget { display: none !important; }
     </style>
+    <script>
+  window.onload = function() {
+    window.scrollTo(0, 0);
+  };
+</script>
+<script>
+    // Force scroll to top on page load - comprehensive solution
+    (function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
+            window.scrollTo(0, 0);
+            
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
+            });
+            
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+        
+        // Run immediately when script loads
+        forceScrollToTop();
+        
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+        
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+        
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+        
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    })();
+</script>
+
+
+
 </body>
 </html>
