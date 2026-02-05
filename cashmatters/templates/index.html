@@ -328,7 +328,7 @@
                     </a>
                     {% elif hero_posts.0.author %}
                     <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-                      <i class="bi bi-person me-1"></i>
+                      <i class=" me-1"></i>
                       {{ hero_posts.0.author }}
                     </a>
                     {% else %}
@@ -1379,7 +1379,7 @@
             } else if (post.author_name) {
               authorUrl = '/author/' + encodeURIComponent(post.author_name) + '/';
             }
-            authorEl.innerHTML = '<i class="bi bi-person me-1"></i>' + post.author;
+            authorEl.innerHTML = '<i class=" me-1"></i>' + post.author;
             authorEl.href = authorUrl;
             authorEl.style.display = 'inline';
           } else {
