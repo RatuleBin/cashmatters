@@ -495,8 +495,14 @@
             <ul class="nav custom-asset-tabs justify-content-start justify-content-lg-center flex-nowrap
            mb-5 border-top border-bottom py-2 bg-white rounded-1" id="assetTabs" role="tablist">
 
+
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content"
+                    <button class="nav-link active" id="facts-tab" data-bs-toggle="tab" data-bs-target="#facts-content"
+                        type="button" role="tab">Fact Cards</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link " id="merch-tab" data-bs-toggle="tab" data-bs-target="#merch-content"
                         type="button" role="tab"><i class="bi bi-bag-heart me-1"></i>Gift Shop</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -507,10 +513,7 @@
                     <button class="nav-link" id="banners-tab" data-bs-toggle="tab" data-bs-target="#banners-content"
                         type="button" role="tab">Banners</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="facts-tab" data-bs-toggle="tab" data-bs-target="#facts-content"
-                        type="button" role="tab">Fact Cards</button>
-                </li>
+           
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="post-tab" data-bs-toggle="tab" data-bs-target="#post-content"
                         type="button" role="tab">Post Cards</button>
@@ -679,7 +682,7 @@
                 </div>
 
 
-                <div class="tab-pane fade show active" id="merch-content" role="tabpanel">
+                <div class="tab-pane fade " id="merch-content" role="tabpanel">
                     <div class="text-center mb-5">
                         <h3 class="fw-bold text-dark mb-3">Cash Matters Gift Shop</h3>
                    
@@ -835,7 +838,7 @@
 
 
                 <!-- TAB 3: FACT CARDS -->
-                <div class="tab-pane fade" id="facts-content" role="tabpanel">
+                <div class="tab-pane fade show active" id="facts-content" role="tabpanel">
                     <div class="row g-4">
                         <!-- Fact Card 01 -->
                         <div class="col-lg-4 col-md-6">
@@ -1049,7 +1052,7 @@
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
                                 <div class="ratio ratio-16x9 position-relative">
                                     <video class="asset-video" poster="{% static 'images/asdf.png' %}" preload="none">
-                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                                        <source src="{% static 'videos/cashmatterchicken.mp4' %}" type="video/mp4">
                                     </video>
 
 
@@ -1064,10 +1067,10 @@
                                     <div class="d-flex justify-content-between align-items-center">
 
                                         <div class="video-actions">
-                                            <a href="{% static 'videos/sss.mp4' %}" download
+                                            <a href="{% static 'videos/cashmatterchicken.mp4' %}" download
                                                 class="btn-download">Download</a>
                                             <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sss.mp4" %}" frameborder="0" allowfullscreen></iframe>'
+                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/cashmatterchicken.mp4" %}" frameborder="0" allowfullscreen></iframe>'
                                                 onclick="openEmbedModal(this)">Embed</button>
                                         </div>
                                         <div class="">
