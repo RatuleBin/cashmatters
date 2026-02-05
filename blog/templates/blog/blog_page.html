@@ -412,17 +412,7 @@
                     {% endif %}
                     <div class="hero-overlay text-center mt-4">
                         <h1 class="display-4 fw-bold text-center">{{ page.title }}</h1>
-                        {% for block in page.body %}
-                            {% if block.block_type == 'paragraph' and not subtitle_set %}
-                            {% with subtitle_set=True %}
-                            <p class="text-center text-muted mt-2 mb-3" style="line-height: 1.6; max-width: 20px; width: 100%; ">{{ block.value|truncatewords:20 }}...</p>
-                            {% endwith %}
-                            {% endif %}
-                        {% empty %}
-                            {% if page.intro %}
-                            <p class="text-center text-muted mt-2 mb-3" style="line-height: 1.6; max-width: 20px; width: 100%; ">{{ page.intro }}...</p>
-                            {% endif %}
-                        {% endfor %}
+                      
                         <div class="meta-info text-center mt-3">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
                             {% if page.author_profile %}
