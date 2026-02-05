@@ -1110,7 +1110,7 @@
             <div class="hero-grid">
                 <div>
                     <h1 class="hero-title">{% if page.page_title %}{{ page.page_title }}{% else %}Why Cash Matters{% endif %}</h1>
-                    <p class="hero-text">
+                    <p class="hero-text" style="font-size: 18px;">
                         {% if page.intro_text %}{{ page.intro_text }}{% else %}New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!{% endif %}
                     </p>
                 </div>
@@ -1195,6 +1195,489 @@
             </div>
         </section>
     </div>
+    <!-- =========================================
+             THE CASE FOR CASH SECTION
+    ========================================== -->
+ <!-- =========================================
+         THE CASE FOR CASH - FAQ STYLE
+========================================== -->
+<section class="py-5 bg-light-cream">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10 text-center">
+                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: #001F29;">
+                    The Case for Cash
+                </h2>
+                <p class="lead mb-4" style="font-family: 'Inter', sans-serif; color: #4A5568;">
+                    Understanding why cash remains essential for society's resilience, privacy, and stability
+                </p>
+            
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- FAQ Accordion -->
+                <div class="accordion" id="caseForCashAccordion">
+                    
+                    <!-- 1. National Critical Infrastructure Resilience -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" 
+                                    aria-expanded="true" aria-controls="collapseOne"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #00C2A2;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                        </svg>
+                                    </div>
+                                    National Critical Infrastructure Resilience
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse show" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9">
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            Cash serves as a fundamental component of national critical infrastructure, 
+                                            functioning reliably during power outages, cyber attacks, natural disasters, 
+                                            and system-wide technological failures. Unlike digital systems that require 
+                                            continuous power, internet connectivity, and complex backend infrastructure, 
+                                            cash transactions require only two willing parties. This makes cash the 
+                                            ultimate backup system when other payment methods fail—ensuring economic 
+                                            continuity during crises and maintaining essential services when they're 
+                                            needed most.
+                                        </p>
+                                        <div class="mt-3">
+                                            <a href="{% url 'news' %}?category=resilience" 
+                                               class="text-mint text-decoration-none fw-bold small d-flex align-items-center">
+                                                Read resilience studies <i class="bi bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-center mt-3 mt-lg-0">
+                                        <div class="bg-light p-3 rounded-3">
+                                            <div class="fw-bold text-dark mb-1">Key Statistic</div>
+                                            <div class="display-6 fw-bold text-mint">99.9%</div>
+                                            <div class="small text-muted">Uptime during crises</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. Privacy -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo" 
+                                    aria-expanded="false" aria-controls="collapseTwo"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #3B82F6;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                    </div>
+                                    Privacy
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseTwo" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9">
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            <strong class="text-dark">The unique characteristics of cash payments guarantee privacy and personal integrity.</strong> 
+                                            Cash gives control to individuals over their personal payments data. Cash transactions 
+                                            don't collect any personal purchasing habits data, which could be used for marketing 
+                                            or surveillance, and are immune to digital fraud.
+                                        </p>
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            All forms of digital transactions pose inherent risks to privacy, including cybersecurity 
+                                            and hacking/data theft risks—from cryptoassets and digital euro to bank transfers and 
+                                            card payments. Being able to pay by cash empowers each individual with the autonomy 
+                                            and agency to decide to what extent they want to expose themselves to cyber security 
+                                            risks, scams and fraud.
+                                        </p>
+                                        <div class="mt-3">
+                                            <a href="{% url 'news' %}?category=privacy" 
+                                               class="text-feature-blue text-decoration-none fw-bold small d-flex align-items-center">
+                                                Explore privacy research <i class="bi bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-center mt-3 mt-lg-0">
+                                        <div class="bg-light p-3 rounded-3">
+                                            <div class="fw-bold text-dark mb-1">Data Protection</div>
+                                            <div class="display-6 fw-bold" style="color: #3B82F6;">100%</div>
+                                            <div class="small text-muted">No data collection</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3. Cultural and Social Cohesion -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseThree" 
+                                    aria-expanded="false" aria-controls="collapseThree"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #F97316;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                    </div>
+                                    Cultural and Social Cohesion
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseThree" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                    Cash plays a vital role in maintaining social bonds and cultural traditions. From 
+                                    gifting envelopes at weddings to charitable donations in places of worship, from 
+                                    children's pocket money teaching financial literacy to informal community support 
+                                    systems, cash facilitates social interactions that build community cohesion.
+                                </p>
+                                <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                    Digital alternatives often create barriers in these social contexts—requiring 
+                                    bank accounts, smartphones, or technical knowledge that not everyone possesses. 
+                                    Cash remains the most universally understood and accessible medium for these 
+                                    important social exchanges that strengthen community bonds.
+                                </p>
+                                <div class="mt-3">
+                                    <a href="{% url 'news' %}?category=culture" 
+                                       class="text-feature-orange text-decoration-none fw-bold small d-flex align-items-center">
+                                        Read cultural studies <i class="bi bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 4. Financial Inclusion -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseFour" 
+                                    aria-expanded="false" aria-controls="collapseFour"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #EF4444;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                    </div>
+                                    Financial Inclusion
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseFour" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9">
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            Cash is the most inclusive payment method ever created. It requires no 
+                                            bank account, no credit check, no internet connection, no smartphone, 
+                                            and no technical literacy. Approximately 1.4 billion adults worldwide 
+                                            remain unbanked, and billions more are underbanked or digitally excluded.
+                                        </p>
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            Vulnerable groups including the elderly, low-income individuals, rural 
+                                            populations, and those with disabilities rely on cash for daily transactions. 
+                                            Removing cash would effectively disenfranchise these populations from 
+                                            participating in the economy, exacerbating inequality and social exclusion.
+                                        </p>
+                                        <div class="mt-3">
+                                            <a href="{% url 'news' %}?category=inclusion" 
+                                               class="text-feature-red text-decoration-none fw-bold small d-flex align-items-center">
+                                                View inclusion data <i class="bi bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-center mt-3 mt-lg-0">
+                                        <div class="bg-light p-3 rounded-3">
+                                            <div class="fw-bold text-dark mb-1">Global Access</div>
+                                            <div class="display-6 fw-bold" style="color: #EF4444;">1.4B+</div>
+                                            <div class="small text-muted">Unbanked adults</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 5. Autonomy in Financial Security -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseFive" 
+                                    aria-expanded="false" aria-controls="collapseFive"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #8B5CF6;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.29-3.52-2.09V8z"/>
+                                        </svg>
+                                    </div>
+                                    Autonomy in Financial Security
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseFive" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                    Cash provides individuals with direct control over their financial resources 
+                                    without dependence on third-party intermediaries. In an era of increasing 
+                                    financial surveillance, account freezes, and algorithmic decision-making, 
+                                    cash represents the ultimate form of financial sovereignty.
+                                </p>
+                                <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                    This autonomy is crucial for:
+                                </p>
+                                <ul style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                    <li><strong>Emergency preparedness:</strong> Physical savings accessible during banking crises</li>
+                                    <li><strong>Financial planning:</strong> Tangible budgeting without digital tracking</li>
+                                    <li><strong>Personal security:</strong> Protection against identity theft and digital fraud</li>
+                                    <li><strong>Economic independence:</strong> Freedom from corporate and government surveillance</li>
+                                </ul>
+                                <div class="mt-3">
+                                    <a href="{% url 'news' %}?category=autonomy" 
+                                       class="text-feature-purple text-decoration-none fw-bold small d-flex align-items-center">
+                                        Learn about financial sovereignty <i class="bi bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 6. Store of Value -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseSix" 
+                                    aria-expanded="false" aria-controls="collapseSix"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #00C2A2;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                                        </svg>
+                                    </div>
+                                    Store of Value
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseSix" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9">
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            Cash serves as a reliable store of value backed by sovereign guarantee. 
+                                            Unlike digital currencies that can fluctuate wildly or lose value due to 
+                                            technological failures, and unlike bank deposits that represent claims 
+                                            rather than actual ownership, physical cash represents immediate, 
+                                            unconditional value.
+                                        </p>
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            This characteristic makes cash essential for:
+                                        </p>
+                                        <ul style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            <li>Emergency savings that are immediately accessible</li>
+                                            <li>Protection against inflation when held as physical currency</li>
+                                            <li>Financial stability during banking crises</li>
+                                            <li>Tangible wealth that cannot be "turned off" by third parties</li>
+                                        </ul>
+                                        <div class="mt-3">
+                                            <a href="{% url 'news' %}?category=value" 
+                                               class="text-mint text-decoration-none fw-bold small d-flex align-items-center">
+                                                Read economic analysis <i class="bi bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-center mt-3 mt-lg-0">
+                                        <div class="bg-light p-3 rounded-3">
+                                            <div class="fw-bold text-dark mb-1">Backed by</div>
+                                            <div class="h4 fw-bold" style="color: #00C2A2;">Central Banks</div>
+                                            <div class="small text-muted">Sovereign guarantee</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 7. Currency (value anchor), Trust and Financial Stability -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-white text-dark fw-bold py-4 px-4" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapseSeven" 
+                                    aria-expanded="false" aria-controls="collapseSeven"
+                                    style="font-family: 'Poppins', sans-serif; font-size: 1.1rem;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="case-icon-small" style="color: #3B82F6;">
+                                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                    </div>
+                                    Currency (Value Anchor), Trust and Financial Stability
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="collapseSeven" class="accordion-collapse collapse" 
+                             data-bs-parent="#caseForCashAccordion">
+                            <div class="accordion-body px-4 pb-4 pt-0">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9">
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            Physical cash serves as the foundational anchor for monetary systems, 
+                                            providing a tangible reference point for value that people can understand 
+                                            and trust. This trust is essential for financial stability and public 
+                                            confidence in the monetary system.
+                                        </p>
+                                        <p style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            <strong>Cash provides:</strong>
+                                        </p>
+                                        <ul style="font-family: 'Inter', sans-serif; color: #4A5568; line-height: 1.7;">
+                                            <li>A psychological anchor for understanding money's value</li>
+                                            <li>A check on potential negative interest rates</li>
+                                            <li>A mechanism for maintaining public trust in the monetary system</li>
+                                            <li>Stability during periods of digital currency volatility</li>
+                                            <li>A safeguard against excessive financialization of the economy</li>
+                                        </ul>
+                                        <div class="mt-3">
+                                            <a href="{% url 'news' %}?category=stability" 
+                                               class="text-feature-blue text-decoration-none fw-bold small d-flex align-items-center">
+                                                Read stability research <i class="bi bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 text-center mt-3 mt-lg-0">
+                                        <div class="bg-light p-3 rounded-3">
+                                            <div class="fw-bold text-dark mb-1">Public Trust</div>
+                                            <div class="display-6 fw-bold" style="color: #3B82F6;">85%</div>
+                                            <div class="small text-muted">Trust in cash value</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+           
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Custom styles for The Case for Cash section */
+    .accordion-button:not(.collapsed) {
+        background-color: #f8fafc !important;
+        box-shadow: none !important;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: none !important;
+        border-color: rgba(0, 194, 162, 0.25);
+    }
+    
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23001F29'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    
+    .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300C2A2'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    
+    .case-icon-small svg {
+        transition: transform 0.3s ease;
+    }
+    
+    .accordion-button:not(.collapsed) .case-icon-small svg {
+        transform: scale(1.1);
+    }
+    
+    /* Color definitions to match your existing theme */
+    .bg-mint { background-color: #00C2A2 !important; }
+    .bg-feature-blue { background-color: #3B82F6 !important; }
+    .bg-feature-red { background-color: #EF4444 !important; }
+    .bg-feature-orange { background-color: #F97316 !important; }
+    .bg-feature-purple { background-color: #8B5CF6 !important; }
+    
+    .text-mint { color: #00C2A2 !important; }
+    .text-feature-blue { color: #3B82F6 !important; }
+    .text-feature-red { color: #EF4444 !important; }
+    .text-feature-orange { color: #F97316 !important; }
+    .text-feature-purple { color: #8B5CF6 !important; }
+    
+    .btn-mint {
+        background-color: #00C2A2 !important;
+        border-color: #00C2A2 !important;
+        color: white !important;
+    }
+    
+    .btn-mint:hover {
+        background-color: #00a88c !important;
+        border-color: #00a88c !important;
+    }
+    
+    .accordion-body ul {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .accordion-body ul li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .badge {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+</style>
+
+<script>
+    // Optional: Add smooth scrolling and state management
+    document.addEventListener('DOMContentLoaded', function() {
+        // Store which sections were opened
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        
+        accordionItems.forEach(item => {
+            item.addEventListener('shown.bs.collapse', function() {
+                // You could track analytics here
+                console.log('Section opened:', this.querySelector('.accordion-button').textContent.trim());
+            });
+        });
+        
+        // Make statistics more dynamic
+        const stats = document.querySelectorAll('.display-6, .h4');
+        stats.forEach(stat => {
+            const originalText = stat.textContent;
+            if (originalText.includes('%') || originalText.includes('B')) {
+                // Animate numbers if desired
+                stat.style.opacity = '0.9';
+            }
+        });
+    });
+</script>
 
     <!-- =========================================
          FOOTER
@@ -1212,55 +1695,52 @@
                         payment choice for everyone.
                     </p>
                     <!-- Social Icons: LinkedIn, Instagram, TikTok, Facebook, YouTube -->
-                    <div class="d-flex gap-3">
-                        <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/company/cashmattersorg/" target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-white text-decoration-none hover-u d-flex align-items-center"
-                            title="Connect with us on LinkedIn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </svg>
-                        </a>
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/cashmattersorg/" target="_blank" rel="noopener noreferrer"
-                            class="text-white text-decoration-none hover-u d-flex align-items-center"
-                            title="Follow us on Instagram">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                            </svg>
-                        </a>
-                        <!-- TikTok -->
-                        <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer"
-                            class="text-white text-decoration-none hover-u d-flex align-items-center"
-                            title="Follow us on TikTok">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                            </svg>
-                        </a>
-                        <!-- Facebook -->
-                        <a href="https://www.facebook.com/CashMattersOrg/" target="_blank" rel="noopener noreferrer"
-                            class="text-white text-decoration-none hover-u d-flex align-items-center"
-                            title="Like us on Facebook">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                        </a>
-                        <!-- YouTube -->
-                        <a href="https://www.youtube.com/channel/UCx1y8ZZeAZQTVgvAC0kjtgQ" target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-white text-decoration-none hover-u d-flex align-items-center"
-                            title="Subscribe to our YouTube channel">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                            </svg>
-                        </a>
-                    </div>
+            <div class="d-flex gap-3">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/company/cashmattersorg/" target="_blank" rel="noopener noreferrer"
+              class="text-white text-decoration-none hover-u d-flex align-items-center"
+              title="Connect with us on LinkedIn">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+               <!-- YouTube -->
+            <a href="https://www.youtube.com/channel/UCx1y8ZZeAZQTVgvAC0kjtgQ" target="_blank" rel="noopener noreferrer"
+              class="text-white text-decoration-none hover-u d-flex align-items-center"
+              title="Subscribe to our YouTube channel">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </a>
+              <!-- TikTok -->
+            <a href="https://www.tiktok.com/@cashmatters.int" target="_blank" rel="noopener noreferrer"
+              class="text-white text-decoration-none hover-u d-flex align-items-center" title="Follow us on TikTok">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/cashmattersorg/" target="_blank" rel="noopener noreferrer"
+              class="text-white text-decoration-none hover-u d-flex align-items-center" title="Follow us on Instagram">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+          
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/CashMattersOrg/" target="_blank" rel="noopener noreferrer"
+              class="text-white text-decoration-none hover-u d-flex align-items-center" title="Like us on Facebook">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+         
+          </div>
                 </div>
 
                 <!-- Navigation Column 1 -->
