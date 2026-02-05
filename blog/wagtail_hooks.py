@@ -38,7 +38,7 @@ def register_blogs_dashboard_menu_item():
 @hooks.register('register_admin_menu_item')
 def register_support_page_menu_item():
     return MenuItem(
-        'Support Cash Page',
+        'Support Cash',
         reverse('blog:create_support_page'),
         icon_name='help',
         order=10001
@@ -60,7 +60,7 @@ def hide_unwanted_menu_items(request, menu_items):
     """Hide all menu items except Blogs Dashboard, Support Cash Page, Why Cash Feature Page, and Images"""
     allowed_items = [
         'Blogs Dashboard',
-        'Support Cash Page',
+        'Support Cash',
         'Why Cash Feature Page',
         'images',  # Wagtail's built-in images menu
     ]
