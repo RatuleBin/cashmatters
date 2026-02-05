@@ -1040,159 +1040,21 @@
                         </div>
                     </div>
                 </div>
-                <!-- TAB 5: video CARDS -->
-                <div class="tab-pane fade  " id="videos-content" role="tabpanel">
-                    <div class="row g-4">
-
-                        <!-- STATIC VIDEO 1 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/asdf.png' %}" preload="none">
-                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
-                                    </video>
-
-
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
-                                    <p class="text-muted small mb-2">How you spend your money is your business. Privacy
-                                        matters.</p>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/sss.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sss.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-                                        <div class="">
-                                            <div class="d-flex gap-2">
-                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/488891865"
-                                                    target="_blank"
-                                                    class="text-reset text-decoration-none hover-mint small"><i
-                                                        class="bi bi-facebook"></i></a>
-                                                <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/488891865&text=Freedom%20Matters%20-%20Cash%20Matters"
-                                                    target="_blank"
-                                                    class="text-reset text-decoration-none hover-mint small"><i
-                                                        class="bi bi-twitter-x"></i></a>
-                                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/488891865"
-                                                    target="_blank"
-                                                    class="text-reset text-decoration-none hover-mint small"><i
-                                                        class="bi bi-linkedin"></i></a>
-                                            </div>
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
+                <!-- TAB 5: VIDEO PLAYLIST -->
+                <div class="tab-pane fade" id="videos-content" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                <iframe
+                                    src="https://www.youtube-nocookie.com/embed/videoseries?list=PLa7XmGgH5mowVHUQOCnBSt8162aez4hTL"
+                                    title="Cash Matters Video Playlist"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen>
+                                </iframe>
                             </div>
                         </div>
-
-                        <!-- STATIC VIDEO 2 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/asd.png' %}" preload="none">
-                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
-                                        choose.</p>
-
-
-
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/sa.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-twitter-x"></i></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-linkedin"></i></a>
-                                        </div>
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- IFRAME VIDEO 3 -->
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/sasa.png' %}" preload="none">
-                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
-                                        choose.</p>
-
-
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/sas.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-
-                                        <div class="d-flex gap-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-twitter-x"></i></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-linkedin"></i></a>
-                                        </div>
-
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
                 <script>
