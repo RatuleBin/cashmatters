@@ -598,7 +598,7 @@
                 </div>
                 <h5 class="fw-bold text-dark mb-0">{{ podcast.title }}</h5>
                   {% if podcast.intro %}
-                      <p class="text-muted mb-0">
+                      <p class="text-muted pt-2 mb-0">
                           {{ podcast.intro|truncatewords:20 }}
                       </p>
                       {% endif %}                               
@@ -681,6 +681,9 @@
               <h4 class="fw-bold mb-3 flex-grow-1">
                 {{ study.title }}
               </h4>
+                 <p class=" mb-3 flex-grow-1">
+                {{ study.intro|truncatewords:20 }}
+                 </p>
 
               <div class="d-flex justify-content-end gap-3 small text-muted border-top pt-3 mt-auto">
                 <a href="{{ study.url_path }}"
@@ -932,6 +935,9 @@
               <h5 class="fw-bold mb-4 flex-grow-1">
                 {{ post.title }}
               </h5>
+                <p class=" mb-4 flex-grow-1">
+                {{ post.intro|truncatewords:20 }}
+              </p>
               <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">Read More <i
                   class="bi bi-arrow-up-right ms-1"></i></a>
             </div>
