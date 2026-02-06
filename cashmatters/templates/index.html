@@ -597,6 +597,13 @@
                   <span class="mx-1">•</span> {{ podcast.date|date:"M Y" }}
                 </div>
                 <h5 class="fw-bold text-dark mb-0">{{ podcast.title }}</h5>
+                  {% if podcast.intro %}
+                      <p class="text-muted mb-0">
+                          {{ podcast.intro|truncatewords:20 }}
+                      </p>
+                      {% endif %}                               
+
+
               </div>
             </div>
           </a>
