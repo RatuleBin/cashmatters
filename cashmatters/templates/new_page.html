@@ -1104,9 +1104,8 @@
     </div>
 
     <!-- Main Content Container -->
-    <div class="container my-5 py-4">
+    <!-- <div class="container my-5 py-4">
         <section class="cash-matters-hero">
-            <!-- Header Section -->
             <div class="hero-grid">
                 <div>
                     <h1 class="hero-title">{% if page.page_title %}{{ page.page_title }}{% else %}Why Cash Matters{% endif %}</h1>
@@ -1115,7 +1114,6 @@
                     </p>
                 </div>
 
-                <!-- Top Feature Cards (Large) -->
                 <div class="feature-cards-top">
                     {% for card in page.feature_cards %}
                     {% if forloop.counter == 1 %}
@@ -1155,7 +1153,6 @@
                 </div>
             </div>
 
-            <!-- Bottom Feature Grid -->
             <div class="features-grid">
                 {% for card in page.feature_cards %}
                 {% if forloop.counter > 1 %}
@@ -1194,7 +1191,367 @@
                 {% endfor %}
             </div>
         </section>
+    </div> -->
+
+
+
+
+<section class="container cash-matters-section">
+       <div>
+                    <h1 class="hero-title">{% if page.page_title %}{{ page.page_title }}{% else %}Why Cash Matters{% endif %}</h1>
+                    <p class="hero-text" style="font-size: 18px;">
+                        {% if page.intro_text %}{{ page.intro_text }}{% else %}New technologies are changing the way we pay, and cash remains the most attractive option for many. Because cash safeguards personal independence and freedom. Because cash ensures stable currency systems. Because cash is the most secure payment method. Because cash is resilient in times of crisis. Because cash offers privacy in a world of rising fraud and personal data collection. Because cash means tangibility and immediate comprehensibility in a world of bewildering virtual and digital signosis. Banknotes and coins reflect a nation's identity and its magic moments, presenting its most significant people, landmarks and values to the world. In short: cash matters!{% endif %}
+                    </p>
+                </div>
+
+    <div class="features-grid" id="featuresGrid">
+
+        {% for card in page.feature_cards %}
+        <div class="card"
+             data-title="{{ card.value.title|escapejs }}"
+             data-index="{{ forloop.counter0 }}"
+             onclick="expandCard(this)">
+
+            <button class="plus-btn">+</button>
+
+            <div class="icon-wrapper">
+                {% if card.value.icon_svg_code %}
+                    {{ card.value.icon_svg_code|safe }}
+                {% elif card.value.icon_emoji %}
+                    <span style="font-size:90px">{{ card.value.icon_emoji }}</span>
+                {% elif card.value.icon_image %}
+                    <img src="{{ card.value.icon_image.file.url }}" alt="{{ card.value.title }}">
+                {% endif %}
+            </div>
+
+            <div class="title">{{ card.value.title }}</div>
+            
+            <!-- Preview text (optional) - shows first few words -->
+            {% if card.value.description %}
+            <div class="preview-text">
+                {{ card.value.description|striptags|truncatewords:10 }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <!-- ✅ ONE shared expandable row -->
+        <div id="expandRow" class="expand-row">
+            <div class="expand-inner">
+                <h3 id="expandTitle"></h3>
+                <div id="expandContent"></div>
+            </div>
+        </div>
+
     </div>
+    
+    <!-- Hidden container for storing card content -->
+    <div id="cardContents" style="display: none;">
+        {% for card in page.feature_cards %}
+        <div data-index="{{ forloop.counter0 }}" data-title="{{ card.value.title|escapejs }}">
+            {{ card.value.description }}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <style>
+        .cash-matters-section {
+            padding: 60px 20px;
+        }
+
+        /* Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            position: relative;
+        }
+
+        /* Card */
+        .card {
+            position: relative;
+            background: #fff;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 12px;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .preview-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            display: block;
+        }
+
+        .icon-wrapper {
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .icon-wrapper img {
+            max-width: 1000px;
+            max-height: 1000px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Plus Button */
+        .plus-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #111;
+            background: none;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .plus-btn:hover {
+            background: #111;
+            color: white;
+        }
+
+        .card.active .plus-btn {
+            transform: rotate(45deg);
+            background: #111;
+            color: white;
+        }
+
+        /* 🔥 Expand row (FULL WIDTH under same row) */
+        .expand-row {
+            grid-column: 1 / -1;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.45s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .expand-row.active {
+            max-height: 1200px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .expand-inner {
+            background: #f6f6f6;
+            padding: 32px;
+            border-radius: 16px;
+            margin-top: 10px;
+           
+        }
+
+        /* HTML content in expand area */
+        .expand-inner h3 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #111;
+            font-weight: 700;
+        }
+
+        .expand-inner p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .expand-inner ul, .expand-inner ol {
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+
+        .expand-inner li {
+            margin-bottom: 8px;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        .expand-inner strong, .expand-inner b {
+            font-weight: 600;
+        }
+
+        .expand-inner em, .expand-inner i {
+            font-style: italic;
+        }
+
+        .expand-inner a {
+            color: #ffeb3b;
+            text-decoration: underline;
+        }
+
+        .expand-inner a:hover {
+            color: #ffeb3b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .cash-matters-section {
+                padding: 40px 15px;
+            }
+            
+            .expand-inner {
+                padding: 24px;
+            }
+            
+            .expand-inner h3 {
+                font-size: 22px;
+            }
+            
+            .expand-inner p {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <script>
+        let activeCard = null;
+        const expandRow = document.getElementById('expandRow');
+        const expandTitle = document.getElementById('expandTitle');
+        const expandContent = document.getElementById('expandContent');
+        const grid = document.getElementById('featuresGrid');
+        const cardContents = document.getElementById('cardContents');
+
+        function expandCard(card) {
+            // Get all cards
+            const cards = [...grid.querySelectorAll('.card')];
+            
+            // If clicking the same card, close it
+            if (activeCard === card) {
+                expandRow.classList.remove('active');
+                card.classList.remove('active');
+                activeCard = null;
+                return;
+            }
+            
+            // Remove active class from previous card
+            if (activeCard) {
+                activeCard.classList.remove('active');
+            }
+            
+            // Set new active card
+            activeCard = card;
+            card.classList.add('active');
+            
+            // Get the card index and title
+            const cardIndex = parseInt(card.dataset.index);
+            const title = card.dataset.title;
+            
+            // Find the corresponding content in the hidden container
+            const contentElement = cardContents.querySelector(`[data-index="${cardIndex}"]`);
+            
+            // Update expand row content
+            expandTitle.textContent = title;
+            
+            // Set HTML content in the expand area
+            if (contentElement) {
+                expandContent.innerHTML = contentElement.innerHTML;
+            } else {
+                expandContent.textContent = 'Content not found';
+            }
+            
+            // Calculate grid position
+            const index = cards.indexOf(card);
+            const gridStyle = getComputedStyle(grid);
+            const columns = gridStyle.gridTemplateColumns.split(' ').length;
+            
+            // Find the last card in the current row
+            const rowStart = Math.floor(index / columns) * columns;
+            const rowEnd = Math.min(rowStart + columns - 1, cards.length - 1);
+            
+            // Position expand row after the last card in current row
+            const lastCardInRow = cards[rowEnd];
+            if (lastCardInRow && lastCardInRow.nextElementSibling) {
+                grid.insertBefore(expandRow, lastCardInRow.nextElementSibling);
+            } else {
+                // If last card in row is the last element, append expand row
+                grid.appendChild(expandRow);
+            }
+            
+            // Activate the expand row
+            expandRow.classList.add('active');
+            
+            // Smooth scroll to the expanded content
+            setTimeout(() => {
+                expandRow.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 100);
+        }
+        
+        // Close expand row when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!expandRow.contains(event.target) && !event.target.closest('.card')) {
+                if (activeCard) {
+                    expandRow.classList.remove('active');
+                    activeCard.classList.remove('active');
+                    activeCard = null;
+                }
+            }
+        });
+        
+        // Handle escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && activeCard) {
+                expandRow.classList.remove('active');
+                activeCard.classList.remove('active');
+                activeCard = null;
+            }
+        });
+        
+        // Handle plus button clicks
+        document.querySelectorAll('.plus-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.card');
+                if (card) {
+                    expandCard(card);
+                }
+            });
+        });
+    </script>
+
+</section>
 
     
  <!-- =========================================
