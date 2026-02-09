@@ -252,7 +252,7 @@ def create_support_page(request):
         support_page = SupportPage(
             title="Support",
             slug="support",
-            page_header_title="Support Cash Matters"
+            page_header_title="Support Cash"
         )
         root_page.add_child(instance=support_page)
         support_page.save()
