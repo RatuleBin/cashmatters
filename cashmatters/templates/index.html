@@ -601,7 +601,7 @@
                 </div>
                 <h5 class="fw-bold text-dark mb-0">{{ podcast.title }}</h5>
                   {% if podcast.intro %}
-                      <p class="text-muted pt-2 mb-0">
+                      <p class="text-muted pt-2 mb-0" style="font-size: 20px;">
                           {{ podcast.intro|truncatewords:20 }}
                       </p>
                       {% endif %}                               
@@ -684,7 +684,7 @@
               <h4 class="fw-bold mb-3 flex-grow-1">
                 {{ study.title }}
               </h4>
-                 <p class=" mb-3 flex-grow-1">
+                 <p class=" mb-3 flex-grow-1" style="font-size: 20px;">
                 {{ study.intro|truncatewords:20 }}
                  </p>
 
@@ -945,7 +945,7 @@
               <h5 class="fw-bold mb-4 flex-grow-1">
                 {{ post.title }}
               </h5>
-                <p class=" mb-4 flex-grow-1">
+                <p class=" mb-4 flex-grow-1" style="font-size: 20px;">
                 {{ post.intro|truncatewords:20 }}
               </p>
               <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">Read More <i
