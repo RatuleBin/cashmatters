@@ -750,6 +750,14 @@
       z-index: 2;
       height: 100%;
     }
+    .studies_btn{
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+      .studies_btn:hover {
+        color: #4CD1C2 !important;
+      }
   </style>
 
   <div class="container">
@@ -787,25 +795,25 @@
               <p class="text-white-50 mb-3">
                 {{ study.intro|truncatewords:16 }}
               </p>
-
+              <hr style="color: white;">
               <!-- Buttons -->
-              <div class="d-flex gap-2">
+              <div class="d-flex gap-3">
 
                 <a href="{{ study.url_path }}"
-                   class="btn " style="background-color: #007d7e; color: white;">
+                   class="studies_btn" style="color: white;">
                          <i class="bi bi-book"></i> Read
                 </a>
 
-                <button
+                <a
                   onclick="shareArticle(event, '{{ study.title|escapejs }}', '{{ study.url_path }}')"
-                  class="btn btn-outline-light">
+                   class="studies_btn" style="color: white;">
                            <i class="bi bi-share"></i>  Share
-                </button>
+              </a>
 
                 {% if study.source_link %}
                 <a href="{{ study.source_link }}"
                    target="_blank"
-                   class="btn btn btn-outline-light">
+                   class="studies_btn" style="color: white;">
                    <i class="bi bi-box-arrow-up-right"></i> Source
                 </a>
                 {% endif %}
