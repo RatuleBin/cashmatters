@@ -63,6 +63,7 @@ def hide_unwanted_menu_items(request, menu_items):
         'Support Cash',
         'Why Cash Feature Page',
         'images',  # Wagtail's built-in images menu
+        'authors',  # Author management
     ]
     menu_items[:] = [
         item for item in menu_items
