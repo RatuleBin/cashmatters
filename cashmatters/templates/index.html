@@ -649,12 +649,10 @@
       </div>
 
       <!-- Cards Row - Dynamic from Backend -->
-      <div class="row g-4">
+      <!-- <div class="row g-4">
         {% for study in studies_posts %}
-        <!-- Report Card {{ forloop.counter }} -->
         <div class="col-md-6">
           <div class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card">
-            <!-- Image -->
             <div class="img-wrapper" style="height: 280px">
               {% if study.wide_thumbnail %}
               <img src="{{ study.wide_thumbnail.file.url }}"
@@ -671,7 +669,6 @@
               {% endif %}
             </div>
 
-            <!-- Content -->
             <div class="card-body p-4 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-3 small">
                 <span class="text-muted fw-medium">
@@ -709,14 +706,126 @@
           </div>
         </div>
         {% empty %}
-        <!-- Fallback: No studies available -->
         <div class="col-12">
           <div class="alert alert-info text-center">
             <p class="mb-0">No studies & reports available yet. Please check back later!</p>
           </div>
         </div>
         {% endfor %}
+      </div> -->
+
+
+
+  <section class="section-bg py-5">
+
+  <style>
+    .img-overlay-wrapper {
+      position: relative;
+      height: 420px;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .img-overlay-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-overlay-wrapper .overlay {
+      position: absolute;
+      inset: 0;
+       background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.25)
+      );
+     
+    }
+
+    .overlay-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+    }
+  </style>
+
+  <div class="container">
+    <div class="row g-4">
+
+      {% for study in studies_posts %}
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+
+          <div class="img-overlay-wrapper">
+
+            {% if study.wide_thumbnail %}
+              <img src="{{ study.wide_thumbnail.file.url }}"
+                   alt="{{ study.title }}"
+                   onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+
+            {% elif study.tall_thumbnail %}
+              <img src="{{ study.tall_thumbnail.file.url }}"
+                   alt="{{ study.title }}"
+                   onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+
+            {% else %}
+              <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                   alt="{{ study.title }}">
+            {% endif %}
+
+            <div class="overlay"></div>
+
+            <div class="overlay-content p-4 d-flex flex-column justify-content-end">
+
+              <h4 class="fw-bold text-white mb-2">
+                {{ study.title }}
+              </h4>
+
+              <p class="text-white-50 mb-3">
+                {{ study.intro|truncatewords:16 }}
+              </p>
+
+              <!-- Buttons -->
+              <div class="d-flex gap-2">
+
+                <a href="{{ study.url_path }}"
+                   class="btn " style="background-color: #007d7e; color: white;">
+                         <i class="bi bi-book"></i> Read
+                </a>
+
+                <button
+                  onclick="shareArticle(event, '{{ study.title|escapejs }}', '{{ study.url_path }}')"
+                  class="btn btn-outline-light">
+                           <i class="bi bi-share"></i>  Share
+                </button>
+
+                {% if study.source_link %}
+                <a href="{{ study.source_link }}"
+                   target="_blank"
+                   class="btn btn btn-outline-light">
+                   <i class="bi bi-box-arrow-up-right"></i> Source
+                </a>
+                {% endif %}
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+
+
     </div>
   </section>
   <!-- =========================================
