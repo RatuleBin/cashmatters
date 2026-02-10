@@ -544,9 +544,8 @@
   <!-- =========================================
          3. PODCAST
     ========================================== -->
-  <section id="podcast-section" class="section-bg py-5">
+  <!-- <section id="podcast-section" class="section-bg py-5">
     <div class="container">
-      <!-- Section Header -->
       <div class="row align-items-end mb-5">
         <div class="col-md-8">
           <h2 class="fw-bold mb-2">Podcast</h2>
@@ -560,14 +559,11 @@
         </div>
       </div>
 
-      <!-- Podcast Episodes Grid - 3 Cards with Thumbnails -->
       <div class="row g-4">
         {% for podcast in podcast_posts %}
-        <!-- Podcast Episode {{ forloop.counter }} -->
         <div class="col-md-4">
           <a href="{{ podcast.url_path }}" class="text-decoration-none">
             <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
-              <!-- Thumbnail with Play Overlay -->
               <div class="podcast-thumb-wrapper position-relative">
                 {% if podcast.wide_thumbnail %}
                 <img src="{{ podcast.wide_thumbnail.file.url }}" class="w-100 object-fit-cover"
@@ -593,7 +589,6 @@
                 </span>
                 {% endif %}
               </div>
-              <!-- Card Content -->
               <div class="card-body p-4 bg-white">
                 <div class="small text-muted mb-2 d-flex align-items-center gap-2">
                   <i class="bi bi-mic-fill text-mint"></i> Podcast
@@ -612,7 +607,6 @@
           </a>
         </div>
         {% empty %}
-        <!-- Fallback: No podcasts available -->
         <div class="col-12">
           <div class="alert alert-info text-center">
             <p class="mb-0">No podcast episodes available yet. Please check back later!</p>
@@ -621,14 +615,169 @@
         {% endfor %}
       </div>
 
-      <!-- Listen More Button -->
       <div class="text-center mt-5">
         <a href="{% url 'news' %}?category=podcast" class="btn btn-mint fw-bold px-5 py-3 rounded-2">
           <i class="bi bi-mic-fill me-2"></i>Listen to More Episodes
         </a>
       </div>
     </div>
-  </section>
+  </section> -->
+<section id="podcast-section" class="section-bg py-5">
+
+  <style>
+    .podcast-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      height: 360px;
+    }
+
+    .podcast-img-wrapper {
+      position: relative;
+      height: 100%;
+    }
+
+    .podcast-img-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .podcast-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.85),
+        rgba(0,0,0,0.25)
+      );
+      z-index: 1;
+    }
+
+    .podcast-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+    }
+
+    .mic-icon-circle-lg {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #000;
+    }
+  </style>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="row align-items-end mb-5">
+      <div class="col-md-8">
+        <h2 class="fw-bold mb-2">Podcast</h2>
+        <p class="text-muted mb-0">
+          Conversations that matter about the future of<br>money
+        </p>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <a href="{% url 'news' %}?category=podcast"
+           class="text-mint fw-bold text-decoration-none small">
+          See all Podcasts <i class="bi bi-arrow-up-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Podcast Grid -->
+    <div class="row g-4">
+
+      {% for podcast in podcast_posts %}
+      <div class="col-md-4">
+        <a href="{{ podcast.url_path }}" class="text-decoration-none">
+
+          <div class="card podcast-card border-0 shadow-sm">
+
+            <div class="podcast-img-wrapper">
+
+              {% if podcast.wide_thumbnail %}
+                <img src="{{ podcast.wide_thumbnail.file.url }}"
+                     alt="{{ podcast.title }}"
+                     onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+              {% elif podcast.tall_thumbnail %}
+                <img src="{{ podcast.tall_thumbnail.file.url }}"
+                     alt="{{ podcast.title }}"
+                     onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+              {% else %}
+                <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                     alt="{{ podcast.title }}">
+              {% endif %}
+
+              <div class="podcast-overlay"></div>
+
+              <!-- EVERYTHING ON IMAGE -->
+              <div class="podcast-content p-4 d-flex flex-column justify-content-between">
+
+                <!-- Top -->
+                <div class="d-flex justify-content-between align-items-start">
+                  <span class="badge bg-dark bg-opacity-75">
+                    <i class="bi bi-mic-fill me-1"></i> Podcast
+                  </span>
+
+                  {% if podcast.duration %}
+                  <span class="badge bg-dark bg-opacity-75">
+                    <i class="bi bi-clock me-1"></i>{{ podcast.duration }}
+                  </span>
+                  {% endif %}
+                </div>
+
+                <!-- Center MIC icon -->
+                <div class="text-center">
+                  <div class="mic-icon-circle-lg mx-auto">
+                    <i class="bi bi-mic-fill"></i>
+                  </div>
+                </div>
+
+                <!-- Bottom -->
+                <div>
+                  <div class="small text-white-50 mb-1">
+                    {{ podcast.date|date:"M Y" }}
+                  </div>
+
+                  <h5 class="fw-bold text-white mb-2">
+                    {{ podcast.title }}
+                  </h5>
+
+                  {% if podcast.intro %}
+                  <p class="text-white-50 mb-0">
+                    {{ podcast.intro|truncatewords:18 }}
+                  </p>
+                  {% endif %}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Listen More -->
+    <div class="text-center mt-5">
+      <a href="{% url 'news' %}?category=podcast"
+         class="btn btn-mint fw-bold px-5 py-3 rounded-2">
+        <i class="bi bi-mic-fill me-2"></i>Listen to More Episodes
+      </a>
+    </div>
+
+  </div>
+</section>
 
 
   <!-- =========================================
@@ -649,12 +798,10 @@
       </div>
 
       <!-- Cards Row - Dynamic from Backend -->
-      <div class="row g-4">
+      <!-- <div class="row g-4">
         {% for study in studies_posts %}
-        <!-- Report Card {{ forloop.counter }} -->
         <div class="col-md-6">
           <div class="card h-100 border-0 rounded-4 bg-white shadow-sm overflow-hidden news-card">
-            <!-- Image -->
             <div class="img-wrapper" style="height: 280px">
               {% if study.wide_thumbnail %}
               <img src="{{ study.wide_thumbnail.file.url }}"
@@ -671,7 +818,6 @@
               {% endif %}
             </div>
 
-            <!-- Content -->
             <div class="card-body p-4 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-3 small">
                 <span class="text-muted fw-medium">
@@ -709,14 +855,134 @@
           </div>
         </div>
         {% empty %}
-        <!-- Fallback: No studies available -->
         <div class="col-12">
           <div class="alert alert-info text-center">
             <p class="mb-0">No studies & reports available yet. Please check back later!</p>
           </div>
         </div>
         {% endfor %}
+      </div> -->
+
+
+
+  <section class="section-bg py-5">
+
+  <style>
+    .img-overlay-wrapper {
+      position: relative;
+      height: 420px;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .img-overlay-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-overlay-wrapper .overlay {
+      position: absolute;
+      inset: 0;
+       background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.25)
+      );
+     
+    }
+
+    .overlay-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+    }
+    .studies_btn{
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+      .studies_btn:hover {
+        color: #4CD1C2 !important;
+      }
+  </style>
+
+  <div class="container">
+    <div class="row g-4">
+
+      {% for study in studies_posts %}
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+
+          <div class="img-overlay-wrapper">
+
+            {% if study.wide_thumbnail %}
+              <img src="{{ study.wide_thumbnail.file.url }}"
+                   alt="{{ study.title }}"
+                   onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+
+            {% elif study.tall_thumbnail %}
+              <img src="{{ study.tall_thumbnail.file.url }}"
+                   alt="{{ study.title }}"
+                   onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+
+            {% else %}
+              <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                   alt="{{ study.title }}">
+            {% endif %}
+
+            <div class="overlay"></div>
+
+            <div class="overlay-content p-4 d-flex flex-column justify-content-end">
+
+              <h4 class="fw-bold text-white mb-2">
+                {{ study.title }}
+              </h4>
+
+              <p class="text-white-50 mb-3">
+                {{ study.intro|truncatewords:16 }}
+              </p>
+              <hr style="color: white;">
+              <!-- Buttons -->
+              <div class="d-flex gap-3">
+
+                <a href="{{ study.url_path }}"
+                   class="studies_btn" style="color: white;">
+                         <i class="bi bi-book"></i> Read
+                </a>
+
+                <a
+                  onclick="shareArticle(event, '{{ study.title|escapejs }}', '{{ study.url_path }}')"
+                   class="studies_btn" style="color: white;">
+                           <i class="bi bi-share"></i>  Share
+              </a>
+
+                {% if study.source_link %}
+                <a href="{{ study.source_link }}"
+                   target="_blank"
+                   class="studies_btn" style="color: white;">
+                   <i class="bi bi-box-arrow-up-right"></i> Source
+                </a>
+                {% endif %}
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+
+
     </div>
   </section>
   <!-- =========================================
@@ -881,7 +1147,7 @@
   <!-- =========================================
          6. LATEST NEWS
     ========================================== -->
-  <section class="section-bg py-5">
+  <!-- <section class="section-bg py-5">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
@@ -892,11 +1158,10 @@
         </div>
         <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small">See all news <i
             class="bi bi-arrow-up-right"></i></a>
-      </div>
+      </div> -->
 
-      <div class="row g-4">
+      <!-- <div class="row g-4">
         {% for post in latest_posts %}
-        <!-- News Card -->
         <div class="col-md-4">
           <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
             <div class="img-wrapper">
@@ -954,15 +1219,157 @@
           </div>
         </div>
         {% empty %}
-        <!-- No posts message -->
         <div class="col-12">
           <div class="alert alert-info text-center">
             <p class="mb-0">No news articles available yet. Please check back later!</p>
           </div>
         </div>
         {% endfor %}
+      </div> -->
+ 
+
+
+
+  <section class="section-bg py-5">
+
+  <style>
+    .news-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      height: 380px;
+      position: relative;
+    }
+
+    .news-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .news-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+      z-index: 1;
+    }
+
+    .news-card .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+    }
+
+    .author-thumb {
+      width: 32px !important;
+      height: 32px !important;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      display: none;
+    }
+  </style>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <h2 class="fw-bold mb-2">Latest News</h2>
+        <p class="text-muted mb-0">
+          Stay updated on cash and payment trends<br>worldwide
+        </p>
       </div>
+      <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small">
+        See all news <i class="bi bi-arrow-up-right"></i>
+      </a>
     </div>
+
+    <!-- News Grid -->
+    <div class="row g-4">
+      {% for post in latest_posts %}
+      <div class="col-md-4">
+        <div class="card news-card shadow-sm border-0">
+
+          {% if post.wide_thumbnail %}
+            <img src="{{ post.wide_thumbnail.file.url }}"
+                 alt="{{ post.title }}"
+                 onerror="this.onerror=null;this.src='{% static 'images/homepage/featured-fallback.jpg' %}';">
+          {% else %}
+            <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
+                 alt="{{ post.title }}">
+          {% endif %}
+
+          <div class="overlay"></div>
+
+          <!-- Content on Image -->
+          <div class="content">
+
+            <!-- Top: Date & Badge -->
+            <div class="d-flex justify-content-between align-items-center small text-white-50">
+              <span><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
+              <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">
+                {% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}
+              </span>
+            </div>
+
+            <!-- Middle: Title & Intro -->
+            <div>
+              <h5 class="fw-bold text-white mb-2">{{ post.title }}</h5>
+              <p class="text-white-50 mb-2" style="font-size: 18px;">
+                {{ post.intro|truncatewords:20 }}
+              </p>
+            </div>
+
+            <!-- Bottom: Author & Read More -->
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center small text-white-50">
+                {% if post.author_profile %}
+                  {% if post.author_profile.profile_image %}
+                    {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
+                    <img src="{{ author_thumb.url }}" class="author-thumb" alt="{{ post.author_profile.name }}">
+                  {% else %}
+                    <i class="bi bi-person me-1"></i>
+                  {% endif %}
+                  <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
+                    {{ post.author_profile.name }}
+                  </a>
+                {% elif post.author %}
+                  {% if post.author_image %}
+                    <img src="{{ post.author_image.file.url }}" class="author-thumb" alt="{{ post.author }}">
+                  {% else %}
+                    <i class="bi bi-person me-1"></i>
+                  {% endif %}
+                  <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
+                    {{ post.author }}
+                  </a>
+                {% endif %}
+              </div>
+
+              <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">
+                Read More <i class="bi bi-arrow-up-right ms-1"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info text-center">
+          <p class="mb-0">No news articles available yet. Please check back later!</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>   </div>
   </section>
 
 
