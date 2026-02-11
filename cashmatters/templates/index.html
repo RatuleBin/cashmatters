@@ -488,10 +488,7 @@
                 <a href="{{ post.url_path }}" class="text-decoration-none"><i class="bi bi-book"></i> Read</a>
                 <a href="#" onclick="shareArticle(event, '{{ post.title|escapejs }}', '{{ post.url_path }}')"
                   class="text-decoration-none" style="cursor: pointer;"><i class="bi bi-share"></i> Share</a>
-                {% if post.source_link %}
-                <a href="{{ post.source_link }}" target="_blank" class="text-decoration-none"><i
-                    class="bi bi-box-arrow-up-right"></i> Source</a>
-                {% endif %}
+             
               </div>
             </div>
             <div class="col-lg-7">
@@ -959,13 +956,7 @@
                            <i class="bi bi-share"></i>  Share
               </a>
 
-                {% if study.source_link %}
-                <a href="{{ study.source_link }}"
-                   target="_blank"
-                   class="studies_btn" style="color: white;">
-                   <i class="bi bi-box-arrow-up-right"></i> Source
-                </a>
-                {% endif %}
+           
 
               </div>
 
