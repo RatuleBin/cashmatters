@@ -15,6 +15,60 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
+    *,
+    *::before,
+    *::after {
+      font-family: "Alvant Grade", sans-serif !important;
+    }
+
+    /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
+    .navbar,
+    .navbar * {
+      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    }
+
+    /* All headings use Poppins */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    }
+
+    .navbar .nav-link {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Modern hover animations for menu items */
+    .navbar .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #4CD1C2, #8de4af);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+    }
+
+    .navbar .nav-link:hover::before,
+    .navbar .nav-link.active::before {
+      width: 100%;
+    }
+
+    .navbar .nav-link:hover {
+      color: #4CD1C2 !important;
+      transform: translateY(-2px);
+    }
+
         /* Blog Page Custom Styles */
         .blog-page {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -354,7 +408,6 @@
     </style>
 </head>
 <body class="bg-light-cream">
-    <!-- Navigation -->
     <div class="header-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
@@ -370,7 +423,6 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
-                        <!-- Support Cash button for mobile -->
                         <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
@@ -378,7 +430,6 @@
                     <button class="btn text-white p-0 search-trigger" aria-label="Search">
                         <i class="bi bi-search fs-5"></i>
                     </button>
-                    <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
                         <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                             <i class="bi bi-globe2"></i>
@@ -398,6 +449,9 @@
             </div>
         </nav>
     </div>
+
+
+
 
     <!-- Hero Section -->
     <section class="hero-section py-5" style="background-color: white !important;">
