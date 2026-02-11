@@ -22,129 +22,14 @@
             font-family: "Alvant Grade", sans-serif !important;
         }
 
-        /* All headings use Poppins - matching homepage */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
         .navbar,
         .navbar * {
             font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
         }
 
-        .navbar .nav-link {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
         }
-
-        .navbar .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4CD1C2, #8de4af);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(-50%);
-        }
-
-        .navbar .nav-link:hover::before,
-        .navbar .nav-link.active::before {
-            width: 100%;
-        }
-
-        .navbar .nav-link:hover {
-            color: #4CD1C2 !important;
-            transform: translateY(-2px);
-        }
-
-        .search-trigger {
-            transition: all 0.3s ease;
-        }
-
-        .search-trigger:hover {
-            color: #4CD1C2 !important;
-            transform: scale(1.15);
-        }
-
-        .btn-support-cash {
-            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
-            color: #002e26 !important;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
-        }
-
-        .btn-support-cash:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
-            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
-            color: #002e26 !important;
-        }
-    *,
-    *::before,
-    *::after {
-      font-family: "Alvant Grade", sans-serif !important;
-    }
-
-    /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-    .navbar,
-    .navbar * {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    /* All headings use Poppins */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    .navbar .nav-link {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Modern hover animations for menu items */
-    .navbar .nav-link::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #4CD1C2, #8de4af);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(-50%);
-    }
-
-    .navbar .nav-link:hover::before,
-    .navbar .nav-link.active::before {
-      width: 100%;
-    }
-
-    .navbar .nav-link:hover {
-      color: #4CD1C2 !important;
-      transform: translateY(-2px);
-    }
 
         /* Blog Page Custom Styles */
         .blog-page {
@@ -486,8 +371,6 @@
 </head>
 <body class="bg-light-cream">
     <!-- Navigation -->
-    <div class="header-wrapper" style="background: radial-gradient(circle at 10% 20%, #0c3b49 0%, #001F29 60%);">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
     <div class="header-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
@@ -503,6 +386,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+                        <!-- Support Cash button for mobile -->
                         <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
@@ -510,6 +394,7 @@
                     <button class="btn text-white p-0 search-trigger" aria-label="Search">
                         <i class="bi bi-search fs-5"></i>
                     </button>
+                    <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
                         <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
                             <i class="bi bi-globe2"></i>
@@ -530,9 +415,6 @@
         </nav>
     </div>
 
-
-
-
     <!-- Hero Section -->
     <section class="hero-section py-5" style="background-color: white !important;">
         <div class="container">
@@ -546,50 +428,8 @@
                     {% endif %}
                     <div class="hero-overlay text-center mt-4">
                         <h1 class="display-4 fw-bold text-center">{{ page.title }}</h1>
-                      <div class="meta-info text-center mt-3">
-                                        <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
-
-                                        {% if page.article_types.first and page.article_types.first.name != "Podcast" %}
-                                            {% if page.author_profile %}
-                                                <span class="ms-3 d-flex align-items-center gap-2">
-                                                    {% if page.author_profile.profile_image %}
-                                                        {% image page.author_profile.profile_image fill-32x32 as profile_img %}
-                                                        <img src="{{ profile_img.url }}" alt="{{ page.author_profile.name }}"
-                                                            class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                                    {% else %}
-                                                        <i class="bi bi-person-circle" style="font-size: 32px;"></i>
-                                                    {% endif %}
-                                                    <a href="{% url 'author_profile_by_id' page.author_profile.id %}"
-                                                    class="text-decoration-none" style="color: inherit;">
-                                                        {{ page.author_profile.name }}
-                                                    </a>
-                                                </span>
-
-                                            {% elif page.author %}
-                                                <span class="ms-3 d-flex align-items-center gap-2">
-                                                    {% if page.author_image %}
-                                                        {% image page.author_image fill-32x32 as author_img %}
-                                                        <img src="{{ author_img.url }}" alt="{{ page.author }}"
-                                                            class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                                    {% else %}
-                                                        <i class="bi bi-person-circle" style="font-size: 32px;"></i>
-                                                    {% endif %}
-                                                    <a href="{% url 'author_profile' page.author %}"
-                                                    class="text-decoration-none" style="color: inherit;">
-                                                        {{ page.author }}
-                                                    </a>
-                                                </span>
-                                            {% endif %}
-                                        {% endif %}
-
-                                        {% if page.article_types.first %}
-                                            <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
-                                                {{ page.article_types.first.name }}
-                                            </span>
-                                        {% endif %}
-                                    </div>
-
-                        <!-- <div class="meta-info text-center mt-3">
+                      
+                        <div class="meta-info text-center mt-3">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
                             {% if page.author_profile %}
                             <span class="ms-3 d-flex align-items-center gap-2">
@@ -621,20 +461,19 @@
                                 {{ page.article_types.first.name }}
                             </span>
                             {% endif %}
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
     <!-- Main Content -->
     <section class="content-section py-5" style="background-color: white !important;">
         <div class="container">
             <div class="row">
                 <!-- Article Content -->
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <article class="article-content">
                         {% if page.intro %}
                         <p class="lead">{{ page.intro }}</p>
@@ -661,7 +500,9 @@
                     </article>
                 </div>
 
-                <!-- <div class="col-lg-4">
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Latest Section -->
                     <div class="sidebar-section mb-4">
                         <h5 class="sidebar-title mb-3">Latest</h5>
                         {% for post in latest_posts %}
@@ -686,6 +527,7 @@
                         {% endfor %}
                     </div>
 
+                    <!-- Featured Section -->
                     <div class="sidebar-section">
                         <h5 class="sidebar-title mb-3">Featured</h5>
                         <div class="list-group">
@@ -700,7 +542,7 @@
                             </a>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </section>

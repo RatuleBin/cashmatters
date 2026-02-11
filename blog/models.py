@@ -270,13 +270,35 @@ class BlogPage(Page):
         blank=True,
         help_text="Vimeo Video ID"
     )
-    
+
     # Source
     source_link = models.URLField(
         blank=True,
         help_text="Link to the article's source"
     )
-    
+
+    # Open Graph fields
+    og_title = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="OG Title",
+        help_text="Custom Open Graph title (defaults to page title if empty)"
+    )
+    og_description = models.TextField(
+        blank=True,
+        verbose_name="OG Description",
+        help_text="Custom Open Graph description (defaults to intro if empty)"
+    )
+    og_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="OG Image",
+        help_text="Custom Open Graph image (defaults to page header image if empty)"
+    )
+
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
@@ -324,6 +346,14 @@ class BlogPage(Page):
         ], heading="Social & Media"),
         FieldPanel('body'),
         FieldPanel('source_link'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        MultiFieldPanel([
+            FieldPanel('og_title'),
+            FieldPanel('og_description'),
+            FieldPanel('og_image'),
+        ], heading="Open Graph"),
     ]
 
     template_name = 'blog/blog-details.html'
@@ -505,13 +535,35 @@ class ArticlePage(Page):
         blank=True,
         help_text="Vimeo Video ID"
     )
-    
+
     # Source
     source_link = models.URLField(
         blank=True,
         help_text="Link to the article's source"
     )
-    
+
+    # Open Graph fields
+    og_title = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="OG Title",
+        help_text="Custom Open Graph title (defaults to page title if empty)"
+    )
+    og_description = models.TextField(
+        blank=True,
+        verbose_name="OG Description",
+        help_text="Custom Open Graph description (defaults to intro if empty)"
+    )
+    og_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="OG Image",
+        help_text="Custom Open Graph image (defaults to page header image if empty)"
+    )
+
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
@@ -559,6 +611,14 @@ class ArticlePage(Page):
         ], heading="Social & Media"),
         FieldPanel('body'),
         FieldPanel('source_link'),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        MultiFieldPanel([
+            FieldPanel('og_title'),
+            FieldPanel('og_description'),
+            FieldPanel('og_image'),
+        ], heading="Open Graph"),
     ]
 
     def get_form(self, request, *args, **kwargs):
