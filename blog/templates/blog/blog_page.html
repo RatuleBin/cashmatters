@@ -412,8 +412,50 @@
                     {% endif %}
                     <div class="hero-overlay text-center mt-4">
                         <h1 class="display-4 fw-bold text-center">{{ page.title }}</h1>
-                      
-                        <div class="meta-info text-center mt-3">
+                      <div class="meta-info text-center mt-3">
+                                        <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
+
+                                        {% if page.article_types.first and page.article_types.first.name != "Podcast" %}
+                                            {% if page.author_profile %}
+                                                <span class="ms-3 d-flex align-items-center gap-2">
+                                                    {% if page.author_profile.profile_image %}
+                                                        {% image page.author_profile.profile_image fill-32x32 as profile_img %}
+                                                        <img src="{{ profile_img.url }}" alt="{{ page.author_profile.name }}"
+                                                            class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                                    {% else %}
+                                                        <i class="bi bi-person-circle" style="font-size: 32px;"></i>
+                                                    {% endif %}
+                                                    <a href="{% url 'author_profile_by_id' page.author_profile.id %}"
+                                                    class="text-decoration-none" style="color: inherit;">
+                                                        {{ page.author_profile.name }}
+                                                    </a>
+                                                </span>
+
+                                            {% elif page.author %}
+                                                <span class="ms-3 d-flex align-items-center gap-2">
+                                                    {% if page.author_image %}
+                                                        {% image page.author_image fill-32x32 as author_img %}
+                                                        <img src="{{ author_img.url }}" alt="{{ page.author }}"
+                                                            class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                                    {% else %}
+                                                        <i class="bi bi-person-circle" style="font-size: 32px;"></i>
+                                                    {% endif %}
+                                                    <a href="{% url 'author_profile' page.author %}"
+                                                    class="text-decoration-none" style="color: inherit;">
+                                                        {{ page.author }}
+                                                    </a>
+                                                </span>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if page.article_types.first %}
+                                            <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
+                                                {{ page.article_types.first.name }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+
+                        <!-- <div class="meta-info text-center mt-3">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
                             {% if page.author_profile %}
                             <span class="ms-3 d-flex align-items-center gap-2">
@@ -445,7 +487,7 @@
                                 {{ page.article_types.first.name }}
                             </span>
                             {% endif %}
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
