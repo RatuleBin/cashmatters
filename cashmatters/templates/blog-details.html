@@ -190,12 +190,6 @@
     opacity: 0.3;
 }
 
-/* Source Link */
-.source-link {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e2e8f0;
-}
 
 .source-link .btn {
     background: #43b1b0;
@@ -475,13 +469,7 @@
                             {{ page.body }}
                         </div>
 
-                        {% if page.source_link %}
-                        <div class="source-link mt-4">
-                            <a href="{{ page.source_link }}" target="_blank" rel="noopener" class="btn btn-outline-primary">
-                                View Source <i class="bi bi-box-arrow-up-right ms-1"></i>
-                            </a>
-                        </div>
-                        {% endif %}
+                       
 
                         <!-- Tags -->
                         {% if page.article_types.all or page.locations.all or page.sectors.all %}

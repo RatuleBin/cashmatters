@@ -340,9 +340,9 @@
                   </div>
                 
                 </div>
-     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 200px;width: 100%;"
+     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 220px;width: 100%;"
                     class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
+                    Read The Story Now <i class="bi bi-arrow-up-right ms-1 small"></i>
                   </a>
                 <!-- Carousel Navigation Dots -->
                 <div class="hero-carousel-nav mt-auto pt-3">
@@ -484,15 +484,7 @@
               <h3 class="fw-bold display-6 mt-4">
                 {{ post.title }}
               </h3>
-              <div class="meta-links d-flex gap-4 small fw-bold mt-4">
-                <a href="{{ post.url_path }}" class="text-decoration-none"><i class="bi bi-book"></i> Read</a>
-                <a href="#" onclick="shareArticle(event, '{{ post.title|escapejs }}', '{{ post.url_path }}')"
-                  class="text-decoration-none" style="cursor: pointer;"><i class="bi bi-share"></i> Share</a>
-                {% if post.source_link %}
-                <a href="{{ post.source_link }}" target="_blank" class="text-decoration-none"><i
-                    class="bi bi-box-arrow-up-right"></i> Source</a>
-                {% endif %}
-              </div>
+           
             </div>
             <div class="col-lg-7">
               {% if forloop.counter == 1 %}
@@ -959,13 +951,7 @@
                            <i class="bi bi-share"></i>  Share
               </a>
 
-                {% if study.source_link %}
-                <a href="{{ study.source_link }}"
-                   target="_blank"
-                   class="studies_btn" style="color: white;">
-                   <i class="bi bi-box-arrow-up-right"></i> Source
-                </a>
-                {% endif %}
+           
 
               </div>
 
@@ -1352,7 +1338,7 @@
               </div>
 
               <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">
-                Read More <i class="bi bi-arrow-up-right ms-1"></i>
+                Read The Story Now <i class="bi bi-arrow-up-right ms-1"></i>
               </a>
             </div>
 
