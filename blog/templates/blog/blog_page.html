@@ -15,9 +15,87 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
+        /* Global Font - matching homepage */
+        *,
+        *::before,
+        *::after {
+            font-family: "Alvant Grade", sans-serif !important;
+        }
+
+        /* All headings use Poppins - matching homepage */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+
+        .navbar,
+        .navbar * {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+
+        .navbar .nav-link {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4CD1C2, #8de4af);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .navbar .nav-link:hover::before,
+        .navbar .nav-link.active::before {
+            width: 100%;
+        }
+
+        .navbar .nav-link:hover {
+            color: #4CD1C2 !important;
+            transform: translateY(-2px);
+        }
+
+        .search-trigger {
+            transition: all 0.3s ease;
+        }
+
+        .search-trigger:hover {
+            color: #4CD1C2 !important;
+            transform: scale(1.15);
+        }
+
+        .btn-support-cash {
+            background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+            color: #002e26 !important;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(76, 209, 194, 0.3);
+        }
+
+        .btn-support-cash:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 209, 194, 0.4);
+            background: linear-gradient(135deg, #5ce0cf 0%, #4CD1C2 100%);
+            color: #002e26 !important;
+        }
+
         /* Blog Page Custom Styles */
         .blog-page {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: "Alvant Grade", sans-serif;
         }
 
         /* Hero Section */
@@ -355,8 +433,8 @@
 </head>
 <body class="bg-light-cream">
     <!-- Navigation -->
-    <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
+    <div class="header-wrapper" style="background: radial-gradient(circle at 10% 20%, #0c3b49 0%, #001F29 60%);">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
