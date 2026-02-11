@@ -452,12 +452,13 @@
         </div>
     </section>
 
+
     <!-- Main Content -->
     <section class="content-section py-5" style="background-color: white !important;">
         <div class="container">
             <div class="row">
                 <!-- Article Content -->
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <article class="article-content">
                         {% if page.intro %}
                         <p class="lead">{{ page.intro }}</p>
@@ -484,9 +485,7 @@
                     </article>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="col-lg-4">
-                    <!-- Latest Section -->
+                <!-- <div class="col-lg-4">
                     <div class="sidebar-section mb-4">
                         <h5 class="sidebar-title mb-3">Latest</h5>
                         {% for post in latest_posts %}
@@ -511,7 +510,6 @@
                         {% endfor %}
                     </div>
 
-                    <!-- Featured Section -->
                     <div class="sidebar-section">
                         <h5 class="sidebar-title mb-3">Featured</h5>
                         <div class="list-group">
@@ -526,7 +524,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
