@@ -484,12 +484,7 @@
               <h3 class="fw-bold display-6 mt-4">
                 {{ post.title }}
               </h3>
-              <div class="meta-links d-flex gap-4 small fw-bold mt-4">
-                <a href="{{ post.url_path }}" class="text-decoration-none"><i class="bi bi-book"></i> Read</a>
-                <a href="#" onclick="shareArticle(event, '{{ post.title|escapejs }}', '{{ post.url_path }}')"
-                  class="text-decoration-none" style="cursor: pointer;"><i class="bi bi-share"></i> Share</a>
-             
-              </div>
+           
             </div>
             <div class="col-lg-7">
               {% if forloop.counter == 1 %}
