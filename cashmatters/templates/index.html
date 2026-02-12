@@ -281,13 +281,10 @@
     <!-- Dynamic Hero Carousel (Modern Split Layout) -->
     <section class="hero-content position-relative">
       <div class="container">
-        <!-- Hero Slide Card - Modern Split Design -->
         <div class="hero-slide-card mt-4 mb-5">
           <div class="row g-0  align-items-stretch">
-            <!-- Left Side: Content Info (Dark Teal Background) -->
             <div class="col-lg-6 col-12 order-2 order-lg-1">
               <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
-                <!-- Content Type Badge - Cover Story -->
                 <div class="hero-content-type-badge mb-3 mt-5">
                   <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
                     style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
@@ -344,7 +341,6 @@
                     class="btn btn-mint fw-bold px-4 py-2 rounded-2">
                     Read The Story Now 
                   </a>
-                <!-- Carousel Navigation Dots -->
                 <div class="hero-carousel-nav mt-auto pt-3">
                   <div class="d-flex align-items-center gap-3">
                     <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
@@ -371,10 +367,8 @@
               </div>
             </div>
 
-            <!-- Right Side: Featured Image/Video -->
             <div class="col-lg-6 col-12 order-1 order-lg-2">
               <div class="hero-image-panel h-100 position-relative">
-                <!-- Image Display (default) -->
                 <div id="hero-media-image" class="hero-media-item h-100">
                   {% if hero_posts.0.wide_thumbnail %}
                   <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}"
@@ -386,7 +380,6 @@
                   {% endif %}
                 </div>
 
-                <!-- Video Display (for video content) -->
                 <div id="hero-media-video" class="hero-media-item h-100" style="display: none;">
                   <video id="hero-video" class="w-100 h-100" loop playsinline preload="auto" controls
                     style="object-fit: cover;">
@@ -411,6 +404,117 @@
         </div>
       </div>
     </section>
+
+
+<section class="hero-full"
+    style="background-image: url('{{ hero_posts.0.wide_thumbnail.file.url }}');">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content-wrap text-white">
+
+        <!-- CATEGORY -->
+        <!-- <div class="hero-category mb-3">
+            <span class="fw-bold text-uppercase small">
+                INSIGHT
+            </span>
+            <span class="ms-2 opacity-75 small">
+                Peace, Security & Defence
+            </span>
+        </div> -->
+
+        <!-- TITLE -->
+        <h1 class="hero-main-title">
+            {{ hero_posts.0.title }}
+        </h1>
+
+        <!-- BOTTOM CARDS -->
+        <div class="hero-bottom-cards mt-5">
+
+            <div class="row g-4">
+
+                {% for post in hero_posts|slice:"1:4" %}
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{ post.url_path }}" class="hero-small-card d-flex gap-3 text-white text-decoration-none">
+                        <img src="{{ post.wide_thumbnail.file.url }}"
+                             class="hero-small-thumb"
+                             alt="{{ post.title }}">
+                        <div>
+                            <div class="small opacity-75 text-uppercase">
+                                {{ post.get_content_type_display }}
+                            </div>
+                            <div class="fw-semibold">
+                                {{ post.title|truncatechars:80 }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+            <style>   
+                    .hero-full {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 120px 0 80px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.2) 0%,
+                rgba(0,0,0,0.5) 50%,
+                rgba(0,0,0,0.85) 100%
+            );
+        }
+
+        .hero-content-wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-main-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            max-width: 1000px;
+        }
+
+        .hero-small-card {
+            align-items: center;
+        }
+
+        .hero-small-thumb {
+            width: 90px;
+            height: 70px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 992px) {
+            .hero-main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+      
+    </style>
+</section>
+
+
+
+
   </div>
 
   <!-- Hero Carousel Data (for JavaScript) -->
