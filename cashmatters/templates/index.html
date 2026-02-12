@@ -422,11 +422,66 @@
                 Peace, Security & Defence
             </span>
         </div> -->
-
+<div class="hero-content-type-badge mb-3 mt-5">
+                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+                    style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+                    <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
+                    <span id="hero-type-text">Cover Story</span>
+                  </span>
+                </div>
         <!-- TITLE -->
         <h1 class="hero-main-title">
             {{ hero_posts.0.title }}
+         
         </h1>
+          <div id="hero-slide-date" class="text-white opacity-75 small">
+                    <i class="bi bi-clock me-1"></i>
+                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+                  </div>
+              <script>
+                  const hero = document.querySelector('.hero-full');
+
+                  document.addEventListener('mousemove', (e) => {
+                      const { innerWidth, innerHeight } = window;
+                      const mouseX = e.clientX;
+                      const mouseY = e.clientY;
+
+                      // Calculate position shift (small movement, max 20px)
+                      const moveX = (mouseX - innerWidth / 2) * 0.02; 
+                      const moveY = (mouseY - innerHeight / 2) * 0.02;
+
+                      // Apply background-position
+                      hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+                  });
+              </script>
+
+              <div class="pt-5 hero-author-wrap">
+                    <a id="hero-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
+                      {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
+                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar">
+                      {% elif hero_posts and hero_posts.0.author_image %}
+                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" alt="{{ hero_posts.0.author }}" class="author-avatar">
+                      {% else %}
+                      <img id="hero-author-avatar" src="{% static 'images/author-default.jpg' %}" alt="Author" class="author-avatar">
+                      {% endif %}
+                    </a>
+
+                    {% if hero_posts.0.author_profile %}
+                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
+                      class="text-white opacity-75 small text-decoration-none author-link">
+                      {{ hero_posts.0.author_profile.name }}
+                    </a>
+                    {% elif hero_posts.0.author %}
+                    <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
+                      <i class=" me-1"></i>
+                      {{ hero_posts.0.author }}
+                    </a>
+                    {% else %}
+                    <a id="hero-slide-author" href="#" style="display:none"></a>
+                    {% endif %}
+                  </div>
+
+                
 
         <!-- BOTTOM CARDS -->
         <div class="hero-bottom-cards mt-5">
@@ -446,8 +501,12 @@
                             <div class="fw-semibold">
                                 {{ post.title|truncatechars:80 }}
                             </div>
+                            
                         </div>
                     </a>
+
+
+                    
                 </div>
                 {% endfor %}
 
@@ -457,7 +516,7 @@
 
     </div>
             <style>   
-                    .hero-full {
+        .hero-full {
             position: relative;
             width: 100%;
             min-height: 100vh;
@@ -466,7 +525,9 @@
             background-repeat: no-repeat;
             display: flex;
             align-items: flex-end;
-            padding: 120px 0 80px;
+            padding: 40px 0 80px;
+            transition: background-position 0.1s ease-out; /* smooth transition */
+
         }
 
         .hero-overlay {
