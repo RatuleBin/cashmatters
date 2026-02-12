@@ -47,14 +47,15 @@
     p {
       font-size: 20px;
     }
-    
+    .hero-text-panel{
+      color: transparent !important;
+    }
 .hero-text-panel {
     background: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     border: none !important;
-    height: fit-content !important;
 }
 
     .navbar .nav-link {
@@ -184,11 +185,6 @@
   border-radius: 20px;
   overflow: hidden;
 }
-@media (min-width: 1400px) {
-    .hero-text-panel {
-        height: fit-content !important;
-    }
-}
 @media (min-width: 992px) {
   .hero-image-panel {
     border-bottom-left-radius: 0 !important;
@@ -205,7 +201,6 @@
       color: transparent !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    height: fit-content !important;
   }
   
 }
@@ -431,211 +426,449 @@
 
 
   </div>
-<section class="cm-hero">
-
-  <!-- Background -->
-  <div class="cm-hero-bg"
-       style="background-image:url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}')">
+<section class="hero-display position-relative" id="featured-hero-section">
+  <!-- Background image with parallax effect -->
+  <div id="featured-parallax-bg" class="featured-parallax-bg" 
+       style="background-image: url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}');">
   </div>
+  
+  <div class="featured-overlay"></div>
 
-  <!-- Overlay -->
-  <div class="cm-hero-overlay"></div>
-
-  <!-- Content -->
-  <div class="cm-hero-inner container text-white">
-
-    <div class="cm-hero-text">
-
-      <!-- Badge -->
-      <div class="cm-hero-badge">
-        <span>
-          <i class="bi bi-star-fill me-1"></i>
-          {{ hero_posts.0.get_content_type_display|default:"Cover Story" }}
+  <div class="container featured-content-wrap text-white position-relative">
+    <div class="featured-text-panel" style="color: transparent !important;">
+      <!-- Content Type Badge -->
+      <div class="featured-content-type-badge mb-3">
+        <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+              style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+          <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
+          <span id="featured-type-text">
+            {% if hero_posts.0.content_type %}{{ hero_posts.0.get_content_type_display }}{% else %}Cover Story{% endif %}
+          </span>
         </span>
       </div>
 
-      <!-- Title -->
-      <h1 class="cm-hero-title">
-        {{ hero_posts.0.title }}
+      <!-- Main Title -->
+      <h1 id="featured-slide-title" class="featured-main-title text-white fw-bold mb-4">
+        {% if hero_posts %}
+          {{ hero_posts.0.title }}
+        {% else %}
+          Cash is simple, safe, and <span class="text-mint">for everyone</span>
+        {% endif %}
       </h1>
 
       <!-- Date -->
-      <div class="cm-hero-date">
+      <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
         <i class="bi bi-clock me-1"></i>
-        {{ hero_posts.0.date|date:"M d, Y" }}
+        {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+      </span>
+
+      <!-- Author Section -->
+      <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
+        <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
+          {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
+            <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
+                 alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar rounded-circle" width="40" height="40">
+          {% elif hero_posts and hero_posts.0.author_image %}
+            <img id="featured-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" 
+                 alt="{{ hero_posts.0.author }}" class="author-avatar rounded-circle" width="40" height="40">
+          {% else %}
+            <img id="featured-author-avatar" src="{% static 'images/author-default.jpg' %}" 
+                 alt="Author" class="author-avatar rounded-circle" width="40" height="40">
+          {% endif %}
+        </a>
+
+        {% if hero_posts.0.author_profile %}
+          <a id="featured-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
+             class="text-white opacity-75 small text-decoration-none author-link">
+            {{ hero_posts.0.author_profile.name }}
+          </a>
+        {% elif hero_posts.0.author %}
+          <a id="featured-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
+            {{ hero_posts.0.author }}
+          </a>
+        {% endif %}
       </div>
 
-      <!-- Author -->
-      <div class="cm-hero-author">
-        <img src="{% if hero_posts.0.author_profile.profile_image %}{{ hero_posts.0.author_profile.profile_image.file.url }}{% else %}{% static 'images/author-default.jpg' %}{% endif %}">
-        <span>
-          {{ hero_posts.0.author_profile.name|default:hero_posts.0.author }}
-        </span>
-      </div>
-
-      <!-- CTA -->
-      <a href="{{ hero_posts.0.url_path }}" class="cm-hero-btn">
-        Read The Story Now
+      <!-- CTA Button -->
+      <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
+         style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
+        Read The Story Now 
       </a>
 
+      <div class="featured-carousel-nav mt-auto pt-4">
+        <div class="d-flex align-items-center gap-3">
+          <div class="carousel-dots d-flex gap-2" id="featured-carousel-dots">
+            {% for post in hero_posts %}
+              <button class="carousel-dot {% if forloop.first %}active{% endif %}" 
+                      data-slide="{{ forloop.counter0 }}" 
+                      data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
+                      data-title="{{ post.title|escapejs }}"
+                      data-date="{{ post.date|date:'M d, Y' }}"
+                      data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
+                      data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
+                      data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
+                      data-content-type="{{ post.get_content_type_display }}"
+                      data-url="{{ post.url_path }}"
+                      aria-label="Slide {{ forloop.counter }}">
+              </button>
+            {% empty %}
+              <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+            {% endfor %}
+          </div>
+          
+          <div class="carousel-controls d-flex gap-2 ms-auto">
+            <button class="btn btn-carousel" id="featured-prev" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="btn btn-carousel" id="featured-next" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+            <button class="btn btn-carousel" id="featured-pause" aria-label="Pause autoplay">
+              <i class="bi bi-pause-fill" id="pause-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bottom Cards -->
-    <div class="cm-hero-cards">
+    <div class="featured-bottom-cards pt-2 ">
       <div class="row g-4">
         {% for post in hero_posts|slice:"1:4" %}
-        <div class="col-lg-4 col-md-6">
-          <a href="{{ post.url_path }}" class="cm-hero-card">
-            <img src="{{ post.wide_thumbnail.file.url }}">
-            <div>
-              <small>{{ post.get_content_type_display }}</small>
-              <strong>{{ post.title|truncatechars:80 }}</strong>
-            </div>
-          </a>
-        </div>
+          <div class="col-lg-4 col-md-6">
+            <a href="{{ post.url_path }}" class="featured-small-card d-flex gap-3 text-white text-decoration-none">
+              <img src="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}"
+                   class="featured-small-thumb rounded-2"
+                   alt="{{ post.title }}">
+              <div>
+                <div class="small opacity-75 text-uppercase">
+                  {{ post.get_content_type_display }}
+                </div>
+                <div class="fw-semibold">
+                  {{ post.title|truncatechars:80 }}
+                </div>
+              </div>
+            </a>
+          </div>
         {% endfor %}
       </div>
     </div>
-
   </div>
-  <style>
-    /* ROOT HERO */
-.cm-hero {
-  position: relative;
-  height: fit-content;
-  overflow: hidden;
-}
-
-/* BACKGROUND */
-.cm-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: background-position 0.15s ease-out;
-  z-index: 1;
-}
-
-/* OVERLAY */
-.cm-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,.25),
-    rgba(0,0,0,.85)
-  );
-  z-index: 2;
-}
-
-/* CONTENT WRAPPER */
-.cm-hero-inner {
-  position: relative;
-  z-index: 3;
-  padding-top: clamp(80px, 10vh, 140px);
-  padding-bottom: 80px;
-}
-
-/* TEXT BLOCK (NO BACKGROUND EVER) */
-.cm-hero-text {
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  max-width: 1000px;
-}
-
-/* BADGE */
-.cm-hero-badge span {
-  display: inline-block;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 50px;
-  background: linear-gradient(135deg,#4CD1C2,#3bbcae);
-  color: #002e26;
-}
-
-/* TITLE */
-.cm-hero-title {
-  font-size: 4rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 20px 0;
-}
-
-/* DATE */
-.cm-hero-date {
-  opacity: .75;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-/* AUTHOR */
-.cm-hero-author {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.cm-hero-author img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* BUTTON */
-.cm-hero-btn {
-  display: inline-block;
-  background: #4CD1C2;
-  color: #002e26;
-  font-weight: 700;
-  padding: 12px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-}
-
-/* BOTTOM CARDS */
-.cm-hero-cards {
-  margin-top: 80px;
-}
-
-.cm-hero-card {
-  display: flex;
-  gap: 12px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.cm-hero-card img {
-  width: 90px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .cm-hero-title {
-    font-size: 2.5rem;
-  }
-}
-
-  </style>
-  <script>
-  const bg = document.querySelector('.cm-hero-bg');
-
-  document.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    bg.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
-  });
-</script>
-
 </section>
 
+<style>
+  .hero-display {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 40px 0 80px;
+    overflow: hidden;
+  }
+
+  .featured-parallax-bg {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-position 0.1s ease-out;
+    will-change: background-position;
+  }
+
+  .featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.2) 0%,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0.85) 100%
+    );
+    z-index: 1;
+  }
+
+  .featured-content-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .featured-main-title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 1000px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .featured-small-card {
+    align-items: center;
+    transition: transform 0.3s ease;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .featured-small-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0,0,0,0.5);
+  }
+
+  .featured-small-thumb {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-dot.active {
+    background: white;
+    border-color: white;
+    transform: scale(1.2);
+  }
+
+  .btn-carousel {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .btn-carousel:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+    color: white;
+  }
+
+  .btn-mint {
+    background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+    color: #002e26;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-mint:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    color: #002e26;
+  }
+
+  .text-mint {
+    color: #4CD1C2;
+  }
+
+  .author-avatar {
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  @media (max-width: 992px) {
+    .featured-main-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-display {
+      min-height: 80vh;
+      padding: 30px 0 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .featured-main-title {
+      font-size: 2rem;
+    }
+    
+    .featured-bottom-cards {
+      display: none;
+    }
+    
+    .hero-display {
+      min-height: 70vh;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const featuredBg = document.getElementById('featured-parallax-bg');
+    const featuredSection = document.getElementById('featured-hero-section');
+    
+    // Parallax effect on mousemove
+    document.addEventListener('mousemove', function(e) {
+      const { innerWidth, innerHeight } = window;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const moveX = (mouseX - innerWidth / 2) * 0.02;
+      const moveY = (mouseY - innerHeight / 2) * 0.02;
+
+      featuredBg.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+    });
+
+    // Carousel functionality
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('featured-prev');
+    const nextBtn = document.getElementById('featured-next');
+    const pauseBtn = document.getElementById('featured-pause');
+    let currentSlide = 0;
+    let isPlaying = true;
+    let autoplayInterval;
+    
+    const titleEl = document.getElementById('featured-slide-title');
+    const dateEl = document.getElementById('featured-slide-date');
+    const authorEl = document.getElementById('featured-slide-author');
+    const authorLink = document.getElementById('featured-author-link');
+    const authorAvatar = document.getElementById('featured-author-avatar');
+    const ctaLink = document.getElementById('featured-slide-link');
+    const typeBadgeText = document.getElementById('featured-type-text');
+
+    function updateSlideContent(slideIndex) {
+      const activeDot = dots[slideIndex];
+      if (!activeDot) return;
+      
+      // Update background image
+      const imageUrl = activeDot.dataset.image || '{% static "images/homepage/featured-fallback.jpg" %}';
+      featuredBg.style.backgroundImage = `url('${imageUrl}')`;
+      
+      // Update title
+      if (titleEl) titleEl.textContent = activeDot.dataset.title || 'Cash is simple, safe, and for everyone';
+      
+      // Update date
+      if (dateEl) {
+        const dateSpan = dateEl.querySelector('i.bi-clock')?.parentElement || dateEl;
+        dateSpan.innerHTML = `<i class="bi bi-clock me-1"></i>${activeDot.dataset.date || 'Latest'}`;
+      }
+      
+      // Update author
+      const authorName = activeDot.dataset.author;
+      if (authorEl && authorName) {
+        authorEl.textContent = authorName;
+        authorEl.style.display = '';
+        authorEl.href = activeDot.dataset.authorId ? 
+          `{% url 'author_profile_by_id' 0 %}`.replace('0', activeDot.dataset.authorId) : '#';
+      }
+      
+      // Update author avatar
+      const avatarUrl = activeDot.dataset.authorAvatar;
+      if (authorAvatar && avatarUrl) {
+        authorAvatar.src = avatarUrl;
+      }
+      
+      // Update CTA link
+      if (ctaLink) {
+        ctaLink.href = activeDot.dataset.url || '#';
+      }
+      
+      // Update content type badge
+      if (typeBadgeText) {
+        typeBadgeText.textContent = activeDot.dataset.contentType || 'Cover Story';
+      }
+      
+      // Update active dot
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + dots.length) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(nextSlide, 5000);
+      isPlaying = true;
+      document.getElementById('pause-icon').classList.remove('bi-play-fill');
+      document.getElementById('pause-icon').classList.add('bi-pause-fill');
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+      isPlaying = false;
+      document.getElementById('pause-icon').classList.remove('bi-pause-fill');
+      document.getElementById('pause-icon').classList.add('bi-play-fill');
+    }
+
+    // Event listeners
+    if (dots.length > 0) {
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+          currentSlide = index;
+          updateSlideContent(currentSlide);
+        });
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        prevSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        nextSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+    }
+
+    // Initialize autoplay
+    if (dots.length > 1) {
+      startAutoplay();
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', function() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+    });
+  });
+</script>
 
 
   <!-- Hero Carousel Data (for JavaScript) -->
