@@ -479,7 +479,7 @@
         <div class="container">
             <div class="row">
                 <!-- Article Content -->
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <article class="article-content">
                         {% if page.intro %}
                         <p class="lead">{{ page.intro }}</p>
@@ -507,48 +507,7 @@
                 </div>
 
                 <!-- Sidebar -->
-                <div class="col-lg-4">
-                    <!-- Latest Section -->
-                    <div class="sidebar-section mb-4">
-                        <h5 class="sidebar-title mb-3">Latest</h5>
-                        {% for post in latest_posts %}
-                        <div class="card sidebar-card mb-3">
-                            <div class="position-relative">
-                                {% if post.wide_thumbnail %}
-                                {% image post.wide_thumbnail fill-400x200 as thumb %}
-                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ post.title }}">
-                                {% else %}
-                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ post.title }}">
-                                {% endif %}
-                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">NEWS</span>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">{{ post.title }}</h6>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <small class="text-muted"><i class="bi bi-book"></i> Read</small>
-                                    <small class="text-muted"><i class="bi bi-share"></i> Share</small>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- Featured Section -->
-                    <div class="sidebar-section">
-                        <h5 class="sidebar-title mb-3">Featured</h5>
-                        <div class="list-group">
-                            <a href="{% url 'new_page' %}" class="list-group-item list-group-item-action">
-                                Why Cash Matters
-                            </a>
-                            <a href="{% url 'support' %}" class="list-group-item list-group-item-action">
-                                Support Cash
-                            </a>
-                            <a href="{% url 'news' %}" class="list-group-item list-group-item-action">
-                                News & Articles
-                            </a>
-                        </div>
-                    </div>
-                </div>
+         
             </div>
         </div>
     </section>
