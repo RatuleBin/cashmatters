@@ -50,6 +50,13 @@
     .hero-text-panel{
       color: transparent !important;
     }
+.hero-text-panel {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+}
 
     .navbar .nav-link {
       font-weight: 500;
@@ -194,6 +201,7 @@
       color: transparent !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
+    height: fit-content !important;
   }
   
 }
@@ -428,9 +436,9 @@
   <div class="hero-overlay"></div>
 
   <div class="container hero-content-wrap text-white position-relative">
-    <div class="hero-text-panel222" style="color: transparent !important;">
+    <div class="hero-text-panel" style="color: transparent !important;">
       <!-- Content Type Badge -->
-      <div class="hero-content-type-badge mb-3 mt-5">
+      <div class="hero-content-type-badge mb-3">
         <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
               style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
           <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
@@ -484,50 +492,15 @@
 
       <!-- CTA Button -->
       <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
-         style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold px-4 py-2 rounded-2 mb-5">
+         style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
         Read The Story Now 
       </a>
 
-      <!-- Carousel Navigation -->
-      <!-- <div class="hero-carousel-nav mt-auto pt-4">
-        <div class="d-flex align-items-center gap-3">
-          <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
-            {% for post in hero_posts %}
-              <button class="carousel-dot {% if forloop.first %}active{% endif %}" 
-                      data-slide="{{ forloop.counter0 }}" 
-                      data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
-                      data-title="{{ post.title|escapejs }}"
-                      data-date="{{ post.date|date:'M d, Y' }}"
-                      data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
-                      data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
-                      data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
-                      data-content-type="{{ post.get_content_type_display }}"
-                      data-url="{{ post.url_path }}"
-                      aria-label="Slide {{ forloop.counter }}">
-              </button>
-            {% empty %}
-              <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
-            {% endfor %}
-          </div>
-          
-          <div class="carousel-controls d-flex gap-2 ms-auto">
-            <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
-              <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="btn btn-carousel" id="hero-next" aria-label="Next">
-              <i class="bi bi-chevron-right"></i>
-            </button>
-            <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
-              <i class="bi bi-pause-fill" id="pause-icon"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-    </div>
+         </div>
 
     <!-- Bottom Cards -->
-    <div class="hero-bottom-cards mt-5 pt-4">
-      <div class="row g-4">
+    <div class="hero-bottom-cards ">
+      <div class="row">
         {% for post in hero_posts|slice:"1:4" %}
           <div class="col-lg-4 col-md-6">
             <a href="{{ post.url_path }}" class="hero-small-card d-flex gap-3 text-white text-decoration-none">
@@ -556,7 +529,7 @@
     width: 100%;
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     padding: 40px 0 80px;
     overflow: hidden;
   }
@@ -864,161 +837,6 @@
   });
 </script>
 
-<!-- <section class="hero-full"
-    style="background-image: url('{{ hero_posts.0.wide_thumbnail.file.url }}');">
-
-    <div class="hero-overlay"></div>
-
-    <div class="container hero-content-wrap text-white">
-
-      
-<div class="hero-content-type-badge mb-3 mt-5">
-                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
-                    style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
-                    <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
-                    <span id="hero-type-text">Cover Story</span>
-                  </span>
-                </div>
-        <h1 class="hero-main-title">
-            {{ hero_posts.0.title }}
-         
-        </h1>
-  
-                  </div>
-              <script>
-                  const hero = document.querySelector('.hero-full');
-
-                  document.addEventListener('mousemove', (e) => {
-                      const { innerWidth, innerHeight } = window;
-                      const mouseX = e.clientX;
-                      const mouseY = e.clientY;
-
-                      const moveX = (mouseX - innerWidth / 2) * 0.02; 
-                      const moveY = (mouseY - innerHeight / 2) * 0.02;
-
-                      hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
-                  });
-              </script>
-
-              <div class="pt-5 hero-author-wrap">
-                    <a id="hero-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
-                      {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar">
-                      {% elif hero_posts and hero_posts.0.author_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" alt="{{ hero_posts.0.author }}" class="author-avatar">
-                      {% else %}
-                      <img id="hero-author-avatar" src="{% static 'images/author-default.jpg' %}" alt="Author" class="author-avatar">
-                      {% endif %}
-                    </a>
-
-                    {% if hero_posts.0.author_profile %}
-                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-                      class="text-white opacity-75 small text-decoration-none author-link">
-                      {{ hero_posts.0.author_profile.name }}
-                    </a>
-                    {% elif hero_posts.0.author %}
-                    <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-                      <i class=" me-1"></i>
-                      {{ hero_posts.0.author }}
-                    </a>
-                    {% else %}
-                    <a id="hero-slide-author" href="#" style="display:none"></a>
-                    {% endif %}
-                  </div>
-<br>
-                 <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 220px;width: 100%;"
-                    class="btn btn-mint mt-3 fw-bold px-4 py-2 rounded-2">
-                    Read The Story Now 
-                  </a>
-
-        <div class="hero-bottom-cards mt-5">
-
-            <div class="row g-4">
-
-                {% for post in hero_posts|slice:"1:4" %}
-                <div class="col-lg-4 col-md-6">
-                    <a href="{{ post.url_path }}" class="hero-small-card d-flex gap-3 text-white text-decoration-none">
-                        <img src="{{ post.wide_thumbnail.file.url }}"
-                             class="hero-small-thumb"
-                             alt="{{ post.title }}">
-                        <div>
-                            <div class="small opacity-75 text-uppercase">
-                                {{ post.get_content_type_display }}
-                            </div>
-                            <div class="fw-semibold">
-                                {{ post.title|truncatechars:80 }}
-                            </div>
-                            
-                        </div>
-                    </a>
-
-
-                    
-                </div>
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-    </div>
-            <style>   
-        .hero-full {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: flex-end;
-            padding: 40px 0 80px;
-            transition: background-position 0.1s ease-out; 
-
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.2) 0%,
-                rgba(0,0,0,0.5) 50%,
-                rgba(0,0,0,0.85) 100%
-            );
-        }
-
-        .hero-content-wrap {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-main-title {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1.1;
-            max-width: 1000px;
-        }
-
-        .hero-small-card {
-            align-items: center;
-        }
-
-        .hero-small-thumb {
-            width: 90px;
-            height: 70px;
-            object-fit: cover;
-        }
-
-        @media (max-width: 992px) {
-            .hero-main-title {
-                font-size: 2.5rem;
-            }
-        }
-
-      
-    </style>
-</section> -->
 
   <!-- Hero Carousel Data (for JavaScript) -->
   <script type="application/json" id="hero-posts-data">
