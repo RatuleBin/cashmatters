@@ -161,7 +161,7 @@
                 <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">News</a>
                 <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
                 <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
-                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key facts</a>
+                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key Facts</a>
             </div>
         </div>
         {% endif %}
