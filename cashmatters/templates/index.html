@@ -40,8 +40,12 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    p {
       font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    }
+    p {
+      font-size: 20px;
     }
 
     .navbar .nav-link {
@@ -486,8 +490,11 @@
                     <a id="hero-slide-author" href="#" style="display:none"></a>
                     {% endif %}
                   </div>
-
-                
+<br>
+                 <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 220px;width: 100%;"
+                    class="btn btn-mint pt-3 fw-bold px-4 py-2 rounded-2">
+                    Read The Story Now 
+                  </a>
 
         <!-- BOTTOM CARDS -->
         <div class="hero-bottom-cards mt-5">
@@ -846,13 +853,13 @@
     <div class="row align-items-end mb-5">
       <div class="col-md-8">
         <h2 class="fw-bold mb-2">Podcast</h2>
-        <p class="text-muted mb-0">
+        <p class="text-muted mb-0" style="font-size: 20px;">
           Conversations that matter about the future of<br>money
         </p>
       </div>
       <div class="col-md-4 text-md-end">
         <a href="{% url 'news' %}?category=podcast"
-           class="text-mint fw-bold text-decoration-none small">
+           class="text-mint fw-bold text-decoration-none small" style="font-size: 20px;">
           See all Podcasts 
         </a>
       </div>
@@ -955,7 +962,7 @@
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
           <h2 class="fw-bold mb-2">Studies & Reports</h2>
-          <p class="text-muted mb-0">
+          <p class="text-muted mb-0" >
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
@@ -1158,7 +1165,7 @@
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=key-facts" class="text-mint fw-bold text-decoration-none small">See all Key
+        <a href="{% url 'news' %}?category=key-facts" style="font-size: 20px;" class="text-mint fw-bold text-decoration-none small">See all Key
           Facts </a>
       </div>
 
@@ -1445,7 +1452,7 @@
           Stay updated on cash and payment trends<br>worldwide
         </p>
       </div>
-      <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small">
+      <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small" style="font-size: 20px;">
         See all news
       </a>
     </div>
@@ -1560,7 +1567,7 @@
           Global Currency Forum 2026
         </h2>
         
-        <p class="fs-5 mb-4">
+        <p class="fs-5 mb-4" style="color: rgba(33, 37, 41, 0.75);">
           The premier international event for the currency industry, convening central bankers, suppliers, and policymakers. The 2026 forum will focus on innovation, sustainability, and securing the future of cash as a vital public infrastructure.
         </p>
 
@@ -1574,7 +1581,7 @@
 
           <div>
             <h5 class="fw-bold mb-1">Antalya, Türkiye</h5>
-            <p class="mb-0">March 10–12, 2026</p>
+            <p class="mb-0" style="color: rgba(33, 37, 41, 0.75);">March 10–12, 2026</p>
           </div>
         </div>
 
