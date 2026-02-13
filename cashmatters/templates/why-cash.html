@@ -885,54 +885,28 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <style>
-        .goog-te-banner-frame, .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-        .goog-te-gadget { display: none !important; }
-    </style>
-<script>
-    // Force scroll to top on page load - comprehensive solution
+  <script>
     (function() {
-        // Function to force scroll to top
-        function forceScrollToTop() {
-            // Multiple methods to ensure it works across all browsers
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        window.addEventListener('load', function() {
             window.scrollTo(0, 0);
-            
-            // For modern browsers
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto'
+            document.body.style.top = '0px';
+        });
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
+                    document.body.style.top = '0px';
+                    window.scrollTo(0, 0);
+                }
             });
-            
-            // For older browsers
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-            
-            // Additional safety for mobile browsers
-            if (window.history && window.history.scrollRestoration) {
-                window.history.scrollRestoration = 'manual';
-            }
-        }
-        
-        // Run immediately when script loads
-        forceScrollToTop();
-        
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', forceScrollToTop);
-        
-        // Run when page is fully loaded
-        window.addEventListener('load', forceScrollToTop);
-        
-        // Additional safety for single-page apps or hash changes
-        window.addEventListener('hashchange', forceScrollToTop);
-        
-        // Set scroll restoration to manual to prevent browser from remembering position
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+        });
     })();
-</script>
+  </script>
 
 
 </body>
