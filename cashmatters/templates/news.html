@@ -372,7 +372,7 @@
                             </span>
                         </div>
             {% if active_category != 'podcast' %}
-                <!-- {% if article.author_profile %}
+                {% if article.author_profile %}
                 <div class="mb-2 small text-muted d-flex align-items-center">
                     {% if article.author_profile.profile_image %}
                         {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
@@ -402,7 +402,7 @@
                         {{ article.author }}
                     </a>
                 </div>
-                {% endif %} -->
+                {% endif %}
             {% endif %}
 
                         <h5 class="fw-bold flex--1">{{ article.title }}</h5>
