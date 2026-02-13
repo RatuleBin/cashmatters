@@ -162,6 +162,8 @@
                 <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
                 <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
                 <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key Facts</a>
+                <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'events' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Events</a>
+
             </div>
         </div>
         {% endif %}
@@ -409,7 +411,7 @@
                     {% endif %}
                     <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
                         {% if active_category == 'podcast' %}
-                            Listen to the podcast <i class="bi bi-play-fill ms-1"></i>
+                            Listen to the podcast 
                         {% else %}
                             Read The Story   
                         {% endif %}
