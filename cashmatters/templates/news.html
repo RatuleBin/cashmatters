@@ -122,7 +122,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash</a></li>
                     </ul>
                 </div>
 
@@ -144,7 +144,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash </a>
                 </div>
             </div>
         </nav>
@@ -161,7 +161,9 @@
                 <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">News</a>
                 <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
                 <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
-                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key facts</a>
+                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key Facts</a>
+                <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'events' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Events</a>
+
             </div>
         </div>
         {% endif %}
@@ -248,7 +250,7 @@
             {% endif %}
 
             <a href="{{ hero_podcast.url_path }}" class="btn btn-dark-teal btn-lg">
-                <i class="bi bi-play-fill me-2"></i> Listen Now
+                <i class="bi bi-play-fill me-2"></i> Listen  
             </a>
         </div>
 
@@ -370,7 +372,7 @@
                             </span>
                         </div>
             {% if active_category != 'podcast' %}
-                <!-- {% if article.author_profile %}
+                {% if article.author_profile %}
                 <div class="mb-2 small text-muted d-flex align-items-center">
                     {% if article.author_profile.profile_image %}
                         {% image article.author_profile.profile_image fill-48x48 as author_thumb %}
@@ -400,18 +402,18 @@
                         {{ article.author }}
                     </a>
                 </div>
-                {% endif %} -->
+                {% endif %}
             {% endif %}
 
-                        <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
+                        <h5 class="fw-bold flex--1">{{ article.title }}</h5>
                     {% if article.intro %}
                     <p class="text-muted small mb-3" style="font-size: 20px;">{{ article.intro|striptags|truncatechars:140 }}</p>
                     {% endif %}
                     <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
                         {% if active_category == 'podcast' %}
-                            Listen to the podcast <i class="bi bi-play-fill ms-1"></i>
+                            Listen to the podcast 
                         {% else %}
-                            Read The Story Now <i class="bi bi-arrow-up-right ms-1"></i>
+                            Read The Story   
                         {% endif %}
                     </a>
 
@@ -452,7 +454,7 @@
                             For privacy. For inclusion. For everyday resilience.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+                            Support Cash 
                         </a>
                     </div>
                 </div>
@@ -565,8 +567,7 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
-                            class="bi bi-arrow-up-right ms-2"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
 
                 </div>
             </div>
@@ -683,7 +684,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                              Support Cash 
                             </a>
                           </li>
                         </ul>

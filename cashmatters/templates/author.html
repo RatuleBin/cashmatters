@@ -122,7 +122,7 @@
          1. HEADER (Fixed for Non-Hero Pages)
     ========================================== -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
             <div class="container">
                 <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
@@ -137,16 +137,17 @@
                 <!-- Navigation Links -->
                 <div class="collapse navbar-collapse justify-content-center" id="mainNav">
                     <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link text-white{% if not active_category or active_category != 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}">News & Articles</a></li>
+                        <li class="nav-item"><a class="nav-link text-white{% if active_category == 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}?category=podcast">Podcast</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'write_for_us' %}">Write for Us</a></li>
+                        <!-- Support Cash button for mobile -->
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash</a></li>
                     </ul>
                 </div>
 
                 <!-- Right Actions -->
-                <div class="d-none d-lg-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3">
                     <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
                     <!-- Language Switcher (Google Translate) -->
                     <div class="dropdown">
@@ -163,7 +164,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash </a>
                 </div>
             </div>
         </nav>
@@ -223,7 +224,7 @@
                         {% endif %}
                         {% if author.twitter_url %}
                             <a href="{{ author.twitter_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm rounded-pill px-3" title="Twitter/X">
-                                <i class="bi bi-twitter-x me-1"></i> Twitter
+                                <i class="bi bi-twitter-x me-1"></i> X
                             </a>
                         {% endif %}
                     {% endif %}
@@ -242,7 +243,7 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out {{ author_name }}'s articles on Cash Matters" target="_blank" rel="noopener noreferrer">
-                                        <i class="bi bi-twitter-x me-2"></i> Share on Twitter
+                                        <i class="bi bi-twitter-x me-2"></i> Share on X
                                     </a>
                                 </li>
                                 <li>
@@ -312,7 +313,7 @@
                         </div>
                         <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
                         <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
-                            Read More <i class="bi bi-arrow-up-right ms-1"></i>
+                             Read The Story  
                         </a>
                     </div>
                 </div>
@@ -343,7 +344,7 @@
                             Cash Matters is an independent initiative dedicated to preserving payment choice for everyone. Your support helps us continue this important work.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+                            Support Cash 
                         </a>
                     </div>
                 </div>
@@ -456,8 +457,7 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
-                            class="bi bi-arrow-up-right ms-2"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
 
                 </div>
             </div>
@@ -576,7 +576,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                              Support Cash 
                             </a>
                           </li>
                         </ul>
