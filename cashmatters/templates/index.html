@@ -230,201 +230,6 @@
     }
 
 
-    
-  </style>
-</head>
-
-<body class="bg-light-cream">
-  <!-- =========================================
-         1. HEADER & HERO
-    ========================================== -->
-  <div class="hero-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}">
-          <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
-        </a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-          aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-          <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a>
-            </li>
-            <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
-            <!-- Support Cash button for mobile -->
-            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
-            <!-- Write for Us link moved to footer only -->
-          </ul>
-        </div>
-        <div class="d-flex align-items-center gap-3">
-          <button class="btn text-white p-0 search-trigger" aria-label="Search">
-            <i class="bi bi-search fs-5"></i>
-          </button>
-          <!-- Language Switcher (Google Translate) -->
-          <div class="dropdown">
-            <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
-              id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-              <i class="bi bi-globe2"></i>
-              <span class="small" id="current-lang">EN</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
-                  data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de"
-                  onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr"
-                  onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it"
-                  onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es"
-                  onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl"
-                  onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
-            </ul>
-          </div>
-          <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-            Support Cash 
-          </a>
-        </div>
-      </div>
-    </nav>
-  </div>
-<section class="hero-display position-relative" id="featured-hero-section">
-  <!-- Background image with parallax effect -->
-  <div id="featured-parallax-bg" class="featured-parallax-bg" 
-       style="background-image: url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}');">
-  </div>
-  
-  <div class="featured-overlay"></div>
-
-  <div class="container featured-content-wrap text-white position-relative">
-    <div class="featured-text-panel" style="color: transparent !important;">
-      <!-- Content Type Badge -->
-      <div class="featured-content-type-badge mb-3">
-        <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
-              style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
-          <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
-          <span id="featured-type-text">
-            {% if hero_posts.0.content_type %}{{ hero_posts.0.get_content_type_display }}{% else %}Cover Story{% endif %}
-          </span>
-        </span>
-      </div>
-
-      <!-- Main Title -->
-      <h1 id="featured-slide-title" class="featured-main-title text-white fw-bold mb-4">
-        {% if hero_posts %}
-          {{ hero_posts.0.title }}
-        {% else %}
-          Cash is simple, safe, and <span class="text-mint">for everyone</span>
-        {% endif %}
-      </h1>
-
-      <!-- Date -->
-      <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
-        <i class="bi bi-clock me-1"></i>
-        {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-      </span>
-
-      <!-- Author Section -->
-      <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
-        <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
-          {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
-            <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
-                 alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar rounded-circle" width="40" height="40">
-          {% elif hero_posts and hero_posts.0.author_image %}
-            <img id="featured-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" 
-                 alt="{{ hero_posts.0.author }}" class="author-avatar rounded-circle" width="40" height="40">
-          {% else %}
-            <img id="featured-author-avatar" src="{% static 'images/author-default.jpg' %}" 
-                 alt="Author" class="author-avatar rounded-circle" width="40" height="40">
-          {% endif %}
-        </a>
-
-        {% if hero_posts.0.author_profile %}
-          <a id="featured-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-             class="text-white opacity-75 small text-decoration-none author-link">
-            {{ hero_posts.0.author_profile.name }}
-          </a>
-        {% elif hero_posts.0.author %}
-          <a id="featured-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-            {{ hero_posts.0.author }}
-          </a>
-        {% endif %}
-      </div>
-
-      <!-- CTA Button -->
-      <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
-         style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
-        Read The Story   
-      </a>
-
-      <div class="featured-carousel-nav mt-auto pt-4">
-        <div class="d-flex align-items-center gap-3">
-          <div class="carousel-dots d-flex gap-2" id="featured-carousel-dots">
-            {% for post in hero_posts %}
-              <button class="carousel-dot {% if forloop.first %}active{% endif %}" 
-                      data-slide="{{ forloop.counter0 }}" 
-                      data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
-                      data-title="{{ post.title|escapejs }}"
-                      data-date="{{ post.date|date:'M d, Y' }}"
-                      data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
-                      data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
-                      data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
-                      data-content-type="{{ post.get_content_type_display }}"
-                      data-url="{{ post.url_path }}"
-                      aria-label="Slide {{ forloop.counter }}">
-              </button>
-            {% empty %}
-              <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
-            {% endfor %}
-          </div>
-          
-          <div class="carousel-controls d-flex gap-2 ms-auto">
-            <button class="btn btn-carousel" id="featured-prev" aria-label="Previous">
-              <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="btn btn-carousel" id="featured-next" aria-label="Next">
-              <i class="bi bi-chevron-right"></i>
-            </button>
-            <button class="btn btn-carousel" id="featured-pause" aria-label="Pause autoplay">
-              <i class="bi bi-pause-fill" id="pause-icon"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Cards -->
-    <div class="featured-bottom-cards pt-2 ">
-      <div class="row g-4">
-        {% for post in hero_posts|slice:"1:4" %}
-          <div class="col-lg-4 col-md-6">
-            <a href="{{ post.url_path }}" class="featured-small-card d-flex gap-3 text-white text-decoration-none">
-              <img src="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}"
-                   class="featured-small-thumb rounded-2"
-                   alt="{{ post.title }}">
-              <div>
-                <div class="small opacity-75 text-uppercase">
-                  {{ post.get_content_type_display }}
-                </div>
-                <div class="fw-semibold">
-                  {{ post.title|truncatechars:80 }}
-                </div>
-              </div>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
   .hero-display {
     position: relative;
     width: 100%;
@@ -577,155 +382,199 @@
       min-height: 70vh;
     }
   }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const featuredBg = document.getElementById('featured-parallax-bg');
-    const featuredSection = document.getElementById('featured-hero-section');
     
-    // Carousel functionality
-    const dots = document.querySelectorAll('.carousel-dot');
-    const prevBtn = document.getElementById('featured-prev');
-    const nextBtn = document.getElementById('featured-next');
-    const pauseBtn = document.getElementById('featured-pause');
-    let currentSlide = 0;
-    let isPlaying = true;
-    let autoplayInterval;
+  </style>
+</head>
+
+<body class="bg-light-cream">
+  <!-- =========================================
+         1. HEADER & HERO
+    ========================================== -->
+  <div class="hero-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+          <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a>
+            </li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+            <!-- Support Cash button for mobile -->
+            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
+            <!-- Write for Us link moved to footer only -->
+          </ul>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn text-white p-0 search-trigger" aria-label="Search">
+            <i class="bi bi-search fs-5"></i>
+          </button>
+          <!-- Language Switcher (Google Translate) -->
+          <div class="dropdown">
+            <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
+              id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+              <i class="bi bi-globe2"></i>
+              <span class="small" id="current-lang">EN</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
+                  data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de"
+                  onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr"
+                  onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it"
+                  onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es"
+                  onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl"
+                  onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
+            </ul>
+          </div>
+          <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
+            Support Cash 
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <section class="hero-display position-relative" id="featured-hero-section">
+    <!-- Background image with parallax effect -->
+    <div id="featured-parallax-bg" class="featured-parallax-bg" 
+        style="background-image: url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}');">
+    </div>
     
-    const titleEl = document.getElementById('featured-slide-title');
-    const dateEl = document.getElementById('featured-slide-date');
-    const authorEl = document.getElementById('featured-slide-author');
-    const authorLink = document.getElementById('featured-author-link');
-    const authorAvatar = document.getElementById('featured-author-avatar');
-    const ctaLink = document.getElementById('featured-slide-link');
-    const typeBadgeText = document.getElementById('featured-type-text');
+    <div class="featured-overlay"></div>
 
-    function updateSlideContent(slideIndex) {
-      const activeDot = dots[slideIndex];
-      if (!activeDot) return;
-      
-      // Update background image
-      const imageUrl = activeDot.dataset.image || '{% static "images/homepage/featured-fallback.jpg" %}';
-      featuredBg.style.backgroundImage = `url('${imageUrl}')`;
-      
-      // Update title
-      if (titleEl) titleEl.textContent = activeDot.dataset.title || 'Cash is simple, safe, and for everyone';
-      
-      // Update date
-      if (dateEl) {
-        const dateSpan = dateEl.querySelector('i.bi-clock')?.parentElement || dateEl;
-        dateSpan.innerHTML = `<i class="bi bi-clock me-1"></i>${activeDot.dataset.date || 'Latest'}`;
-      }
-      
-      // Update author
-      const authorName = activeDot.dataset.author;
-      if (authorEl && authorName) {
-        authorEl.textContent = authorName;
-        authorEl.style.display = '';
-        authorEl.href = activeDot.dataset.authorId ? 
-          `{% url 'author_profile_by_id' 0 %}`.replace('0', activeDot.dataset.authorId) : '#';
-      }
-      
-      // Update author avatar
-      const avatarUrl = activeDot.dataset.authorAvatar;
-      if (authorAvatar && avatarUrl) {
-        authorAvatar.src = avatarUrl;
-      }
-      
-      // Update CTA link
-      if (ctaLink) {
-        ctaLink.href = activeDot.dataset.url || '#';
-      }
-      
-      // Update content type badge
-      if (typeBadgeText) {
-        typeBadgeText.textContent = activeDot.dataset.contentType || 'Cover Story';
-      }
-      
-      // Update active dot
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === slideIndex);
-      });
-    }
+    <div class="container featured-content-wrap text-white position-relative">
+      <div class="featured-text-panel" style="color: transparent !important;">
+        <!-- Content Type Badge -->
+        <div class="featured-content-type-badge mb-3">
+          <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+                style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+            <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
+            <span id="featured-type-text">
+              {% if hero_posts.0.content_type %}{{ hero_posts.0.get_content_type_display }}{% else %}Cover Story{% endif %}
+            </span>
+          </span>
+        </div>
 
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % dots.length;
-      updateSlideContent(currentSlide);
-    }
+        <!-- Main Title -->
+        <h1 id="featured-slide-title" class="featured-main-title text-white fw-bold mb-4">
+          {% if hero_posts %}
+            {{ hero_posts.0.title }}
+          {% else %}
+            Cash is simple, safe, and <span class="text-mint">for everyone</span>
+          {% endif %}
+        </h1>
 
-    function prevSlide() {
-      currentSlide = (currentSlide - 1 + dots.length) % dots.length;
-      updateSlideContent(currentSlide);
-    }
+        <!-- Date -->
+        <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
+          <i class="bi bi-clock me-1"></i>
+          {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+        </span>
 
-    function startAutoplay() {
-      if (autoplayInterval) clearInterval(autoplayInterval);
-      autoplayInterval = setInterval(nextSlide, 5000);
-      isPlaying = true;
-      document.getElementById('pause-icon').classList.remove('bi-play-fill');
-      document.getElementById('pause-icon').classList.add('bi-pause-fill');
-    }
+        <!-- Author Section -->
+        <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
+          <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
+            {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
+              <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
+                  alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar rounded-circle" width="40" height="40">
+            {% elif hero_posts and hero_posts.0.author_image %}
+              <img id="featured-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" 
+                  alt="{{ hero_posts.0.author }}" class="author-avatar rounded-circle" width="40" height="40">
+            {% else %}
+              <img id="featured-author-avatar" src="{% static 'images/author-default.jpg' %}" 
+                  alt="Author" class="author-avatar rounded-circle" width="40" height="40">
+            {% endif %}
+          </a>
 
-    function stopAutoplay() {
-      clearInterval(autoplayInterval);
-      isPlaying = false;
-      document.getElementById('pause-icon').classList.remove('bi-pause-fill');
-      document.getElementById('pause-icon').classList.add('bi-play-fill');
-    }
+          {% if hero_posts.0.author_profile %}
+            <a id="featured-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
+              class="text-white opacity-75 small text-decoration-none author-link">
+              {{ hero_posts.0.author_profile.name }}
+            </a>
+          {% elif hero_posts.0.author %}
+            <a id="featured-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
+              {{ hero_posts.0.author }}
+            </a>
+          {% endif %}
+        </div>
 
-    // Event listeners
-    if (dots.length > 0) {
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', function() {
-          currentSlide = index;
-          updateSlideContent(currentSlide);
-        });
-      });
-    }
+        <!-- CTA Button -->
+        <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
+          style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
+          Read The Story   
+        </a>
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function() {
-        prevSlide();
-        if (isPlaying) {
-          stopAutoplay();
-          startAutoplay();
-        }
-      });
-    }
+        <div class="featured-carousel-nav mt-auto pt-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="carousel-dots d-flex gap-2" id="featured-carousel-dots">
+              {% for post in hero_posts %}
+                <button class="carousel-dot {% if forloop.first %}active{% endif %}" 
+                        data-slide="{{ forloop.counter0 }}" 
+                        data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
+                        data-title="{{ post.title|escapejs }}"
+                        data-date="{{ post.date|date:'M d, Y' }}"
+                        data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
+                        data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
+                        data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
+                        data-content-type="{{ post.get_content_type_display }}"
+                        data-url="{{ post.url_path }}"
+                        aria-label="Slide {{ forloop.counter }}">
+                </button>
+              {% empty %}
+                <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+              {% endfor %}
+            </div>
+            
+            <div class="carousel-controls d-flex gap-2 ms-auto">
+              <button class="btn btn-carousel" id="featured-prev" aria-label="Previous">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button class="btn btn-carousel" id="featured-next" aria-label="Next">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+              <button class="btn btn-carousel" id="featured-pause" aria-label="Pause autoplay">
+                <i class="bi bi-pause-fill" id="pause-icon"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function() {
-        nextSlide();
-        if (isPlaying) {
-          stopAutoplay();
-          startAutoplay();
-        }
-      });
-    }
-
-    if (pauseBtn) {
-      pauseBtn.addEventListener('click', function() {
-        if (isPlaying) {
-          stopAutoplay();
-        } else {
-          startAutoplay();
-        }
-      });
-    }
-
-    // Initialize autoplay
-    if (dots.length > 1) {
-      startAutoplay();
-    }
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', function() {
-      if (autoplayInterval) clearInterval(autoplayInterval);
-    });
-  });
-</script>
-
+      <!-- Bottom Cards -->
+      <div class="featured-bottom-cards pt-2 ">
+        <div class="row g-4">
+          {% for post in hero_posts|slice:"1:4" %}
+            <div class="col-lg-4 col-md-6">
+              <a href="{{ post.url_path }}" class="featured-small-card d-flex gap-3 text-white text-decoration-none">
+                <img src="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}"
+                    class="featured-small-thumb rounded-2"
+                    alt="{{ post.title }}">
+                <div>
+                  <div class="small opacity-75 text-uppercase">
+                    {{ post.get_content_type_display }}
+                  </div>
+                  <div class="fw-semibold">
+                    {{ post.title|truncatechars:80 }}
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+ 
 
   <!-- Hero Carousel Data (for JavaScript) -->
   <script type="application/json" id="hero-posts-data">
@@ -762,7 +611,7 @@
         {% endfor %}
       ]
     </script>
-
+ </section>
   <!-- =========================================
          2. FEATURED CONTENT (GSAP ANIMATION)
     ========================================== -->
@@ -855,7 +704,9 @@
       </div>
     </div>
   </section>
-
+  <!-- =========================================
+         3.PODCAST  
+    ========================================== -->
 <section id="podcast-section" class="section-bg py-5">
 
   <style>
@@ -1027,7 +878,7 @@
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=studies" class="text-mint fw-bold text-decoration-none small">See all Studies
+        <a href="{% url 'news' %}?category=studies" style="font-size: 20px;" class="text-mint fw-bold text-decoration-none small">See all Studies
           & Reports</a>
       </div>
 
@@ -1576,7 +1427,7 @@
   </div>
 </section>   
 
-<section class="py-5">
+<section class="py-5 pb-5 mb-5">
   <div class="container">
 
     <div class="row align-items-stretch gy-4">
@@ -1609,25 +1460,33 @@
         </p>
 
         <!-- Location Block -->
-        <div class="d-flex gap-3 align-items-start mb-4 flex-sm-row flex-column">
-          
-          <div class="d-flex align-items-center justify-content-center"
-               style="min-width:50px; height:50px; background:#3bbcae; border-radius:50%;">
-            <i class="bi bi-geo-alt text-white fs-4"></i>
+     <!-- Location + Date + Register -->
+          <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+            <!-- Left Side (Icon + Location + Date) -->
+            <div class="d-flex gap-3 align-items-center">
+              
+              <div class="d-flex align-items-center justify-content-center"
+                  style="min-width:50px; height:50px; background:#3bbcae; border-radius:50%;">
+                <i class="bi bi-geo-alt text-white fs-4"></i>
+              </div>
+
+              <div>
+                <h5 class="fw-bold mb-1">Antalya, Türkiye</h5>
+                <p class="mb-0" style="color: #3bbcae;">
+                  27-30 April 2026
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Right Side (Register Button) -->
+            <a href="#" class="btn btn-dark px-4 py-2 rounded-pill">
+              Register Now
+            </a>
+
           </div>
 
-          <div>
-            <h5 class="fw-bold mb-1">Antalya, Türkiye</h5>
-            <p class="mb-0" style="color: rgba(33, 37, 41, 0.75);">27-30 April 2026</p>
-          </div>
-        </div>
-
-        <!-- Button -->
-        <a href="https://www.globalcurrencyforum.net/" 
-           class="btn btn-mint fw-bold px-4 py-3 rounded-3">
-          Register  
-        </i>
-        </a>
 
       </div>
 
@@ -2548,6 +2407,152 @@
             history.scrollRestoration = 'manual';
         }
     })();
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const featuredBg = document.getElementById('featured-parallax-bg');
+    const featuredSection = document.getElementById('featured-hero-section');
+    
+    // Carousel functionality
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('featured-prev');
+    const nextBtn = document.getElementById('featured-next');
+    const pauseBtn = document.getElementById('featured-pause');
+    let currentSlide = 0;
+    let isPlaying = true;
+    let autoplayInterval;
+    
+    const titleEl = document.getElementById('featured-slide-title');
+    const dateEl = document.getElementById('featured-slide-date');
+    const authorEl = document.getElementById('featured-slide-author');
+    const authorLink = document.getElementById('featured-author-link');
+    const authorAvatar = document.getElementById('featured-author-avatar');
+    const ctaLink = document.getElementById('featured-slide-link');
+    const typeBadgeText = document.getElementById('featured-type-text');
+
+    function updateSlideContent(slideIndex) {
+      const activeDot = dots[slideIndex];
+      if (!activeDot) return;
+      
+      // Update background image
+      const imageUrl = activeDot.dataset.image || '{% static "images/homepage/featured-fallback.jpg" %}';
+      featuredBg.style.backgroundImage = `url('${imageUrl}')`;
+      
+      // Update title
+      if (titleEl) titleEl.textContent = activeDot.dataset.title || 'Cash is simple, safe, and for everyone';
+      
+      // Update date
+      if (dateEl) {
+        const dateSpan = dateEl.querySelector('i.bi-clock')?.parentElement || dateEl;
+        dateSpan.innerHTML = `<i class="bi bi-clock me-1"></i>${activeDot.dataset.date || 'Latest'}`;
+      }
+      
+      // Update author
+      const authorName = activeDot.dataset.author;
+      if (authorEl && authorName) {
+        authorEl.textContent = authorName;
+        authorEl.style.display = '';
+        authorEl.href = activeDot.dataset.authorId ? 
+          `{% url 'author_profile_by_id' 0 %}`.replace('0', activeDot.dataset.authorId) : '#';
+      }
+      
+      // Update author avatar
+      const avatarUrl = activeDot.dataset.authorAvatar;
+      if (authorAvatar && avatarUrl) {
+        authorAvatar.src = avatarUrl;
+      }
+      
+      // Update CTA link
+      if (ctaLink) {
+        ctaLink.href = activeDot.dataset.url || '#';
+      }
+      
+      // Update content type badge
+      if (typeBadgeText) {
+        typeBadgeText.textContent = activeDot.dataset.contentType || 'Cover Story';
+      }
+      
+      // Update active dot
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + dots.length) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(nextSlide, 5000);
+      isPlaying = true;
+      document.getElementById('pause-icon').classList.remove('bi-play-fill');
+      document.getElementById('pause-icon').classList.add('bi-pause-fill');
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+      isPlaying = false;
+      document.getElementById('pause-icon').classList.remove('bi-pause-fill');
+      document.getElementById('pause-icon').classList.add('bi-play-fill');
+    }
+
+    // Event listeners
+    if (dots.length > 0) {
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+          currentSlide = index;
+          updateSlideContent(currentSlide);
+        });
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        prevSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        nextSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+    }
+
+    // Initialize autoplay
+    if (dots.length > 1) {
+      startAutoplay();
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', function() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+    });
+  });
 </script>
 </body>
 
