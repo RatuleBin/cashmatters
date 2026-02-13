@@ -293,133 +293,6 @@
         </div>
       </div>
     </nav>
-
-    <!-- Dynamic Hero Carousel (Modern Split Layout) -->
-   <!-- <section class="hero-content position-relative">
-      <div class="container">
-        <div class="hero-slide-card mt-4 mb-5">
-          <div class="row g-0  align-items-stretch">
-            <div class="col-lg-6 col-12 order-2 order-lg-1">
-              <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
-                <div class="hero-content-type-badge mb-3 mt-5">
-                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
-                    style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
-                    <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
-                    <span id="hero-type-text">Cover Story</span>
-                  </span>
-                </div>
-
-                <h1 id="hero-slide-title" class="hero-title text-white fw-bold mb-4">
-                  {% if hero_posts %}
-                  {{ hero_posts.0.title }}
-                  {% else %}
-                  Cash is simple, safe, and <span class="text-mint">for everyone</span>
-                  {% endif %}
-                </h1>
-
-              
-                  
-                <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
-                   <span id="hero-slide-date" class="text-white opacity-75 small">
-                    <i class="bi bi-clock me-1"></i>
-                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-                  </span>
-               
-               
-                  <div class="hero-author-wrap">
-                    <a id="hero-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
-                      {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar">
-                      {% elif hero_posts and hero_posts.0.author_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" alt="{{ hero_posts.0.author }}" class="author-avatar">
-                      {% else %}
-                      <img id="hero-author-avatar" src="{% static 'images/author-default.jpg' %}" alt="Author" class="author-avatar">
-                      {% endif %}
-                    </a>
-
-                    {% if hero_posts.0.author_profile %}
-                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-                      class="text-white opacity-75 small text-decoration-none author-link">
-                      {{ hero_posts.0.author_profile.name }}
-                    </a>
-                    {% elif hero_posts.0.author %}
-                    <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-                      <i class=" me-1"></i>
-                      {{ hero_posts.0.author }}
-                    </a>
-                    {% else %}
-                    <a id="hero-slide-author" href="#" style="display:none"></a>
-                    {% endif %}
-                  </div>
-                
-                </div>
-     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 220px;width: 100%;"
-                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read The Story Now 
-                  </a>
-                <div class="hero-carousel-nav mt-auto pt-3">
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
-                      {% for post in hero_posts %}
-                      <button class="carousel-dot {% if forloop.first %}active{% endif %}"
-                        data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
-                      {% empty %}
-                      <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
-                      {% endfor %}
-                    </div>
-                    <div class="carousel-controls d-flex gap-2 ms-auto">
-                      <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
-                        <i class="bi bi-chevron-left"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-next" aria-label="Next">
-                        <i class="bi bi-chevron-right"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
-                        <i class="bi bi-pause-fill" id="pause-icon"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-12 order-1 order-lg-2">
-              <div class="hero-image-panel h-100 position-relative">
-                <div id="hero-media-image" class="hero-media-item h-100">
-                  {% if hero_posts.0.wide_thumbnail %}
-                  <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}"
-                    class="w-100 h-100 hero-media-img" alt="{{ hero_posts.0.title }}"
-                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                  {% else %}
-                  <img id="hero-slide-image" src="{% static 'images/homepage/featured-fallback.jpg' %}"
-                    class="w-100 h-100 hero-media-img" alt="Featured content">
-                  {% endif %}
-                </div>
-
-                <div id="hero-media-video" class="hero-media-item h-100" style="display: none;">
-                  <video id="hero-video" class="w-100 h-100" loop playsinline preload="auto" controls
-                    style="object-fit: cover;">
-                    <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                  </video>
-                  <div class="play-btn-wrapper">
-                    <button id="play-btn" class="btn-play">
-                      <i class="bi bi-play-fill"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="hero-media-type-overlay position-absolute" style="top: 15px; right: 15px;">
-                  <span id="hero-media-type-icon" class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
-                    <i class="bi bi-star-fill"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>  -->
-
   </div>
 <section class="hero-display position-relative" id="featured-hero-section">
   <!-- Background image with parallax effect -->
@@ -487,7 +360,7 @@
       <!-- CTA Button -->
       <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
          style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
-        Read The Story Now 
+        Read The Story   
       </a>
 
       <div class="featured-carousel-nav mt-auto pt-4">
@@ -711,18 +584,6 @@
     const featuredBg = document.getElementById('featured-parallax-bg');
     const featuredSection = document.getElementById('featured-hero-section');
     
-    // Parallax effect on mousemove
-    document.addEventListener('mousemove', function(e) {
-      const { innerWidth, innerHeight } = window;
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      const moveX = (mouseX - innerWidth / 2) * 0.02;
-      const moveY = (mouseY - innerHeight / 2) * 0.02;
-
-      featuredBg.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
-    });
-
     // Carousel functionality
     const dots = document.querySelectorAll('.carousel-dot');
     const prevBtn = document.getElementById('featured-prev');
@@ -943,7 +804,7 @@
               </p>
                <a id="hero-slide-link" href="{{ post.url }}" style="max-width: 220px;width: 100%;"
                     class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read The Story Now 
+                    Read The Story   
                   </a>
            
             </div>
@@ -994,87 +855,7 @@
       </div>
     </div>
   </section>
-  <!-- =========================================
-         3. PODCAST
-    ========================================== -->
-  <!-- <section id="podcast-section" class="section-bg py-5">
-    <div class="container">
-      <div class="row align-items-end mb-5">
-        <div class="col-md-8">
-          <h2 class="fw-bold mb-2">Podcast</h2>
-          <p class="text-muted mb-0">
-            Conversations that matter about the future of<br />money
-          </p>
-        </div>
-        <div class="col-md-4 text-md-end">
-          <a href="{% url 'news' %}?category=podcast" class="text-mint fw-bold text-decoration-none small">See all
-            Podcasts <i class="bi bi-arrow-up-right"></i></a>
-        </div>
-      </div>
 
-      <div class="row g-4">
-        {% for podcast in podcast_posts %}
-        <div class="col-md-4">
-          <a href="{{ podcast.url_path }}" class="text-decoration-none">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
-              <div class="podcast-thumb-wrapper position-relative">
-                {% if podcast.wide_thumbnail %}
-                <img src="{{ podcast.wide_thumbnail.file.url }}" class="w-100 object-fit-cover"
-                  alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% elif podcast.tall_thumbnail %}
-                <img src="{{ podcast.tall_thumbnail.file.url }}" class="w-100 object-fit-cover"
-                  alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% else %}
-                <img src="{% static 'images/homepage/podcast-thumb-{{ forloop.counter }}.jpg' %}"
-                  class="w-100 object-fit-cover" alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% endif %}
-                <div class="podcast-play-overlay position-absolute top-50 start-50 translate-middle">
-                  <div class="play-icon-circle-lg">
-                    <i class="bi bi-play-fill"></i>
-                  </div>
-                </div>
-                {% if podcast.duration %}
-                <span class="badge bg-dark bg-opacity-75 position-absolute bottom-0 end-0 m-2 px-2 py-1 small">
-                  <i class="bi bi-clock me-1"></i>{{ podcast.duration }}
-                </span>
-                {% endif %}
-              </div>
-              <div class="card-body p-4 bg-white">
-                <div class="small text-muted mb-2 d-flex align-items-center gap-2">
-                  <i class="bi bi-mic-fill text-mint"></i> Podcast
-                  <span class="mx-1">•</span> {{ podcast.date|date:"M Y" }}
-                </div>
-                <h5 class="fw-bold text-dark mb-0">{{ podcast.title }}</h5>
-                  {% if podcast.intro %}
-                      <p class="text-muted pt-2 mb-0" style="font-size: 20px;">
-                          {{ podcast.intro|truncatewords:20 }}
-                      </p>
-                      {% endif %}                               
-
-
-              </div>
-            </div>
-          </a>
-        </div>
-        {% empty %}
-        <div class="col-12">
-          <div class="alert alert-info text-center">
-            <p class="mb-0">No podcast episodes available yet. Please check back later!</p>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="text-center mt-5">
-        <a href="{% url 'news' %}?category=podcast" class="btn btn-mint fw-bold px-5 py-3 rounded-2">
-          <i class="bi bi-mic-fill me-2"></i>Listen to More Episodes
-        </a>
-      </div>
-    </div>
-  </section> -->
 <section id="podcast-section" class="section-bg py-5">
 
   <style>
@@ -1683,7 +1464,7 @@
     .news-card {
       border-radius: 1rem;
       overflow: hidden;
-      height: 380px;
+      height: 280px;
       position: relative;
     }
 
@@ -1708,7 +1489,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: -between;
       padding: 1.5rem;
     }
 
@@ -1759,7 +1540,7 @@
 
             <!-- Top: Date & Badge -->
             <div class="d-flex justify-content-between align-items-center small text-white-50">
-              <span><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
+              <span style="background-color: white;color: #000; border-radius: 10px; padding: 4px 8px;"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
               <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">
                 {% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}
               </span>
@@ -1767,39 +1548,16 @@
 
             <!-- Middle: Title & Intro -->
             <div>
-              <h5 class="fw-bold text-white mb-2">{{ post.title }}</h5>
-              <p class="text-white-50 mb-2" style="font-size: 18px;">
-                {{ post.intro|truncatewords:20 }}
-              </p>
+              <h5 class="fw-bold pt-5 text-white mb-2">{{ post.title }}</h5>
+            
             </div>
 
             <!-- Bottom: Author & Read More -->
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center small text-white-50">
-                {% if post.author_profile %}
-                  {% if post.author_profile.profile_image %}
-                    {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
-                    <img src="{{ author_thumb.url }}" class="author-thumb" alt="{{ post.author_profile.name }}">
-                  {% else %}
-                    <i class="bi bi-person me-1"></i>
-                  {% endif %}
-                  <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
-                    {{ post.author_profile.name }}
-                  </a>
-                {% elif post.author %}
-                  {% if post.author_image %}
-                    <img src="{{ post.author_image.file.url }}" class="author-thumb" alt="{{ post.author }}">
-                  {% else %}
-                    <i class="bi bi-person me-1"></i>
-                  {% endif %}
-                  <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
-                    {{ post.author }}
-                  </a>
-                {% endif %}
-              </div>
+            <div class="d-flex mt-5 justify-content-between align-items-center">
+         
 
               <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">
-                Read The Story Now 
+                Read The Story   
               </a>
             </div>
 
@@ -1816,13 +1574,12 @@
     </div>
 
   </div>
-</section>   </div>
-  </section>
+</section>   
 
 <section class="py-5">
   <div class="container">
 
-    <div class="row align-items-center gy-4">
+    <div class="row align-items-stretch gy-4">
         <div class="text-cent">
           <p>
             What’s Happening Next
@@ -1833,9 +1590,9 @@
           </h1>
         </div>
       <!-- Image Column -->
-      <div class="col-12 col-lg-6">
-        <img 
-          src="https://currencyassociation.org/wp-content/uploads/2025/08/KHD08194-1-2048x1366.jpg" 
+      <div class="col-12 col-lg-6 d-flex">
+        <img  style="object-fit: cover;"
+          src="https://static.wixstatic.com/media/26805b_1bfc077f42334893831f82760096e1ad~mv2.jpg/v1/fill/w_2048,h_810,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/26805b_1bfc077f42334893831f82760096e1ad~mv2.jpg" 
           class="img-fluid rounded-4 w-100"
           alt="Global Currency Forum 2026">
       </div>
@@ -1868,7 +1625,7 @@
         <!-- Button -->
         <a href="https://www.globalcurrencyforum.net/" 
            class="btn btn-mint fw-bold px-4 py-3 rounded-3">
-          Register Now
+          Register  
         </i>
         </a>
 
@@ -2346,7 +2103,7 @@
 
         if (imageEl) imageEl.src = post.image;
 
-        // Type badge now always shows "Cover Story" - no dynamic changes needed
+        // Type badge   always shows "Cover Story" - no dynamic changes needed
         // Keep the static "Cover Story" label regardless of content type
         if (mediaTypeIcon) {
           mediaTypeIcon.innerHTML = '<i class="bi bi-star-fill"></i>';
@@ -2461,7 +2218,7 @@
       });
     }
 
-    // Podcast section now uses static cards with thumbnails - no video player needed
+    // Podcast section   uses static cards with thumbnails - no video player needed
 
     // =========================================
     // DOWNLOAD, SHARE, AND PRINT FUNCTIONALITY
