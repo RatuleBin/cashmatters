@@ -1,4 +1,29 @@
 /* =========================================
+   0. GOOGLE TRANSLATE FIX
+   ========================================= */
+.goog-te-banner-frame,
+.skiptranslate {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+html body {
+    top: 0 !important;
+    position: static !important;
+}
+
+.goog-te-gadget {
+    display: none !important;
+}
+
+#google_translate_element {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* =========================================
    1. GLOBAL VARIABLES & RESET
    ========================================= */
 :root {
