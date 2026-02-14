@@ -14,6 +14,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <!-- Scroll fix: must be in <head> to prevent scroll-to-bottom flash -->
+    <script>
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+    </script>
+
     <style>
         /* Global Font - matching homepage */
         *,
@@ -830,11 +836,7 @@
 
 <script>
     (function() {
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        // Keep page at top on load
         window.addEventListener('load', function() {
             window.scrollTo(0, 0);
             document.body.style.top = '0px';
@@ -844,13 +846,10 @@
             mutations.forEach(function(m) {
                 if (m.attributeName === 'style' && document.body.style.top !== '0px') {
                     document.body.style.top = '0px';
-                    window.scrollTo(0, 0);
                 }
             });
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
     })();
 </script>
 
