@@ -184,16 +184,36 @@
     <div class="container mt-5 pt-4">
         {% if active_category != 'podcast' %}
         <!-- Category Links (Hidden on Podcast page) -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-            <div class="sub-nav-links d-flex gap-4 fs-5 fw-medium">
-                <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">News</a>
-                <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
-                <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
-                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key Facts</a>
-                <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'events' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Events</a>
+       <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="sub-nav-wrapper w-100">
+                        <div class="sub-nav-links d-flex gap-4 fw-medium">
+                            <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}"
+                            class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">
+                            News
+                            </a>
 
-            </div>
-        </div>
+                            <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
+                            class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">
+                            Podcasts
+                            </a>
+
+                            <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
+                            class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">
+                            Studies & Research
+                            </a>
+
+                            <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
+                            class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">
+                            Key Facts
+                            </a>
+
+                            <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
+                            class="text-decoration-none {% if active_category == 'events' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">
+                            Events
+                            </a>
+                        </div>
+                    </div>
+                </div>
         {% endif %}
 
         <!-- Advanced Filters Row -->
