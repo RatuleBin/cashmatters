@@ -94,6 +94,34 @@
 
 
 }
+
+
+    .sub-nav-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sub-nav-links {
+        flex-wrap: nowrap;
+        min-width: max-content;
+    }
+
+    .sub-nav-links a {
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+
+    /* Optional: hide scrollbar */
+    .sub-nav-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .sub-nav-links {
+            font-size: 14px;
+            gap: 20px !important;
+        }
+    }
     </style>
 </head>
 <body class="bg-light-cream">
