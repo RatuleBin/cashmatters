@@ -782,7 +782,12 @@
     </script>
 
     <!-- Google Translate Integration -->
-    <div id="google_translate_element" style="display: none;"></div>
+    <style>
+        .goog-te-banner-frame, .skiptranslate { display: none !important; height: 0 !important; }
+        html body { top: 0 !important; }
+        .goog-te-gadget, #google_translate_element { display: none !important; height: 0 !important; }
+    </style>
+    <div id="google_translate_element" style="display:none;height:0;overflow:hidden;"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
