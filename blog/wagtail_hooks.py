@@ -6,7 +6,7 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from django.urls import reverse, path
 from django.utils.html import format_html
 from django.shortcuts import redirect
-from .models import BlogPage, WhyCashMattersPage, SupportPage, Author
+from .models import BlogPage, WhyCashMattersPage, SupportPage, Author, KeyFact
 
 
 class AuthorViewSet(SnippetViewSet):
@@ -22,7 +22,21 @@ class AuthorViewSet(SnippetViewSet):
     search_fields = ["name", "job_title", "bio"]
 
 
+class KeyFactViewSet(SnippetViewSet):
+    """Custom ViewSet for Key Facts on homepage"""
+    model = KeyFact
+    icon = "doc-full-inverse"
+    menu_label = "Key Facts"
+    menu_name = "key-facts"
+    menu_order = 201
+    add_to_admin_menu = True
+    list_display = ["stat_number", "country", "stat_color", "is_active", "sort_order"]
+    list_filter = ["is_active", "stat_color"]
+    search_fields = ["country", "description"]
+
+
 register_snippet(AuthorViewSet)
+register_snippet(KeyFactViewSet)
 
 
 @hooks.register('register_admin_menu_item')
@@ -64,6 +78,7 @@ def hide_unwanted_menu_items(request, menu_items):
         'Why Cash Feature Page',
         'images',  # Wagtail's built-in images menu
         'authors',  # Author management
+        'key-facts',  # Key Facts management
     ]
     menu_items[:] = [
         item for item in menu_items

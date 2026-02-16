@@ -102,6 +102,78 @@ class Sector(models.Model):
         ordering = ['name']
 
 
+class KeyFact(models.Model):
+    """Key Fact snippet for homepage Key Facts section"""
+    STAT_COLOR_CHOICES = [
+        ('text-stat-yellow', 'Yellow'),
+        ('text-stat-blue', 'Blue'),
+        ('text-stat-teal', 'Teal'),
+        ('text-stat-rust', 'Rust'),
+    ]
+
+    stat_number = models.CharField(
+        max_length=10,
+        help_text="The percentage or number to display, e.g. 22%"
+    )
+    description = models.CharField(
+        max_length=255,
+        help_text="Fact description, e.g. Cash is used for 22% of POS payments in Chile"
+    )
+    country = models.CharField(
+        max_length=100,
+        help_text="Country name"
+    )
+    stat_color = models.CharField(
+        max_length=20,
+        choices=STAT_COLOR_CHOICES,
+        default='text-stat-yellow',
+        help_text="Color for the stat number"
+    )
+    download_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Downloadable fact card image (shown when user clicks Download)"
+    )
+    background_image = models.ForeignKey(
+        get_image_model(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Background photo displayed below/above the stat card"
+    )
+    background_image_alt = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Alt text for the background image"
+    )
+    is_active = models.BooleanField(default=True, help_text="Show on homepage")
+    sort_order = models.PositiveIntegerField(default=0, help_text="Order of display (lower = first)")
+
+    panels = [
+        FieldPanel('stat_number'),
+        FieldPanel('description'),
+        FieldPanel('country'),
+        FieldPanel('stat_color'),
+        FieldPanel('download_image'),
+        FieldPanel('background_image'),
+        FieldPanel('background_image_alt'),
+        FieldPanel('is_active'),
+        FieldPanel('sort_order'),
+    ]
+
+    def __str__(self):
+        return f"{self.stat_number} - {self.country}"
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = "Key Fact"
+        verbose_name_plural = "Key Facts"
+
+
 class BlogIndexPage(Page):
     """
     Main blog index page - lists all blog posts
