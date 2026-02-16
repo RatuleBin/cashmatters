@@ -1,30 +1,16 @@
 /* =========================================
-   0. GOOGLE TRANSLATE FIX
-   ========================================= */
-.goog-te-banner-frame,
-.skiptranslate {
-    display: none !important;
-    height: 0 !important;
-    overflow: hidden !important;
-}
-
-html body {
-    top: 0 !important;
-}
-
-.goog-te-gadget {
-    display: none !important;
-}
-
-#google_translate_element {
-    display: none !important;
-    height: 0 !important;
-    overflow: hidden !important;
-}
-
-/* =========================================
    1. GLOBAL VARIABLES & RESET
    ========================================= */
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff2") format("woff2"),
+       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
     --brand-dark: #001F29;
     --brand-mint: #4CD1C2;
@@ -35,8 +21,8 @@ html body {
     --brand-blue-line: #0099CC;
     /* ITC Avant Garde Gothic - Primary font for headings and navigation */
     /* Falls back to Century Gothic (similar system font) or Poppins (Google Font) */
-    --font-header: 'ITC Avant Garde Gothic', 'Avant Garde', 'AvantGarde', 'Century Gothic', 'CenturyGothic', 'Poppins', sans-serif;
-    --font-body: "Alvant Grade", sans-serif !important;
+  --font-header: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
+  --font-body: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
 }
 
 /* =========================================

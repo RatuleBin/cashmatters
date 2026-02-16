@@ -14,38 +14,10 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- Scroll fix: must be in <head> to prevent scroll-to-bottom flash -->
-    <script>
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-    </script>
-
     <style>
-        /* Global Font - matching homepage */
-        *,
-        *::before,
-        *::after {
-            font-family: "Alvant Grade", sans-serif !important;
-        }
-
-        .navbar,
-        .navbar * {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-        .nav-item {
-            font-size: 15px !important;
-        }
-
-        .navbar .nav-link {
-            text-transform: uppercase;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-        }
-
         /* Blog Page Custom Styles */
         .blog-page {
-            font-family: "Alvant Grade", sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* Hero Section */
@@ -399,7 +371,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash</a></li>
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-3">
@@ -421,7 +393,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>
@@ -443,37 +415,31 @@
                       
                         <div class="meta-info text-center mt-3">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
-                            {% if not page.article_types.first or page.article_types.first.name != "Podcast" %}
-
-                                {% if page.author_profile %}
-                                    <span class="ms-3 d-flex align-items-center gap-2">
-                                        {% if page.author_profile.profile_image %}
-                                            {% image page.author_profile.profile_image fill-32x32 as profile_img %}
-                                            <img src="{{ profile_img.url }}" alt="{{ page.author_profile.name }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                        {% else %}
-                                            <i class="bi bi-person-circle" style="font-size: 32px;"></i>
-                                        {% endif %}
-                                        <a href="{% url 'author_profile_by_id' page.author_profile.id %}" class="text-decoration-none" style="color: inherit;">
-                                            {{ page.author_profile.name }}
-                                        </a>
-                                    </span>
-
-                                {% elif page.author %}
-                                    <span class="ms-3 d-flex align-items-center gap-2">
-                                        {% if page.author_image %}
-                                            {% image page.author_image fill-32x32 as author_img %}
-                                            <img src="{{ author_img.url }}" alt="{{ page.author }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                                        {% else %}
-                                            <i class="bi bi-person-circle" style="font-size: 32px;"></i>
-                                        {% endif %}
-                                        <a href="{% url 'author_profile' page.author %}" class="text-decoration-none" style="color: inherit;">
-                                            {{ page.author }}
-                                        </a>
-                                    </span>
+                            {% if page.author_profile %}
+                            <span class="ms-3 d-flex align-items-center gap-2">
+                                {% if page.author_profile.profile_image %}
+                                    {% image page.author_profile.profile_image fill-32x32 as profile_img %}
+                                    <img src="{{ profile_img.url }}" alt="{{ page.author_profile.name }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                {% else %}
+                                    <i class="bi bi-person-circle" style="font-size: 32px;"></i>
                                 {% endif %}
-
+                                <a href="{% url 'author_profile_by_id' page.author_profile.id %}" class="text-decoration-none" style="color: inherit;">
+                                    {{ page.author_profile.name }}
+                                </a>
+                            </span>
+                            {% elif page.author %}
+                            <span class="ms-3 d-flex align-items-center gap-2">
+                                {% if page.author_image %}
+                                    {% image page.author_image fill-32x32 as author_img %}
+                                    <img src="{{ author_img.url }}" alt="{{ page.author }}" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                {% else %}
+                                    <i class="bi bi-person-circle" style="font-size: 32px;"></i>
+                                {% endif %}
+                                <a href="{% url 'author_profile' page.author %}" class="text-decoration-none" style="color: inherit;">
+                                    {{ page.author }}
+                                </a>
+                            </span>
                             {% endif %}
-
                             {% if page.article_types.first %}
                             <span class="ms-3 badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold">
                                 {{ page.article_types.first.name }}
@@ -491,7 +457,7 @@
         <div class="container">
             <div class="row">
                 <!-- Article Content -->
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <article class="article-content">
                         {% if page.intro %}
                         <p class="lead">{{ page.intro }}</p>
@@ -519,7 +485,48 @@
                 </div>
 
                 <!-- Sidebar -->
-         
+                <div class="col-lg-4">
+                    <!-- Latest Section -->
+                    <div class="sidebar-section mb-4">
+                        <h5 class="sidebar-title mb-3">Latest</h5>
+                        {% for post in latest_posts %}
+                        <div class="card sidebar-card mb-3">
+                            <div class="position-relative">
+                                {% if post.wide_thumbnail %}
+                                {% image post.wide_thumbnail fill-400x200 as thumb %}
+                                <img src="{{ thumb.url }}" class="card-img-top" alt="{{ post.title }}">
+                                {% else %}
+                                <img src="{% static 'news-images/news-card.png' %}" class="card-img-top" alt="{{ post.title }}">
+                                {% endif %}
+                                <span class="badge bg-dark position-absolute top-0 start-0 m-2">NEWS</span>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">{{ post.title }}</h6>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted"><i class="bi bi-book"></i> Read</small>
+                                    <small class="text-muted"><i class="bi bi-share"></i> Share</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Featured Section -->
+                    <div class="sidebar-section">
+                        <h5 class="sidebar-title mb-3">Featured</h5>
+                        <div class="list-group">
+                            <a href="{% url 'new_page' %}" class="list-group-item list-group-item-action">
+                                Why Cash Matters
+                            </a>
+                            <a href="{% url 'support' %}" class="list-group-item list-group-item-action">
+                                Support Cash
+                            </a>
+                            <a href="{% url 'news' %}" class="list-group-item list-group-item-action">
+                                News & Articles
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -622,7 +629,8 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                            class="bi bi-arrow-up-right ms-2"></i></a>
 
                 </div>
             </div>
@@ -741,7 +749,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash 
+                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
                             </a>
                           </li>
                         </ul>
@@ -788,12 +796,7 @@
     </script>
 
     <!-- Google Translate Integration -->
-    <style>
-        .goog-te-banner-frame, .skiptranslate { display: none !important; height: 0 !important; }
-        html body { top: 0 !important; }
-        .goog-te-gadget, #google_translate_element { display: none !important; height: 0 !important; }
-    </style>
-    <div id="google_translate_element" style="display:none;height:0;overflow:hidden;"></div>
+    <div id="google_translate_element" style="display: none;"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -832,24 +835,57 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // scroll to top immediately
+    setTimeout(function() {
+      window.scrollTo(0, 0);
+    }, 10); // 10 milliseconds = 0.01 sec
+  });
+</script>
 
 
 <script>
+    // Force scroll to top on page load - comprehensive solution
     (function() {
-        // Keep page at top on load
-        window.addEventListener('load', function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
             window.scrollTo(0, 0);
-            document.body.style.top = '0px';
-        });
-        // Watch for Google Translate modifying body style
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
-                    document.body.style.top = '0px';
-                }
+
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
             });
-        });
-        observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately when script loads
+        forceScrollToTop();
+
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
     })();
 </script>
 

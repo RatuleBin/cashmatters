@@ -2,7 +2,7 @@ from .base import *
 import os
 import dj_database_url
 
-DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "y6eR_h82UNx40JEYo9e211ah5usQHYkqsYB9Wf_cS27ePkCpEUAzIUimeMhC4SPnSJY"
@@ -17,17 +17,23 @@ ALLOWED_HOSTS = [
 ]
 
 # Database configuration for production - Neon PostgreSQL
-DATABASE_URL = (
-    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
-    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
-)
-DATABASES = {
-    'default': dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
-}
+# DATABASE_URL = (
+#     'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+#     'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+# )
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=DATABASE_URL,
+#         conn_max_age=600
+#     )
 
+# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Security settings for production
 SECURE_SSL_REDIRECT = True

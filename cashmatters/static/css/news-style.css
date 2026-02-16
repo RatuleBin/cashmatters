@@ -19,7 +19,7 @@ html, body {
 }
 
 body {
-    font-family: "Alvant Grade", sans-serif !important;
+    font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif !important;
     background-color: var(--brand-cream);
     color: #1a1a1a;
     -webkit-font-smoothing: antialiased;

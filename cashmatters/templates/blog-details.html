@@ -7,17 +7,7 @@
 <style>
 /* Blog Details Page Styles */
 .blog-details-page {
-    font-family: "Alvant Grade", sans-serif !important;
-}
-
-/* All headings use Poppins - matching homepage */
-.blog-details-page h1,
-.blog-details-page h2,
-.blog-details-page h3,
-.blog-details-page h4,
-.blog-details-page h5,
-.blog-details-page h6 {
-    font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+    font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
 }
 
 /* Hero Section */
@@ -56,6 +46,7 @@
 }
 
 .hero-content h1 {
+    font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
     line-height: 1.1;
@@ -190,6 +181,12 @@
     opacity: 0.3;
 }
 
+/* Source Link */
+.source-link {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
 
 .source-link .btn {
     background: #43b1b0;
@@ -469,7 +466,13 @@
                             {{ page.body }}
                         </div>
 
-                       
+                        {% if page.source_link %}
+                        <div class="source-link mt-4">
+                            <a href="{{ page.source_link }}" target="_blank" rel="noopener" class="btn btn-outline-primary">
+                                View Source <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
+                        </div>
+                        {% endif %}
 
                         <!-- Tags -->
                         {% if page.article_types.all or page.locations.all or page.sectors.all %}
@@ -517,7 +520,7 @@
                                 <small class="text-muted">{{ article.date|date:"M d, Y" }}</small>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
-                                        Read More 
+                                        Read More <i class="bi bi-arrow-up-right ms-1"></i>
                                     </a>
                                 </div>
                             </div>
@@ -677,7 +680,8 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                            class="bi bi-arrow-up-right ms-2"></i></a>
 
                 </div>
             </div>
@@ -733,26 +737,47 @@
             </div>
         </div>
     </footer>
-  <script>
+    <script>
+    // Force scroll to top on page load - comprehensive solution
     (function() {
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
-        window.addEventListener('load', function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
             window.scrollTo(0, 0);
-            document.body.style.top = '0px';
-        });
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
-                    document.body.style.top = '0px';
-                    window.scrollTo(0, 0);
-                }
+
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        });
+
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately when script loads
+        forceScrollToTop();
+
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
     })();
-  </script>
+</script>
 {% endblock %}
