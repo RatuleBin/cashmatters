@@ -1222,89 +1222,7 @@
   <!-- =========================================
          6. LATEST NEWS
     ========================================== -->
-  <!-- <section class="section-bg py-5">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-end mb-4">
-        <div>
-          <h2 class="fw-bold mb-2">Latest News</h2>
-          <p class="text-muted mb-0">
-            Stay updated on cash and payment trends<br />worldwide
-          </p>
-        </div>
-        <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small">See all news <i
-            class="bi bi-arrow-up-right"></i></a>
-      </div> -->
-
-      <!-- <div class="row g-4">
-        {% for post in latest_posts %}
-        <div class="col-md-4">
-          <div class="card h-100 border-0 bg-white news-card rounded-4 overflow-hidden shadow-sm">
-            <div class="img-wrapper">
-              <a href="{{ post.url_path }}" class="text-decoration-none">
-                {% if post.wide_thumbnail %}
-                <img src="{{ post.wide_thumbnail.file.url }}" class="w-100 h-100 object-fit-cover transition-img"
-                  alt="{{ post.title }}" onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'" />
-                {% else %}
-                <img src="{% static 'images/homepage/featured-fallback.jpg' %}"
-                  class="w-100 h-100 object-fit-cover transition-img" alt="{{ post.title }}" />
-                {% endif %}
-              </a>
-            </div>
-            <div class="card-body p-4 d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-center mb-3 small">
-                <span class="text-muted"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
-                <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">{% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}</span>
-              </div>
-              {% if post.author_profile %}
-              <div class="mb-2 small text-muted d-flex align-items-center">
-                {% if post.author_profile.profile_image %}
-                {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
-                <img src="{{ author_thumb.url }}" class="rounded-circle me-2"
-                  style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author_profile.name }}">
-                {% else %}
-                <i class="bi bi-person me-1"></i>
-                {% endif %}
-                <a href="{% url 'author_profile_by_id' post.author_profile.id %}"
-                  class="text-decoration-none text-mint fw-medium">
-                  {{ post.author_profile.name }}
-                </a>
-              </div>
-              {% elif post.author %}
-              <div class="mb-2 small text-muted d-flex align-items-center">
-                {% if post.author_image %}
-                <img src="{{ post.author_image.file.url }}" class="rounded-circle me-2"
-                  style="width: 32px; height: 32px; object-fit: cover;" alt="{{ post.author }}">
-                {% else %}
-                <i class="bi bi-person me-1"></i>
-                {% endif %}
-                <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
-                  {{ post.author }}
-                </a>
-              </div>
-              {% endif %}
-              <h5 class="fw-bold mb-4 flex-grow-1">
-                {{ post.title }}
-              </h5>
-                <p class=" mb-4 flex-grow-1" style="font-size: 20px;">
-                {{ post.intro|truncatewords:20 }}
-              </p>
-              <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">Read More <i
-                  class="bi bi-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-          <div class="alert alert-info text-center">
-            <p class="mb-0">No news articles available yet. Please check back later!</p>
-          </div>
-        </div>
-        {% endfor %}
-      </div> -->
  
-
-
-
   <section class="section-bg py-5">
 
   <style>
@@ -1422,7 +1340,9 @@
 
   </div>
 </section>   
-
+  <!-- =========================================
+ What’s Happening Next
+     ========================================== -->
 <section class="py-5 pb-5 mb-5">
   <div class="container">
 
