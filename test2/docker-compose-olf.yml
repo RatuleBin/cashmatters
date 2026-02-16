@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:15
+    container_name: cashmatters-db
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  web:
+    build: .
+    container_name: cashmatters-web
+    command: gunicorn cashmatters.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    container_name: cashmatters-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - web
+    restart: always
+
+volumes:
+  postgres_data:

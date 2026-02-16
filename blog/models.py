@@ -12,6 +12,207 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from modelcluster.fields import ParentalManyToManyField
 from django.forms import CheckboxSelectMultiple
 from django.core.exceptions import ValidationError
+from wagtail.models import Page
+from .mixins import OpenGraphMixin
+
+
+# blog/blocks.py  (կամ models.py-ի վերևում)
+
+# blog/blocks.py
+
+from wagtail import blocks
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+
+from wagtail.blocks import PageChooserBlock
+
+# ✅ TableBlock (real table UI in admin)
+from wagtail.contrib.table_block.blocks import TableBlock
+
+# ✅ Poll chooser (if Poll is a Snippet)
+from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.models import register_snippet
+
+
+# ---------------------------
+# Content *
+# ---------------------------
+
+class ImageCaptionBlock(blocks.StructBlock):
+    image = ImageChooserBlock(required=True)
+
+    caption = blocks.CharBlock(required=False)
+
+    align_caption_bottom = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text="Align caption with bottom of image?"
+    )
+
+    internal_link = PageChooserBlock(
+        required=False,
+        help_text="Choose a page"
+    )
+
+    external_link = blocks.URLBlock(
+        required=False,
+        help_text="External link"
+    )
+
+    class Meta:
+        icon = "image"
+        label = "Image & Caption"
+
+class ContentBlock(blocks.StructBlock):
+    content = blocks.RichTextBlock(required=True)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Content"
+
+
+class VideoCaptionBlock(blocks.StructBlock):
+    video_url = EmbedBlock(
+        required=True,
+        help_text="Paste YouTube or Vimeo URL"
+    )
+
+    caption = blocks.CharBlock(required=False)
+
+    align_caption_bottom = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text="Align caption with bottom of video?"
+    )
+
+    internal_link = PageChooserBlock(
+        required=False,
+        help_text="Choose a page"
+    )
+
+    external_link = blocks.URLBlock(
+        required=False,
+        help_text="External link"
+    )
+
+    class Meta:
+        icon = "media"
+        label = "Video & Caption"
+
+
+
+# ---------------------------
+# Data Table
+# Title, Table*, Table headers, Table caption
+# ---------------------------
+class DataTableBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False)
+    table = TableBlock(required=True)
+
+    # Header option (like Wagtail TableBlock UI)
+    TABLE_HEADER_CHOICES = [
+        ("none", "No headers"),
+        ("row", "First row"),
+        ("column", "First column"),
+        ("both", "First row and first column"),
+    ]
+    table_headers = blocks.ChoiceBlock(
+        choices=TABLE_HEADER_CHOICES,
+        required=False,
+        default="row",
+        help_text="Which cells should be displayed as headers?"
+    )
+
+    table_caption = blocks.CharBlock(
+        required=False,
+        help_text="A heading that identifies the overall topic of the table, useful for screen reader users."
+    )
+
+    class Meta:
+        icon = "table"
+        label = "Data Table"
+
+
+# ---------------------------
+# Poll (Choose Poll)
+# Assume you have Poll as Snippet model: blog.Poll
+# ---------------------------
+class PollBlock(blocks.StructBlock):
+    poll = SnippetChooserBlock(
+        target_model="blog.Poll",
+        required=True,
+        help_text="Choose Poll"
+    )
+
+    class Meta:
+        icon = "form"
+        label = "Poll"
+
+
+# ---------------------------
+# Key Fact Image
+# Choose a page (Blog Page - Key Fact)
+# -> you have KeyFactsPage model already
+# ---------------------------
+class KeyFactImageBlock(blocks.StructBlock):
+    key_fact_page = PageChooserBlock(
+        page_type=["blog.KeyFactsPage"],
+        required=True,
+        help_text='Choose a page (Blog Page - Key Facts)'
+    )
+
+    class Meta:
+        icon = "pick"
+        label = "Key Facts Image"
+
+
+# ---------------------------
+# Iframe & Caption
+# ---------------------------
+class IframeCaptionBlock(blocks.StructBlock):
+    iframe_url = blocks.URLBlock(required=True)
+    iframe_height = blocks.IntegerBlock(required=True, default=480)
+    caption = blocks.CharBlock(required=False)
+    align_caption_bottom = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text="Align caption with bottom of iframe?"
+    )
+
+    class Meta:
+        icon = "code"
+        label = "Iframe & Caption"
+
+
+# ---------------------------
+# Facts Carousel
+# Slides: list of pages (BlogPage)
+# ---------------------------
+class FactsCarouselBlock(blocks.StructBlock):
+    slides = blocks.ListBlock(
+        PageChooserBlock(page_type=["blog.BlogPage"]),
+        required=True
+    )
+
+    class Meta:
+        icon = "list-ul"   # ← փոխեցինք
+        label = "Facts Carousel"
+
+
+# ---------------------------
+# Blockquote
+# Name, Job title, Company, Quote text*
+# ---------------------------
+class BlockquoteBlock(blocks.StructBlock):
+    name = blocks.CharBlock(required=False)
+    job_title = blocks.CharBlock(required=False)
+    company = blocks.CharBlock(required=False)
+    quote_text = blocks.TextBlock(required=True)
+
+    class Meta:
+        icon = "openquote"
+        label = "Blockquote"
+
 
 
 class QuoteBlock(StructBlock):
@@ -72,34 +273,7 @@ class Author(models.Model):
         ordering = ['name']
 
 
-class ArticleType(models.Model):
-    name = models.CharField(max_length=100, unique=True)
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ['name']
-
-
-class Sector(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ['name']
 
 
 class BlogIndexPage(Page):
@@ -122,7 +296,7 @@ class BlogIndexPage(Page):
         return context
 
 
-class BlogPage(Page):
+class BlogPage(OpenGraphMixin, Page):
     """
     Individual blog post page
     """
@@ -152,12 +326,15 @@ class BlogPage(Page):
         help_text="Author profile picture (legacy - use Author Profile instead)"
     )
     body = StreamField([
-        ('heading', CharBlock(classname="full title", icon="title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('quote', QuoteBlock()),
-        ('embed', EmbedBlock()),
-        ('document', DocumentChooserBlock()),
+        ("content", ContentBlock()),
+        ("image_caption", ImageCaptionBlock()),
+        ("video_caption", VideoCaptionBlock()),
+        ("iframe_caption", IframeCaptionBlock()),
+        ("blockquote", BlockquoteBlock()),
+        ("data_table", DataTableBlock()),
+        ("poll", PollBlock()),
+        ("facts_carousel", FactsCarouselBlock()),
+        ("key_fact_image", KeyFactImageBlock()),
     ], blank=True, use_json_field=True)
     
     # Title and header
@@ -167,12 +344,13 @@ class BlogPage(Page):
         help_text="Position of the title"
     )
     page_header = RichTextField(
+        verbose_name="Title",
         blank=True,
         features=[
             'h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'link',
             'document-link', 'image', 'embed', 'code', 'blockquote', 'hr'
         ],
-        help_text="Optional page header content"
+        help_text="Optional. If nothing is entered, the page title will be used."
     )
     page_header_image = models.ForeignKey(
         get_image_model(),
@@ -202,21 +380,25 @@ class BlogPage(Page):
     )
     
     # List options
+
+    editors_pick = models.BooleanField(default=False, help_text="Feature this post in the Editor’s Pick section.")
+    cover_story = models.BooleanField(default=False, help_text="Display this post as a main cover story.")
+
     featured = models.BooleanField(
         default=False,
-        help_text="Feature post (requires tall thumbnail)"
+        help_text="To feature a post, ensure it has tall thumbnail."
     )
     double_width = models.BooleanField(
         default=False,
-        help_text="Double width on home page (requires wide thumbnail)"
+        help_text="Make a thumbnail double width on the home page. Must have a wide thumbnail."
     )
     white_text = models.BooleanField(
         default=False,
-        help_text="White text for darker images"
+        help_text="Toggle the icons and text to white, perfect for darker images."
     )
     hide_title = models.BooleanField(
         default=False,
-        help_text="Hide title when using text in thumbnail"
+        help_text="Hide the post title when you're using text within your thumbnail."
     )
     color = models.CharField(
         max_length=50,
@@ -226,13 +408,15 @@ class BlogPage(Page):
     
     # CM Watermark and media
     cm_watermark = models.BooleanField(
+        "CM Watermark",
         default=False,
         help_text="CM Watermark?"
     )
     alternative_text = models.CharField(
+        "Alternative Text",
         max_length=250,
         blank=True,
-        help_text="Alternative text"
+        help_text="Alternative Text"
     )
     icon = models.ForeignKey(
         get_image_model(),
@@ -266,15 +450,17 @@ class BlogPage(Page):
         help_text="Twitter body text"
     )
     vimeo_id = models.CharField(
+        "Vimeo ID",
         max_length=50,
         blank=True,
-        help_text="Vimeo Video ID"
+        help_text="The Vimeo Video ID (the number at the end of the video url)"
     )
     
     # Source
     source_link = models.URLField(
+        "Source Link",
         blank=True,
-        help_text="Link to the article's source"
+        help_text="Link to the article's source, if any."
     )
     
     search_fields = Page.search_fields + [
@@ -298,6 +484,10 @@ class BlogPage(Page):
             FieldPanel('wide_thumbnail'),
         ], heading="Thumbnails"),
         MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('editors_pick'),
+                FieldPanel('cover_story'),
+            ]),
             FieldRowPanel([
                 FieldPanel('featured'),
                 FieldPanel('double_width'),
@@ -326,7 +516,9 @@ class BlogPage(Page):
         FieldPanel('source_link'),
     ]
 
-    template_name = 'blog/blog-details.html'
+    promote_panels = Page.promote_panels + OpenGraphMixin.og_panels
+
+
 
 
 class NewsIndexPage(Page):
@@ -357,11 +549,11 @@ class NewsIndexPage(Page):
         return context
 
 
-class ArticlePage(Page):
+class ArticlePage(OpenGraphMixin, Page):
     """
     Individual article page - similar to blog post but for news
     """
-    template_name = 'blog/blog-details.html'
+    template = 'blog/blog-details.html'
     # Basic fields
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
@@ -387,12 +579,13 @@ class ArticlePage(Page):
         help_text="Author profile picture (legacy - use Author Profile instead)"
     )
     body = StreamField([
-        ('heading', CharBlock(classname="full title", icon="title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('quote', QuoteBlock()),
-        ('embed', EmbedBlock()),
-        ('document', DocumentChooserBlock()),
+        ("content", ContentBlock()),
+        ("data_table", DataTableBlock()),
+        ("poll", PollBlock()),
+        ("facts_carousel", FactsCarouselBlock()),
+        ("key_fact_image", KeyFactImageBlock()),
+        ("iframe_caption", IframeCaptionBlock()),
+        ("blockquote", BlockquoteBlock()),
     ], blank=True, use_json_field=True)
     
     # Title and header
@@ -402,6 +595,7 @@ class ArticlePage(Page):
         help_text="Position of the title"
     )
     page_header = RichTextField(
+        verbose_name="Page Header",
         blank=True,
         features=[
             'h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'link',
@@ -427,6 +621,7 @@ class ArticlePage(Page):
         related_name='+',
         help_text="Tall thumbnail (540px x 750px) - used on Section Page"
     )
+
     wide_thumbnail = models.ForeignKey(
         get_image_model(),
         null=True,
@@ -437,21 +632,27 @@ class ArticlePage(Page):
     )
     
     # List options
+
+    editors_pick = models.BooleanField(default=False, help_text="Feature this post in the Editor’s Pick section.")
+    cover_story = models.BooleanField(default=False, help_text="Display this post as a main cover story.")
+
+
     featured = models.BooleanField(
         default=False,
-        help_text="Feature post (requires tall thumbnail)"
+        help_text="To feature a post, ensure it has tall thumbnail."
     )
+
     double_width = models.BooleanField(
         default=False,
-        help_text="Double width on home page (requires wide thumbnail)"
+        help_text="Make a thumbnail double width on the home page. Must have a wide thumbnail."
     )
     white_text = models.BooleanField(
         default=False,
-        help_text="White text for darker images"
+        help_text="Toggle the icons and text to white, perfect for darker images."
     )
     hide_title = models.BooleanField(
         default=False,
-        help_text="Hide title when using text in thumbnail"
+        help_text="Hide the post title when you're using text within your thumbnail."
     )
     color = models.CharField(
         max_length=50,
@@ -461,13 +662,15 @@ class ArticlePage(Page):
     
     # CM Watermark and media
     cm_watermark = models.BooleanField(
+        "CM Watermark",
         default=False,
         help_text="CM Watermark?"
     )
     alternative_text = models.CharField(
+        "Alternative Text",
         max_length=250,
         blank=True,
-        help_text="Alternative text"
+        help_text="Alternative Text"
     )
     icon = models.ForeignKey(
         get_image_model(),
@@ -501,15 +704,18 @@ class ArticlePage(Page):
         help_text="Twitter body text"
     )
     vimeo_id = models.CharField(
+        "Vimeo ID",
         max_length=50,
         blank=True,
-        help_text="Vimeo Video ID"
+        help_text="The Vimeo Video ID (the number at the end of the video url)",
+
     )
     
     # Source
     source_link = models.URLField(
+        "Source Link",
         blank=True,
-        help_text="Link to the article's source"
+        help_text="Link to the article's source, if any."
     )
     
     search_fields = Page.search_fields + [
@@ -537,6 +743,8 @@ class ArticlePage(Page):
                 FieldPanel('featured'),
                 FieldPanel('double_width'),
             ]),
+            FieldRowPanel([FieldPanel('editors_pick'), FieldPanel('cover_story')]),
+
             FieldRowPanel([
                 FieldPanel('white_text'),
                 FieldPanel('hide_title'),
@@ -552,6 +760,7 @@ class ArticlePage(Page):
             FieldPanel('article_types', widget=CheckboxSelectMultiple),
             FieldPanel('locations', widget=CheckboxSelectMultiple),
             FieldPanel('sectors', widget=CheckboxSelectMultiple),
+
         ], heading="Categories & Tags"),
         MultiFieldPanel([
             FieldPanel('twitter_body'),
@@ -560,6 +769,8 @@ class ArticlePage(Page):
         FieldPanel('body'),
         FieldPanel('source_link'),
     ]
+
+    promote_panels = Page.promote_panels + OpenGraphMixin.og_panels
 
     def get_form(self, request, *args, **kwargs):
         """Override form to use checkbox widgets for many-to-many fields"""
@@ -571,41 +782,121 @@ class ArticlePage(Page):
 
 
 class KeyFactsPage(Page):
-    """
-    Key Facts page - displays important facts and information
-    """
     template = "blog/key_facts_page.html"
+
+    # --- OLD FIELDS (keep) ---
     intro = models.CharField(max_length=250, blank=True)
-    body = RichTextField(blank=True)
-    
-    # Header image
+    body = models.TextField(blank=True)  # keep, do NOT convert
     header_image = models.ForeignKey(
-        get_image_model(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text="Choose a header image"
+        get_image_model(), null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+'
     )
-    
-    # Key facts (could be a list of facts)
-    key_facts = RichTextField(
-        blank=True,
-        help_text="List of key facts"
+    key_facts = models.TextField(blank=True)
+
+    # ✅ NEW BODY (StreamField) - safe approach
+    body_blocks = StreamField([
+        ("content", ContentBlock()),
+        ("data_table", DataTableBlock()),
+        ("poll", PollBlock()),
+        ("facts_carousel", FactsCarouselBlock()),
+        ("key_fact_image", KeyFactImageBlock()),
+        ("iframe_caption", IframeCaptionBlock()),
+        ("blockquote", BlockquoteBlock()),
+    ], blank=True, use_json_field=True)
+
+    # --- OLD backend like fields ---
+    page_header_title = models.CharField(
+        max_length=255, blank=True,
+        help_text="Optional. If nothing is entered, the page title will be used."
     )
-    
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-        index.SearchField('key_facts'),
-    ]
+    page_header_image = models.ForeignKey(
+        get_image_model(), null=True, blank=True,
+        on_delete=models.SET_NULL, related_name='+',
+        help_text="Choose an image"
+    )
+
+    date = models.DateField("Post date", null=True, blank=True)
+
+    double_width = models.BooleanField(
+        default=False,
+        help_text="Make a thumbnail double width on the home page. Must have a wide thumbnail."
+    )
+    color = models.CharField(max_length=50, blank=True)
+
+    featured_data = models.CharField(
+        max_length=50, blank=True,
+        help_text="This is the large featured number used on key fact cards"
+    )
+    featured_data_color = models.CharField(
+        max_length=50, blank=True,
+        help_text="The color for the feature. White will be used if not selected"
+    )
+
+    alternative_text = models.CharField(max_length=250, blank=True)
+    fact_source = models.CharField(max_length=255, blank=True, help_text="The cited source for the fact")
+    source_link = models.URLField("Source Link", blank=True, help_text="Link to the article's source, if any.")
+
+    twitter_body = models.TextField(blank=True)
+    vimeo_id = models.CharField(
+        max_length=50, blank=True,
+        help_text="The Vimeo Video ID (the number at the end of the video url)"
+    )
+
+    # ✅ ONLY allowed categories & tags (ArticleType)
+    article_types = ParentalManyToManyField(
+        "blog.ArticleType",
+        blank=True,
+        help_text="Select article types"
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        FieldPanel('header_image'),
-        FieldPanel('body'),
-        FieldPanel('key_facts'),
+        MultiFieldPanel([
+            FieldPanel("page_header_title"),
+            FieldPanel("page_header_image"),
+        ], heading="Page Header"),
+
+        FieldPanel("date"),
+
+        MultiFieldPanel([
+            FieldPanel("double_width"),
+            FieldPanel("color"),
+        ], heading="List Options"),
+
+        MultiFieldPanel([
+            FieldPanel("featured_data"),
+            FieldPanel("featured_data_color"),
+        ], heading="Featured data"),
+
+        MultiFieldPanel([
+            FieldPanel("alternative_text"),
+            FieldPanel("fact_source"),
+            FieldPanel("source_link"),
+        ], heading="Sources"),
+
+        MultiFieldPanel([
+            FieldPanel("article_types", widget=CheckboxSelectMultiple),
+        ], heading="Categories & Tags"),
+
+        MultiFieldPanel([
+            FieldPanel("twitter_body"),
+            FieldPanel("vimeo_id"),
+        ], heading="Twitter / Vimeo"),
+
+        # ✅ Body (like old backend)
+        FieldPanel("body_blocks"),
     ]
+
+    def get_form(self, request, *args, **kwargs):
+        form = super().get_form(request, *args, **kwargs)
+
+        if "article_types" in form.fields:
+            qs = form.fields["article_types"].queryset
+            form.fields["article_types"].queryset = qs.filter(
+                name__in=ALLOWED_ARTICLE_TYPES
+            ).order_by("name")
+            form.fields["article_types"].widget = CheckboxSelectMultiple()
+
+        return form
 
 
 class SupportPage(Page):
@@ -789,12 +1080,13 @@ class WhyCashMattersPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = StreamField([
-        ('heading', CharBlock(classname="full title", icon="title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('quote', QuoteBlock()),
-        ('embed', EmbedBlock()),
-        ('document', DocumentChooserBlock()),
+        ("content", ContentBlock()),
+        ("data_table", DataTableBlock()),
+        ("poll", PollBlock()),
+        ("facts_carousel", FactsCarouselBlock()),
+        ("key_fact_image", KeyFactImageBlock()),
+        ("iframe_caption", IframeCaptionBlock()),
+        ("blockquote", BlockquoteBlock()),
     ], blank=True, use_json_field=True)
 
     # Title and header
@@ -804,6 +1096,7 @@ class WhyCashMattersPage(Page):
         help_text="Position of the title"
     )
     page_header = RichTextField(
+        verbose_name="Page Header",
         blank=True,
         features=[
             'h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'link',
@@ -841,19 +1134,19 @@ class WhyCashMattersPage(Page):
     # List options
     featured = models.BooleanField(
         default=False,
-        help_text="Feature post (requires tall thumbnail)"
+        help_text="To feature a post, ensure it has tall thumbnail."
     )
     double_width = models.BooleanField(
         default=False,
-        help_text="Double width on home page (requires wide thumbnail)"
+        help_text="Make a thumbnail double width on the home page. Must have a wide thumbnail."
     )
     white_text = models.BooleanField(
         default=False,
-        help_text="White text for darker images"
+        help_text="Toggle the icons and text to white, perfect for darker images."
     )
     hide_title = models.BooleanField(
         default=False,
-        help_text="Hide title when using text in thumbnail"
+        help_text="Hide the post title when you're using text within your thumbnail."
     )
     color = models.CharField(
         max_length=50,
@@ -863,13 +1156,15 @@ class WhyCashMattersPage(Page):
 
     # CM Watermark and media
     cm_watermark = models.BooleanField(
+        "CM Watermark",
         default=False,
         help_text="CM Watermark?"
     )
     alternative_text = models.CharField(
+        "Alternative Text",
         max_length=250,
         blank=True,
-        help_text="Alternative text"
+        help_text="Alternative Text"
     )
     icon = models.ForeignKey(
         get_image_model(),
@@ -903,15 +1198,17 @@ class WhyCashMattersPage(Page):
         help_text="Twitter body text"
     )
     vimeo_id = models.CharField(
+        "Vimeo ID",
         max_length=50,
         blank=True,
-        help_text="Vimeo Video ID"
+        help_text="The Vimeo Video ID (the number at the end of the video url)"
     )
 
     # Source
     source_link = models.URLField(
+        "Source Link",
         blank=True,
-        help_text="Link to the article's source"
+        help_text="Link to the article's source, if any."
     )
 
     # Facts section
@@ -991,8 +1288,6 @@ class WhyCashMattersPage(Page):
         """Override form to use checkbox widgets for many-to-many fields"""
         form = super().get_form(request, *args, **kwargs)
         form.fields['article_types'].widget = CheckboxSelectMultiple()
-        form.fields['locations'].widget = CheckboxSelectMultiple()
-        form.fields['sectors'].widget = CheckboxSelectMultiple()
         return form
 
 
@@ -1104,3 +1399,143 @@ class WhyCashMattersFeaturePage(Page):
             raise ValidationError({
                 'title': 'Only one Why Cash Matters Feature page allowed.'
             })
+
+
+from django.db import models
+
+from django.db import models
+from django.db.models import F
+
+from wagtail.snippets.models import register_snippet
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import RichTextField
+
+from modelcluster.models import ClusterableModel
+from modelcluster.fields import ParentalKey
+from wagtail.models import Orderable
+
+
+@register_snippet
+class Poll(ClusterableModel):
+    title = models.CharField(max_length=255)
+
+    results_title = models.CharField(max_length=255, blank=True)
+    results_content = RichTextField(blank=True)
+
+    is_global = models.BooleanField(default=False)
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("results_title"),
+        FieldPanel("results_content"),
+        FieldPanel("is_global"),
+        InlinePanel("choices", label="Choice"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+class PollChoice(Orderable):
+    poll = ParentalKey("blog.Poll", on_delete=models.CASCADE, related_name="choices")
+
+    # ✅ old backend-ում սա կոչվում է "Question"
+    question = models.CharField(max_length=255)
+
+    # ✅ votes default 0
+    votes = models.PositiveIntegerField(default=0)
+
+    panels = [
+        FieldPanel("question"),
+        FieldPanel("votes"),  # եթե ուզում ես երևա admin-ում
+    ]
+
+    def __str__(self):
+        return self.question
+
+
+from django.db import models
+from wagtail.snippets.models import register_snippet
+from wagtail.admin.panels import FieldPanel
+
+@register_snippet
+class ArticleType(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    panels = [FieldPanel("name")]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+@register_snippet
+class Location(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    panels = [FieldPanel("name")]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+from django.utils.text import slugify
+
+@register_snippet
+class Sector(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    slug = models.SlugField(
+        max_length=120,
+        unique=True,
+        null=True,      # 👈 կարևոր
+        blank=True,
+        help_text="Auto-generated from name if left blank"
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug"),
+    ]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
+
+
+from django.db import models
+from wagtail.snippets.models import register_snippet
+from wagtail.admin.panels import FieldPanel
+
+
+@register_snippet
+class BrandAssetTag(models.Model):
+    title = models.CharField(max_length=100)
+
+    tag_colour = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Optional: Tag will appear grey if a colour is not chosen."
+    )
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("tag_colour"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["title"]

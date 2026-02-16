@@ -16,6 +16,32 @@
         {% if page.search_description %}
         <meta name="description" content="{{ page.search_description }}" />
         {% endif %}
+                {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+        {% endif %}
+
+        {# --- Open Graph / Social --- #}
+        {% with og_title=page.og_title|default:page.seo_title|default:page.title %}
+          <meta property="og:title" content="{{ og_title }}">
+          <meta name="twitter:title" content="{{ og_title }}">
+        {% endwith %}
+
+        {% with og_desc=page.og_description|default:page.search_description|default:"" %}
+          {% if og_desc %}
+            <meta property="og:description" content="{{ og_desc }}">
+            <meta name="twitter:description" content="{{ og_desc }}">
+          {% endif %}
+        {% endwith %}
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta name="twitter:card" content="{% if page.og_image %}summary_large_image{% else %}summary{% endif %}">
+
+        {% if page.og_image %}
+          <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ page.og_image.file.url }}">
+          <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ page.og_image.file.url }}">
+        {% endif %}
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Force all links in the live preview panel to be opened in a new tab #}
@@ -35,7 +61,7 @@
             *,
             *::before,
             *::after {
-                font-family: "Alvant Grade", sans-serif !important;
+                font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif !important;
             }
 
             /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
@@ -141,7 +167,7 @@
                             <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                             <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                             <!-- Support Cash button for mobile -->
-                            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
+                            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
                         </ul>
                     </div>
                     <div class="d-flex align-items-center gap-3">
@@ -171,7 +197,7 @@
                             </ul>
                         </div>
                         <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-                            Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                            Support Cash
                         </a>
                     </div>
                 </div>
@@ -230,7 +256,7 @@
                   d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
-          
+
             <!-- Facebook -->
             <a href="https://www.facebook.com/CashMattersOrg/" target="_blank" rel="noopener noreferrer"
               class="text-white text-decoration-none hover-u d-flex align-items-center" title="Like us on Facebook">
@@ -239,7 +265,7 @@
                   d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
             </a>
-         
+
           </div>
                 </div>
 
@@ -253,7 +279,7 @@
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
                          <span class="hover-underline">
 
-                           Publish on Cash 
+                           Publish on Cash
                           </span>
                            Matters
                           </a></li>
@@ -279,8 +305,7 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
-                            class="bi bi-arrow-up-right ms-2"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash                            </a>
 
                 </div>
             </div>
@@ -394,17 +419,17 @@
                     autoDisplay: false
                 }, 'google_translate_element');
             }
-            
+
             function translatePage(lang) {
                 // Get the Google Translate select element
                 var select = document.querySelector('.goog-te-combo');
                 if (select) {
                     select.value = lang;
                     select.dispatchEvent(new Event('change'));
-                    
+
                     // Update the current language display
                     updateLanguageDisplay(lang);
-                    
+
                     // Store preference
                     localStorage.setItem('preferredLanguage', lang);
                 } else {
@@ -414,7 +439,7 @@
                     }, 500);
                 }
             }
-            
+
             function updateLanguageDisplay(lang) {
                 // Update all language displays across the page
                 var langMap = {'en': 'EN', 'de': 'DE', 'fr': 'FR', 'it': 'IT', 'es': 'ES', 'nl': 'NL'};
@@ -422,7 +447,7 @@
                 displays.forEach(function(el) {
                     el.textContent = langMap[lang] || 'EN';
                 });
-                
+
                 // Update active states on dropdown items
                 document.querySelectorAll('.lang-switch-btn').forEach(function(btn) {
                     btn.classList.remove('active');
@@ -431,7 +456,7 @@
                     }
                 });
             }
-            
+
             // On page load, restore language preference
             document.addEventListener('DOMContentLoaded', function() {
                 var savedLang = localStorage.getItem('preferredLanguage');
@@ -444,65 +469,29 @@
             });
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        
-        <!-- Hide Google Translate top bar (optional styling) -->
-        <style>
-            .goog-te-banner-frame, .skiptranslate {
-                display: none !important;
-            }
-            body {
-                top: 0 !important;
-            }
-            .goog-te-gadget {
-                display: none !important;
-            }
-        </style>
 
-
-
-<script>
-    // Force scroll to top on page load - comprehensive solution
+  <script>
     (function() {
-        // Function to force scroll to top
-        function forceScrollToTop() {
-            // Multiple methods to ensure it works across all browsers
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        window.addEventListener('load', function() {
             window.scrollTo(0, 0);
-            
-            // For modern browsers
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto'
+            document.body.style.top = '0px';
+        });
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
+                    document.body.style.top = '0px';
+                    window.scrollTo(0, 0);
+                }
             });
-            
-            // For older browsers
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-            
-            // Additional safety for mobile browsers
-            if (window.history && window.history.scrollRestoration) {
-                window.history.scrollRestoration = 'manual';
-            }
-        }
-        
-        // Run immediately when script loads
-        forceScrollToTop();
-        
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', forceScrollToTop);
-        
-        // Run when page is fully loaded
-        window.addEventListener('load', forceScrollToTop);
-        
-        // Additional safety for single-page apps or hash changes
-        window.addEventListener('hashchange', forceScrollToTop);
-        
-        // Set scroll restoration to manual to prevent browser from remembering position
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+        });
     })();
-</script>
-    
+  </script>
+
     </body>
 </html>

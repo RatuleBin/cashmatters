@@ -1,17 +1,30 @@
 /* =========================================
    1. GLOBAL VARIABLES & RESET
    ========================================= */
+
+
+/* === ITC Avant Garde Gothic (self-hosted) === */
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff2") format("woff2"),
+       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :root {
     --brand-dark: #001F29;
     --brand-mint: #4CD1C2;
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
-    --brand-yellow: #F0E66A; 
+    --brand-yellow: #F0E66A;
     --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
     /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
-    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    --font-body: "Alvant Grade", sans-serif !important;
+    --font-header: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
+    --font-body: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
 }
 
 html, body {
@@ -24,20 +37,20 @@ html, body {
 }
 
 body {
-    font-family: var(--font-body);
-    background-color: var(--brand-cream);
-    color: #1a1a1a;
-    -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  font-weight: 500; /* Medium default */
+  background-color: var(--brand-cream);
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =========================================
-   TYPOGRAPHY - ITC Avant Garde Gothic Alternative
-   All headings use Poppins (geometric sans-serif)
-   ========================================= */
 h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: var(--font-header);
-    font-weight: 600;
+.h1, .h2, .h3, .h4, .h5, .h6,
+.section-title,
+.hero-title,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  font-family: var(--font-header);
+  font-weight: 600; /* Demi */
 }
 
 /* Section titles and large headings */

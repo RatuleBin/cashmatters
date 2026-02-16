@@ -1,0 +1,10 @@
+Django
+gunicorn
+psycopg[binary]
+wagtail
+django-cors-headers
+dj-database-url
+
+# Development and testing dependencies
+coverage
+pytest-django

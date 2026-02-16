@@ -15,6 +15,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 from search import views as search_views
 from blog.api import api_router
 
+
+
+
+
 # Frontend views
 def index(request):
     """Serve the homepage with latest blog posts and dynamic hero carousel"""
@@ -28,14 +32,14 @@ def index(request):
 
     # Track all used post IDs to prevent duplicates across sections
     used_post_ids = set()
-    
+
     # =========================================
     # 1. HERO POSTS - Get one post from each category (highest priority)
     # =========================================
     all_categories = ArticleType.objects.all()
-    
+
     hero_posts_by_category = []
-    
+
     for category in all_categories:
         # Try to get an ArticlePage with this category first
         article = ArticlePage.objects.live().select_related(
@@ -43,23 +47,23 @@ def index(request):
         ).prefetch_related('article_types').filter(
             article_types=category
         ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-featured', '-date').first()
-        
+
         if article:
             hero_posts_by_category.append(article)
             used_post_ids.add(article.id)
             continue
-            
+
         # If no ArticlePage, try BlogPage
         blog_post = BlogPage.objects.live().select_related(
             'author_profile'
         ).prefetch_related('article_types').filter(
             article_types=category
         ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-featured', '-date').first()
-        
+
         if blog_post:
             hero_posts_by_category.append(blog_post)
             used_post_ids.add(blog_post.id)
-    
+
     # If we have less than 3 posts from categories, fill with latest posts
     if len(hero_posts_by_category) < 3:
         additional_articles = ArticlePage.objects.live().select_related(
@@ -67,7 +71,7 @@ def index(request):
         ).prefetch_related('article_types').exclude(
             id__in=used_post_ids
         ).exclude(title__in=hidden_titles).order_by('-featured', '-date')[:5]
-        
+
         additional_blogs = BlogPage.objects.live().select_related(
             'author_profile'
         ).prefetch_related('article_types').exclude(
@@ -79,13 +83,13 @@ def index(request):
             key=lambda x: x.date,
             reverse=True
         )
-        
+
         for post in additional_combined:
             if len(hero_posts_by_category) >= 5:
                 break
             hero_posts_by_category.append(post)
             used_post_ids.add(post.id)
-    
+
     # Sort hero posts by date (newest first) for better carousel order
     hero_posts_combined = sorted(
         hero_posts_by_category,
@@ -99,7 +103,7 @@ def index(request):
     featured_articles = ArticlePage.objects.live().select_related(
         'author_profile'
     ).filter(featured=True).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
-    
+
     featured_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
     ).filter(featured=True).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
@@ -110,7 +114,7 @@ def index(request):
         key=lambda x: x.date,
         reverse=True
     )[:3]  # Take only the 3 most recent featured posts
-    
+
     # Add featured post IDs to used set
     for post in featured_posts:
         used_post_ids.add(post.id)
@@ -121,7 +125,7 @@ def index(request):
     latest_articles = ArticlePage.objects.live().select_related(
         'author_profile'
     ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
-    
+
     latest_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
     ).exclude(id__in=used_post_ids).exclude(title__in=hidden_titles).order_by('-date')[:5]
@@ -141,13 +145,13 @@ def index(request):
     ).prefetch_related('article_types').filter(
         article_types__name__in=['Podcast', 'Podcasts', 'Audio']
     ).order_by('-date')[:3]
-    
+
     podcast_blog_posts = BlogPage.objects.live().select_related(
         'author_profile'
     ).prefetch_related('article_types').filter(
         article_types__name__in=['Podcast', 'Podcasts', 'Audio']
     ).order_by('-date')[:3]
-    
+
     # Combine and sort podcast posts by date
     podcast_posts = sorted(
         chain(podcast_articles, podcast_blog_posts),
@@ -214,7 +218,7 @@ def news(request):
         category_mapping = {
             'news': ['News'],
             'studies': ['Studies', 'Research', 'Studies & Research'],
-            'key-facts': ['Key Facts', 'Key Fact'],
+            'key-facts': ['Key Facts'],
             'podcast': ['Podcast', 'Podcasts', 'Audio']
         }
 
@@ -380,14 +384,14 @@ def author(request, author_name=None, author_id=None):
 def support(request):
     """Serve the support page with dynamic content"""
     from blog.models import SupportPage
-    
+
     # Get the SupportPage content
     page = SupportPage.objects.live().first()
-    
+
     context = {
         'page': page,
     }
-    
+
     return render(request, 'support.html', context)
 
 
@@ -423,7 +427,7 @@ def new_page(request):
     # Try to get the Wagtail page first (including drafts for preview)
     try:
         # First try to get published page, then any page
-        page = (WhyCashMattersFeaturePage.objects.live().first() or 
+        page = (WhyCashMattersFeaturePage.objects.live().first() or
                 WhyCashMattersFeaturePage.objects.first())
         if page:
             print(f"Found page: {page.title}, Cards: {len(page.feature_cards)}")
@@ -472,164 +476,138 @@ def create_blog_page(request):
             '/admin/pages/add/blog/blogpage/')
 
 
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import redirect
+from wagtail.models import Page
+from blog.models import BlogIndexPage
+
+
+# blog/views.py
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from django.urls import reverse
+from django.utils.text import slugify
+
+from blog.models import BlogPage, BlogIndexPage, ArticleType, Location
+
+
 @staff_member_required
 def blogs_dashboard(request):
-    """Blog management dashboard"""
-    from blog.models import BlogPage, ArticlePage
-    from itertools import chain
-    from django.core.paginator import Paginator
-    from django.contrib import messages
-    from django.shortcuts import redirect
-
-    # Handle bulk actions
-    if request.method == 'POST':
-        selected_posts = request.POST.getlist('selected_posts')
-        bulk_action = request.POST.get('bulk_action')
-        
-        if selected_posts and bulk_action:
-            # Handle both ArticlePage and BlogPage objects
-            posts = []
-            for post_id in selected_posts:
-                try:
-                    # Try to get as BlogPage first
-                    post = BlogPage.objects.get(id=post_id)
-                    posts.append(post)
-                except BlogPage.DoesNotExist:
-                    try:
-                        # Try to get as ArticlePage
-                        post = ArticlePage.objects.get(id=post_id)
-                        posts.append(post)
-                    except ArticlePage.DoesNotExist:
-                        continue
-            
-            if bulk_action == 'publish':
-                for post in posts:
-                    if not post.live:
-                        post.save_revision().publish()
-                messages.success(
-                    request, f"Published {len(posts)} post(s)."
-                )
-            elif bulk_action == 'unpublish':
-                for post in posts:
-                    if post.live:
-                        post.unpublish()
-                messages.success(
-                    request, f"Unpublished {len(posts)} post(s)."
-                )
-            elif bulk_action == 'delete':
-                count = len(posts)
-                for post in posts:
-                    post.delete()
-                messages.success(request, f"Deleted {count} post(s).")
-            
-            return redirect(request.get_full_path())
-    
-    # Get search query
-    search_query = request.GET.get('q', '')
-    
-    # Get filter parameters
-    category_filter = request.GET.get('category', '')
-    status_filter = request.GET.get('status', '')
-    location_filter = request.GET.get('location', '')
-    sector_filter = request.GET.get('sector', '')
-    
-    # Base queryset - get all published articles and blog posts
-    # Apply filters at database level for better performance
-    articles = ArticlePage.objects.live().select_related('author_profile').prefetch_related('article_types', 'locations', 'sectors')
-    blog_posts = BlogPage.objects.live().select_related('author_profile').prefetch_related('article_types', 'locations', 'sectors')
-    
-    # Apply category filter at database level
-    if category_filter:
-        articles = articles.filter(article_types__name=category_filter)
-        blog_posts = blog_posts.filter(article_types__name=category_filter)
-    
-    # Apply location filter at database level
-    if location_filter:
-        articles = articles.filter(locations__name=location_filter)
-        blog_posts = blog_posts.filter(locations__name=location_filter)
-    
-    # Apply sector filter at database level
-    if sector_filter:
-        articles = articles.filter(sectors__name=sector_filter)
-        blog_posts = blog_posts.filter(sectors__name=sector_filter)
-    
-    # Apply search filter at database level
-    if search_query:
-        from django.db.models import Q
-        articles = articles.filter(
-            Q(title__icontains=search_query) | Q(intro__icontains=search_query)
-        )
-        blog_posts = blog_posts.filter(
-            Q(title__icontains=search_query) | Q(intro__icontains=search_query)
-        )
-    
-    # Order by date
-    articles = articles.order_by('-date')
-    blog_posts = blog_posts.order_by('-date')
-    
-    # Combine and sort by date (newest first) - limit to avoid memory issues
-    all_posts = sorted(
-        chain(list(articles[:500]), list(blog_posts[:500])),
-        key=lambda x: x.date if x.date else x.first_published_at,
-        reverse=True
+    # Base queryset
+    qs_all = (
+        BlogPage.objects
+        .live()
+        .select_related("owner")
+        .prefetch_related("article_types", "locations")
     )
-    
-    # Pagination
-    paginator = Paginator(all_posts, 20)  # 20 posts per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    # Get unique values for filters (from both ArticlePage and BlogPage)
-    article_categories = ArticlePage.objects.values_list(
-        'article_types__name', flat=True
-    ).distinct().exclude(article_types__name__isnull=True)
-    blog_categories = BlogPage.objects.values_list(
-        'article_types__name', flat=True
-    ).distinct().exclude(article_types__name__isnull=True)
-    categories = list(article_categories) + list(blog_categories)
-    
-    article_locations = ArticlePage.objects.values_list(
-        'locations__name', flat=True
-    ).distinct().exclude(locations__name__isnull=True)
-    blog_locations = BlogPage.objects.values_list(
-        'locations__name', flat=True
-    ).distinct().exclude(locations__name__isnull=True)
-    locations = list(article_locations) + list(blog_locations)
-    
-    article_sectors = ArticlePage.objects.values_list(
-        'sectors__name', flat=True
-    ).distinct().exclude(sectors__name__isnull=True)
-    blog_sectors = BlogPage.objects.values_list(
-        'sectors__name', flat=True
-    ).distinct().exclude(sectors__name__isnull=True)
-    sectors = list(article_sectors) + list(blog_sectors)
-    
-    # Stats (for both types)
-    total_articles = ArticlePage.objects.count()
-    live_articles = ArticlePage.objects.filter(live=True).count()
-    total_blogs = BlogPage.objects.count()
-    live_blogs = BlogPage.objects.filter(live=True).count()
-    total_posts = total_articles + total_blogs
-    live_posts = live_articles + live_blogs
-    draft_posts = total_posts - live_posts
+    total_count = qs_all.count()
+
+    # --- filters ---
+    search_query = (request.GET.get("q") or "").strip()
+    type_filter = (request.GET.get("type") or "").strip()
+    location_filter = (request.GET.get("location") or "").strip()
+
+    qs = qs_all
+
+    if search_query:
+        qs = qs.filter(title__icontains=search_query)
+
+    # type filter (slug -> ArticleType)
+    if type_filter:
+        t = next(
+            (x for x in ArticleType.objects.all() if slugify(x.name) == type_filter),
+            None
+        )
+        if t:
+            qs = qs.filter(article_types__name=t.name)
+
+    # location filter (slug -> Location)
+    if location_filter:
+        loc = next(
+            (x for x in Location.objects.all() if slugify(x.name) == location_filter),
+            None
+        )
+        if loc:
+            qs = qs.filter(locations__name=loc.name)
+
+    # Important: distinct BEFORE sorting (because of M2M filters)
+    qs = qs.distinct()
+
+    # --- sorting ---
+    sort = (request.GET.get("sort") or "modified").strip()
+    direction = (request.GET.get("dir") or "desc").strip().lower()
+
+    SORT_MAP = {
+        "title": "title",
+        "date": "date",  # Post Date
+        "modified": "latest_revision_created_at",  # Last modified
+        "featured": "featured",
+    }
+    field = SORT_MAP.get(sort, "latest_revision_created_at")
+    prefix = "-" if direction == "desc" else ""
+
+    if sort == "featured":
+        # Featured sort: respect dir
+        # desc -> featured first, asc -> non-featured first
+        if direction == "asc":
+            qs = qs.order_by("featured", "-latest_revision_created_at", "title")
+        else:
+            qs = qs.order_by("-featured", "-latest_revision_created_at", "title")
+    else:
+        # normal sorts + stable tie-breaker
+        qs = qs.order_by(f"{prefix}{field}", "-latest_revision_created_at", "title")
+
+    filtered_count = qs.count()
+
+    # --- pagination ---
+    paginator = Paginator(qs, 20)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
+    # sidebar lists (for template)
+    article_types = [
+        {"name": t.name, "slug": slugify(t.name)}
+        for t in ArticleType.objects.all().order_by("name")
+    ]
+    locations = [
+        {"name": l.name, "slug": slugify(l.name)}
+        for l in Location.objects.all().order_by("name")
+    ]
+
+    # add_url (Add blog page button)
+    parent = BlogIndexPage.objects.first()
+    if parent:
+        add_url = reverse(
+            "wagtailadmin_pages:add",
+            kwargs={
+                "content_type_app_name": "blog",
+                "content_type_model_name": "blogpage",
+                "parent_page_id": parent.id,
+            },
+        )
+    else:
+        add_url = reverse("wagtailadmin_explore_root")
 
     context = {
-        'blog_posts': page_obj,
-        'search_query': search_query,
-        'category_filter': category_filter,
-        'status_filter': status_filter,
-        'location_filter': location_filter,
-        'sector_filter': sector_filter,
-        'categories': sorted(set(categories)),
-        'locations': sorted(set(locations)),
-        'sectors': sorted(set(sectors)),
-        'total_posts': total_posts,
-        'live_posts': live_posts,
-        'draft_posts': draft_posts,
-        'paginator': paginator,
-        'page_obj': page_obj,
+        "page_obj": page_obj,
+        "blog_posts": page_obj.object_list,
+        "total_count": total_count,
+        "filtered_count": filtered_count,
+        "search_query": search_query,
+        "type_filter": type_filter,
+        "location_filter": location_filter,
+        "article_types": article_types,
+        "locations": locations,
+        "add_url": add_url,
+        "sort": sort,
+        "dir": direction,
     }
-    return render(request, 'blogs_dashboard.html', context)
+    return render(request, "blogs_dashboard.html", context)
+
+
+
 
 
 # Language switch view
@@ -638,16 +616,16 @@ def set_language(request):
     from django.utils import translation
     from django.conf import settings
     from django.http import HttpResponseRedirect
-    
+
     # Django 4.0+ removed translation.LANGUAGE_SESSION_KEY
     # The session key for language is '_language'
     LANGUAGE_SESSION_KEY = '_language'
-    
+
     lang = request.GET.get('lang', 'en-gb')
     if lang in [code for code, name in settings.LANGUAGES]:
         translation.activate(lang)
         request.session[LANGUAGE_SESSION_KEY] = lang
-    
+
     # Redirect back to the referring page or home
     next_url = request.META.get('HTTP_REFERER', '/')
     # Remove any existing lang parameter from the URL
@@ -655,7 +633,7 @@ def set_language(request):
         next_url = next_url.split('?lang=')[0]
     elif '&lang=' in next_url:
         next_url = next_url.replace(f'&lang={lang}', '')
-    
+
     # Create response with language cookie for persistence
     response = HttpResponseRedirect(next_url)
     response.set_cookie(
@@ -667,35 +645,41 @@ def set_language(request):
     )
     return response
 
-
+from blog import admin_views
 urlpatterns = [
-    path("i18n/", include("django.conf.urls.i18n")),  # Django language switching
-    path("set-language/", set_language, name="set_language"),  # Custom language switch
-    path("", index, name="index"),  # Root URL serves the homepage
-    path("news/", news, name="news"),  # News page
-    path("about/", about, name="about"),  # About page
-    path("privacy/", privacy, name="privacy"),  # Privacy Policy page
-    path("support/", support, name="support"),  # Support page
-    path("publish-on-cash-matters/", write_for_us, name="write_for_us"),  # Write for Us page
-    path("why-cash/", why_cash, name="why_cash"),  # Why Cash Matters page
-    path("why-cash-matters/", new_page, name="new_page"),  # Why Cash Matters Feature page
+    path("i18n/", include("django.conf.urls.i18n")),
+    path("set-language/", set_language, name="set_language"),
+
+    path("", index, name="index"),
+    path("news/", news, name="news"),
+    path("about/", about, name="about"),
+    path("privacy/", privacy, name="privacy"),
+    path("support/", support, name="support"),
+    path("publish-on-cash-matters/", write_for_us, name="write_for_us"),
+    path("why-cash/", why_cash, name="why_cash"),
+    path("why-cash-matters/", new_page, name="new_page"),
+
     path("django-admin/", admin.site.urls),
+
+    # ✅ CUSTOM ADMIN URLS MUST BE ABOVE wagtailadmin_urls
     path("admin/all-blogs/", blogs_dashboard, name="blogs_dashboard_custom"),
-    path("add-blog/", create_blog_page, name="create_blog_page"),
-    path("admin/", include(wagtailadmin_urls)),
     path("admin/blogs/add/", blogs_dashboard, name="blogs_dashboard"),
-    # Blog creation dashboard
-    path("blogs/add/", blogs_dashboard_redirect,
-         name="blogs_dashboard_redirect"),  # Redirect old URL
+    path("admin/news/articles/", admin_views.admin_articles, name="admin_articles"),
+    path("admin/news/key-facts/", admin_views.admin_keyfacts, name="admin_keyfacts"),
+
+    # ✅ Wagtail admin include AFTER custom routes
+    path("admin/", include(wagtailadmin_urls)),
+
+    path("add-blog/", create_blog_page, name="create_blog_page"),
+    path("blogs/add/", blogs_dashboard_redirect, name="blogs_dashboard_redirect"),
     path("documents/", include(wagtaildocs_urls)),
     path("api/v2/", api_router.urls),
     path("search/", search_views.search, name="search"),
     path("author/<str:author_name>/", author, name="author_profile"),
     path("author/id/<int:author_id>/", author, name="author_profile_by_id"),
-    path("blog/admin/", include("blog.urls")),  # Blog app URLs
+    path("blog/admin/", include("blog.urls")),
     path("blog/support/", support, name="blog_support_redirect"),
 ]
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static

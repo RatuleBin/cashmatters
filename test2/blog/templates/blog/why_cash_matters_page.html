@@ -1,0 +1,530 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags static wagtailimages_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .why-cash-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .page-header-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .page-header-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+
+    .page-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        color: #6b7280;
+        font-size: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .blog-intro {
+        font-size: 1.25rem;
+        color: #4b5563;
+        font-style: italic;
+        line-height: 1.6;
+        margin: 2rem 0 3rem 0;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-left: 4px solid #007d7e;
+        border-radius: 0 12px 12px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .blog-content {
+        line-height: 1.8;
+        color: #374151;
+        font-size: 1.1rem;
+        margin-bottom: 4rem;
+    }
+
+    .blog-content h1,
+    .blog-content h2,
+    .blog-content h3,
+    .blog-content h4,
+    .blog-content h5,
+    .blog-content h6 {
+        color: #007d7e;
+        font-weight: 600;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .blog-content h1 { font-size: 2.25rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
+    .blog-content h2 { font-size: 1.875rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.25rem; }
+    .blog-content h3 { font-size: 1.5rem; }
+    .blog-content h4 { font-size: 1.25rem; }
+
+    .blog-content p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+    }
+
+    .blog-content ul,
+    .blog-content ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+    }
+
+    .blog-content li {
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-content blockquote {
+        border-left: 4px solid #007d7e;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #6b7280;
+        background: #f9fafb;
+        padding: 1.5rem;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .blog-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 2rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Facts Section */
+    .facts-section {
+        margin: 4rem 0;
+    }
+
+    .facts-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .facts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .fact-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .fact-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+    }
+
+    .fact-background {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        position: relative;
+    }
+
+    .fact-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0,125,126,0.8) 0%, rgba(0,90,91,0.8) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+        color: white;
+    }
+
+    .fact-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+        object-fit: contain;
+    }
+
+    .fact-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .fact-sector {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        font-weight: 500;
+    }
+
+    .fact-content {
+        padding: 2rem;
+    }
+
+    .fact-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #374151;
+        margin-bottom: 1.5rem;
+    }
+
+    .fact-reveal {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        border-left: 4px solid #007d7e;
+    }
+
+    .fact-reveal-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #007d7e;
+        margin-bottom: 0.5rem;
+    }
+
+    .fact-reveal-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #4b5563;
+    }
+
+    .fact-reveal-toggle {
+        background: linear-gradient(135deg, #007d7e 0%, #005a5b 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .fact-reveal-toggle:hover {
+        background: linear-gradient(135deg, #005a5b 0%, #004a4b 100%);
+        transform: translateY(-1px);
+    }
+
+    .fact-reveal.hidden {
+        display: none;
+    }
+
+    /* Color themes for facts */
+    .fact-card.color-blue .fact-overlay {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(37, 99, 235, 0.8) 100%);
+    }
+
+    .fact-card.color-red .fact-overlay {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.8) 100%);
+    }
+
+    .fact-card.color-green .fact-overlay {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.8) 100%);
+    }
+
+    .fact-card.color-yellow .fact-overlay {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.8) 0%, rgba(217, 119, 6, 0.8) 100%);
+    }
+
+    .fact-card.color-purple .fact-overlay {
+        background: linear-gradient(135deg, rgba(147, 51, 234, 0.8) 0%, rgba(124, 58, 237, 0.8) 100%);
+    }
+
+    .fact-card.color-pink .fact-overlay {
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.8) 0%, rgba(219, 39, 119, 0.8) 100%);
+    }
+
+    .fact-card.color-orange .fact-overlay {
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.8) 0%, rgba(234, 88, 12, 0.8) 100%);
+    }
+
+    .blog-actions {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .blog-actions-left {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .blog-actions-right {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+        border-color: #d1d5db;
+    }
+
+    .btn-secondary:hover {
+        background: #e5e7eb;
+        border-color: #9ca3af;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #007d7e 0%, #005a5b 100%);
+        color: white;
+        border-color: #007d7e;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #005a5b 0%, #004a4b 100%);
+        border-color: #005a5b;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,125,126,0.3);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .why-cash-container {
+            padding: 1rem;
+        }
+
+        .page-header-title {
+            font-size: 2.5rem;
+        }
+
+        .facts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .fact-card {
+            margin: 0 1rem;
+        }
+
+        .blog-actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .blog-actions-left,
+        .blog-actions-right {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header-title {
+            font-size: 2rem;
+        }
+
+        .facts-title {
+            font-size: 2rem;
+        }
+
+        .fact-overlay {
+            padding: 1rem;
+        }
+
+        .fact-title {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="why-cash-container">
+    <!-- Page Header -->
+    <header class="page-header">
+        {% if page.page_header_image %}
+            {% image page.page_header_image fill-1140x400 as header_img %}
+            <img src="{{ header_img.url }}" alt="{{ header_img.alt }}" class="page-header-image">
+        {% endif %}
+
+        <h1 class="page-header-title">{{ page.title }}</h1>
+
+        <div class="page-meta">
+            <span class="meta-item">
+                📅 {{ page.date|date:"F j, Y" }}
+            </span>
+            {% if page.live %}
+                <span class="meta-item">
+                    🟢 Published
+                </span>
+            {% else %}
+                <span class="meta-item">
+                    🟡 Draft
+                </span>
+            {% endif %}
+            {% if page.first_published_at %}
+                <span class="meta-item">
+                    📝 First published {{ page.first_published_at|date:"M j, Y" }}
+                </span>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    {% if page.intro %}
+    <div class="blog-intro">
+        {{ page.intro }}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    {% if page.body %}
+    <article class="blog-content">
+        {% include_block page.body %}
+    </article>
+    {% endif %}
+
+    <!-- Facts Section -->
+    {% if page.facts %}
+    <section class="facts-section">
+        <h2 class="facts-title">Key Facts About Cash</h2>
+        <div class="facts-grid">
+            {% for fact_block in page.facts %}
+                {% if fact_block.block_type == 'fact' %}
+                <div class="fact-card color-{{ fact_block.value.color|default:'blue'|lower }}">
+                    {% if fact_block.value.background_image %}
+                        {% image fact_block.value.background_image fill-400x200 as bg_img %}
+                        <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="fact-background">
+                    {% endif %}
+
+                    <div class="fact-overlay">
+                        {% if fact_block.value.icon %}
+                            {% image fact_block.value.icon fill-60x60 as icon_img %}
+                            <img src="{{ icon_img.url }}" alt="{{ icon_img.alt }}" class="fact-icon">
+                        {% endif %}
+                        <h3 class="fact-title">{{ fact_block.value.title }}</h3>
+                        <p class="fact-sector">{{ fact_block.value.related_sector }}</p>
+                    </div>
+
+                    <div class="fact-content">
+                        <p class="fact-text">{{ fact_block.value.text }}</p>
+
+                        {% if fact_block.value.reveal_title or fact_block.value.reveal_text %}
+                        <div class="fact-reveal hidden" id="reveal-{{ forloop.counter }}">
+                            {% if fact_block.value.reveal_title %}
+                            <h4 class="fact-reveal-title">{{ fact_block.value.reveal_title }}</h4>
+                            {% endif %}
+                            {% if fact_block.value.reveal_text %}
+                            <p class="fact-reveal-text">{{ fact_block.value.reveal_text }}</p>
+                            {% endif %}
+                        </div>
+
+                        <button class="fact-reveal-toggle" onclick="toggleReveal({{ forloop.counter }})">
+                            Reveal More →
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Navigation -->
+    <div class="blog-actions">
+        <div class="blog-actions-left">
+            <a href="{% if page.get_parent %}{{ page.get_parent.url }}{% else %}/{% endif %}" class="btn btn-secondary">
+                ← Back
+            </a>
+            <a href="/" class="btn btn-secondary">
+                🏠 Home
+            </a>
+        </div>
+
+        <div class="blog-actions-right">
+            {% if user.is_authenticated %}
+                <a href="/admin/pages/{{ page.id }}/edit/" class="btn btn-primary">
+                    ✏️ Edit Page
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleReveal(factId) {
+    const reveal = document.getElementById('reveal-' + factId);
+    const button = reveal.nextElementSibling;
+
+    if (reveal.classList.contains('hidden')) {
+        reveal.classList.remove('hidden');
+        button.textContent = 'Hide Details ↑';
+    } else {
+        reveal.classList.add('hidden');
+        button.textContent = 'Reveal More →';
+    }
+}
+</script>
+{% endblock %}

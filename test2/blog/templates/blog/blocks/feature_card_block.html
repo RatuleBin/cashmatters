@@ -1,0 +1,35 @@
+{% load wagtailimages_tags %}
+<div class="row g-4 mb-5 feature-row">
+    <!-- Icon Card (Left) -->
+    <div class="col-lg-3 col-md-12">
+        <div class="feature-icon-card bg-feature-{{ value.color|default:'blue' }} h-100 rounded-4 p-4 d-flex flex-column align-items-center justify-content-center text-center text-white">
+            {% if value.icon %}
+                <i class="bi {{ value.icon }} feature-icon mb-3"></i>
+            {% else %}
+                <i class="bi bi-star feature-icon mb-3"></i>
+            {% endif %}
+            <h4 class="fw-bold fs-5">{{ value.icon_title }}</h4>
+        </div>
+    </div>
+    <!-- Content Card (Right) -->
+    <div class="col-lg-9 col-md-12">
+        <div class="feature-content-card bg-white rounded-4 overflow-hidden h-100 shadow-sm d-flex flex-column flex-lg-row">
+            <div class="p-5 flex-grow-1">
+                <h3 class="fw-bold mb-3">{{ value.content_title }}</h3>
+                <p class="text-muted small mb-4">
+                    {{ value.content_text }}
+                </p>
+                <div class="d-flex align-items-center justify-content-between mt-auto pt-3 flex-wrap gap-3">
+                    <a href="#" class="text-mint text-decoration-underline fw-bold small">Related news and articles</a>
+                    <a href="#" class="btn btn-outline-mint btn-sm px-3 fw-bold">Support Cash</a>
+                </div>
+            </div>
+            {% if value.background_image %}
+            <div class="feature-img-container">
+                {% image value.background_image fill-400x300 as bg_img %}
+                <img src="{{ bg_img.url }}" alt="{{ bg_img.alt }}" class="w-100 h-100 object-fit-cover">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

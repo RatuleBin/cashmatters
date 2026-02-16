@@ -1,0 +1,755 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% load wagtailcore_tags wagtailadmin_tags wagtailimages_tags %}
+
+{% block titletag %}Create New Blog Post{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize image chooser functionality
+    $(document).ready(function() {
+        // Make sure image chooser buttons work
+        $('.image-chooser .choose-image').on('click', function(e) {
+            e.preventDefault();
+            var chooser = $(this).closest('.image-chooser');
+            var input = chooser.find('input[type="hidden"]');
+            
+            // Open Wagtail's image chooser modal
+            window.open('/admin/images/chooser/', 'image-chooser', 'width=1000,height=600');
+        });
+
+        // Content blocks functionality
+        let blockIndex = 0;
+
+        // Add block functionality
+        $(document).on('click', '.add-block-btn', function() {
+            const blockType = $(this).data('block-type');
+            const blockHtml = createBlockHtml(blockType, blockIndex);
+            $('.content-blocks-list').append(blockHtml);
+            blockIndex++;
+            updateHiddenField();
+        });
+
+        // Remove block functionality
+        $(document).on('click', '.remove-block-btn', function() {
+            $(this).closest('.content-block').remove();
+            updateHiddenField();
+        });
+
+        // Update hidden field when content changes
+        $(document).on('input change', '.content-block input, .content-block textarea', function() {
+            updateHiddenField();
+        });
+
+        function createBlockHtml(blockType, index) {
+            let html = '<div class="content-block" data-block-type="' + blockType + '" data-block-index="' + index + '">';
+            html += '<div class="block-header">';
+            html += '<span class="block-type">' + blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + '</span>';
+            html += '<button type="button" class="remove-block-btn">✕</button>';
+            html += '</div>';
+            html += '<div class="block-content">';
+
+            if (blockType === 'content') {
+                html += '<textarea name="block_' + index + '_content" placeholder="Enter your content here..." rows="6"></textarea>';
+            } else if (blockType === 'image_caption') {
+                html += '<div class="image-upload-group">';
+                html += '<input type="file" name="block_' + index + '_image" accept="image/*">';
+                html += '<input type="text" name="block_' + index + '_caption" placeholder="Image caption">';
+                html += '</div>';
+            } else if (blockType === 'video_caption') {
+                html += '<div class="video-upload-group">';
+                html += '<input type="file" name="block_' + index + '_video" accept="video/*">';
+                html += '<input type="text" name="block_' + index + '_caption" placeholder="Video caption">';
+                html += '</div>';
+            } else if (blockType === 'iframe_caption') {
+                html += '<div class="iframe-group">';
+                html += '<input type="url" name="block_' + index + '_url" placeholder="Iframe URL">';
+                html += '<input type="text" name="block_' + index + '_caption" placeholder="Iframe caption">';
+                html += '</div>';
+            } else if (blockType === 'blockquote') {
+                html += '<textarea name="block_' + index + '_quote" placeholder="Enter blockquote text..." rows="4"></textarea>';
+                html += '<input type="text" name="block_' + index + '_author" placeholder="Author (optional)">';
+            } else if (blockType === 'data_table') {
+                html += '<textarea name="block_' + index + '_table_data" placeholder="Enter table data..." rows="8"></textarea>';
+            } else if (blockType === 'poll') {
+                html += '<input type="text" name="block_' + index + '_question" placeholder="Poll question">';
+                html += '<textarea name="block_' + index + '_options" placeholder="Poll options (one per line)" rows="4"></textarea>';
+            } else if (blockType === 'facts_carousel') {
+                html += '<textarea name="block_' + index + '_facts" placeholder="Enter facts as JSON array..." rows="6"></textarea>';
+            } else if (blockType === 'key_fact_image') {
+                html += '<div class="key-fact-group">';
+                html += '<input type="text" name="block_' + index + '_fact" placeholder="Key fact text">';
+                html += '<input type="file" name="block_' + index + '_image" accept="image/*">';
+                html += '</div>';
+            }
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function updateHiddenField() {
+            const blocks = [];
+            $('.content-block').each(function() {
+                const blockType = $(this).data('block-type');
+                const blockIndex = $(this).data('block-index');
+                const block = { type: blockType };
+
+                if (blockType === 'content') {
+                    block.content = $(this).find('textarea[name="block_' + blockIndex + '_content"]').val();
+                } else if (blockType === 'image_caption') {
+                    block.caption = $(this).find('input[name="block_' + blockIndex + '_caption"]').val();
+                } else if (blockType === 'video_caption') {
+                    block.caption = $(this).find('input[name="block_' + blockIndex + '_caption"]').val();
+                } else if (blockType === 'iframe_caption') {
+                    block.url = $(this).find('input[name="block_' + blockIndex + '_url"]').val();
+                    block.caption = $(this).find('input[name="block_' + blockIndex + '_caption"]').val();
+                } else if (blockType === 'blockquote') {
+                    block.quote = $(this).find('textarea[name="block_' + blockIndex + '_quote"]').val();
+                    block.author = $(this).find('input[name="block_' + blockIndex + '_author"]').val();
+                } else if (blockType === 'data_table') {
+                    block.table_data = $(this).find('textarea[name="block_' + blockIndex + '_table_data"]').val();
+                } else if (blockType === 'poll') {
+                    block.question = $(this).find('input[name="block_' + blockIndex + '_question"]').val();
+                    block.options = $(this).find('textarea[name="block_' + blockIndex + '_options"]').val();
+                } else if (blockType === 'facts_carousel') {
+                    block.facts = $(this).find('textarea[name="block_' + blockIndex + '_facts"]').val();
+                } else if (blockType === 'key_fact_image') {
+                    block.fact = $(this).find('input[name="block_' + blockIndex + '_fact"]').val();
+                }
+
+                blocks.push(block);
+            });
+
+            $('#id_content_blocks').val(JSON.stringify(blocks));
+        }
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .nice-padding {
+        padding: 2rem;
+    }
+    
+    .form-section {
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .form-section h3 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #495057;
+        font-size: 1.25rem;
+        font-weight: 600;
+        border-bottom: 2px solid #007d7e;
+        padding-bottom: 0.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 2rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .form-group.checkbox-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: normal !important;
+        margin-bottom: 0.25rem !important;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+    
+    .checkbox-label:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        accent-color: #007d7e;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="url"],
+    .form-group input[type="file"],
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #007d7e;
+        box-shadow: 0 0 0 3px rgba(0, 125, 126, 0.1);
+    }
+    
+    .form-group .help-text {
+        font-size: 0.875rem;
+        color: #666;
+        margin-top: 0.25rem;
+    }
+    
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0 0;
+    }
+    
+    .errorlist li {
+        color: #c00;
+        font-size: 0.875rem;
+    }
+    
+    .form-actions {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e5e5;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .required::after {
+        content: " *";
+        color: #dc3545;
+    }
+
+    /* Content Blocks Styles */
+    .content-blocks-container {
+        border: 2px dashed #007d7e;
+        border-radius: 8px;
+        padding: 1rem;
+        min-height: 200px;
+        background: #f8f9fa;
+    }
+    
+    .content-blocks-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .add-block-btn {
+        background: #007d7e;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: background-color 0.2s;
+    }
+    
+    .add-block-btn:hover {
+        background: #005a5a;
+    }
+    
+    .content-blocks-list {
+        min-height: 100px;
+    }
+    
+    .content-block {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+    
+    .block-header {
+        background: #f8f9fa;
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .block-type {
+        font-weight: 600;
+        color: #495057;
+    }
+    
+    .remove-block-btn {
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+    
+    .remove-block-btn:hover {
+        background: #c82333;
+    }
+    
+    .block-content {
+        padding: 1rem;
+    }
+    
+    .block-content textarea,
+    .block-content input[type="text"],
+    .block-content input[type="url"],
+    .block-content input[type="file"] {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    .image-upload-group,
+    .video-upload-group,
+    .iframe-group,
+    .key-fact-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <header class="header nice-padding">
+        <div class="breadcrumb">
+            <a href="{{ parent_page.url }}">← Back to {{ parent_page.title }}</a>
+        </div>
+        <h1>📝 Create New Blog Post</h1>
+    </header>
+
+    <div class="nice-padding">
+        {% if messages %}
+            <div class="messages">
+                <ul class="messages-list">
+                    {% for message in messages %}
+                        <li class="{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% else %}warning{% endif %}">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h3>📄 Basic Information</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class="required">
+                        Page title*
+                    </label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.title.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.title_position.id_for_label }}">
+                        Title position
+                    </label>
+                    {{ form.title_position }}
+                    {% if form.title_position.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.title_position.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.date.id_for_label }}" class="required">
+                        Post date*
+                    </label>
+                    {{ form.date }}
+                    {% if form.date.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.date.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.intro.id_for_label }}" class="required">
+                        Introduction
+                    </label>
+                    {{ form.intro }}
+                    <p class="help-text">A brief summary of your blog post (max 250 characters)</p>
+                    {% if form.intro.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.intro.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="form-section">
+                <h3>📋 Page Header</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.page_header.id_for_label }}">
+                        Page Header
+                    </label>
+                    {{ form.page_header }}
+                    <p class="help-text">Optional. If nothing is entered, the page title will be used.</p>
+                    {% if form.page_header.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.page_header.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.page_header_image_upload.id_for_label }}">
+                        Page Header image
+                    </label>
+                    {{ form.page_header_image_upload }}
+                    <p class="help-text">Upload a page header image</p>
+                    {% if form.page_header_image_upload.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.page_header_image_upload.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="form-section">
+                <h3>🖼️ Thumbnails</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.tall_thumbnail_upload.id_for_label }}">
+                        Tall Thumbnail (540px x 750px)
+                    </label>
+                    {{ form.tall_thumbnail_upload }}
+                    <p class="help-text">Upload a tall thumbnail image (540px x 750px). Used when a post is featured on a Section Page.</p>
+                    {% if form.tall_thumbnail_upload.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.tall_thumbnail_upload.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.wide_thumbnail_upload.id_for_label }}">
+                        Wide Thumbnail (1140px x 750px)
+                    </label>
+                    {{ form.wide_thumbnail_upload }}
+                    <p class="help-text">Upload a wide thumbnail image (1140px x 750px). Used when a post is featured on the Home Page.</p>
+                    {% if form.wide_thumbnail_upload.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.wide_thumbnail_upload.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- List Options -->
+            <div class="form-section">
+                <h3>⚙️ List Options</h3>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.featured }}
+                        Featured
+                    </label>
+                    <p class="help-text">To feature a post, ensure it has tall thumbnail.</p>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.double_width }}
+                        Double width
+                    </label>
+                    <p class="help-text">Make a thumbnail double width on the home page. Must have a wide thumbnail.</p>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.white_text }}
+                        White text
+                    </label>
+                    <p class="help-text">Toggle the icons and text to white, perfect for darker images.</p>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.hide_title }}
+                        Hide title
+                    </label>
+                    <p class="help-text">Hide the post title when you're using text within your thumbnail.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.color.id_for_label }}">
+                        Color
+                    </label>
+                    {{ form.color }}
+                    {% if form.color.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.color.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- CM Watermark & Media -->
+            <div class="form-section">
+                <h3>💧 CM Watermark & Media</h3>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        {{ form.cm_watermark }}
+                        CM Watermark?
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.alternative_text.id_for_label }}">
+                        Alternative text
+                    </label>
+                    {{ form.alternative_text }}
+                    {% if form.alternative_text.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.alternative_text.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.icon_upload.id_for_label }}">
+                        Icon
+                    </label>
+                    {{ form.icon_upload }}
+                    <p class="help-text">Upload an icon image</p>
+                    {% if form.icon_upload.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.icon_upload.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Categories & Tags -->
+            <div class="form-section">
+                <h3>🏷️ Categories & Tags</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.article_types.id_for_label }}">
+                        Article types
+                    </label>
+                    <div class="checkbox-group">
+                        {% for checkbox in form.article_types %}
+                            <div class="checkbox-item">
+                                <label class="checkbox-label">
+                                    {{ checkbox.tag }}
+                                    <span class="checkmark"></span>
+                                    {{ checkbox.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <p class="help-text">News, Events, Studies, Key Fact, Key Facts, Podcast</p>
+                    {% if form.article_types.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.article_types.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.locations.id_for_label }}">
+                        Locations
+                    </label>
+                    <div class="checkbox-group">
+                        {% for checkbox in form.locations %}
+                            <div class="checkbox-item">
+                                <label class="checkbox-label">
+                                    {{ checkbox.tag }}
+                                    <span class="checkmark"></span>
+                                    {{ checkbox.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <p class="help-text">Around the World, Africa, Middle East & India, Asia Pacific, Europe, Latin America & Caribbean, The United States & Canada</p>
+                    {% if form.locations.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.locations.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.sectors.id_for_label }}">
+                        Sectors
+                    </label>
+                    <div class="checkbox-group">
+                        {% for checkbox in form.sectors %}
+                            <div class="checkbox-item">
+                                <label class="checkbox-label">
+                                    {{ checkbox.tag }}
+                                    <span class="checkmark"></span>
+                                    {{ checkbox.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <p class="help-text">Cash is Freedom, Cash is Fair, Cash is Simple, Cash is Friendly, Cash is Resilient, Cash is Common Sense, Cash is Inclusive, Cash is Private, Cash is Secure</p>
+                    {% if form.sectors.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.sectors.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Social & Media -->
+            <div class="form-section">
+                <h3>🐦 Social & Media</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.twitter_body.id_for_label }}">
+                        Twitter
+                    </label>
+                    {{ form.twitter_body }}
+                    <p class="help-text">Twitter body</p>
+                    {% if form.twitter_body.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.twitter_body.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.vimeo_id.id_for_label }}">
+                        Vimeo ID
+                    </label>
+                    {{ form.vimeo_id }}
+                    <p class="help-text">The Vimeo Video ID (the number at the end of the video url)</p>
+                    {% if form.vimeo_id.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.vimeo_id.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="form-section">
+                <h3>📝 Content</h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.content_blocks.id_for_label }}" class="required">
+                        Body
+                    </label>
+                    {{ form.content_blocks }}
+                    {% if form.content_blocks.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.content_blocks.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.source_link.id_for_label }}">
+                        Source link
+                    </label>
+                    {{ form.source_link }}
+                    <p class="help-text">Link to the article's source, if any.</p>
+                    {% if form.source_link.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.source_link.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button button-primary">
+                    💾 Save & Publish
+                </button>
+                <a href="{{ parent_page.url }}" class="button button-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
