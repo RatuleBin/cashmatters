@@ -8,18 +8,18 @@ SECRET_KEY = "test-secret-key-not-for-production"
 ALLOWED_HOSTS = ['*']
 
 # Use SQLite for tests (much faster and more reliable in CI)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': ':memory:',
-#     }
-# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Use in-memory email backend for tests
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'

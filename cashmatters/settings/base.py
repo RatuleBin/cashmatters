@@ -103,27 +103,27 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASE_URL = (
-#     'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
-#     'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
-# )
+DATABASE_URL = (
+    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+)
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=DATABASE_URL,
-#         conn_max_age=600
-#     ),
-#
-#
-#     "DISABLE_SERVER_SIDE_CURSORS": True,
-#
-# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600
+    ),
+
+
+    "DISABLE_SERVER_SIDE_CURSORS": True,
+
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Logging configuration
 LOGGING = {
