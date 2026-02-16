@@ -50,9 +50,15 @@
     color: #555;
 }
 
-.body {
-    margin-top: 2rem;
-    line-height: 1.6;
+body {
+  font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
+  font-weight: 500;
+}
+
+.blog-post-preview h2,
+.blog-post-preview h2 a {
+  font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
+  font-weight: 600;
 }
 
 /* Checkbox Styles for Form */

@@ -4,13 +4,20 @@ from .base import *
 SECRET_KEY = "test-secret-key-not-for-production"
 
 # Allow test domains
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Use SQLite for tests (much faster and more reliable in CI)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': ':memory:',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -18,7 +25,7 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
 # Disable debug for tests
-DEBUG = False
+DEBUG = True
 
 # Test-specific settings
 PASSWORD_HASHERS = [

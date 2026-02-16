@@ -19,6 +19,7 @@
             <section id="articles" class="articles-section">
                 <h2>Articles</h2>
                 <div class="articles-list">
+                    <p>ARTICLES COUNT: {{ articles|length }}</p>
                     {% for article in articles %}
                     <article class="article-item">
                         <h3><a href="{% pageurl article %}">{{ article.title }}</a></h3>

@@ -10,8 +10,8 @@
     --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
     --brand-blue-line: #0099CC;
     /* ITC Avant Garde Gothic Alternative - Poppins (closest free geometric sans-serif) */
-    --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    --font-body: "Alvant Grade", sans-serif !important;
+  --font-header: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
+  --font-body: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif;
 }
 
 html, body {

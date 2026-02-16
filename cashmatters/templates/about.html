@@ -21,61 +21,6 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-
-    *,
-    *::before,
-    *::after {
-      font-family: "Alvant Grade", sans-serif !important;
-    }
-
-    /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-    .navbar,
-    .navbar * {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    /* All headings use Poppins */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    .navbar .nav-link {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Modern hover animations for menu items */
-    .navbar .nav-link::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #4CD1C2, #8de4af);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(-50%);
-    }
-
-    .navbar .nav-link:hover::before,
-    .navbar .nav-link.active::before {
-      width: 100%;
-    }
-
-    .navbar .nav-link:hover {
-      color: #4CD1C2 !important;
-      transform: translateY(-2px);
-    }
-
         @media (max-width: 992px) {
 
             /* Hide everything in the navbar except the logo */
@@ -116,7 +61,7 @@
                         <!-- Write for Us link moved to footer only -->
                         <!-- Support Cash button for mobile -->
                         <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}"
-                                class="btn btn-support-cash">Support Cash </a>
+                                class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -153,7 +98,8 @@
                                     Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i
+                            class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>
@@ -479,16 +425,16 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
 
-                          <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/PO0hPyoRP0s"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                        <div class="ratio ratio-16x9 video-box" data-video="{% static 'videos/Cashisresilient .mp4' %}">
+                            <img src="{% static 'images/humancash.jpg' %}" class="video-thumb"
+                                alt="Financial Inclusion Video">
+                            <div class="play-button">
+                                <div class="play-icon">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                                <span class="play-text">Watch Video</span>
+                            </div>
+                        </div>
 
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Financial Inclusion</h4>
@@ -507,16 +453,16 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
 
-                           <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/t6jPnf6UvlA"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                        <div class="ratio ratio-16x9 video-box" data-video="{% static 'videos/Cashissecure.mp4' %}">
+                            <img src="{% static 'images/handcash.jpg' %}" class="video-thumb"
+                                alt="Privacy & Security Video">
+                            <div class="play-button">
+                                <div class="play-icon">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                                <span class="play-text">Watch Video</span>
+                            </div>
+                        </div>
 
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Privacy & Security</h4>
@@ -535,16 +481,17 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 bg-white rounded-4 shadow-sm overflow-hidden hover-lift">
 
-                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/qzea2-vGlSA"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                        <div class="ratio ratio-16x9 video-box" data-video="{% static 'videos/CashMattersOrg.mp4' %}">
+                            <img src="{% static 'images/coinshand.jpg' %}" class="video-thumb"
+                                alt="Financial Freedom Video">
+                            <div class="play-button">
+                                <div class="play-icon">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                                <span class="play-text">Watch Video</span>
+                            </div>
+                        </div>
+
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Financial Freedom</h4>
                             <p class="text-muted" style="font-size: 20px;">
@@ -653,7 +600,7 @@
                             For privacy. For inclusion. For everyday resilience.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            Support Cash 
+                            Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -775,7 +722,8 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                            class="bi bi-arrow-up-right ms-2"></i></a>
 
                 </div>
             </div>
@@ -897,7 +845,7 @@
                             href="{% url 'about' %}">About Us</a></li>
                     <li class="nav-item mt-2">
                         <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                            Support Cash 
+                            Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
                         </a>
                     </li>
                 </ul>
@@ -990,28 +938,66 @@
     </script>
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
+    <style>
+        .goog-te-banner-frame,
+        .skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        .goog-te-gadget {
+            display: none !important;
+        }
+    </style>
+
+
+
+    <script>
+    // Force scroll to top on page load - comprehensive solution
     (function() {
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
-        window.addEventListener('load', function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
             window.scrollTo(0, 0);
-            document.body.style.top = '0px';
-        });
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
-                    document.body.style.top = '0px';
-                    window.scrollTo(0, 0);
-                }
+
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        });
+
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately when script loads
+        forceScrollToTop();
+
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
     })();
-  </script>
+</script>
 </body>
 
 </html>

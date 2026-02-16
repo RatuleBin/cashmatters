@@ -31,61 +31,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/news-style.css' %}">
     <style>
-
-    *,
-    *::before,
-    *::after {
-      font-family: "Alvant Grade", sans-serif !important;
-    }
-
-    /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-    .navbar,
-    .navbar * {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    /* All headings use Poppins */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-    }
-
-    .navbar .nav-link {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Modern hover animations for menu items */
-    .navbar .nav-link::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #4CD1C2, #8de4af);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(-50%);
-    }
-
-    .navbar .nav-link:hover::before,
-    .navbar .nav-link.active::before {
-      width: 100%;
-    }
-
-    .navbar .nav-link:hover {
-      color: #4CD1C2 !important;
-      transform: translateY(-2px);
-    }
-
         @media (max-width: 992px) {
   /* Hide everything in the navbar except the logo */
     .navbar-toggler {
@@ -94,29 +39,7 @@
 
 
 }
-
-
-   .sub-nav-links {
-    row-gap: 12px; /* spacing between rows */
-}
-
-.nav-link-custom {
-    text-decoration: none;
-    color: #212529;
-    opacity: 0.75;
-    white-space: normal; /* allow wrapping */
-}
-
-.nav-link-custom:hover {
-    color: #20c997; /* mint */
-    opacity: 1;
-}
-
-.nav-link-custom.active {
-    color: #20c997;
-    opacity: 1;
-}
-</style>
+    </style>
 </head>
 <body class="bg-light-cream">
 
@@ -144,7 +67,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash</a></li>
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
 
@@ -166,7 +89,7 @@
                             <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
                         </ul>
                     </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a>
                 </div>
             </div>
         </nav>
@@ -178,35 +101,14 @@
     <div class="container mt-5 pt-4">
         {% if active_category != 'podcast' %}
         <!-- Category Links (Hidden on Podcast page) -->
-   <div class="d-flex justify-content-between align-items-center mb-4">
-    <div class="sub-nav-links d-flex flex-wrap gap-3 fs-5 fw-medium">
-        <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}"
-           class="nav-link-custom {% if not active_category %}active{% endif %}">
-           News
-        </a>
-
-        <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
-           class="nav-link-custom {% if active_category == 'podcast' %}active{% endif %}">
-           Podcasts
-        </a>
-
-        <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
-           class="nav-link-custom {% if active_category == 'studies' %}active{% endif %}">
-           Studies & Research
-        </a>
-
-        <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
-           class="nav-link-custom {% if active_category == 'key-facts' %}active{% endif %}">
-           Key Facts
-        </a>
-
-        <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}"
-           class="nav-link-custom {% if active_category == 'events' %}active{% endif %}">
-           Events
-        </a>
-    </div>
-</div>
-
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+            <div class="sub-nav-links d-flex gap-4 fs-5 fw-medium">
+                <a href="{% url 'news' %}{% if request.GET.q %}?q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if not active_category %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">News</a>
+                <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
+                <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
+                <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key facts</a>
+            </div>
+        </div>
         {% endif %}
 
         <!-- Advanced Filters Row -->
@@ -238,7 +140,7 @@
                 </div>
 
                 <!-- Content Type Filter -->
-                <!-- <div class="col-lg-2 col-md-4">
+                <div class="col-lg-2 col-md-4">
                     <label class="form-label small text-muted fw-medium">Content Type</label>
                     <select name="content_type" class="form-select rounded-2 py-2" id="content-type">
                         <option value="">All Types</option>
@@ -249,7 +151,7 @@
                         <option value="editorial" {% if request.GET.content_type == 'editorial' %}selected{% endif %}>Editorial</option>
                         <option value="commentary" {% if request.GET.content_type == 'commentary' %}selected{% endif %}>Commentary</option>
                     </select>
-                </div> -->
+                </div>
 
                 <!-- Filter Button -->
                 <div class="col-lg-2 col-md-4">
@@ -291,7 +193,7 @@
             {% endif %}
 
             <a href="{{ hero_podcast.url_path }}" class="btn btn-dark-teal btn-lg">
-                <i class="bi bi-play-fill me-2"></i> Listen  
+                <i class="bi bi-play-fill me-2"></i> Listen Now
             </a>
         </div>
 
@@ -401,9 +303,9 @@
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3 small">
-                            <!-- <span class="text-dark" style="color: #333 !important;">
+                            <span class="text-dark" style="color: #333 !important;">
                                 <i class="bi bi-clock me-1"></i> {{ article.date|date:"M d, Y" }}
-                            </span> -->
+                            </span>
                             <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold extra-small">
                                 {% if article.article_types.first %}
                                     {{ article.article_types.first.name }}
@@ -446,15 +348,15 @@
                 {% endif %}
             {% endif %}
 
-                        <h5 class="fw-bold flex--1">{{ article.title }}</h5>
+                        <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
                     {% if article.intro %}
                     <p class="text-muted small mb-3" style="font-size: 20px;">{{ article.intro|striptags|truncatechars:140 }}</p>
                     {% endif %}
                     <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
                         {% if active_category == 'podcast' %}
-                            Listen to the podcast 
+                            Listen Now <i class="bi bi-play-fill ms-1"></i>
                         {% else %}
-                            Read The Story   
+                            Read More <i class="bi bi-arrow-up-right ms-1"></i>
                         {% endif %}
                     </a>
 
@@ -495,7 +397,7 @@
                             For privacy. For inclusion. For everyday resilience.
                         </p>
                         <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-                            Support Cash 
+                            Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -608,7 +510,8 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                            class="bi bi-arrow-up-right ms-2"></i></a>
 
                 </div>
             </div>
@@ -725,7 +628,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash 
+                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
                             </a>
                           </li>
                         </ul>
@@ -883,28 +786,59 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
+    <style>
+        .goog-te-banner-frame, .skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+        .goog-te-gadget { display: none !important; }
+    </style>
+    <script>
+  window.onload = function() {
+    window.scrollTo(0, 0);
+  };
+</script>
+<script>
+    // Force scroll to top on page load - comprehensive solution
     (function() {
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
-        window.addEventListener('load', function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
             window.scrollTo(0, 0);
-            document.body.style.top = '0px';
-        });
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
-                    document.body.style.top = '0px';
-                    window.scrollTo(0, 0);
-                }
+
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        });
+
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately when script loads
+        forceScrollToTop();
+
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
     })();
-  </script>
+</script>
 
 
 

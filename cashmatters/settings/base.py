@@ -36,13 +36,18 @@ INSTALLED_APPS = [
     "wagtail.contrib.redirects",
     "wagtail.embeds",
     "wagtail.sites",
+    "wagtail.contrib.settings",
+    "wagtail.contrib.search_promotions",
     "wagtail.users",
     "wagtail.snippets",
+    "wagtail.contrib.table_block",
+
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
     "wagtail.api.v2",
     "wagtail.locales",
+    "wagtailmenus",
     "wagtail",
     "corsheaders",
     "modelcluster",
@@ -98,18 +103,27 @@ WSGI_APPLICATION = "cashmatters.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASE_URL = (
-    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
-    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
-)
+# DATABASE_URL = (
+#     'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+#     'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+# )
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=DATABASE_URL,
+#         conn_max_age=600
+#     ),
+#
+#
+#     "DISABLE_SERVER_SIDE_CURSORS": True,
+#
+# }
 DATABASES = {
-    'default': dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
-
 
 # Logging configuration
 LOGGING = {
@@ -229,6 +243,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://ineffaceable-pseudoasymmetric-ardelle.ngrok-free.dev",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
     "http://localhost:5500",
@@ -240,6 +255,7 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     'http://72.62.147.13',      # your server IP
     'https://72.62.147.13',     # if using SSL
+    'https://ineffaceable-pseudoasymmetric-ardelle.ngrok-free.dev',     # if using SSL
 ]
 
 
@@ -297,3 +313,6 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 WAGTAILDOCS_EXTENSIONS = [
     'csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip'
 ]
+
+
+WAGTAILSNIPPETS_MENU_SHOW_ALL = True

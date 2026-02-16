@@ -681,7 +681,7 @@
                                 Cash Matters</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-3">
@@ -719,7 +719,7 @@
                         </ul>
                     </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-                        Support Cash 
+                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
                     </a>
                 </div>
             </div>
@@ -742,7 +742,7 @@
                         </p>
                         <div>
                             <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                                Support Cash 
+                                Support Cash <i class="bi bi-arrow-up-right ms-1 small"></i>
                             </a>
                         </div>
                     </div>
@@ -853,121 +853,78 @@
                         <!-- Video 1: Freedom Matters -->
                         <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                        <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/ErMeZ0DT2Cs"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                                    <video id="heroVideo1" poster="{% static 'images/asdf.png' %}" preload="none">
+                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo1', this)">▶</div>
                                 </div>
-                                <div class="p-3">
-
+                                <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
                                     <p class="text-muted small mb-2">
                                         How you spend your money is your business. Privacy matters. Freedom matters.
                                     </p>
                                     <div class="video-actions">
-                                        
+                                        <a href="{% static 'videos/sss.mp4' %}" download
+                                            class="btn-download">Download</a>
                                         <button class="btn-embed"
-                                        data-iframe='  <iframe
-                                                                            src="https://www.youtube.com/embed/ErMeZ0DT2Cs"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>'
-                                        onclick="openEmbedModal(this)">Embed</button>
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
 
                         <!-- Video 2: Choice Matters -->
-                          <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                        <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/GKQZjsETR8o"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                                    <video id="heroVideo2" poster="{% static 'images/asd.png' %}" preload="none">
+                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo2', this)">▶</div>
                                 </div>
-                                <div class="p-3">
-
+                                <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
                                     <p class="text-muted small mb-2">
                                         Choices empower you. Make sure to keep the freedom to choose how you pay.
                                     </p>
                                     <div class="video-actions">
-                                        
+                                        <a href="{% static 'videos/sa.mp4' %}" download
+                                            class="btn-download">Download</a>
                                         <button class="btn-embed"
-                                        data-iframe='  <iframe
-                                                                            src="https://www.youtube.com/embed/GKQZjsETR8o"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>'
-                                        onclick="openEmbedModal(this)">Embed</button>
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
 
                         <!-- Video 3: Cash Matters -->
-                         <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                        <div class="ratio ratio-16x9  overflow-hidden shadow-sm">
-                                                                        <iframe
-                                                                            src="https://www.youtube.com/embed/ko0HT_pw4Zg"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>
-                                                                    </div>
+                                    <video id="heroVideo3" poster="{% static 'images/sasa.png' %}" preload="none">
+                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo3', this)">▶</div>
                                 </div>
-                                <div class="p-3">
-
+                                <div class="bg-white p-3">
                                     <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
                                     <p class="text-muted small mb-2">
-                                    In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
-
+                                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
                                     </p>
                                     <div class="video-actions">
-                                        
+                                        <a href="{% static 'videos/sas.mp4' %}" download
+                                            class="btn-download">Download</a>
                                         <button class="btn-embed"
-                                        data-iframe='   <iframe
-                                                                            src="https://www.youtube.com/embed/ko0HT_pw4Zg"
-                                                                            title="Cash is private"
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                                            allowfullscreen>
-                                                                        </iframe>'
-                                        onclick="openEmbedModal(this)">Embed</button>
+                                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                                            onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -1887,7 +1844,7 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
     }
     
     .badge {
-        font-family: "Alvant Grade", sans-serif !important;
+        font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif !important;
         font-weight: 600;
         font-size: 0.85rem;
     }
@@ -2024,7 +1981,8 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                            class="bi bi-arrow-up-right ms-2"></i></a>
 
                 </div>
             </div>
@@ -2143,7 +2101,7 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash 
+                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
                             </a>
                           </li>
                         </ul>
@@ -2310,28 +2268,68 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
     </script>
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
+    <style>
+        .goog-te-banner-frame,
+        .skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        .goog-te-gadget {
+            display: none !important;
+        }
+    </style>
+
+
+
+
+
+    <script>
+    // Force scroll to top on page load - comprehensive solution
     (function() {
-        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-        window.scrollTo(0, 0);
-        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
-        window.addEventListener('load', function() {
+        // Function to force scroll to top
+        function forceScrollToTop() {
+            // Multiple methods to ensure it works across all browsers
             window.scrollTo(0, 0);
-            document.body.style.top = '0px';
-        });
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
-                    document.body.style.top = '0px';
-                    window.scrollTo(0, 0);
-                }
+
+            // For modern browsers
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto'
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        });
+
+            // For older browsers
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Additional safety for mobile browsers
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+        }
+
+        // Run immediately when script loads
+        forceScrollToTop();
+
+        // Run when DOM is ready
+        document.addEventListener('DOMContentLoaded', forceScrollToTop);
+
+        // Run when page is fully loaded
+        window.addEventListener('load', forceScrollToTop);
+
+        // Additional safety for single-page apps or hash changes
+        window.addEventListener('hashchange', forceScrollToTop);
+
+        // Set scroll restoration to manual to prevent browser from remembering position
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
     })();
-  </script>
+</script>
 </body>
 
 </html>

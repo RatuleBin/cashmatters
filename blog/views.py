@@ -7,20 +7,24 @@ from .forms import BlogPostForm
 from .models import BlogIndexPage, BlogPage, SupportPage, WhyCashMattersPage
 from .models import WhyCashMattersFeaturePage
 import json
+from django.shortcuts import redirect
+from wagtail.admin.auth import permission_required
+from wagtail.models import Page
 
+from .models import BlogIndexPage
 
 def content_blocks_to_html(blocks):
     """Convert content blocks to HTML"""
     html_parts = []
-    
+
     for block in blocks:
         block_type = block.get('type')
-        
+
         if block_type == 'content':
             content = block.get('content', '').strip()
             if content:
                 html_parts.append('<p>{}</p>'.format(content))
-        
+
         elif block_type == 'image_caption':
             caption = block.get('caption', '').strip()
             if caption:
@@ -28,7 +32,7 @@ def content_blocks_to_html(blocks):
                     '<figure><img src="#" alt="{}">'
                     '<figcaption>{}</figcaption></figure>'.format(
                         caption, caption))
-        
+
         elif block_type == 'video_caption':
             caption = block.get('caption', '').strip()
             if caption:
@@ -36,7 +40,7 @@ def content_blocks_to_html(blocks):
                     '<figure><video controls><source src="#" '
                     'type="video/mp4"></video>'
                     '<figcaption>{}</figcaption></figure>'.format(caption))
-        
+
         elif block_type == 'iframe_caption':
             url = block.get('url', '').strip()
             caption = block.get('caption', '').strip()
@@ -48,7 +52,7 @@ def content_blocks_to_html(blocks):
                     iframe_html = ('<figure>{}<figcaption>{}</figcaption>'
                                   '</figure>'.format(iframe_html, caption))
                 html_parts.append(iframe_html)
-        
+
         elif block_type == 'blockquote':
             quote = block.get('quote', '').strip()
             author = block.get('author', '').strip()
@@ -58,7 +62,7 @@ def content_blocks_to_html(blocks):
                     blockquote_html += '<cite>— {}</cite>'.format(author)
                 blockquote_html += '</blockquote>'
                 html_parts.append(blockquote_html)
-        
+
         elif block_type == 'data_table':
             table_data = block.get('table_data', '').strip()
             if table_data:
@@ -78,7 +82,7 @@ def content_blocks_to_html(blocks):
                         html_parts.append(table_html)
                 except (ValueError, IndexError):
                     html_parts.append('<pre>{}</pre>'.format(table_data))
-        
+
         elif block_type == 'poll':
             question = block.get('question', '').strip()
             options = block.get('options', '').strip()
@@ -93,7 +97,7 @@ def content_blocks_to_html(blocks):
                     poll_html += '</ul>'
                 poll_html += '</div>'
                 html_parts.append(poll_html)
-        
+
         elif block_type == 'facts_carousel':
             facts = block.get('facts', '').strip()
             if facts:
@@ -108,123 +112,31 @@ def content_blocks_to_html(blocks):
                         html_parts.append(carousel_html)
                 except (json.JSONDecodeError, TypeError):
                     html_parts.append('<pre>{}</pre>'.format(facts))
-        
+
         elif block_type == 'key_fact_image':
             fact = block.get('fact', '').strip()
             if fact:
                 html_parts.append(
                     '<div class="key-fact"><img src="#" alt="Key fact">'
                     '<p>{}</p></div>'.format(fact))
-    
+
     return '\n'.join(html_parts)
 
 
-@login_required
+@permission_required("wagtailadmin.access_admin")
 def create_blog_post(request):
-    """View to create a new blog post - redirects to Wagtail admin"""
-    
-    # Try to find an existing BlogIndexPage, or create one if it doesn't exist
-    try:
-        parent_page = BlogIndexPage.objects.first()
-        if not parent_page:
-            # Create a BlogIndexPage if none exists
-            from wagtail.models import Page
-            root_page = Page.objects.get(id=1)  # Root page
-            parent_page = BlogIndexPage(
-                title="Blog",
-                slug="blog",
-                intro="Welcome to our blog"
-            )
-            root_page.add_child(instance=parent_page)
-            parent_page.save()
-            print(f"Created new BlogIndexPage with ID: {parent_page.id}")
-        
-        # Redirect to Wagtail admin's page creation URL
-        return redirect(f'/admin/pages/add/blog/blogpage/{parent_page.id}/')
-        
-    except Exception as e:
-        messages.error(request, f"Error setting up blog page: {e}")
-        return redirect('/admin/')
-        form = BlogPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Handle image uploads first
-            Image = get_image_model()
-            uploaded_images = {}
-            
-            # Process each image upload field
-            image_fields = [
-                ('tall_thumbnail_upload', 'tall_thumbnail'),
-                ('wide_thumbnail_upload', 'wide_thumbnail'),
-                ('page_header_image_upload', 'page_header_image'),
-                ('icon_upload', 'icon')
-            ]
-            
-            for upload_field, model_field in image_fields:
-                if form.cleaned_data.get(upload_field):
-                    # Create Wagtail image from uploaded file
-                    image_file = form.cleaned_data[upload_field]
-                    image = Image.objects.create(
-                        title=image_file.name,
-                        file=image_file
-                    )
-                    uploaded_images[model_field] = image
-            
-            # Create the blog page instance with all fields
-            # Convert content blocks to HTML for the body field
-            content_blocks = form.cleaned_data.get('content_blocks', [])
-            body_html = content_blocks_to_html(content_blocks)
-            
-            blog_post = BlogPage(
-                title=form.cleaned_data['title'],
-                date=form.cleaned_data['date'],
-                intro=form.cleaned_data['intro'],
-                body=RichText(body_html),
-                title_position=form.cleaned_data.get('title_position', ''),
-                page_header=form.cleaned_data.get('page_header', ''),
-                featured=form.cleaned_data.get('featured', False),
-                double_width=form.cleaned_data.get('double_width', False),
-                white_text=form.cleaned_data.get('white_text', False),
-                hide_title=form.cleaned_data.get('hide_title', False),
-                color=form.cleaned_data.get('color', ''),
-                cm_watermark=form.cleaned_data.get('cm_watermark', False),
-                alternative_text=form.cleaned_data.get('alternative_text', ''),
-                twitter_body=form.cleaned_data.get('twitter_body', ''),
-                vimeo_id=form.cleaned_data.get('vimeo_id', ''),
-                source_link=form.cleaned_data.get('source_link', ''),
-                slug=form.cleaned_data['title'].lower().replace(' ', '-')[:50]
-            )
-            
-            # Assign uploaded images
-            for field_name, image in uploaded_images.items():
-                setattr(blog_post, field_name, image)
-            
-            # Add as child of the blog index page
-            parent_page.add_child(instance=blog_post)
-            
-            # Handle many-to-many relationships
-            if form.cleaned_data.get('article_types'):
-                blog_post.article_types.set(form.cleaned_data['article_types'])
-            if form.cleaned_data.get('locations'):
-                blog_post.locations.set(form.cleaned_data['locations'])
-            if form.cleaned_data.get('sectors'):
-                blog_post.sectors.set(form.cleaned_data['sectors'])
-            
-            # Publish the page
-            blog_post.save_revision().publish()
-            
-            messages.success(
-                request,
-                f'Blog post "{blog_post.title}" created successfully!'
-            )
-            return redirect(parent_page.url)
-    else:
-        form = BlogPostForm()
-    
-    context = {
-        'form': form,
-        'parent_page': parent_page,
-    }
-    return render(request, 'blog/create_blog_post.html', context)
+    """
+    Create BlogPage under BlogIndexPage and redirect to Wagtail admin add screen.
+    """
+    parent = BlogIndexPage.objects.first()
+    if not parent:
+        root = Page.get_first_root_node()
+        parent = BlogIndexPage(title="Blog", slug="blog", intro="Welcome to our blog")
+        root.add_child(instance=parent)
+        parent.save_revision().publish()
+
+    # Wagtail add URL
+    return redirect(f"/admin/pages/add/blog/blogpage/{parent.id}/?next=/admin/all-blogs/")
 
 
 @login_required
@@ -338,3 +250,45 @@ def create_why_cash_feature_page(request):
     except Exception as e:
         messages.error(request, f"Error setting up feature page: {e}")
         return redirect('/admin/')
+
+
+from wagtail.admin.auth import permission_required
+from wagtail.models import Page
+
+@permission_required("wagtailadmin.access_admin")
+def _get_news_index_page():
+    # 1) Preferred: NewsIndexPage model
+    try:
+        from .models import NewsIndexPage
+        page = NewsIndexPage.objects.first()
+        if page:
+            return page
+    except Exception:
+        pass
+
+    # 2) Fallback: slug search
+    page = Page.objects.filter(slug="news").first()
+    return page.specific if page else None
+
+
+from django.shortcuts import redirect
+from django.urls import reverse
+from wagtail.admin.auth import permission_required
+
+@permission_required("wagtailadmin.access_admin")
+def create_article_post(request):
+    news_index = _get_news_index_page()
+    if not news_index:
+        return redirect(reverse("wagtailadmin_home"))
+
+    url = reverse("wagtailadmin_pages:add", args=["blog", "articlepage", news_index.id])
+    return redirect(url)
+
+@permission_required("wagtailadmin.access_admin")
+def create_key_facts_post(request):
+    news_index = _get_news_index_page()
+    if not news_index:
+        return redirect(reverse("wagtailadmin_home"))
+
+    url = reverse("wagtailadmin_pages:add", args=["blog", "keyfactspage", news_index.id])
+    return redirect(url)
