@@ -17,23 +17,23 @@ ALLOWED_HOSTS = [
 ]
 
 # Database configuration for production - Neon PostgreSQL
-# DATABASE_URL = (
-#     'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
-#     'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
-# )
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=DATABASE_URL,
-#         conn_max_age=600
-#     )
-
-# }
+DATABASE_URL = (
+    'postgresql://neondb_owner:npg_qn6kMRwD7uJO@ep-silent-pond-'
+    'ahfva9tj-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require'
+)
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600
+    )
+
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Security settings for production
 SECURE_SSL_REDIRECT = True
