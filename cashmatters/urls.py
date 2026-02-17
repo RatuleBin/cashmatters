@@ -212,7 +212,6 @@ def news(request):
     category = request.GET.get('category', '').strip()
     date_from = request.GET.get('date_from', '').strip()
     date_to = request.GET.get('date_to', '').strip()
-    content_type = request.GET.get('content_type', '').strip()
 
     # Get all published articles and blog posts with author_profile preloaded
     articles = ArticlePage.objects.live().select_related('author_profile').order_by('-date')
@@ -225,29 +224,14 @@ def news(request):
             'news': ['News'],
             'studies': ['Studies', 'Research', 'Studies & Research'],
             'key-facts': ['Key Facts'],
-            'podcast': ['Podcast', 'Podcasts', 'Audio']
+            'podcast': ['Podcast', 'Podcasts', 'Audio'],
+            'events': ['Events'],
         }
 
         article_type_names = category_mapping.get(category.lower(), [])
         if article_type_names:
             articles = articles.filter(article_types__name__in=article_type_names)
             blog_posts = blog_posts.filter(article_types__name__in=article_type_names)
-
-    # Apply content type filter if specified
-    if content_type:
-        # Map content type to article type names
-        content_type_mapping = {
-            'news': ['News'],
-            'research': ['Research', 'Studies', 'Studies & Research'],
-            'reports': ['Reports', 'Report'],
-            'opinion': ['Opinion'],
-            'editorial': ['Editorial'],
-            'commentary': ['Commentary']
-        }
-        content_type_names = content_type_mapping.get(content_type.lower(), [])
-        if content_type_names:
-            articles = articles.filter(article_types__name__in=content_type_names)
-            blog_posts = blog_posts.filter(article_types__name__in=content_type_names)
 
     # Apply date range filter
     if date_from:

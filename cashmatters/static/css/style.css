@@ -32,7 +32,7 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--font-header);
-    font-weight: 600;
+    font-weight: 400;
 }
 
 /* Section titles and large headings */
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6,
 .hero-title,
 .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
     font-family: var(--font-header);
-    font-weight: 700;
+    font-weight: 400;
 }
 
 html, body {
@@ -55,8 +55,12 @@ html, body {
 body {
     font-family: var(--font-body);
     background-color: var(--brand-cream);
-    color: #1a1a1a;
+    color: #212529;
     -webkit-font-smoothing: antialiased;
+}
+
+p, .lead, .text-muted, .subtitle, .description {
+    color: #212529;
 }
 
 /* =========================================
@@ -125,7 +129,7 @@ body {
     border: none;
     padding: 0.6rem 1.5rem;
     border-radius: 25px;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.8rem;

@@ -15,6 +15,8 @@
             Key Facts - Cash Matters
         {% elif active_category == 'podcast' %}
             Podcasts - Cash Matters
+        {% elif active_category == 'events' %}
+            Events - Cash Matters
         {% else %}
             News & Articles - Cash Matters
         {% endif %}
@@ -110,7 +112,7 @@ p {
          1. HEADER (Fixed for Non-Hero Pages)
     ========================================== -->
     <div class="header-wrapper">
-       <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
+       <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
       <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -178,6 +180,7 @@ p {
                 <a href="{% url 'news' %}?category=podcast{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'podcast' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Podcasts</a>
                 <a href="{% url 'news' %}?category=studies{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'studies' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Studies & Research</a>
                 <a href="{% url 'news' %}?category=key-facts{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'key-facts' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Key facts</a>
+                <a href="{% url 'news' %}?category=events{% if request.GET.q %}&q={{ request.GET.q|urlencode }}{% endif %}" class="text-decoration-none {% if active_category == 'events' %}text-mint{% else %}text-dark opacity-75 hover-mint{% endif %}">Events</a>
             </div>
         </div>
         {% endif %}
@@ -210,20 +213,6 @@ p {
                     <input type="date" name="date_to" class="form-control rounded-2 py-2" value="{{ request.GET.date_to }}" id="date-to">
                 </div>
 
-                <!-- Content Type Filter -->
-                <!-- <div class="col-lg-2 col-md-4">
-                    <label class="form-label small text-muted fw-medium">Content Type</label>
-                    <select name="content_type" class="form-select rounded-2 py-2" id="content-type">
-                        <option value="">All Types</option>
-                        <option value="news" {% if request.GET.content_type == 'news' %}selected{% endif %}>News</option>
-                        <option value="research" {% if request.GET.content_type == 'research' %}selected{% endif %}>Research</option>
-                        <option value="reports" {% if request.GET.content_type == 'reports' %}selected{% endif %}>Reports</option>
-                        <option value="opinion" {% if request.GET.content_type == 'opinion' %}selected{% endif %}>Opinion</option>
-                        <option value="editorial" {% if request.GET.content_type == 'editorial' %}selected{% endif %}>Editorial</option>
-                        <option value="commentary" {% if request.GET.content_type == 'commentary' %}selected{% endif %}>Commentary</option>
-                    </select>
-                </div> -->
-
                 <!-- Filter Button -->
                 <div class="col-lg-2 col-md-4">
                     <button type="submit" class="btn btn-dark-teal rounded-2 py-2 w-100">
@@ -234,7 +223,7 @@ p {
         </div>
 
         <!-- Clear Filters Link -->
-        {% if request.GET.q or request.GET.date_from or request.GET.date_to or request.GET.content_type %}
+        {% if request.GET.q or request.GET.date_from or request.GET.date_to %}
         <div class="mb-3">
             <a href="{% url 'news' %}{% if active_category %}?category={{ active_category }}{% endif %}" class="text-muted small text-decoration-none">
                 <i class="bi bi-x-circle me-1"></i> Clear all filters
@@ -419,11 +408,11 @@ p {
                 {% endif %}
             {% endif %}
 
-                        <h5 class="fw-bold mb-4 flex-grow-1">{{ article.title }}</h5>
+                        <h5 class="fw-medium mb-4 flex-grow-1">{{ article.title }}</h5>
                     {% if article.intro %}
-                    <p class="text-muted small mb-3" style="font-size: 20px;">{{ article.intro|striptags|truncatechars:140 }}</p>
+                    <p class="text-muted small mb-3" style="font-size: 15px;">{{ article.intro|striptags|truncatechars:140 }}</p>
                     {% endif %}
-                    <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
+                    <a href="{{ article.url_path }}" class="text-mint fw-normal text-decoration-none small">
                         {% if active_category == 'podcast' %}
                             Listen to the Podcast <i class="bi bi-play-fill ms-1"></i>
                         {% else %}
@@ -463,11 +452,11 @@ p {
             <div class="row g-0 align-items-center h-100">
                 <div class="col-lg-5 py-4">
                     <div class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto" style="max-width: 650px;">
-                        <h2 class="fw-bold mb-3 display-5">Cash Always Works.<br>Just Use It.</h2>
+                        <h2 class="fw-medium mb-3 display-5">Cash Always Works.<br>Just Use It.</h2>
                         <p class="mb-4 opacity-90 fw-light fs-5">
                             For privacy. For inclusion. For everyday resilience.
                         </p>
-                        <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
+                        <a href="{% url 'support' %}" class="btn btn-mint fw-normal rounded-2 px-4 py-2">
                             Support Cash <i class="bi   -up-right ms-2"></i>
                         </a>
                     </div>
@@ -553,11 +542,7 @@ p {
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                         <span class="hover-underline">
-
-                           Publish on <br> Cash 
-                          </span>
-                           Matters
+                           Publish on<br>Cash Matters
                           </a></li>
                     </ul>
                 </div>
@@ -577,11 +562,11 @@ p {
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <h4 class="fw-medium mb-3">Protect Payment Choice</h4>
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2">Support Cash <i
                             class="bi   -up-right ms-2"></i></a>
 
                 </div>

@@ -91,7 +91,7 @@
             border: none;
             padding: 0.6rem 1.5rem;
             border-radius: 25px;
-            font-weight: 600;
+            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-size: 0.8rem;
@@ -180,7 +180,7 @@
          1. HEADER (Fixed Dark)
     ========================================== -->
     <div class="header-wrapper">
-      <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
+      <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
       <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -243,7 +243,7 @@
         <div class="container pt-4 pb-5">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold text-white lh-sm mb-4">
+                    <h1 class="display-4 fw-medium text-white lh-sm mb-4">
                         Publish on Cash Matters
                     </h1>
                 </div>
@@ -255,13 +255,13 @@
 
                        
                     </p>
-                    <p class="text-white opacity-75 mb-4" style="       font-family: 'Avant Garde', sans-serif; font-size: 20px;
+                    <p class="text-white opacity-75 mb-4" style="       font-family: 'Avant Garde', sans-serif; font-size: 15px;
 ">
                         Cash Matters publishes writing that treats cash as what it is: infrastructure, a public good, and a question of access and power.
                    
                         We're looking for sharp, well-argued contributions, reporting and analysis on payments, access, and financial inclusion with a global public audience.
                     </p>
-                    <a href="#what-to-pitch" class="btn btn-mint fw-bold rounded-1 px-4 py-2">
+                    <a href="#what-to-pitch" class="btn btn-mint fw-normal rounded-1 px-4 py-2">
                         Submit Your Pitch <i class="bi   -up-right ms-1"></i>
                     </a>
                 </div>
@@ -278,9 +278,9 @@
                 <div class="col-lg-10 offset-lg-1 content-section">
                     
                     <!-- What We Publish -->
-                    <h2 class="fw-bold mb-4">What we publish</h2>
+                    <h2 class="fw-medium mb-4">What we publish</h2>
                     
-                    <h3 class="fw-bold">Reader-first analysis</h3>
+                    <h3 class="fw-medium">Reader-first analysis</h3>
                     <p class="text-muted fs-5 mb-4">
                         We're interested in pieces that connect cash to real-world consequences. Strong submissions usually answer at least one of these questions:
                     </p>
@@ -294,7 +294,7 @@
                     </p>
 
                     <!-- What to Pitch -->
-                    <h3 id="what-to-pitch" class="fw-bold">What to pitch</h3>
+                    <h3 id="what-to-pitch" class="fw-medium">What to pitch</h3>
                     <p class="text-muted fs-5 mb-3">We welcome:</p>
                     <ul class="text-muted fs-5 mb-4">
                         <li>Reported explainers and analysis</li>
@@ -308,7 +308,7 @@
             
 
                     <!-- Practicalities -->
-                    <h3 class="fw-bold">Practicalities</h3>
+                    <h3 class="fw-medium">Practicalities</h3>
                     <p class="text-muted fs-5 mb-3">Keep it simple:</p>
                     <ul class="text-muted fs-5 mb-5">
                         <li>Original, unpublished work</li>
@@ -318,7 +318,7 @@
                     </ul>
 
                     <!-- How to Submit -->
-                    <h3 class="fw-bold">How to submit</h3>
+                    <h3 class="fw-medium">How to submit</h3>
                     <p class="text-muted fs-5 mb-3">
                         Send a short email with a pitch outlining:
                     </p>
@@ -334,7 +334,7 @@
                     <!-- Submit Button -->
                     <div class=" mt-5 pt-4">
                         <a href="mailto:info@cashmatters.org?subject=Article%20Pitch%20for%20Cash%20Matters" 
-                        class="btn btn-dark-teal fw-bold rounded-2 px-5 py-3">
+                        class="btn btn-dark-teal fw-normal rounded-2 px-5 py-2">
                         <i class="bi bi-envelope me-2"></i>
                         Submit Your Pitch
                     </a>
@@ -418,11 +418,7 @@
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                         <span class="hover-underline">
-
-                           Publish on <br>  Cash 
-                          </span>
-                           Matters
+                           Publish on<br>Cash Matters
                           </a></li>
                     </ul>
                 </div>
@@ -442,11 +438,11 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <h4 class="fw-medium mb-3">Protect Payment Choice</h4>
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2">Support Cash <i
                             class="bi   -up-right ms-2"></i></a>
 
                 </div>
