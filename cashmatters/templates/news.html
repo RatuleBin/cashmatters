@@ -38,7 +38,6 @@
 /* Apply globally */
 body {
   font-family: "ITC Avant Garde Gothic", sans-serif !important;
-  font-weight: 500;
 }
 
 /* Force headings */
@@ -47,6 +46,48 @@ h1, h2, h3, h4, h5, h6,
   font-family: "ITC Avant Garde Gothic", sans-serif !important;
   font-weight: 500 !important;
 }
+
+p {
+      font-family: "ITC Avant Garde Gothic" !important;
+    
+      font-size: 16px !important;
+      font-weight: 100 !important;
+    }
+
+
+
+    .navbar .nav-link {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Modern hover animations for menu items */
+    .navbar .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #4CD1C2, #8de4af);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+    }
+
+    .navbar .nav-link:hover::before,
+    .navbar .nav-link.active::before {
+      width: 100%;
+    }
+
+    .navbar .nav-link:hover {
+      color: #4CD1C2 !important;
+      transform: translateY(-2px);
+    }
+
 </style>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -69,52 +110,60 @@ h1, h2, h3, h4, h5, h6,
          1. HEADER (Fixed for Non-Hero Pages)
     ========================================== -->
     <div class="header-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
-            <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
-                </a>
+       <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
+        </a>
 
-                <!-- Mobile Menu Button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navigation Links -->
-                <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-                    <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
-                        <li class="nav-item"><a class="nav-link text-white{% if not active_category or active_category != 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}">News & Articles</a></li>
-                        <li class="nav-item"><a class="nav-link text-white{% if active_category == 'podcast' %} active-nav{% endif %}" href="{% url 'news' %}?category=podcast">Podcast</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
-                        <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi   -up-right ms-1"></i></a></li>
-                    </ul>
-                </div>
-
-                <!-- Right Actions -->
-                <div class="d-flex align-items-center gap-3">
-                    <button class="btn text-white p-0 search-trigger" aria-label="Search"><i class="bi bi-search fs-5"></i></button>
-                    <!-- Language Switcher (Google Translate) -->
-                    <div class="dropdown">
-                        <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
-                            <i class="bi bi-globe2"></i>
-                            <span class="small" id="current-lang">EN</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#" data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de" onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr" onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it" onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es" onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl" onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
-                        </ul>
-                    </div>
-                    <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">Support Cash <i class="bi   -up-right ms-1"></i></a>
-                </div>
-            </div>
-        </nav>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+          <ul class="navbar-nav gap-lg-4 gap-2 mb-3 mb-lg-0 align-items-center">
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}">News & Articles</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'news' %}?category=podcast">Podcast</a>
+            </li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
+            <!-- Support Cash button for mobile -->
+            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
+            <!-- Write for Us link moved to footer only -->
+          </ul>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn text-white p-0 search-trigger" aria-label="Search">
+            <i class="bi bi-search fs-5"></i>
+          </button>
+          <!-- Language Switcher (Google Translate) -->
+          <div class="dropdown">
+            <button class="btn text-white p-0 dropdown-toggle d-flex align-items-center gap-1" type="button"
+              id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+              <i class="bi bi-globe2"></i>
+              <span class="small" id="current-lang">EN</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="langDropdown" style="min-width: 150px;">
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn active" href="#"
+                  data-lang="en" onclick="translatePage('en'); return false;"><span>🇬🇧</span> English</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="de"
+                  onclick="translatePage('de'); return false;"><span>🇩🇪</span> German</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="fr"
+                  onclick="translatePage('fr'); return false;"><span>🇫🇷</span> French</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="it"
+                  onclick="translatePage('it'); return false;"><span>🇮🇹</span> Italian</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="es"
+                  onclick="translatePage('es'); return false;"><span>🇪🇸</span> Spanish</a></li>
+              <li><a class="dropdown-item d-flex align-items-center gap-2 lang-switch-btn" href="#" data-lang="nl"
+                  onclick="translatePage('nl'); return false;"><span>🇳🇱</span> Dutch</a></li>
+            </ul>
+          </div>
+          <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
+            Support Cash 
+          </a>
+        </div>
+      </div>
+    </nav>
     </div>
 
     <!-- =========================================
@@ -162,7 +211,7 @@ h1, h2, h3, h4, h5, h6,
                 </div>
 
                 <!-- Content Type Filter -->
-                <div class="col-lg-2 col-md-4">
+                <!-- <div class="col-lg-2 col-md-4">
                     <label class="form-label small text-muted fw-medium">Content Type</label>
                     <select name="content_type" class="form-select rounded-2 py-2" id="content-type">
                         <option value="">All Types</option>
@@ -173,7 +222,7 @@ h1, h2, h3, h4, h5, h6,
                         <option value="editorial" {% if request.GET.content_type == 'editorial' %}selected{% endif %}>Editorial</option>
                         <option value="commentary" {% if request.GET.content_type == 'commentary' %}selected{% endif %}>Commentary</option>
                     </select>
-                </div>
+                </div> -->
 
                 <!-- Filter Button -->
                 <div class="col-lg-2 col-md-4">
@@ -215,7 +264,7 @@ h1, h2, h3, h4, h5, h6,
             {% endif %}
 
             <a href="{{ hero_podcast.url_path }}" class="btn btn-dark-teal btn-lg">
-                <i class="bi bi-play-fill me-2"></i> Listen Now
+                <i class="bi bi-play-fill me-2"></i> Listen to the Podcast
             </a>
         </div>
 
@@ -376,7 +425,7 @@ h1, h2, h3, h4, h5, h6,
                     {% endif %}
                     <a href="{{ article.url_path }}" class="text-mint fw-bold text-decoration-none small">
                         {% if active_category == 'podcast' %}
-                            Listen Now <i class="bi bi-play-fill ms-1"></i>
+                            Listen to the Podcast <i class="bi bi-play-fill ms-1"></i>
                         {% else %}
                             Read More <i class="bi   -up-right ms-1"></i>
                         {% endif %}
