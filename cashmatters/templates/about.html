@@ -21,6 +21,11 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
+        p {
+            font-size: 18px !important;
+            font-weight: 100 !important;
+            line-height: 1.8;
+        }
         @media (max-width: 992px) {
 
             /* Hide everything in the navbar except the logo */
@@ -117,7 +122,7 @@
                     </h1>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
-                    <p class="text-white opacity-90 mb-4 lead fw-light">
+                    <p class="text-white opacity-90 mb-4 lead fw-light" >
                         Cash Matters is a global platform, supported by the
                         International Currency Association (ICA), dedicated
                         to promoting the role and relevance of cash as an essential
@@ -245,7 +250,7 @@
                     <h2 class="section-title fw-bold">What We Do</h2>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <p class="text-muted small mb-0" style="font-size: 20px;">
+                    <p class="text-muted small mb-0" style="font-size: 16px;">
                         Our work spans research, advocacy,<br />and community engagement
                     </p>
                 </div>
@@ -258,7 +263,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <h4 class="fw-bold mb-0">Research</h4>
                         </div>
-                        <p class="text-muted" style="font-size: 20px;">
+                        <p class="text-muted" style="font-size: 16px;">
                             We conduct comprehensive research on cash usage patterns, economic impacts, and consumer
                             preferences worldwide to inform policy and business decisions.
                         </p>
@@ -271,7 +276,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <h4 class="fw-bold mb-0">Advocacy</h4>
                         </div>
-                        <p class="text-muted" style="font-size: 20px;">
+                        <p class="text-muted" style="font-size: 16px;">
                             We advocate for policies that protect payment choice and ensure that cash remains a
                             fundamental component of modern economies.
                         </p>
@@ -284,7 +289,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <h4 class="fw-bold mb-0">Education</h4>
                         </div>
-                        <p class="text-muted" style="font-size: 20px;">
+                        <p class="text-muted" style="font-size: 16px;">
                             We educate businesses, policymakers, and consumers about the importance of cash and its role
                             in creating inclusive financial systems.
                         </p>
@@ -339,7 +344,7 @@
             justify-content: center;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 50%;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
         }
 
@@ -438,7 +443,7 @@
 
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Financial Inclusion</h4>
-                            <p class="text-muted" style="font-size: 20px;">
+                            <p class="text-muted" style="font-size: 16px;">
                                 Accessible to everyone, regardless of age, income, or technological literacy.
                                 Cash bridges the digital divide.
                             </p>
@@ -466,7 +471,7 @@
 
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Privacy & Security</h4>
-                            <p class="text-muted" style="font-size: 20px;">
+                            <p class="text-muted" style="font-size: 16px;">
                                 Protects personal data and enables anonymous transactions without
                                 digital surveillance.
                             </p>
@@ -494,7 +499,7 @@
 
                         <div class="p-4">
                             <h4 class="fw-bold text-dark-teal mb-2">Financial Freedom</h4>
-                            <p class="text-muted" style="font-size: 20px;">
+                            <p class="text-muted" style="font-size: 16px;">
                                 Maintain control over your money without third-party restrictions or censorship.
                             </p>
                             <span class="badge bg-light text-dark border">Sovereignty</span>
@@ -692,7 +697,7 @@
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
                                 <span class="hover-underline">
 
-                                    Publish on Cash
+                                    Publish on <br> Cash
                                 </span>
                                 Matters
                             </a></li>
@@ -749,7 +754,7 @@
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
+                        font-family: "ITC Avant Garde Gothic";
                         padding-bottom: 6px;
                         /* gap between text & line */
 
