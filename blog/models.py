@@ -850,55 +850,13 @@ class KeyFactsPage(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel("featured_data"),
+        FieldPanel("featured_data_color"),
         FieldPanel("intro"),
-
-        MultiFieldPanel([
-            FieldPanel("page_header_title"),
-            FieldPanel("page_header_image"),
-            FieldPanel("alternative_text"),
-        ], heading="Page Header & Image"),
-
+        FieldPanel("page_header_image"),
+        FieldPanel("alternative_text"),
         FieldPanel("date"),
-
-        MultiFieldPanel([
-            FieldPanel("featured_data"),
-            FieldPanel("featured_data_color"),
-        ], heading="Featured Data (Homepage Card)"),
-
-        MultiFieldPanel([
-            FieldPanel("double_width"),
-            FieldPanel("color"),
-        ], heading="List Options"),
-
-        MultiFieldPanel([
-            FieldPanel("fact_source"),
-            FieldPanel("source_link"),
-        ], heading="Sources"),
-
-        MultiFieldPanel([
-            FieldPanel("article_types", widget=CheckboxSelectMultiple),
-        ], heading="Categories & Tags"),
-
-        MultiFieldPanel([
-            FieldPanel("twitter_body"),
-            FieldPanel("vimeo_id"),
-        ], heading="Twitter / Vimeo"),
-
-        # ✅ Body (like old backend)
-        FieldPanel("body_blocks"),
     ]
-
-    def get_form(self, request, *args, **kwargs):
-        form = super().get_form(request, *args, **kwargs)
-
-        if "article_types" in form.fields:
-            qs = form.fields["article_types"].queryset
-            form.fields["article_types"].queryset = qs.filter(
-                name__in=ALLOWED_ARTICLE_TYPES
-            ).order_by("name")
-            form.fields["article_types"].widget = CheckboxSelectMultiple()
-
-        return form
 
 
 class SupportPage(Page):

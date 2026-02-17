@@ -3,6 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
 from wagtail.models import Page
 from .models import NewsIndexPage, KeyFactsPage
+from home.models import HomePage
 
 
 @staff_member_required
@@ -18,8 +19,12 @@ def admin_keyfacts(request):
     """Custom admin listing for Key Facts pages with direct edit links."""
     key_facts = KeyFactsPage.objects.all().order_by('-date', '-first_published_at')
 
-    # Find the parent page for "Add" button
-    parent = NewsIndexPage.objects.first() or Page.objects.filter(slug="news").first()
+    # Find any valid parent page for "Add" button (HomePage as fallback)
+    parent = (
+        NewsIndexPage.objects.first()
+        or HomePage.objects.first()
+        or Page.objects.filter(depth=2).first()
+    )
     add_url = None
     if parent:
         add_url = reverse(

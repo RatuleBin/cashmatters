@@ -1077,146 +1077,80 @@
           Facts </a>
       </div>
 
-      <!-- Uniform Grid -->
+      <!-- Uniform Grid - Dynamic from Wagtail KeyFactsPage -->
+      {% if key_facts %}
       <div class="row g-4">
-        <!-- COLUMN 1 (Card Top, Image Bottom) -->
+        {% for fact in key_facts %}
         <div class="col-lg-3 col-md-6">
           <div class="d-flex flex-column gap-4 h-100">
-            <!-- Stat Card -->
-            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
-              <div>
-                <h2 class="display-3 fw-bold text-stat-yellow mb-0">22%</h2>
-                <p class="small fw-bold mt-3">
-                  Cash is used for 22% of POS payments in
-                  <strong>Chile</strong>
-                </p>
-              </div>
-              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-              <a href="{% static 'images/1.png' %}"
-                      download="Cash-used-for-22-percent-of-POS-payments-in-Chile.png"
-                      class="text-reset text-decoration-none hover-mint"
-                      title="Download this fact card as an image">
-                      <i class="bi bi-download"></i> Download
-                    </a>
-
-                <a href="#"
-                  onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')"
-                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                  <i class="bi bi-share"></i> Share
-                </a>
-              </div>
-            </div>
-            <!-- Image -->
-            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-              <img src="{% static 'images/homepage/keyfacts-chile.jpg' %}" class="w-100 h-100 object-fit-cover"
-                alt="Farm fresh cash transaction in Chile" />
-            </div>
-          </div>
-        </div>
-
-        <!-- COLUMN 2 (Card Top, Image Bottom) -->
-        <div class="col-lg-3 col-md-6">
-          <div class="d-flex flex-column gap-4 h-100">
-            <!-- Stat Card -->
-            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
-              <div>
-                <h2 class="display-3 fw-bold text-stat-blue mb-0">27%</h2>
-                <p class="small fw-bold mt-3">
-                  Cash is used for 32% of POS payments in
-                  <strong>Poland</strong>
-                </p>
-              </div>
-              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                     <a href="{% static 'images/2.png' %}"
-                      download="Cash-used-for-32-percent-of-POS-payments-in-Poland.png"
-                      class="text-reset text-decoration-none hover-mint"
-                      title="Download this fact card as an image">
-                      <i class="bi bi-download"></i> Download
-                    </a>
-                <a href="#"
-                  onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')"
-                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                  <i class="bi bi-share"></i> Share
-                </a>
-              </div>
-            </div>
-            <!-- Image -->
-            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-              <img src="{% static 'images/homepage/keyfacts-poland.jpg' %}" class="w-100 h-100 object-fit-cover"
-                alt="Euro banknotes in wallet - Poland cash usage" />
-            </div>
-          </div>
-        </div>
-
-        <!-- COLUMN 3 (Image Top, Card Bottom - REVERSED) -->
-        <div class="col-lg-3 col-md-6">
-          <div class="d-flex flex-column gap-4 h-100">
-            <!-- Image (On Top here) -->
+            {% if forloop.counter == 3 %}
+            <!-- Column 3: Image Top, Card Bottom (REVERSED) -->
             <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0">
-              <img src="{% static 'images/homepage/keyfacts-norway.jpg' %}" class="w-100 h-100 object-fit-cover"
-                alt="ATM withdrawal - Cash usage in Norway" />
+              {% if fact.page_header_image %}
+                {% image fact.page_header_image fill-400x300 as bg_img %}
+                <img src="{{ bg_img.url }}" class="w-100 h-100 object-fit-cover"
+                  alt="{{ fact.alternative_text|default:fact.title }}" />
+              {% endif %}
             </div>
-            <!-- Stat Card (On Bottom here) -->
-            <div
-              class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1">
+            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1">
               <div>
-                <h2 class="display-3 fw-bold text-stat-teal mb-0">09%</h2>
-                <p class="small fw-bold mt-3">
-                  Cash is used for 09% of POS payments in
-                  <strong>Norway</strong>
-                </p>
+                <h2 class="display-3 fw-bold mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
+                <p class="small fw-bold mt-3">{{ fact.intro|default:fact.title }}</p>
               </div>
               <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                    <a href="{% static 'images/3.png' %}"
-                      download="Cash-used-for-09-percent-of-POS-payments-in-Norway.png"
-                      class="text-reset text-decoration-none hover-mint"
-                      title="Download this fact card as an image">
-                      <i class="bi bi-download"></i> Download
-                    </a>
+                {% if fact.page_header_image %}
+                  {% image fact.page_header_image original as dl_img %}
+                  <a href="{{ dl_img.url }}"
+                    download="keyfact-{{ fact.slug }}.png"
+                    class="text-reset text-decoration-none hover-mint"
+                    title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                {% endif %}
                 <a href="#"
-                  onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')"
+                  onclick="shareKeyFact(event, '{{ fact.intro|default:fact.title|escapejs }}', window.location.href + '#key-facts')"
                   class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
                   <i class="bi bi-share"></i> Share
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- COLUMN 4 (Card Top, Image Bottom) -->
-        <div class="col-lg-3 col-md-6">
-          <div class="d-flex flex-column gap-4 h-100">
-            <!-- Stat Card -->
+            {% else %}
+            <!-- Columns 1, 2, 4: Card Top, Image Bottom -->
             <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
               <div>
-                <h2 class="display-3 fw-bold text-stat-rust mb-0">33%</h2>
-                <p class="small fw-bold mt-3">
-                  Cash is used for 33% of POS payments in
-                  <strong>Spain</strong>
-                </p>
+                <h2 class="display-3 fw-bold mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
+                <p class="small fw-bold mt-3">{{ fact.intro|default:fact.title }}</p>
               </div>
               <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                       <a href="{% static 'images/4.png' %}"
-                      download="Cash-used-for-33-percent-of-POS-payments-in-Spain.png"
-                      class="text-reset text-decoration-none hover-mint"
-                      title="Download this fact card as an image">
-                      <i class="bi bi-download"></i> Download
-                    </a>
+                {% if fact.page_header_image %}
+                  {% image fact.page_header_image original as dl_img %}
+                  <a href="{{ dl_img.url }}"
+                    download="keyfact-{{ fact.slug }}.png"
+                    class="text-reset text-decoration-none hover-mint"
+                    title="Download this fact card as an image">
+                    <i class="bi bi-download"></i> Download
+                  </a>
+                {% endif %}
                 <a href="#"
-                  onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')"
+                  onclick="shareKeyFact(event, '{{ fact.intro|default:fact.title|escapejs }}', window.location.href + '#key-facts')"
                   class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
                   <i class="bi bi-share"></i> Share
                 </a>
               </div>
             </div>
-            <!-- Image -->
             <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-              <img src="{% static 'images/homepage/keyfacts-spain.jpg' %}" class="w-100 h-100 object-fit-cover"
-                alt="Cash transaction during power outage in Madrid, Spain" />
+              {% if fact.page_header_image %}
+                {% image fact.page_header_image fill-400x300 as bg_img %}
+                <img src="{{ bg_img.url }}" class="w-100 h-100 object-fit-cover"
+                  alt="{{ fact.alternative_text|default:fact.title }}" />
+              {% endif %}
             </div>
+            {% endif %}
           </div>
         </div>
+        {% endfor %}
       </div>
+      {% endif %}
     </div>
   </section>
   <!-- =========================================
