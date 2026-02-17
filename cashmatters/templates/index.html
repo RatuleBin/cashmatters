@@ -25,13 +25,13 @@
     *,
     *::before,
     *::after {
-      font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif !important;
+      font-family: "Alvant Grade", sans-serif !important;
     }
 
     /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
     .navbar,
     .navbar * {
-      font-family: "ITC Avant Garde Gothic", sans-serif;
+      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
     }
 
     /* All headings use Poppins */
@@ -40,9 +40,23 @@
     h3,
     h4,
     h5,
-    h6 {
-      font-family: "ITC Avant Garde Gothic", sans-serif;
+    h6,
+    p {
+      font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
     }
+    p {
+      font-size: 20px;
+    }
+    .hero-text-panel{
+      color: transparent !important;
+    }
+.hero-text-panel {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+}
 
     .navbar .nav-link {
       font-weight: 500;
@@ -151,6 +165,7 @@
     }
     .hero-wrapper{
       min-height: fit-content !important;
+      padding: 0 !important;
     }
 
     .play-icon-circle-lg {
@@ -183,6 +198,7 @@
     border-bottom-right-radius: 0 !important;
   }
     .hero-text-panel {
+      color: transparent !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
   }
@@ -214,6 +230,158 @@
     }
 
 
+  .hero-display {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 40px 0 80px;
+    overflow: hidden;
+  }
+
+  .featured-parallax-bg {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-position 0.1s ease-out;
+    will-change: background-position;
+  }
+
+  .featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.2) 0%,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0.85) 100%
+    );
+    z-index: 1;
+  }
+
+  .featured-content-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .featured-main-title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 1000px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .featured-small-card {
+    align-items: center;
+    transition: transform 0.3s ease;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+  }
+
+  .featured-small-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0,0,0,0.5);
+  }
+
+  .featured-small-thumb {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-dot.active {
+    background: white;
+    border-color: white;
+    transform: scale(1.2);
+  }
+
+  .btn-carousel {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .btn-carousel:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+    color: white;
+  }
+
+  .btn-mint {
+    background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%);
+    color: #002e26;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-mint:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    color: #002e26;
+  }
+
+  .text-mint {
+    color: #4CD1C2;
+  }
+
+  .author-avatar {
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  @media (max-width: 992px) {
+    .featured-main-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-display {
+      min-height: 80vh;
+      padding: 30px 0 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .featured-main-title {
+      font-size: 2rem;
+    }
+    
+    .featured-bottom-cards {
+      display: none;
+    }
+    
+    .hero-display {
+      min-height: 70vh;
+    }
+  }
     
   </style>
 </head>
@@ -223,7 +391,7 @@
          1. HEADER & HERO
     ========================================== -->
   <div class="hero-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark pt-4">
+    <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
       <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -241,7 +409,7 @@
             <li class="nav-item"><a class="nav-link text-white" href="{% url 'new_page' %}">Why Cash Matters</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
             <!-- Support Cash button for mobile -->
-            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
+            <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
             <!-- Write for Us link moved to footer only -->
           </ul>
         </div>
@@ -272,146 +440,141 @@
             </ul>
           </div>
           <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-            Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+            Support Cash 
           </a>
         </div>
       </div>
     </nav>
+  </div>
+  <section class="hero-display position-relative" id="featured-hero-section">
+    <!-- Background image with parallax effect -->
+    <div id="featured-parallax-bg" class="featured-parallax-bg" 
+        style="background-image: url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}');">
+    </div>
+    
+    <div class="featured-overlay"></div>
 
-    <!-- Dynamic Hero Carousel (Modern Split Layout) -->
-    <section class="hero-content position-relative">
-      <div class="container">
-        <!-- Hero Slide Card - Modern Split Design -->
-        <div class="hero-slide-card mt-4 mb-5">
-          <div class="row g-0  align-items-stretch">
-            <!-- Left Side: Content Info (Dark Teal Background) -->
-            <div class="col-lg-6 col-12 order-2 order-lg-1">
-              <div class="hero-text-panel h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
-                <!-- Content Type Badge - Cover Story -->
-                <div class="hero-content-type-badge mb-3 mt-5">
-                  <span id="hero-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
-                    style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
-                    <i id="hero-type-icon" class="bi bi-star-fill me-1"></i>
-                    <span id="hero-type-text">Cover Story</span>
-                  </span>
-                </div>
+    <div class="container featured-content-wrap text-white position-relative">
+      <div class="featured-text-panel" style="color: transparent !important;">
+        <!-- Content Type Badge -->
+        <div class="featured-content-type-badge mb-3">
+          <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+                style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+            <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
+            <span id="featured-type-text">
+              {% if hero_posts.0.content_type %}{{ hero_posts.0.get_content_type_display }}{% else %}Cover Story{% endif %}
+            </span>
+          </span>
+        </div>
 
-                <h1 id="hero-slide-title" class="hero-title text-white fw-bold mb-4">
-                  {% if hero_posts %}
-                  {{ hero_posts.0.title }}
-                  {% else %}
-                  Cash is simple, safe, and <span class="text-mint">for everyone</span>
-                  {% endif %}
-                </h1>
+        <!-- Main Title -->
+        <h1 id="featured-slide-title" class="featured-main-title text-white fw-bold mb-4">
+          {% if hero_posts %}
+            {{ hero_posts.0.title }}
+          {% else %}
+            Cash is simple, safe, and <span class="text-mint">for everyone</span>
+          {% endif %}
+        </h1>
 
+        <!-- Date -->
+        <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
+          <i class="bi bi-clock me-1"></i>
+          {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
+        </span>
 
+        <!-- Author Section -->
+        <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
+          <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
+            {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
+              <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
+                  alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar rounded-circle" width="40" height="40">
+            {% elif hero_posts and hero_posts.0.author_image %}
+              <img id="featured-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" 
+                  alt="{{ hero_posts.0.author }}" class="author-avatar rounded-circle" width="40" height="40">
+            {% else %}
+              <img id="featured-author-avatar" src="{% static 'images/author-default.jpg' %}" 
+                  alt="Author" class="author-avatar rounded-circle" width="40" height="40">
+            {% endif %}
+          </a>
 
-                <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
-                   <span id="hero-slide-date" class="text-white opacity-75 small">
-                    <i class="bi bi-clock me-1"></i>
-                    {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-                  </span>
+          {% if hero_posts.0.author_profile %}
+            <a id="featured-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
+              class="text-white opacity-75 small text-decoration-none author-link">
+              {{ hero_posts.0.author_profile.name }}
+            </a>
+          {% elif hero_posts.0.author %}
+            <a id="featured-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
+              {{ hero_posts.0.author }}
+            </a>
+          {% endif %}
+        </div>
 
+        <!-- CTA Button -->
+        <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
+          style="max-width: 220px; width: 100%;" class="btn btn-mint fw-bold py-2 rounded-2 ">
+          Read the Story   
+        </a>
 
-                  <div class="hero-author-wrap">
-                    <a id="hero-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
-                      {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar">
-                      {% elif hero_posts and hero_posts.0.author_image %}
-                      <img id="hero-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" alt="{{ hero_posts.0.author }}" class="author-avatar">
-                      {% else %}
-                      <img id="hero-author-avatar" src="{% static 'images/author-default.jpg' %}" alt="Author" class="author-avatar">
-                      {% endif %}
-                    </a>
-
-                    {% if hero_posts.0.author_profile %}
-                    <a id="hero-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-                      class="text-white opacity-75 small text-decoration-none author-link">
-                      {{ hero_posts.0.author_profile.name }}
-                    </a>
-                    {% elif hero_posts.0.author %}
-                    <a id="hero-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-                      <i class=" me-1"></i>
-                      {{ hero_posts.0.author }}
-                    </a>
-                    {% else %}
-                    <a id="hero-slide-author" href="#" style="display:none"></a>
-                    {% endif %}
-                  </div>
-
-                </div>
-     <a id="hero-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" style="max-width: 200px;width: 100%;"
-                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
-                    Read More <i class="bi bi-arrow-up-right ms-1 small"></i>
-                  </a>
-                <!-- Carousel Navigation Dots -->
-                <div class="hero-carousel-nav mt-auto pt-3">
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="carousel-dots d-flex gap-2" id="hero-carousel-dots">
-                      {% for post in hero_posts %}
-                      <button class="carousel-dot {% if forloop.first %}active{% endif %}"
-                        data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
-                      {% empty %}
-                      <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
-                      {% endfor %}
-                    </div>
-                    <div class="carousel-controls d-flex gap-2 ms-auto">
-                      <button class="btn btn-carousel" id="hero-prev" aria-label="Previous">
-                        <i class="bi bi-chevron-left"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-next" aria-label="Next">
-                        <i class="bi bi-chevron-right"></i>
-                      </button>
-                      <button class="btn btn-carousel" id="hero-pause" aria-label="Pause autoplay">
-                        <i class="bi bi-pause-fill" id="pause-icon"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="featured-carousel-nav mt-auto pt-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="carousel-dots d-flex gap-2" id="featured-carousel-dots">
+              {% for post in hero_posts %}
+                <button class="carousel-dot {% if forloop.first %}active{% endif %}" 
+                        data-slide="{{ forloop.counter0 }}" 
+                        data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
+                        data-title="{{ post.title|escapejs }}"
+                        data-date="{{ post.date|date:'M d, Y' }}"
+                        data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
+                        data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
+                        data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
+                        data-content-type="{{ post.get_content_type_display }}"
+                        data-url="{{ post.url_path }}"
+                        aria-label="Slide {{ forloop.counter }}">
+                </button>
+              {% empty %}
+                <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+              {% endfor %}
             </div>
-
-            <!-- Right Side: Featured Image/Video -->
-            <div class="col-lg-6 col-12 order-1 order-lg-2">
-              <div class="hero-image-panel h-100 position-relative">
-                <!-- Image Display (default) -->
-                <div id="hero-media-image" class="hero-media-item h-100">
-                  {% if hero_posts.0.wide_thumbnail %}
-                  <img id="hero-slide-image" src="{{ hero_posts.0.wide_thumbnail.file.url }}"
-                    class="w-100 h-100 hero-media-img" alt="{{ hero_posts.0.title }}"
-                    onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                  {% else %}
-                  <img id="hero-slide-image" src="{% static 'images/homepage/featured-fallback.jpg' %}"
-                    class="w-100 h-100 hero-media-img" alt="Featured content">
-                  {% endif %}
-                </div>
-
-                <!-- Video Display (for video content) -->
-                <div id="hero-media-video" class="hero-media-item h-100" style="display: none;">
-                  <video id="hero-video" class="w-100 h-100" loop playsinline preload="auto" controls
-                    style="object-fit: cover;">
-                    <source src="{% static 'videos/videoplayback.mp4' %}" type="video/mp4">
-                  </video>
-                  <div class="play-btn-wrapper">
-                    <button id="play-btn" class="btn-play">
-                      <i class="bi bi-play-fill"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Content Type Overlay Icon - Cover Story -->
-                <div class="hero-media-type-overlay position-absolute" style="top: 15px; right: 15px;">
-                  <span id="hero-media-type-icon" class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
-                    <i class="bi bi-star-fill"></i>
-                  </span>
-                </div>
-              </div>
+            
+            <div class="carousel-controls d-flex gap-2 ms-auto">
+              <button class="btn btn-carousel" id="featured-prev" aria-label="Previous">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button class="btn btn-carousel" id="featured-next" aria-label="Next">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+              <button class="btn btn-carousel" id="featured-pause" aria-label="Pause autoplay">
+                <i class="bi bi-pause-fill" id="pause-icon"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+
+      <!-- Bottom Cards -->
+      <div class="featured-bottom-cards pt-2 ">
+        <div class="row g-4">
+          {% for post in hero_posts|slice:"1:4" %}
+            <div class="col-lg-4 col-md-6">
+              <a href="{{ post.url_path }}" class="featured-small-card d-flex gap-3 text-white text-decoration-none">
+                <img src="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}"
+                    class="featured-small-thumb rounded-2"
+                    alt="{{ post.title }}">
+                <div>
+                  <div class="small opacity-75 text-uppercase">
+                    {{ post.get_content_type_display }}
+                  </div>
+                  <div class="fw-semibold">
+                    {{ post.title|truncatechars:80 }}
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+ 
 
   <!-- Hero Carousel Data (for JavaScript) -->
   <script type="application/json" id="hero-posts-data">
@@ -448,7 +611,7 @@
         {% endfor %}
       ]
     </script>
-
+ </section>
   <!-- =========================================
          2. FEATURED CONTENT (GSAP ANIMATION)
     ========================================== -->
@@ -459,7 +622,7 @@
           <h2 class="section-title fw-bold">Editor's Pick</h2>
         </div>
         <div class="col-md-4 text-md-end">
-          <p class="text-muted small mb-0">
+          <p class="text-muted small mb-0" style="font-size: 20px;">
             Our latest research, stories,<br />and conversations
           </p>
         </div>
@@ -481,18 +644,18 @@
                 {% endif %}
                 {% endfor %}
               </div>
-              <h3 class="fw-bold display-6 mt-4">
+              <h3 class="fw-bold display-6 mt-4" style="font-size: 32px !important ;">
                 {{ post.title }}
               </h3>
-              <div class="meta-links d-flex gap-4 small fw-bold mt-4">
-                <a href="{{ post.url_path }}" class="text-decoration-none"><i class="bi bi-book"></i> Read</a>
-                <a href="#" onclick="shareArticle(event, '{{ post.title|escapejs }}', '{{ post.url_path }}')"
-                  class="text-decoration-none" style="cursor: pointer;"><i class="bi bi-share"></i> Share</a>
-                {% if post.source_link %}
-                <a href="{{ post.source_link }}" target="_blank" class="text-decoration-none"><i
-                    class="bi bi-box-arrow-up-right"></i> Source</a>
-                {% endif %}
-              </div>
+              <p style="font-size: 20px;">
+                                {{ post.intro }}
+
+              </p>
+               <a id="hero-slide-link" href="{{ post.url }}" style="max-width: 220px;width: 100%;"
+                    class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                    Read the Story   
+                  </a>
+           
             </div>
             <div class="col-lg-7">
               {% if forloop.counter == 1 %}
@@ -542,86 +705,8 @@
     </div>
   </section>
   <!-- =========================================
-         3. PODCAST
+         3.PODCAST  
     ========================================== -->
-  <!-- <section id="podcast-section" class="section-bg py-5">
-    <div class="container">
-      <div class="row align-items-end mb-5">
-        <div class="col-md-8">
-          <h2 class="fw-bold mb-2">Podcast</h2>
-          <p class="text-muted mb-0">
-            Conversations that matter about the future of<br />money
-          </p>
-        </div>
-        <div class="col-md-4 text-md-end">
-          <a href="{% url 'news' %}?category=podcast" class="text-mint fw-bold text-decoration-none small">See all
-            Podcasts <i class="bi bi-arrow-up-right"></i></a>
-        </div>
-      </div>
-
-      <div class="row g-4">
-        {% for podcast in podcast_posts %}
-        <div class="col-md-4">
-          <a href="{{ podcast.url_path }}" class="text-decoration-none">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden podcast-card">
-              <div class="podcast-thumb-wrapper position-relative">
-                {% if podcast.wide_thumbnail %}
-                <img src="{{ podcast.wide_thumbnail.file.url }}" class="w-100 object-fit-cover"
-                  alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% elif podcast.tall_thumbnail %}
-                <img src="{{ podcast.tall_thumbnail.file.url }}" class="w-100 object-fit-cover"
-                  alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% else %}
-                <img src="{% static 'images/homepage/podcast-thumb-{{ forloop.counter }}.jpg' %}"
-                  class="w-100 object-fit-cover" alt="{{ podcast.title }}" style="height: 240px;"
-                  onerror="this.src='{% static 'images/homepage/featured-fallback.jpg' %}'">
-                {% endif %}
-                <div class="podcast-play-overlay position-absolute top-50 start-50 translate-middle">
-                  <div class="play-icon-circle-lg">
-                    <i class="bi bi-play-fill"></i>
-                  </div>
-                </div>
-                {% if podcast.duration %}
-                <span class="badge bg-dark bg-opacity-75 position-absolute bottom-0 end-0 m-2 px-2 py-1 small">
-                  <i class="bi bi-clock me-1"></i>{{ podcast.duration }}
-                </span>
-                {% endif %}
-              </div>
-              <div class="card-body p-4 bg-white">
-                <div class="small text-muted mb-2 d-flex align-items-center gap-2">
-                  <i class="bi bi-mic-fill text-mint"></i> Podcast
-                  <span class="mx-1">•</span> {{ podcast.date|date:"M Y" }}
-                </div>
-                <h5 class="fw-bold text-dark mb-0">{{ podcast.title }}</h5>
-                  {% if podcast.intro %}
-                      <p class="text-muted pt-2 mb-0" style="font-size: 20px;">
-                          {{ podcast.intro|truncatewords:20 }}
-                      </p>
-                      {% endif %}
-
-
-              </div>
-            </div>
-          </a>
-        </div>
-        {% empty %}
-        <div class="col-12">
-          <div class="alert alert-info text-center">
-            <p class="mb-0">No podcast episodes available yet. Please check back later!</p>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="text-center mt-5">
-        <a href="{% url 'news' %}?category=podcast" class="btn btn-mint fw-bold px-5 py-3 rounded-2">
-          <i class="bi bi-mic-fill me-2"></i>Listen to More Episodes
-        </a>
-      </div>
-    </div>
-  </section> -->
 <section id="podcast-section" class="section-bg py-5">
 
   <style>
@@ -680,14 +765,14 @@
     <div class="row align-items-end mb-5">
       <div class="col-md-8">
         <h2 class="fw-bold mb-2">Podcast</h2>
-        <p class="text-muted mb-0">
+        <p class="text-muted mb-0" style="font-size: 20px;">
           Conversations that matter about the future of<br>money
         </p>
       </div>
       <div class="col-md-4 text-md-end">
         <a href="{% url 'news' %}?category=podcast"
-           class="text-mint fw-bold text-decoration-none small">
-          See all Podcasts <i class="bi bi-arrow-up-right"></i>
+           class="text-mint fw-bold text-decoration-none small" style="font-size: 20px;">
+          See all Podcasts 
         </a>
       </div>
     </div>
@@ -751,11 +836,7 @@
                     {{ podcast.title }}
                   </h5>
 
-                  {% if podcast.intro %}
-                  <p class="text-white-50 mb-0">
-                    {{ podcast.intro|truncatewords:18 }}
-                  </p>
-                  {% endif %}
+            
                 </div>
 
               </div>
@@ -789,12 +870,12 @@
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
           <h2 class="fw-bold mb-2">Studies & Reports</h2>
-          <p class="text-muted mb-0">
+          <p class="text-muted mb-0" >
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=studies" class="text-mint fw-bold text-decoration-none small">See all Studies
-          & Reports <i class="bi bi-arrow-up-right"></i></a>
+        <a href="{% url 'news' %}?category=studies" style="font-size: 20px;" class="text-mint fw-bold text-decoration-none small">See all Studies
+          & Reports</a>
       </div>
 
       <!-- Cards Row - Dynamic from Backend -->
@@ -959,13 +1040,7 @@
                            <i class="bi bi-share"></i>  Share
               </a>
 
-                {% if study.source_link %}
-                <a href="{{ study.source_link }}"
-                   target="_blank"
-                   class="studies_btn" style="color: white;">
-                   <i class="bi bi-box-arrow-up-right"></i> Source
-                </a>
-                {% endif %}
+           
 
               </div>
 
@@ -998,84 +1073,150 @@
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=key-facts" class="text-mint fw-bold text-decoration-none small">See all Key
-          Facts <i class="bi bi-arrow-up-right"></i></a>
+        <a href="{% url 'news' %}?category=key-facts" style="font-size: 20px;" class="text-mint fw-bold text-decoration-none small">See all Key
+          Facts </a>
       </div>
 
       <!-- Uniform Grid -->
-      {% if key_facts %}
       <div class="row g-4">
-        {% for fact in key_facts %}
+        <!-- COLUMN 1 (Card Top, Image Bottom) -->
         <div class="col-lg-3 col-md-6">
           <div class="d-flex flex-column gap-4 h-100">
-            {% if forloop.counter == 3 %}
-            <!-- Column 3: Image Top, Card Bottom (REVERSED) -->
-            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0">
-              {% if fact.page_header_image %}
-                {% image fact.page_header_image fill-400x300 as bg_img %}
-                <img src="{{ bg_img.url }}" class="w-100 h-100 object-fit-cover"
-                  alt="{{ fact.alternative_text|default:fact.title }}" />
-              {% endif %}
-            </div>
-            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1">
-              <div>
-                <h2 class="display-3 fw-bold mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
-                <p class="small fw-bold mt-3">{{ fact.intro|default:fact.title }}</p>
-              </div>
-              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                {% if fact.page_header_image %}
-                  {% image fact.page_header_image original as dl_img %}
-                  <a href="{{ dl_img.url }}"
-                    download="keyfact-{{ fact.slug }}.png"
-                    class="text-reset text-decoration-none hover-mint"
-                    title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                {% endif %}
-                <a href="#"
-                  onclick="shareKeyFact(event, '{{ fact.intro|default:fact.title|escapejs }}', window.location.href + '#key-facts')"
-                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
-                  <i class="bi bi-share"></i> Share
-                </a>
-              </div>
-            </div>
-            {% else %}
-            <!-- Columns 1, 2, 4: Card Top, Image Bottom -->
+            <!-- Stat Card -->
             <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
               <div>
-                <h2 class="display-3 fw-bold mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
-                <p class="small fw-bold mt-3">{{ fact.intro|default:fact.title }}</p>
+                <h2 class="display-3 fw-bold text-stat-yellow mb-0">22%</h2>
+                <p class="small fw-bold mt-3">
+                  Cash is used for 22% of POS payments in
+                  <strong>Chile</strong>
+                </p>
               </div>
               <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
-                {% if fact.page_header_image %}
-                  {% image fact.page_header_image original as dl_img %}
-                  <a href="{{ dl_img.url }}"
-                    download="keyfact-{{ fact.slug }}.png"
-                    class="text-reset text-decoration-none hover-mint"
-                    title="Download this fact card as an image">
-                    <i class="bi bi-download"></i> Download
-                  </a>
-                {% endif %}
+              <a href="{% static 'images/1.png' %}"
+                      download="Cash-used-for-22-percent-of-POS-payments-in-Chile.png"
+                      class="text-reset text-decoration-none hover-mint"
+                      title="Download this fact card as an image">
+                      <i class="bi bi-download"></i> Download
+                    </a>
+
                 <a href="#"
-                  onclick="shareKeyFact(event, '{{ fact.intro|default:fact.title|escapejs }}', window.location.href + '#key-facts')"
+                  onclick="shareKeyFact(event, 'Cash is used for 22% of POS payments in Chile', window.location.href + '#key-facts')"
                   class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
                   <i class="bi bi-share"></i> Share
                 </a>
               </div>
             </div>
+            <!-- Image -->
             <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
-              {% if fact.page_header_image %}
-                {% image fact.page_header_image fill-400x300 as bg_img %}
-                <img src="{{ bg_img.url }}" class="w-100 h-100 object-fit-cover"
-                  alt="{{ fact.alternative_text|default:fact.title }}" />
-              {% endif %}
+              <img src="{% static 'images/homepage/keyfacts-chile.jpg' %}" class="w-100 h-100 object-fit-cover"
+                alt="Farm fresh cash transaction in Chile" />
             </div>
-            {% endif %}
           </div>
         </div>
-        {% endfor %}
+
+        <!-- COLUMN 2 (Card Top, Image Bottom) -->
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex flex-column gap-4 h-100">
+            <!-- Stat Card -->
+            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
+              <div>
+                <h2 class="display-3 fw-bold text-stat-blue mb-0">27%</h2>
+                <p class="small fw-bold mt-3">
+                  Cash is used for 32% of POS payments in
+                  <strong>Poland</strong>
+                </p>
+              </div>
+              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                     <a href="{% static 'images/2.png' %}"
+                      download="Cash-used-for-32-percent-of-POS-payments-in-Poland.png"
+                      class="text-reset text-decoration-none hover-mint"
+                      title="Download this fact card as an image">
+                      <i class="bi bi-download"></i> Download
+                    </a>
+                <a href="#"
+                  onclick="shareKeyFact(event, 'Cash is used for 32% of POS payments in Poland', window.location.href + '#key-facts')"
+                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                  <i class="bi bi-share"></i> Share
+                </a>
+              </div>
+            </div>
+            <!-- Image -->
+            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+              <img src="{% static 'images/homepage/keyfacts-poland.jpg' %}" class="w-100 h-100 object-fit-cover"
+                alt="Euro banknotes in wallet - Poland cash usage" />
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 3 (Image Top, Card Bottom - REVERSED) -->
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex flex-column gap-4 h-100">
+            <!-- Image (On Top here) -->
+            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm order-1 order-lg-0">
+              <img src="{% static 'images/homepage/keyfacts-norway.jpg' %}" class="w-100 h-100 object-fit-cover"
+                alt="ATM withdrawal - Cash usage in Norway" />
+            </div>
+            <!-- Stat Card (On Bottom here) -->
+            <div
+              class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1">
+              <div>
+                <h2 class="display-3 fw-bold text-stat-teal mb-0">09%</h2>
+                <p class="small fw-bold mt-3">
+                  Cash is used for 09% of POS payments in
+                  <strong>Norway</strong>
+                </p>
+              </div>
+              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                    <a href="{% static 'images/3.png' %}"
+                      download="Cash-used-for-09-percent-of-POS-payments-in-Norway.png"
+                      class="text-reset text-decoration-none hover-mint"
+                      title="Download this fact card as an image">
+                      <i class="bi bi-download"></i> Download
+                    </a>
+                <a href="#"
+                  onclick="shareKeyFact(event, 'Cash is used for 09% of POS payments in Norway', window.location.href + '#key-facts')"
+                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                  <i class="bi bi-share"></i> Share
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 4 (Card Top, Image Bottom) -->
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex flex-column gap-4 h-100">
+            <!-- Stat Card -->
+            <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
+              <div>
+                <h2 class="display-3 fw-bold text-stat-rust mb-0">33%</h2>
+                <p class="small fw-bold mt-3">
+                  Cash is used for 33% of POS payments in
+                  <strong>Spain</strong>
+                </p>
+              </div>
+              <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
+                       <a href="{% static 'images/4.png' %}"
+                      download="Cash-used-for-33-percent-of-POS-payments-in-Spain.png"
+                      class="text-reset text-decoration-none hover-mint"
+                      title="Download this fact card as an image">
+                      <i class="bi bi-download"></i> Download
+                    </a>
+                <a href="#"
+                  onclick="shareKeyFact(event, 'Cash is used for 33% of POS payments in Spain', window.location.href + '#key-facts')"
+                  class="text-reset text-decoration-none hover-mint" title="Share this fact via social media or link">
+                  <i class="bi bi-share"></i> Share
+                </a>
+              </div>
+            </div>
+            <!-- Image -->
+            <div class="fact-img-wrapper rounded-4 overflow-hidden shadow-sm">
+              <img src="{% static 'images/homepage/keyfacts-spain.jpg' %}" class="w-100 h-100 object-fit-cover"
+                alt="Cash transaction during power outage in Madrid, Spain" />
+            </div>
+          </div>
+        </div>
       </div>
-      {% endif %}
     </div>
   </section>
   <!-- =========================================
@@ -1170,7 +1311,7 @@
     .news-card {
       border-radius: 1rem;
       overflow: hidden;
-      height: 380px;
+      height: 280px;
       position: relative;
     }
 
@@ -1195,7 +1336,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: -between;
       padding: 1.5rem;
     }
 
@@ -1219,8 +1360,8 @@
           Stay updated on cash and payment trends<br>worldwide
         </p>
       </div>
-      <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small">
-        See all news <i class="bi bi-arrow-up-right"></i>
+      <a href="{% url 'news' %}" class="text-mint fw-bold text-decoration-none small" style="font-size: 20px;">
+        See all news
       </a>
     </div>
 
@@ -1246,7 +1387,7 @@
 
             <!-- Top: Date & Badge -->
             <div class="d-flex justify-content-between align-items-center small text-white-50">
-              <span><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
+              <span style="background-color: white;color: #000; border-radius: 10px; padding: 4px 8px;"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
               <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">
                 {% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}
               </span>
@@ -1254,39 +1395,16 @@
 
             <!-- Middle: Title & Intro -->
             <div>
-              <h5 class="fw-bold text-white mb-2">{{ post.title }}</h5>
-              <p class="text-white-50 mb-2" style="font-size: 18px;">
-                {{ post.intro|truncatewords:20 }}
-              </p>
+              <h5 class="fw-bold pt-5 text-white mb-2">{{ post.title }}</h5>
+            
             </div>
 
             <!-- Bottom: Author & Read More -->
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center small text-white-50">
-                {% if post.author_profile %}
-                  {% if post.author_profile.profile_image %}
-                    {% image post.author_profile.profile_image fill-32x32 as author_thumb %}
-                    <img src="{{ author_thumb.url }}" class="author-thumb" alt="{{ post.author_profile.name }}">
-                  {% else %}
-                    <i class="bi bi-person me-1"></i>
-                  {% endif %}
-                  <a href="{% url 'author_profile_by_id' post.author_profile.id %}" class="text-decoration-none text-mint fw-medium">
-                    {{ post.author_profile.name }}
-                  </a>
-                {% elif post.author %}
-                  {% if post.author_image %}
-                    <img src="{{ post.author_image.file.url }}" class="author-thumb" alt="{{ post.author }}">
-                  {% else %}
-                    <i class="bi bi-person me-1"></i>
-                  {% endif %}
-                  <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-medium">
-                    {{ post.author }}
-                  </a>
-                {% endif %}
-              </div>
-
-              <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">
-                Read More <i class="bi bi-arrow-up-right ms-1"></i>
+            <div class="d-flex mt-5 justify-content-between align-items-center">
+         
+        
+              <a href="{{ post.url_path }}" class=" btn fw-bold rounded-2 fw-bold text-decoration-none small" style="color: black  !important;background-color: #4CD1C2;">
+                Read the Story   
               </a>
             </div>
 
@@ -1303,9 +1421,66 @@
     </div>
 
   </div>
-</section>   </div>
-  </section>
+</section>   
 
+<section class="py-5 pb-5 mb-5">
+  <div class="container">
+
+    <div class="row align-items-stretch gy-4">
+        <div class="text-cent">
+          <p>
+            What’s Happening Next
+          </p> 
+          <h1>
+            Upcoming Events
+
+          </h1>
+        </div>
+      <!-- Image Column -->
+      <div class="col-12 col-lg-6 d-flex">
+        <img  style="object-fit: cover;"
+          src="https://static.wixstatic.com/media/26805b_1bfc077f42334893831f82760096e1ad~mv2.jpg/v1/fill/w_2048,h_810,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/26805b_1bfc077f42334893831f82760096e1ad~mv2.jpg" 
+          class="img-fluid rounded-4 w-100"
+          alt="Global Currency Forum 2026">
+      </div>
+
+      <!-- Content Column -->
+      <div class="col-12 col-lg-6">
+
+        <h2 class="fw-bold mb-3">
+          Global Currency Forum 2026
+        </h2>
+        
+        <p class="fs-5 mb-4" style="color: rgba(33, 37, 41, 0.75);">
+          The premier international event for the currency industry, convening central bankers, suppliers, and policymakers. The 2026 forum will focus on innovation, sustainability, and securing the future of cash as a vital public infrastructure.
+        </p>
+
+        <!-- Location Block -->
+        <div class="d-flex gap-3 align-items-start mb-4 flex-sm-row flex-column">
+          
+          <div class="d-flex align-items-center justify-content-center"
+               style="min-width:50px; height:50px; background:#3bbcae; border-radius:50%;">
+            <i class="bi bi-geo-alt text-white fs-4"></i>
+          </div>
+
+          <div>
+            <h5 class="fw-bold mb-1">Antalya, Türkiye</h5>
+            <p class="mb-0" style="color: rgba(33, 37, 41, 0.75);">27-30 April 2026</p>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <a href="https://www.globalcurrencyforum.net/" 
+           class="btn btn-mint fw-bold px-4 py-3 rounded-3">
+          Register Now
+        </i>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</section>
 
 
   <!-- =========================================
@@ -1323,7 +1498,7 @@
               For privacy. For inclusion. For everyday resilience.
             </p>
             <a href="{% url 'support' %}" class="btn btn-mint fw-bold rounded-2 px-4 py-3">
-              Support Cash <i class="bi bi-arrow-up-right ms-2"></i>
+              Support Cash  </i>
             </a>
           </div>
         </div>
@@ -1405,7 +1580,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                              Support Cash 
                             </a>
                           </li>
                         </ul>
@@ -1514,8 +1689,7 @@
           <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
             Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
           </p>
-          <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
-              class="bi bi-arrow-up-right ms-2"></i></a>
+          <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
 
         </div>
       </div>
@@ -1776,7 +1950,7 @@
 
         if (imageEl) imageEl.src = post.image;
 
-        // Type badge now always shows "Cover Story" - no dynamic changes needed
+        // Type badge   always shows "Cover Story" - no dynamic changes needed
         // Keep the static "Cover Story" label regardless of content type
         if (mediaTypeIcon) {
           mediaTypeIcon.innerHTML = '<i class="bi bi-star-fill"></i>';
@@ -1891,7 +2065,7 @@
       });
     }
 
-    // Podcast section now uses static cards with thumbnails - no video player needed
+    // Podcast section   uses static cards with thumbnails - no video player needed
 
     // =========================================
     // DOWNLOAD, SHARE, AND PRINT FUNCTIONALITY
@@ -2160,67 +2334,173 @@
   </script>
   <script type="text/javascript"
     src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <style>
-    .goog-te-banner-frame,
-    .skiptranslate {
-      display: none !important;
-    }
-
-    body {
-      top: 0 !important;
-    }
-
-    .goog-te-gadget {
-      display: none !important;
-    }
-  </style>
-
-
-
-
-
   <script>
-    // Force scroll to top on page load - comprehensive solution
     (function() {
-        // Function to force scroll to top
-        function forceScrollToTop() {
-            // Multiple methods to ensure it works across all browsers
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        window.addEventListener('load', function() {
             window.scrollTo(0, 0);
-
-            // For modern browsers
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto'
+            document.body.style.top = '0px';
+        });
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
+                    document.body.style.top = '0px';
+                    window.scrollTo(0, 0);
+                }
             });
-
-            // For older browsers
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-
-            // Additional safety for mobile browsers
-            if (window.history && window.history.scrollRestoration) {
-                window.history.scrollRestoration = 'manual';
-            }
-        }
-
-        // Run immediately when script loads
-        forceScrollToTop();
-
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', forceScrollToTop);
-
-        // Run when page is fully loaded
-        window.addEventListener('load', forceScrollToTop);
-
-        // Additional safety for single-page apps or hash changes
-        window.addEventListener('hashchange', forceScrollToTop);
-
-        // Set scroll restoration to manual to prevent browser from remembering position
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+        });
     })();
+  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const featuredBg = document.getElementById('featured-parallax-bg');
+    const featuredSection = document.getElementById('featured-hero-section');
+    
+    // Carousel functionality
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('featured-prev');
+    const nextBtn = document.getElementById('featured-next');
+    const pauseBtn = document.getElementById('featured-pause');
+    let currentSlide = 0;
+    let isPlaying = true;
+    let autoplayInterval;
+    
+    const titleEl = document.getElementById('featured-slide-title');
+    const dateEl = document.getElementById('featured-slide-date');
+    const authorEl = document.getElementById('featured-slide-author');
+    const authorLink = document.getElementById('featured-author-link');
+    const authorAvatar = document.getElementById('featured-author-avatar');
+    const ctaLink = document.getElementById('featured-slide-link');
+    const typeBadgeText = document.getElementById('featured-type-text');
+
+    function updateSlideContent(slideIndex) {
+      const activeDot = dots[slideIndex];
+      if (!activeDot) return;
+      
+      // Update background image
+      const imageUrl = activeDot.dataset.image || '{% static "images/homepage/featured-fallback.jpg" %}';
+      featuredBg.style.backgroundImage = `url('${imageUrl}')`;
+      
+      // Update title
+      if (titleEl) titleEl.textContent = activeDot.dataset.title || 'Cash is simple, safe, and for everyone';
+      
+      // Update date
+      if (dateEl) {
+        const dateSpan = dateEl.querySelector('i.bi-clock')?.parentElement || dateEl;
+        dateSpan.innerHTML = `<i class="bi bi-clock me-1"></i>${activeDot.dataset.date || 'Latest'}`;
+      }
+      
+      // Update author
+      const authorName = activeDot.dataset.author;
+      if (authorEl && authorName) {
+        authorEl.textContent = authorName;
+        authorEl.style.display = '';
+        authorEl.href = activeDot.dataset.authorId ? 
+          `{% url 'author_profile_by_id' 0 %}`.replace('0', activeDot.dataset.authorId) : '#';
+      }
+      
+      // Update author avatar
+      const avatarUrl = activeDot.dataset.authorAvatar;
+      if (authorAvatar && avatarUrl) {
+        authorAvatar.src = avatarUrl;
+      }
+      
+      // Update CTA link
+      if (ctaLink) {
+        ctaLink.href = activeDot.dataset.url || '#';
+      }
+      
+      // Update content type badge
+      if (typeBadgeText) {
+        typeBadgeText.textContent = activeDot.dataset.contentType || 'Cover Story';
+      }
+      
+      // Update active dot
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + dots.length) % dots.length;
+      updateSlideContent(currentSlide);
+    }
+
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(nextSlide, 5000);
+      isPlaying = true;
+      document.getElementById('pause-icon').classList.remove('bi-play-fill');
+      document.getElementById('pause-icon').classList.add('bi-pause-fill');
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+      isPlaying = false;
+      document.getElementById('pause-icon').classList.remove('bi-pause-fill');
+      document.getElementById('pause-icon').classList.add('bi-play-fill');
+    }
+
+    // Event listeners
+    if (dots.length > 0) {
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+          currentSlide = index;
+          updateSlideContent(currentSlide);
+        });
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        prevSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        nextSlide();
+        if (isPlaying) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+    }
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+    }
+
+    // Initialize autoplay
+    if (dots.length > 1) {
+      startAutoplay();
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', function() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+    });
+  });
 </script>
 </body>
 
