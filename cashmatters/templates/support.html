@@ -20,6 +20,40 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <!-- Global Font Styles (matching homepage) -->
+    <style>
+        *,
+        *::before,
+        *::after {
+            font-family: "ITC Avant Garde Gothic", sans-serif !important;
+        }
+            /* All headings use Poppins */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        a,
+        p,
+        button, {
+            font-family: "ITC Avant Garde Gothic", sans-serif !important;
+        }
+       
+        .navbar,
+        .navbar * {
+            font-family: "ITC Avant Garde Gothic", sans-serif !important;
+        }
+
+        .navbar .nav-link {
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
+        }
+    </style>
+
     <!-- Video Cards & Gift Shop Styles -->
     <style>
 
@@ -120,7 +154,7 @@
                         <li class="nav-item"><a class="nav-link text-white" href="{% url 'about' %}">About Us</a></li>
                         <!-- Write for Us link moved to footer only -->
                         <!-- Support Cash button for mobile -->
-                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash <i class="bi bi-arrow-up-right ms-1"></i></a></li>
+                        <li class="nav-item d-lg-none mt-2"><a href="{% url 'support' %}" class="btn btn-support-cash">Support Cash </a></li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-3">
@@ -158,7 +192,7 @@
                         </ul>
                     </div>
                     <a href="{% url 'support' %}" class="btn btn-support-cash d-none d-lg-inline-block">
-                        Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                        Support Cash 
                     </a>
                 </div>
             </div>
@@ -180,6 +214,7 @@
                 <!-- =========================================
      HERO VIDEOS SECTION
 ========================================== -->
+                   <!-- Three Videos Section: Freedom Matters, Choice Matters, Cash Matters -->
                 <div class="why-cash-videos-container mb-4">
                     <style>
                         .video-actions {
@@ -280,85 +315,129 @@
                         }
                     </style>
 
-                    <div class="row g-4">
+                      <div class="row g-4">
                         <!-- Video 1: Freedom Matters -->
                         <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                    <video id="heroVideo1" poster="{% static 'images/asdf.png' %}" preload="none">
-                                        <source src="{% static 'videos/sss.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo1', this)">▶</div>
+                                        <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/ErMeZ0DT2Cs"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
                                 </div>
-                                <div class="bg-white p-3">
+                                <div class="p-3">
+
                                     <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
                                     <p class="text-muted small mb-2">
                                         How you spend your money is your business. Privacy matters. Freedom matters.
                                     </p>
                                     <div class="video-actions">
-                                        <a href="{% static 'videos/sss.mp4' %}" download
-                                            class="btn-download">Download</a>
+                                        
                                         <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517809" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
+                                        data-iframe='  <iframe
+                                                                            src="https://www.youtube.com/embed/ErMeZ0DT2Cs"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>'
+                                        onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
 
                         <!-- Video 2: Choice Matters -->
-                        <div class="col-lg-4 col-md-6">
+                          <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                    <video id="heroVideo2" poster="{% static 'images/asd.png' %}" preload="none">
-                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo2', this)">▶</div>
+                                        <div class="ratio ratio-16x9 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/GKQZjsETR8o"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
                                 </div>
-                                <div class="bg-white p-3">
+                                <div class="p-3">
+
                                     <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
                                     <p class="text-muted small mb-2">
                                         Choices empower you. Make sure to keep the freedom to choose how you pay.
                                     </p>
                                     <div class="video-actions">
-                                        <a href="{% static 'videos/sa.mp4' %}" download
-                                            class="btn-download">Download</a>
+                                        
                                         <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/417517552" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
+                                        data-iframe='  <iframe
+                                                                            src="https://www.youtube.com/embed/GKQZjsETR8o"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>'
+                                        onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
 
                         <!-- Video 3: Cash Matters -->
-                        <div class="col-lg-4 col-md-6">
+                         <div class="col-lg-4 col-md-6">
                             <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
+                                <div class="bg-white">
                                 <div class="ratio ratio-16x9 position-relative">
-                                    <video id="heroVideo3" poster="{% static 'images/sasa.png' %}" preload="none">
-                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playHeroVideo('heroVideo3', this)">▶</div>
+                                        <div class="ratio ratio-16x9  overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/ko0HT_pw4Zg"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
                                 </div>
-                                <div class="bg-white p-3">
+                                <div class="p-3">
+
                                     <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
                                     <p class="text-muted small mb-2">
-                                        In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
+                                    In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
+
                                     </p>
                                     <div class="video-actions">
-                                        <a href="{% static 'videos/sas.mp4' %}" download
-                                            class="btn-download">Download</a>
+                                        
                                         <button class="btn-embed"
-                                            data-iframe='<iframe src="https://player.vimeo.com/video/488891865" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                                            onclick="openEmbedModal(this)">Embed</button>
+                                        data-iframe='   <iframe
+                                                                            src="https://www.youtube.com/embed/ko0HT_pw4Zg"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>'
+                                        onclick="openEmbedModal(this)">Embed</button>
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                     </div>
+
 
                     <!-- EMBED MODAL -->
                     <div id="embedModal" class="embed-modal" onclick="closeEmbedModal()">
@@ -370,7 +449,161 @@
                                 onclick="copyEmbedCode()">Copy Code</button>
                         </div>
                     </div>
+                              <script>
+                    /* --------------------- HERO VIDEOS --------------------- */
+                    function playHeroVideo(videoId, button) {
+                        const video = document.getElementById(videoId);
+                        if (!video) {
+                            console.error('Video element not found:', videoId);
+                            return;
+                        }
+
+                        video.controls = true;
+
+                        // Try playing with sound, fallback to muted if needed
+                        const playPromise = video.play();
+
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                // Successfully started playing
+                                button.style.display = 'none';
+
+                                // When this video ends, show the play button again
+                                video.onended = () => {
+                                    button.style.display = 'flex';
+                                };
+
+                            }).catch(error => {
+                                console.log('Autoplay failed, trying muted:', error);
+                                // Try muted play
+                                video.muted = true;
+                                video.play().then(() => {
+                                    button.style.display = 'none';
+
+                                    // When this video ends, show the play button again
+                                    video.onended = () => {
+                                        button.style.display = 'flex';
+                                    };
+
+                                }).catch(error2 => {
+                                    console.error('Muted play also failed:', error2);
+                                    // Just show controls and let user click
+                                    video.controls = true;
+                                    button.style.display = 'flex'; // Keep button visible
+                                });
+                            });
+                        }
+                    }
+
+                    /* --------------------- TAB VIDEOS --------------------- */
+                    function playTabVideo(button) {
+                        const video = button.previousElementSibling;
+                        if (!video) return;
+
+                        // Stop all other tab videos
+                        document.querySelectorAll('.asset-video').forEach(v => {
+                            if (v !== video) {
+                                v.pause();
+                                v.currentTime = 0;
+                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                                if (overlay) overlay.style.display = 'flex';
+                            }
+                        });
+
+                        if (video.paused) {
+                            video.controls = true;
+
+                            // Try playing with sound
+                            const playPromise = video.play();
+
+                            if (playPromise !== undefined) {
+                                playPromise.then(() => {
+                                    // Successfully started playing
+                                    button.style.display = 'none';
+
+                                    // When video ends, show play button
+                                    video.onended = () => {
+                                        button.style.display = 'flex';
+                                    };
+
+                                }).catch(error => {
+                                    console.log('Tab video autoplay failed, trying muted:', error);
+                                    // Try muted play
+                                    video.muted = true;
+                                    video.play().then(() => {
+                                        button.style.display = 'none';
+
+                                        // When video ends, show play button
+                                        video.onended = () => {
+                                            button.style.display = 'flex';
+                                        };
+
+                                    }).catch(error2 => {
+                                        console.error('Tab video muted play also failed:', error2);
+                                        // Just show controls
+                                        video.controls = true;
+                                        button.style.display = 'flex';
+                                    });
+                                });
+                            }
+                        } else {
+                            video.pause();
+                            button.style.display = 'flex';
+                        }
+                    }
+
+                    /* --------------------- EMBED MODAL --------------------- */
+                    function openEmbedModal(button) {
+                        document.getElementById('embedCode').value = button.dataset.iframe;
+                        const modal = document.getElementById('embedModal');
+                        modal.style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    }
+
+                    function closeEmbedModal() {
+                        const modal = document.getElementById('embedModal');
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+
+                    function copyEmbedCode() {
+                        const textarea = document.getElementById('embedCode');
+                        textarea.select();
+                        document.execCommand('copy');
+
+                        const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => { btn.textContent = originalText; }, 2000);
+                    }
+
+                    /* --------------------- STOP TAB VIDEOS ON TAB SWITCH --------------------- */
+                    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+                        tab.addEventListener('shown.bs.tab', () => {
+                            document.querySelectorAll('.asset-video').forEach(v => {
+                                v.pause();
+                                v.currentTime = 0;
+                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
+                                if (overlay) overlay.style.display = 'flex';
+                            });
+                        });
+                    });
+
+                    /* --------------------- ESC KEY CLOSE EMBED MODAL --------------------- */
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape') closeEmbedModal();
+                    });
+
+                    /* --------------------- DEBUG: CHECK ALL VIDEOS --------------------- */
+                    window.addEventListener('load', function () {
+                        console.log('Page loaded, checking videos:');
+                        document.querySelectorAll('video').forEach(video => {
+                            console.log('Video found:', video.id, 'src:', video.currentSrc);
+                        });
+                    });
+                </script>
                 </div>
+
 
 
             </div>
@@ -498,7 +731,7 @@
                 }
             </style>
             <ul class="nav custom-asset-tabs justify-content-start justify-content-lg-center flex-nowrap
-           mb-5 border-top border-bottom py-2 bg-white rounded-1" id="assetTabs" role="tablist">
+            gap-2 mb-5 border-top border-bottom py-2 bg-white rounded-1 " id="assetTabs" role="tablist">
 
 
                 <li class="nav-item" role="presentation">
@@ -1048,323 +1281,186 @@
                         </div>
                     </div>
                 </div>
-                <!-- TAB 5: VIDEO PLAYLIST -->
-                <div class="tab-pane fade" id="videos-content" role="tabpanel">
-                    <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
-                                <iframe
-                                    src="https://www.youtube-nocookie.com/embed/videoseries?list=PLa7XmGgH5mowVHUQOCnBSt8162aez4hTL"
-                                    title="Cash Matters Video Playlist"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen>
-                                </iframe>
-                            </div>
-                        </div>
+              
+                        <div class="tab-pane fade" id="videos-content" role="tabpanel">
+                                                            <div class="row g-4">
 
-                        <!-- <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/asd.png' %}" preload="none">
-                                        <source src="{% static 'videos/sa.mp4' %}" type="video/mp4">
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
-                                        choose.</p>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/YeFUC53pwCU"
+                                                                            title="Cash is secure"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/OBIXjfftuUg"
+                                                                            title="Cash is simple"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/PO0hPyoRP0s"
+                                                                            title="Cash is resilient"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/t6jPnf6UvlA"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/01k_8IyAtTw"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/sa.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-twitter-x"></i></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-linkedin"></i></a>
-                                        </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/01k_8IyAtTw"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/WQ42eWgtAcI"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/ErMeZ0DT2Cs"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/qzea2-vGlSA"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/nyY_5ldXFMQ"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/NDNiRGuyqs4"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
 
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div> -->
-<!--
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/sasa.png' %}" preload="none">
-                                        <source src="{% static 'videos/sas.mp4' %}" type="video/mp4">
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
-                                        choose.</p>
-
-
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/sas.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "videos/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-
-                                        <div class="d-flex gap-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-twitter-x"></i></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-linkedin"></i></a>
-                                        </div>
-
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="video-card-item rounded-4 overflow-hidden shadow-sm position-relative">
-                                <div class="ratio ratio-16x9 position-relative">
-                                    <video class="asset-video" poster="{% static 'images/sasa.png' %}" preload="none">
-                                        <source src="{% static 'videos/11.mp4' %}" type="video/mp4">
-                                    </video>
-                                    <div class="play-button-overlay" onclick="playTabVideo(this)">▶</div>
-                                </div>
-                                <div class="bg-white p-3">
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
-                                    <p class="text-muted small mb-2">Choices empower you. Make sure to keep freedom to
-                                        choose.</p>
-
-
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <div class="video-actions">
-                                            <a href="{% static 'videos/11.mp4' %}" download
-                                                class="btn-download">Download</a>
-                                            <button class="btn-embed"
-                                                data-iframe='<iframe width="560" height="315" src="{% static "11/sa.mp4" %}" frameborder="0" allowfullscreen></iframe>'
-                                                onclick="openEmbedModal(this)">Embed</button>
-                                        </div>
-
-                                        <div class="d-flex gap-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="https://twitter.com/intent/tweet?url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-twitter-x"></i></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://vimeo.com/417517809"
-                                                target="_blank"
-                                                class="text-reset text-decoration-none hover-mint small"><i
-                                                    class="bi bi-linkedin"></i></a>
-                                        </div>
-
-
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div> -->
-
-                    </div>
-                </div>
-                <!-- <script>
-                    /* --------------------- HERO VIDEOS --------------------- */
-                    function playHeroVideo(videoId, button) {
-                        const video = document.getElementById(videoId);
-                        if (!video) {
-                            console.error('Video element not found:', videoId);
-                            return;
-                        }
-
-                        video.controls = true;
-
-                        // Try playing with sound, fallback to muted if needed
-                        const playPromise = video.play();
-
-                        if (playPromise !== undefined) {
-                            playPromise.then(() => {
-                                // Successfully started playing
-                                button.style.display = 'none';
-
-                                // When this video ends, show the play button again
-                                video.onended = () => {
-                                    button.style.display = 'flex';
-                                };
-
-                            }).catch(error => {
-                                console.log('Autoplay failed, trying muted:', error);
-                                // Try muted play
-                                video.muted = true;
-                                video.play().then(() => {
-                                    button.style.display = 'none';
-
-                                    // When this video ends, show the play button again
-                                    video.onended = () => {
-                                        button.style.display = 'flex';
-                                    };
-
-                                }).catch(error2 => {
-                                    console.error('Muted play also failed:', error2);
-                                    // Just show controls and let user click
-                                    video.controls = true;
-                                    button.style.display = 'flex'; // Keep button visible
-                                });
-                            });
-                        }
-                    }
-
-                    /* --------------------- TAB VIDEOS --------------------- */
-                    function playTabVideo(button) {
-                        const video = button.previousElementSibling;
-                        if (!video) return;
-
-                        // Stop all other tab videos
-                        document.querySelectorAll('.asset-video').forEach(v => {
-                            if (v !== video) {
-                                v.pause();
-                                v.currentTime = 0;
-                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
-                                if (overlay) overlay.style.display = 'flex';
-                            }
-                        });
-
-                        if (video.paused) {
-                            video.controls = true;
-
-                            // Try playing with sound
-                            const playPromise = video.play();
-
-                            if (playPromise !== undefined) {
-                                playPromise.then(() => {
-                                    // Successfully started playing
-                                    button.style.display = 'none';
-
-                                    // When video ends, show play button
-                                    video.onended = () => {
-                                        button.style.display = 'flex';
-                                    };
-
-                                }).catch(error => {
-                                    console.log('Tab video autoplay failed, trying muted:', error);
-                                    // Try muted play
-                                    video.muted = true;
-                                    video.play().then(() => {
-                                        button.style.display = 'none';
-
-                                        // When video ends, show play button
-                                        video.onended = () => {
-                                            button.style.display = 'flex';
-                                        };
-
-                                    }).catch(error2 => {
-                                        console.error('Tab video muted play also failed:', error2);
-                                        // Just show controls
-                                        video.controls = true;
-                                        button.style.display = 'flex';
-                                    });
-                                });
-                            }
-                        } else {
-                            video.pause();
-                            button.style.display = 'flex';
-                        }
-                    }
-
-                    /* --------------------- EMBED MODAL --------------------- */
-                    function openEmbedModal(button) {
-                        document.getElementById('embedCode').value = button.dataset.iframe;
-                        const modal = document.getElementById('embedModal');
-                        modal.style.display = 'flex';
-                        document.body.style.overflow = 'hidden';
-                    }
-
-                    function closeEmbedModal() {
-                        const modal = document.getElementById('embedModal');
-                        modal.style.display = 'none';
-                        document.body.style.overflow = '';
-                    }
-
-                    function copyEmbedCode() {
-                        const textarea = document.getElementById('embedCode');
-                        textarea.select();
-                        document.execCommand('copy');
-
-                        const btn = document.querySelector('.embed-modal-content button[onclick="copyEmbedCode()"]');
-                        const originalText = btn.textContent;
-                        btn.textContent = 'Copied!';
-                        setTimeout(() => { btn.textContent = originalText; }, 2000);
-                    }
-
-                    /* --------------------- STOP TAB VIDEOS ON TAB SWITCH --------------------- */
-                    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
-                        tab.addEventListener('shown.bs.tab', () => {
-                            document.querySelectorAll('.asset-video').forEach(v => {
-                                v.pause();
-                                v.currentTime = 0;
-                                const overlay = v.closest('.ratio')?.querySelector('.play-button-overlay');
-                                if (overlay) overlay.style.display = 'flex';
-                            });
-                        });
-                    });
-
-                    /* --------------------- ESC KEY CLOSE EMBED MODAL --------------------- */
-                    document.addEventListener('keydown', function (e) {
-                        if (e.key === 'Escape') closeEmbedModal();
-                    });
-
-                    /* --------------------- DEBUG: CHECK ALL VIDEOS --------------------- */
-                    window.addEventListener('load', function () {
-                        console.log('Page loaded, checking videos:');
-                        document.querySelectorAll('video').forEach(video => {
-                            console.log('Video found:', video.id, 'src:', video.currentSrc);
-                        });
-                    });
-                </script> -->
-
-
-
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/4XsnrzD3Hxo"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/0u6Pfo-Zimo"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-12">
+                                                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                                                                        <iframe
+                                                                            src="https://www.youtube.com/embed/GgCpdbGqn1Q"
+                                                                            title="Cash is private"
+                                                                            frameborder="0"
+                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                                            allowfullscreen>
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
 
 
@@ -1662,8 +1758,7 @@
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
-                            class="bi bi-arrow-up-right ms-2"></i></a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
 
                 </div>
             </div>
@@ -1782,7 +1877,7 @@
                               href="{% url 'about' %}">About Us</a></li>
                           <li class="nav-item mt-2">
                             <a href="{% url 'support' %}" class="btn btn-support-cash w-100">
-                              Support Cash <i class="bi bi-arrow-up-right ms-1"></i>
+                              Support Cash 
                             </a>
                           </li>
                         </ul>
@@ -1973,67 +2068,28 @@
     </script>
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <style>
-        .goog-te-banner-frame,
-        .skiptranslate {
-            display: none !important;
-        }
-
-        body {
-            top: 0 !important;
-        }
-
-        .goog-te-gadget {
-            display: none !important;
-        }
-
-    </style>
-
-
-
-<script>
-    // Force scroll to top on page load - comprehensive solution
+  <script>
     (function() {
-        // Function to force scroll to top
-        function forceScrollToTop() {
-            // Multiple methods to ensure it works across all browsers
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        window.addEventListener('load', function() {
             window.scrollTo(0, 0);
-
-            // For modern browsers
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto'
+            document.body.style.top = '0px';
+        });
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                if (m.attributeName === 'style' && document.body.style.top !== '0px') {
+                    document.body.style.top = '0px';
+                    window.scrollTo(0, 0);
+                }
             });
-
-            // For older browsers
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-
-            // Additional safety for mobile browsers
-            if (window.history && window.history.scrollRestoration) {
-                window.history.scrollRestoration = 'manual';
-            }
-        }
-
-        // Run immediately when script loads
-        forceScrollToTop();
-
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', forceScrollToTop);
-
-        // Run when page is fully loaded
-        window.addEventListener('load', forceScrollToTop);
-
-        // Additional safety for single-page apps or hash changes
-        window.addEventListener('hashchange', forceScrollToTop);
-
-        // Set scroll restoration to manual to prevent browser from remembering position
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+        });
     })();
-</script>
+  </script>
     
 </body>
 
