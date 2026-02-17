@@ -22,7 +22,7 @@ from blog.api import api_router
 # Frontend views
 def index(request):
     """Serve the homepage with latest blog posts and dynamic hero carousel"""
-    from blog.models import ArticlePage, BlogPage, ArticleType
+    from blog.models import ArticlePage, BlogPage, ArticleType, KeyFactsPage
     from itertools import chain
 
     # Posts to hide from homepage (by title)
@@ -181,12 +181,18 @@ def index(request):
         reverse=True
     )[:2]  # Take only the 2 most recent studies/reports
 
+    # =========================================
+    # 6. KEY FACTS - Dynamic from KeyFactsPage
+    # =========================================
+    key_facts = KeyFactsPage.objects.live().order_by('-date')[:4]
+
     context = {
         'latest_posts': latest_posts,
         'featured_posts': featured_posts,
         'hero_posts': hero_posts_combined,
         'podcast_posts': podcast_posts,
         'studies_posts': studies_posts,
+        'key_facts': key_facts,
     }
     return render(request, 'index.html', context)
 

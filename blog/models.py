@@ -850,12 +850,20 @@ class KeyFactsPage(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+
         MultiFieldPanel([
             FieldPanel("page_header_title"),
             FieldPanel("page_header_image"),
-        ], heading="Page Header"),
+            FieldPanel("alternative_text"),
+        ], heading="Page Header & Image"),
 
         FieldPanel("date"),
+
+        MultiFieldPanel([
+            FieldPanel("featured_data"),
+            FieldPanel("featured_data_color"),
+        ], heading="Featured Data (Homepage Card)"),
 
         MultiFieldPanel([
             FieldPanel("double_width"),
@@ -863,12 +871,6 @@ class KeyFactsPage(Page):
         ], heading="List Options"),
 
         MultiFieldPanel([
-            FieldPanel("featured_data"),
-            FieldPanel("featured_data_color"),
-        ], heading="Featured data"),
-
-        MultiFieldPanel([
-            FieldPanel("alternative_text"),
             FieldPanel("fact_source"),
             FieldPanel("source_link"),
         ], heading="Sources"),

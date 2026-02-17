@@ -1,0 +1,105 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block titletag %}Key Facts{% endblock %}
+
+{% block content %}
+<header class="w-header">
+    <div class="row">
+        <div class="left">
+            <div class="col">
+                <h1 class="icon icon-pick">Key Facts</h1>
+            </div>
+        </div>
+        <div class="right">
+            {% if add_url %}
+            <div class="col">
+                <a href="{{ add_url }}" class="button bicolor icon icon-plus">Add Key Fact</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+{% if key_facts %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Featured Data</th>
+            <th>Color</th>
+            <th>Intro</th>
+            <th>Image</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fact in key_facts %}
+        <tr>
+            <td class="title">
+                <h2>
+                    <a href="{% url 'wagtailadmin_pages:edit' fact.id %}">{{ fact.title }}</a>
+                </h2>
+            </td>
+            <td>
+                {% if fact.featured_data %}
+                    <span style="{% if fact.featured_data_color %}color: {{ fact.featured_data_color }};{% endif %} font-weight: bold; font-size: 1.2em;">{{ fact.featured_data }}</span>
+                {% else %}
+                    <span style="color: #999;">Not set</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if fact.featured_data_color %}
+                    <span style="display:inline-block; width:20px; height:20px; border-radius:4px; background:{{ fact.featured_data_color }}; border:1px solid #ccc;"></span>
+                    <small>{{ fact.featured_data_color }}</small>
+                {% else %}
+                    <span style="color: #999;">-</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if fact.intro %}
+                    {{ fact.intro|truncatewords:10 }}
+                {% else %}
+                    <span style="color: #999;">Not set</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if fact.page_header_image %}
+                    {% image fact.page_header_image fill-50x50 as thumb %}
+                    <img src="{{ thumb.url }}" alt="" style="border-radius: 4px;" />
+                {% else %}
+                    <span style="color: #999;">No image</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if fact.date %}
+                    {{ fact.date|date:"d M Y" }}
+                {% else %}
+                    <span style="color: #999;">-</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if fact.live %}
+                    <span class="status-tag primary">Live</span>
+                {% else %}
+                    <span class="status-tag">Draft</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'wagtailadmin_pages:edit' fact.id %}" class="button button-small button-secondary" title="Edit">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="nice-padding">
+    <p>No Key Facts pages have been created yet.</p>
+    {% if add_url %}
+    <a href="{{ add_url }}" class="button bicolor icon icon-plus">Add your first Key Fact</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

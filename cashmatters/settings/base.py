@@ -111,13 +111,10 @@ DATABASE_URL = (
 DATABASES = {
     'default': dj_database_url.config(
         default=DATABASE_URL,
-        conn_max_age=600
+        conn_max_age=0
     ),
-
-
-    "DISABLE_SERVER_SIDE_CURSORS": True,
-
 }
+DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",

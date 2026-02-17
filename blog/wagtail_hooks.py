@@ -83,6 +83,16 @@ def register_news_articles_submenu():
 
 
 @hooks.register("register_admin_menu_item")
+def register_key_facts_menu_item():
+    return MenuItem(
+        "Key Facts",
+        reverse("admin_keyfacts"),
+        icon_name="pick",
+        order=9001,
+    )
+
+
+@hooks.register("register_admin_menu_item")
 def register_support_page_menu_item():
     return MenuItem(
         "Support Cash",
