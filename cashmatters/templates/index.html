@@ -477,10 +477,10 @@
         </h1>
 
         <!-- Date -->
-        <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
+        <!-- <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
           <i class="bi bi-clock me-1"></i>
           {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-        </span>
+        </span> -->
 
         <!-- Author Section -->
         <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
@@ -812,11 +812,11 @@
                     <i class="bi bi-mic-fill me-1"></i> Podcast
                   </span>
 
-                  {% if podcast.duration %}
+                  <!-- {% if podcast.duration %}
                   <span class="badge bg-dark bg-opacity-75">
                     <i class="bi bi-clock me-1"></i>{{ podcast.duration }}
                   </span>
-                  {% endif %}
+                  {% endif %} -->
                 </div>
 
                 <!-- Center MIC icon -->
@@ -1031,7 +1031,7 @@
 
                 <a href="{{ study.url_path }}"
                    class="studies_btn" style="color: white;">
-                         <i class="bi bi-book"></i> Read
+                         <i class="bi bi-book"></i> Read the Story
                 </a>
 
                 <a
@@ -1288,7 +1288,7 @@
                 <p class=" mb-4 flex-grow-1" style="font-size: 20px;">
                 {{ post.intro|truncatewords:20 }}
               </p>
-              <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">Read More <i
+              <a href="{{ post.url_path }}" class="text-mint fw-bold text-decoration-none small">Read the Story More <i
                   class="bi bi-arrow-up-right ms-1"></i></a>
             </div>
           </div>
@@ -1387,7 +1387,7 @@
 
             <!-- Top: Date & Badge -->
             <div class="d-flex justify-content-between align-items-center small text-white-50">
-              <span style="background-color: white;color: #000; border-radius: 10px; padding: 4px 8px;"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span>
+              <!-- <span style="background-color: white;color: #000; border-radius: 10px; padding: 4px 8px;"><i class="bi bi-clock me-1"></i> {{ post.date|date:"M d, Y" }}</span> -->
               <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold" style="font-size: 0.75rem">
                 {% if post.article_types.first %}{{ post.article_types.first.name }}{% else %}News{% endif %}
               </span>
@@ -1399,7 +1399,7 @@
             
             </div>
 
-            <!-- Bottom: Author & Read More -->
+            <!-- Bottom: Author & Read the Story More -->
             <div class="d-flex mt-5 justify-content-between align-items-center">
          
         
