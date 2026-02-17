@@ -48,7 +48,7 @@
 .hero-content h1 {
     font-family: "ITC Avant Garde Gothic", sans-serif;
     font-size: 3.5rem;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.1;
     margin-bottom: 1.5rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -306,7 +306,7 @@
 
 .newsletter-section h2 {
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 1rem;
 }
 
@@ -420,7 +420,7 @@
             <div class="hero-overlay">
                 <div class="container">
                     <div class="hero-content">
-                        <h1 class="display-4 fw-bold text-white">{{ page.title }}</h1>
+                        <h1 class="display-4 fw-medium text-white">{{ page.title }}</h1>
                         <div class="meta-info text-white">
                             <i class="bi bi-calendar3"></i> {{ page.date|date:"M d, Y" }}
                             {% if page.author_profile %}
@@ -458,10 +458,6 @@
                 <!-- Article Content -->
                 <div class="col-lg-8">
                     <article class="article-content">
-                        {% if page.intro %}
-                        <p class="lead">{{ page.intro }}</p>
-                        {% endif %}
-
                         <div class="article-body">
                             {{ page.body }}
                         </div>
@@ -519,7 +515,7 @@
                                 <h6 class="card-title">{{ article.title }}</h6>
                                 <small class="text-muted">{{ article.date|date:"M d, Y" }}</small>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <a href="{{ article.url }}" class="text-mint fw-bold text-decoration-none small">
+                                    <a href="{{ article.url }}" class="text-mint fw-normal text-decoration-none small">
                                         Read More <i class="bi   -up-right ms-1"></i>
                                     </a>
                                 </div>
@@ -579,6 +575,41 @@
         </div>
     </section>
 </div>
+
+<!-- Image Lightbox Overlay -->
+<div id="imageLightbox" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.92); cursor:pointer;" onclick="closeLightbox(event)">
+    <button onclick="closeLightbox(event)" style="position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:2.2rem; cursor:pointer; z-index:10000; line-height:1;" aria-label="Close">&times;</button>
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:2rem;" onclick="event.stopPropagation()">
+        <img id="lightboxImg" src="" alt="" style="max-width:90vw; max-height:80vh; object-fit:contain; border-radius:6px; box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+        <p id="lightboxCaption" style="color:rgba(255,255,255,0.85); margin-top:1rem; font-size:0.95rem; text-align:center; max-width:700px;"></p>
+    </div>
+</div>
+<script>
+    function openLightbox(src, caption) {
+        var overlay = document.getElementById('imageLightbox');
+        document.getElementById('lightboxImg').src = src;
+        var cap = document.getElementById('lightboxCaption');
+        cap.textContent = caption || '';
+        cap.style.display = caption ? 'block' : 'none';
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+        if (e) e.stopPropagation();
+        document.getElementById('imageLightbox').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.article-lightbox-img').forEach(function(img) {
+            img.addEventListener('click', function() {
+                openLightbox(this.getAttribute('data-full-src') || this.src, this.getAttribute('data-caption') || '');
+            });
+        });
+    });
+</script>
 {% endblock %}
 
 {% block footer %}
@@ -652,11 +683,7 @@
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                         <span class="hover-underline">
-
-                           Publish on <br> Cash 
-                          </span>
-                           Matters
+                           Publish on<br>Cash Matters
                           </a></li>
                     </ul>
                 </div>
@@ -676,11 +703,11 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <h4 class="fw-medium mb-3">Protect Payment Choice</h4>
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash <i
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2">Support Cash <i
                             class="bi   -up-right ms-2"></i></a>
 
                 </div>

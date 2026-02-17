@@ -60,6 +60,7 @@ class ImageCaptionBlock(blocks.StructBlock):
     )
 
     class Meta:
+        template = 'blog/blocks/image_caption_block.html'
         icon = "image"
         label = "Image & Caption"
 
@@ -67,6 +68,7 @@ class ContentBlock(blocks.StructBlock):
     content = blocks.RichTextBlock(required=True)
 
     class Meta:
+        template = 'blog/blocks/content_block.html'
         icon = "doc-full"
         label = "Content"
 

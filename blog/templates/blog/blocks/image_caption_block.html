@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+
+<figure class="article-image-figure" style="margin: 2rem 0;">
+    {% image value.image width-800 as img %}
+    <img src="{{ img.url }}" alt="{{ img.alt }}"
+         class="img-fluid rounded article-lightbox-img"
+         style="width: 100%; cursor: pointer;"
+         data-full-src="{{ value.image.file.url }}"
+         data-caption="{{ value.caption|default:'' }}">
+    {% if value.caption %}
+    <figcaption class="mt-2 text-muted small">{{ value.caption }}</figcaption>
+    {% endif %}
+</figure>

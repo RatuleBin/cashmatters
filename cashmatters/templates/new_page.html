@@ -11,10 +11,6 @@
     <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
@@ -98,7 +94,7 @@
             border: none;
             padding: 0.6rem 1.5rem;
             border-radius: 25px;
-            font-weight: 600;
+            font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-size: 0.8rem;
@@ -162,8 +158,8 @@
             --brand-mint: #4CD1C2;
             --brand-mint-hover: #3bbcae;
             --brand-footer: #007d7e;
-            --font-header: 'Poppins', 'Avant Garde', 'Century Gothic', sans-serif;
-            --font-body: 'Inter', sans-serif;
+            --font-header: "ITC Avant Garde Gothic", "Century Gothic", sans-serif;
+            --font-body: "ITC Avant Garde Gothic", "Century Gothic", sans-serif;
             --dark-bg: #3d3d3d;
             --darker-bg: rgb(63, 30, 30);
             --text-light: #ffffff;
@@ -201,7 +197,7 @@
         /* Main title styling */
         .hero-title {
             font-size: 3.8rem;
-            font-weight: 700;
+            font-weight: 500;
             margin-bottom: 35px;
             line-height: 1.15;
             letter-spacing: -1px;
@@ -494,7 +490,7 @@
 
         .modal-title {
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 500;
             color: white;
             line-height: 1.3;
             margin: 0;
@@ -671,7 +667,7 @@
          HEADER & HERO
     ========================================== -->
     <div class="hero-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark pb-4 pt-4">
+        <nav class="navbar navbar-expand-lg navbar-dark pt-3 pb-3">
       <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'home-page-images/logo.png' %}" alt="Cash Matters" height="40">
@@ -731,7 +727,7 @@
             <div class="container">
                 <div class="row pt-5 pb-4">
                     <div class="col-lg-6 pt-3">
-                        <h1 class="display-4 text-white fw-bold lh-sm mb-4 mb-lg-0">
+                        <h1 class="display-4 text-white fw-medium lh-sm mb-4 mb-lg-0">
                             Cash is simple,<br />safe, and
                             <span class="text-mint">for<br />everyone</span>
                         </h1>
@@ -742,7 +738,7 @@
                             remains essential around the world.
                         </p>
                         <div>
-                            <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2 rounded-2">
+                            <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2 rounded-2">
                                 Support Cash 
                             </a>
                         </div>
@@ -831,7 +827,7 @@
                         .embed-modal textarea {
                             width: 100%;
                             height: 140px;
-                            font-family: monospace;
+                            font-family: "ITC Avant Garde Gothic", sans-serif;
                             font-size: 14px;
                             padding: 12px;
                         }
@@ -869,7 +865,7 @@
                                 </div>
                                 <div class="p-3">
 
-                                    <h5 class="fw-bold text-dark mb-1">Freedom Matters</h5>
+                                    <h5 class="fw-medium text-dark mb-1">Freedom Matters</h5>
                                     <p class="text-muted small mb-2">
                                         How you spend your money is your business. Privacy matters. Freedom matters.
                                     </p>
@@ -909,7 +905,7 @@
                                 </div>
                                 <div class="p-3">
 
-                                    <h5 class="fw-bold text-dark mb-1">Choice Matters</h5>
+                                    <h5 class="fw-medium text-dark mb-1">Choice Matters</h5>
                                     <p class="text-muted small mb-2">
                                         Choices empower you. Make sure to keep the freedom to choose how you pay.
                                     </p>
@@ -949,7 +945,7 @@
                                 </div>
                                 <div class="p-3">
 
-                                    <h5 class="fw-bold text-dark mb-1">Cash Matters</h5>
+                                    <h5 class="fw-medium text-dark mb-1">Cash Matters</h5>
                                     <p class="text-muted small mb-2">
                                     In today's busy, always-on, and fast-paced digital world, Cash truly Matters.
 
@@ -1426,7 +1422,7 @@
             font-size: 26px;
             margin-bottom: 20px;
             color: #111;
-            font-weight: 700;
+            font-weight: 500;
         }
 
         .expand-inner p {
@@ -1607,10 +1603,10 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-lg-10 text-center">
-                <h2 class="display-5 fw-bold mb-3" style="font-family: 'Poppins', sans-serif; color: #001F29;">
+                <h2 class="display-5 fw-medium mb-3" style="color: #001F29;">
                     The Case for Cash
                 </h2>
-                <p class="lead mb-4" style="font-family: 'Inter', sans-serif; color: #4A5568;">
+                <p class="lead mb-4" style="color: #4A5568;">
                     Understanding why cash remains essential for society's resilience, privacy, and stability
                 </p>
             </div>
@@ -1623,7 +1619,7 @@
                     <!-- 1 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse1"
@@ -1650,7 +1646,7 @@ Cash is the only fall-back option now and in the foreseeable future in the event
                     <!-- 2 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse2"
@@ -1677,7 +1673,7 @@ The unique characteristics of cash payments is that they guarantee privacy and p
                     <!-- 3 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse3"
@@ -1706,7 +1702,7 @@ Vast majority of citizens worries about a future without cash, this is to great 
                     <!-- 4 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse4"
@@ -1735,7 +1731,7 @@ Cash is the superiorly indiscriminately financial and socially inclusive payment
                     <!-- 5 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse5"
@@ -1764,7 +1760,7 @@ As recent cost of living crisis demonstrates, consumers choose to use cash payme
                     <!-- 6 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse6"
@@ -1793,7 +1789,7 @@ Cash is the only form of money, which can be stored by citizens independently an
                     <!-- 7 -->
                     <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
                         <h3 class="accordion-header">
-                            <button class="accordion-button bg-white text-dark fw-bold py-4 px-4"
+                            <button class="accordion-button bg-white text-dark fw-normal py-4 px-4"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapse7"
@@ -1888,7 +1884,7 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
     }
     
     .badge {
-        font-family: "Alvant Grade", sans-serif !important;
+        font-family: "ITC Avant Garde Gothic", sans-serif !important;
         font-weight: 600;
         font-size: 0.85rem;
     }
@@ -1993,11 +1989,7 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
                         <li><a href="{% url 'news' %}?category=podcast"
                                 class="text-white text-decoration-none hover-underline">Podcast</a></li>
                         <li><a href="{% url 'write_for_us' %}" class="text-white text-decoration-none hover-underline">
-                                <span class="hover-underline">
-
-                                    Publish on <br> Cash
-                                </span>
-                                Matters
+                                Publish on<br>Cash Matters
                             </a></li>
                     </ul>
                 </div>
@@ -2021,11 +2013,11 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h4 class="fw-bold mb-3">Protect Payment Choice</h4>
+                    <h4 class="fw-medium mb-3">Protect Payment Choice</h4>
                     <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
                         Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
                     </p>
-                    <a href="{% url 'support' %}" class="btn btn-mint fw-bold px-4 py-2">Support Cash </a>
+                    <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2">Support Cash </a>
 
                 </div>
             </div>
@@ -2051,7 +2043,7 @@ Citizens’ confidence that bank deposits can always be converted (accessed and 
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-                        font-family: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", sans-serif;
+                        font-family: "ITC Avant Garde Gothic", "Century Gothic", sans-serif;
                                                 padding-bottom: 6px;   /* gap between text & line */
 
                     }
