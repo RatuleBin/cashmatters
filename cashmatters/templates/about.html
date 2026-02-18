@@ -21,7 +21,19 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
+        @font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.woff2") format("woff2"), /* Modern Browsers */
+       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.woff") format("woff"),   /* Most browsers */
+       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.ttf") format("truetype"); /* Safari, Android, iOS */
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
         p {
+              font-family: "ITC Avant Garde Gothic", sans-serif; /* Use your custom font */
+
             font-size: 18px !important;
             font-weight: 100 !important;
             line-height: 1.8;
