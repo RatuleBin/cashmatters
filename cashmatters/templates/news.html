@@ -234,7 +234,7 @@ p {
         </div>
 
         <!-- Clear Filters Link -->
-        {% if request.GET.q or request.GET.date_from or request.GET.date_to or request.GET.content_type %}
+        {% if request.GET.q or request.GET.date_from or request.GET.date_to %}
         <div class="mb-3">
             <a href="{% url 'news' %}{% if active_category %}?category={{ active_category }}{% endif %}" class="text-muted small text-decoration-none">
                 <i class="bi bi-x-circle me-1"></i> Clear all filters
