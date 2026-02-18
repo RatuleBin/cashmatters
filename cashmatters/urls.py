@@ -296,8 +296,8 @@ def news(request):
         print(f"DEBUG: Search query: '{search_query}'")
     if category:
         print(f"DEBUG: Category filter: '{category}'")
-    if content_type:
-        print(f"DEBUG: Content type filter: '{content_type}'")
+    # if content_type:
+    #     print(f"DEBUG: Content type filter: '{content_type}'")
     if date_from or date_to:
         print(f"DEBUG: Date range: {date_from} to {date_to}")
 
