@@ -484,7 +484,7 @@
         </span> -->
 
         <!-- Author Section -->
-        <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
+        <!-- <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
           <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
             {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
               <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
@@ -508,7 +508,7 @@
               {{ hero_posts.0.author }}
             </a>
           {% endif %}
-        </div>
+        </div> -->
 
         <!-- CTA Button -->
         <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
