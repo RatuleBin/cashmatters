@@ -15,6 +15,34 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
+          @font-face {
+    font-family: 'ITC Avant Garde Gothic';
+    src: local('ITC Avant Garde Gothic Light'), local('ITC-Avant-Garde-Gothic-Light'),
+        url('ITCAvantGardeStd-XLt.woff2') format('woff2'),
+        url('ITCAvantGardeStd-XLt.woff') format('woff'),
+        url('ITCAvantGardeStd-XLt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Apply globally */
+body {
+  font-family: "ITC Avant Garde Gothic", sans-serif !important;
+}
+
+/* Force headings */
+h1, h2, h3, h4, h5, h6,
+.navbar, .nav-link, .btn {
+            font-family: "ITC Avant Garde Gothic"!important;
+  font-weight: 500 !important;
+}
+
+p {
+      font-family: "ITC Avant Garde Gothic" !important;
+    
+      font-size: 16px !important;
+      font-weight: 100 !important;
+    }
         /* Blog Page Custom Styles */
         .blog-page {
             font-family: "ITC Avant Garde Gothic"!important;
