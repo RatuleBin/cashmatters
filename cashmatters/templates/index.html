@@ -42,11 +42,15 @@
     h4,
     h5,
     h6,
-    p {
+     {
       font-family: 'Questrial', sans-serif !important;
+      font-weight: 900 !important;
+
 
     }
     p {
+            font-family: 'Questrial', sans-serif !important;
+
       font-size: 16px !important;
       font-weight: 100 !important;
     }
@@ -471,7 +475,7 @@
         </div>
 
         <!-- Main Title -->
-        <h1 id="featured-slide-title" class="featured-main-title text-white fw-normal mb-4">
+        <h1 id="featured-slide-title" class="featured-main-title text-white   mb-4">
           {% if hero_posts %}
             {{ hero_posts.0.title }}
           {% else %}
@@ -514,7 +518,7 @@
 
         <!-- CTA Button -->
         <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
-          style="max-width: 220px; width: 100%;" class="btn btn-mint fw-normal py-2 rounded-2 ">
+          style="max-width: 220px; width: 100%;" class="btn btn-mint   py-2 rounded-2 ">
           Read the Story   
         </a>
 
@@ -566,7 +570,7 @@
                   <div class="small opacity-75 text-uppercase">
                     {{ post.get_content_type_display }}
                   </div>
-                  <div class="fw-normal">
+                  <div class=" ">
                     {{ post.title|truncatechars:80 }}
                   </div>
                 </div>
@@ -619,7 +623,7 @@
     <div class="container">
       <div class="row mb-5 align-items-end">
         <div class="col-md-8">
-          <h2 class="section-title fw-normal">Editor's Pick</h2>
+          <h2 class="section-title  ">Editor's Pick</h2>
         </div>
         <div class="col-md-4 text-md-end">
           <p class="text-muted small mb-0" style="font-size: 15px;">
@@ -644,7 +648,7 @@
                 {% endif %}
                 {% endfor %}
               </div>
-              <h3 class="fw-normal display-6 mt-4" style="font-size: 32px !important ;">
+              <h3 class="  display-6 mt-4" style="font-size: 32px !important ;">
                 {{ post.title }}
               </h3>
               <p style="font-size: 15px;">
@@ -652,7 +656,7 @@
 
               </p>
                <a id="hero-slide-link" href="{{ post.url }}" style="max-width: 220px;width: 100%;"
-                    class="btn btn-mint fw-normal px-4 py-2 rounded-2">
+                    class="btn btn-mint   px-4 py-2 rounded-2">
                     Read the Story   
                   </a>
            
@@ -764,14 +768,14 @@
     <!-- Header -->
     <div class="row align-items-end mb-5">
       <div class="col-md-8">
-        <h2 class="fw-normal mb-2">Podcast</h2>
+        <h2 class="  mb-2">Podcast</h2>
         <p class="text-muted mb-0" style="font-size: 15px;">
           Conversations that matter about the future of<br>money
         </p>
       </div>
       <div class="col-md-4 text-md-end">
         <a href="{% url 'news' %}?category=podcast"
-           class="text-mint fw-normal text-decoration-none small" style="font-size: 15px;">
+           class="text-mint   text-decoration-none small" style="font-size: 15px;">
           See all Podcasts 
         </a>
       </div>
@@ -832,7 +836,7 @@
                     {{ podcast.date|date:"M Y" }}
                   </div> -->
 
-                  <h5 class="fw-normal text-white mb-2">
+                  <h5 class="  text-white mb-2">
                     {{ podcast.title }}
                   </h5>
 
@@ -852,7 +856,7 @@
     <!-- Listen More -->
     <div class="text-center mt-5">
       <a href="{% url 'news' %}?category=podcast"
-         class="btn btn-mint fw-normal px-4 py-2 rounded-2">
+         class="btn btn-mint   px-4 py-2 rounded-2">
         <i class="bi bi-mic-fill me-2"></i>Listen to the Podcast
       </a>
     </div>
@@ -869,12 +873,12 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
-          <h2 class="fw-normal mb-2">Studies & Reports</h2>
+          <h2 class="  mb-2">Studies & Reports</h2>
           <p class="text-muted mb-0" >
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=studies" style="font-size: 15px;" class="text-mint fw-normal text-decoration-none small">See all Studies
+        <a href="{% url 'news' %}?category=studies" style="font-size: 15px;" class="text-mint   text-decoration-none small">See all Studies
           & Reports</a>
       </div>
 
@@ -901,7 +905,7 @@
 
             <div class="card-body p-4 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-3 small">
-                <span class="text-muted fw-normal">
+                <span class="text-muted  ">
                   {% if study.article_types.first %}{{ study.article_types.first.name }}{% else %}Studies{% endif %} • {{ study.date|date:"Y" }}
                 </span>
                 <span class="badge bg-yellow text-dark rounded-pill px-3 py-2 fw-bold"
@@ -1018,7 +1022,7 @@
 
             <div class="overlay-content p-4 d-flex flex-column justify-content-end">
 
-              <h4 class="fw-normal text-white mb-2">
+              <h4 class="  text-white mb-2">
                 {{ study.title }}
               </h4>
 
@@ -1063,12 +1067,12 @@
       <!-- Header -->
       <div class="d-flex justify-content-between align-items-end mb-5">
         <div>
-          <h2 class="fw-normal mb-2">Key Facts</h2>
+          <h2 class="  mb-2">Key Facts</h2>
           <p class="text-muted mb-0">
             In-depth research on cash, payments, and<br />financial inclusion
           </p>
         </div>
-        <a href="{% url 'news' %}?category=key-facts" style="font-size: 15px;" class="text-mint fw-normal text-decoration-none small">See all Key
+        <a href="{% url 'news' %}?category=key-facts" style="font-size: 15px;" class="text-mint   text-decoration-none small">See all Key
           Facts </a>
       </div>
 
@@ -1089,8 +1093,8 @@
             </div>
             <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between order-0 order-lg-1">
               <div>
-                <h2 class="display-3 fw-normal mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
-                <p class="small fw-normal mt-3">{{ fact.intro|default:fact.title }}</p>
+                <h2 class="display-3   mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
+                <p class="small   mt-3">{{ fact.intro|default:fact.title }}</p>
               </div>
               <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
                 {% if fact.page_header_image %}
@@ -1113,8 +1117,8 @@
             <!-- Columns 1, 2, 4: Card Top, Image Bottom -->
             <div class="fact-card bg-white rounded-4 shadow-sm p-4 d-flex flex-column justify-content-between">
               <div>
-                <h2 class="display-3 fw-normal mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
-                <p class="small fw-normal mt-3">{{ fact.intro|default:fact.title }}</p>
+                <h2 class="display-3   mb-0" {% if fact.featured_data_color %}style="color: {{ fact.featured_data_color }}"{% endif %}>{{ fact.featured_data }}</h2>
+                <p class="small   mt-3">{{ fact.intro|default:fact.title }}</p>
               </div>
               <div class="d-flex gap-3 small text-muted border-top pt-3 mt-2">
                 {% if fact.page_header_image %}
@@ -1155,7 +1159,7 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
-          <h2 class="fw-normal mb-2">Latest News</h2>
+          <h2 class="  mb-2">Latest News</h2>
           <p class="text-muted mb-0">
             Stay updated on cash and payment trends<br />worldwide
           </p>
@@ -1194,7 +1198,7 @@
                 <i class="bi bi-person me-1"></i>
                 {% endif %}
                 <a href="{% url 'author_profile_by_id' post.author_profile.id %}"
-                  class="text-decoration-none text-mint fw-normal">
+                  class="text-decoration-none text-mint  ">
                   {{ post.author_profile.name }}
                 </a>
               </div>
@@ -1206,7 +1210,7 @@
                 {% else %}
                 <i class="bi bi-person me-1"></i>
                 {% endif %}
-                <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint fw-normal">
+                <a href="{% url 'author_profile' post.author %}" class="text-decoration-none text-mint  ">
                   {{ post.author }}
                 </a>
               </div>
@@ -1284,12 +1288,12 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-end mb-4">
       <div>
-        <h2 class="fw-normal mb-2">Latest News</h2>
+        <h2 class="  mb-2">Latest News</h2>
         <p class="text-muted mb-0">
           Stay updated on cash and payment trends<br>worldwide
         </p>
       </div>
-      <a href="{% url 'news' %}" class="text-mint fw-normal text-decoration-none small" style="font-size: 15px;">
+      <a href="{% url 'news' %}" class="text-mint   text-decoration-none small" style="font-size: 15px;">
         See all news
       </a>
     </div>
@@ -1324,7 +1328,7 @@
 
             <!-- Middle: Title & Intro -->
             <div>
-              <h5 class="fw-normal pt-5 text-white mb-2">{{ post.title }}</h5>
+              <h5 class="  pt-5 text-white mb-2">{{ post.title }}</h5>
             
             </div>
 
@@ -1332,7 +1336,7 @@
             <div class="d-flex mt-5 justify-content-between align-items-center">
          
         
-              <a href="{{ post.url_path }}" class=" btn fw-normal rounded-2 text-decoration-none small" style="color: black  !important;background-color: #4CD1C2;">
+              <a href="{{ post.url_path }}" class=" btn   rounded-2 text-decoration-none small" style="color: black  !important;background-color: #4CD1C2;">
                 Read the Story   
               </a>
             </div>
@@ -1376,7 +1380,7 @@
       <!-- Content Column -->
       <div class="col-12 col-lg-6">
 
-        <h2 class="fw-normal mb-3">
+        <h2 class="  mb-3">
           Global Currency Forum 2026
         </h2>
         
@@ -1393,14 +1397,14 @@
           </div>
 
           <div>
-            <h5 class="fw-normal mb-1">Antalya, Türkiye</h5>
+            <h5 class="  mb-1">Antalya, Türkiye</h5>
             <p class="mb-0" style="color: rgba(33, 37, 41, 0.75);">27-30 April 2026</p>
           </div>
         </div>
 
         <!-- Button -->
         <a href="https://www.globalcurrencyforum.net/" 
-           class="btn btn-mint fw-normal px-4 py-2 rounded-3">
+           class="btn btn-mint   px-4 py-2 rounded-3">
           Register Now
         </i>
         </a>
@@ -1422,11 +1426,11 @@
         <!-- Text Content (Left) -->
         <div class="col-lg-5 py-4">
           <div class="support-content-wrapper ps-lg-5 pe-lg-4 px-4 mx-auto" style="max-width: 650px">
-            <h2 class="fw-normal mb-3 display-5">Cash Always Works.<br>Just Use It.</h2>
+            <h2 class="  mb-3 display-5">Cash Always Works.<br>Just Use It.</h2>
             <p class="mb-4 opacity-90 fw-light fs-5">
               For privacy. For inclusion. For everyday resilience.
             </p>
-            <a href="{% url 'support' %}" class="btn btn-mint fw-normal rounded-2 px-4 py-2">
+            <a href="{% url 'support' %}" class="btn btn-mint   rounded-2 px-4 py-2">
               Support Cash  </i>
             </a>
           </div>
@@ -1610,11 +1614,11 @@
         </div>
 
         <div class="col-lg-4 col-md-12">
-          <h4 class="fw-normal mb-3">Protect Payment Choice</h4>
+          <h4 class="  mb-3">Protect Payment Choice</h4>
           <p class="small mb-4 pe-lg-3" style="font-size: 16px;">
             Cash is inclusive, private, and resilient. A payment option that works for everyone, everywhere.
           </p>
-          <a href="{% url 'support' %}" class="btn btn-mint fw-normal px-4 py-2">Support Cash </a>
+          <a href="{% url 'support' %}" class="btn btn-mint   px-4 py-2">Support Cash </a>
 
         </div>
       </div>
