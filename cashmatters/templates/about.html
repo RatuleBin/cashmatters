@@ -23,19 +23,42 @@
     <style>
         @font-face {
   font-family: "ITC Avant Garde Gothic";
-  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.eot"); /* IE9 Compat Modes */
-  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.woff2") format("woff2"), /* Modern Browsers */
-       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.woff") format("woff"),   /* Most browsers */
-       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Light.ttf") format("truetype"); /* Safari, Android, iOS */
-  font-weight: 300; /* Light */
+  src: url("{% static 'fonts/itc-avant-garde/ITCAvantGardeGothicLT-Book.ttf' %}") format("truetype");
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("{% static 'fonts/itc-avant-garde/ITCAvantGardeGothicLT-Medium.ttf' %}") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("{% static 'fonts/itc-avant-garde/ITCAvantGardeGothicLT-Demi.ttf' %}") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("{% static 'fonts/itc-avant-garde/ITCAvantGardeGothicLT-Bold.ttf' %}") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+        /* Titles - ITC Avant Garde Gothic */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "ITC Avant Garde Gothic", sans-serif;
+            font-weight: 500;
+        }
+        /* Body / Description - Inter */
         p {
-              font-family: "ITC Avant Garde Gothic", sans-serif; /* Use your custom font */
-
+            font-family: "Inter", sans-serif;
             font-size: 18px !important;
-            font-weight: 100 !important;
+            font-weight: 400 !important;
             line-height: 1.8;
         }
         @media (max-width: 992px) {

@@ -1,10 +1,34 @@
 /* --- GLOBAL VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 @font-face {
   font-family: "ITC Avant Garde Gothic";
-  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff2") format("woff2"),
-       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff") format("woff");
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Medium.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Demi.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -14,9 +38,11 @@
     --brand-mint: #4CD1C2;
     --brand-mint-hover: #3bbcae;
     --brand-cream: #F9F7F2;
-    --brand-yellow: #F0E66A; 
-    --brand-footer: #007d7e; /* Darker teal for better contrast with white text (WCAG AA) */
+    --brand-yellow: #F0E66A;
+    --brand-footer: #007d7e;
     --brand-blue-line: #0099CC;
+    --font-header: "ITC Avant Garde Gothic", sans-serif;
+    --font-body: "Inter", sans-serif;
 }
 
 html, body {
@@ -29,7 +55,8 @@ html, body {
 }
 
 body {
-    font-family: "ITC Avant Garde Gothic", "Poppins", "Century Gothic", sans-serif !important;
+    font-family: var(--font-body);
+    font-weight: 400;
     background-color: var(--brand-cream);
     color: #212529;
     -webkit-font-smoothing: antialiased;

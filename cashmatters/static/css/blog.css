@@ -1,10 +1,34 @@
 /* Blog Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 @font-face {
   font-family: "ITC Avant Garde Gothic";
-  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff2") format("woff2"),
-       url("../fonts/itc-avant-garde/ITCAvantGardeGothic-Medium.woff") format("woff");
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Medium.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Demi.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("../fonts/itc-avant-garde/ITCAvantGardeGothicLT-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
