@@ -11,10 +11,8 @@
     <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts: Inter for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
@@ -22,35 +20,21 @@
 
     <!-- Global Font Styles (matching homepage) -->
     <style>
-        *,
-        *::before,
-        *::after {
-            font-family: "ITC Avant Garde Gothic"!important;
+        /* Titles - ITC Avant Garde Gothic */
+        h1, h2, h3, h4, h5, h6,
+        .navbar, .navbar * {
+            font-family: "ITC Avant Garde Gothic", sans-serif;
+            font-weight: 500;
         }
-            /* All headings use Poppins */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        a,
-        p,
-        button {
-            font-family: "ITC Avant Garde Gothic"!important;
-        }
-       
-        .navbar,
-        .navbar * {
-            font-family: "ITC Avant Garde Gothic"!important;
+
+        /* Body / Description - Inter */
+        body, p, li, span, a, label, .lead, .text-muted, .subtitle, .description {
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
         }
 
         .navbar .nav-link {
             text-transform: uppercase;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: "ITC Avant Garde Gothic"!important;
         }
 
     .navbar .nav-link {
@@ -315,7 +299,7 @@
                         .embed-modal textarea {
                             width: 100%;
                             height: 140px;
-            font-family: "ITC Avant Garde Gothic"!important;
+            font-family: "Inter", sans-serif;
                             font-size: 14px;
                             padding: 12px;
                         }
@@ -1799,7 +1783,7 @@
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-            font-family: "ITC Avant Garde Gothic"!important;
+            font-family: "Inter", sans-serif;
                                                 padding-bottom: 6px;   /* gap between text & line */
 
                     }

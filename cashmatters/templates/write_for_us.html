@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/jpeg" href="{% static 'favicon.jpg' %}">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter for body + Poppins for headings (ITC Avant Garde Gothic Alternative) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
@@ -20,26 +20,17 @@
     
     <!-- Header Navigation Styles -->
     <style>
-        *,
-        *::before,
-        *::after {
-            font-family: "ITC Avant Garde Gothic"!important;
+        /* Titles - ITC Avant Garde Gothic */
+        h1, h2, h3, h4, h5, h6,
+        .navbar, .navbar * {
+            font-family: "ITC Avant Garde Gothic", sans-serif;
+            font-weight: 500;
         }
 
-        /* Header Font - ITC Avant Garde Gothic Alternative (Poppins) */
-        .navbar,
-        .navbar * {
-            font-family: "ITC Avant Garde Gothic";
-        }
-
-        /* All headings use Poppins */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "ITC Avant Garde Gothic" !important;
+        /* Body / Description - Inter */
+        body, p, li, span, a, label, .lead, .text-muted, .subtitle, .description {
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
         }
 
         .navbar .nav-link {
@@ -248,19 +239,14 @@
                     </h1>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
-                    <p class="text-white opacity-90 mb-4  fw-light" style=" font-family: 'ITC Avant Garde Gothic' !important; font-weight: 800 !important;font-size: 26px;">
+                    <p class="text-white opacity-90 mb-4  fw-light" style="font-family: 'ITC Avant Garde Gothic', sans-serif; font-weight: 600; font-size: 26px;">
                        
                     
                            Do you have a story that moves cash forward?
 
                        
                     </p>
-<<<<<<< HEAD
-                    <p class="text-white opacity-75 mb-4" style="       font-family: 'Avant Garde', sans-serif; font-size: 15px;
-=======
-                    <p class="text-white opacity-75 mb-4" style="       font-family: 'ITC Avant Garde Gothic' !important; font-size: 20px;
->>>>>>> touseef-works
-">
+                    <p class="text-white opacity-75 mb-4" style="font-family: 'Inter', sans-serif; font-size: 16px;">
                         Cash Matters publishes writing that treats cash as what it is: infrastructure, a public good, and a question of access and power.
                    
                         We're looking for sharp, well-argued contributions, reporting and analysis on payments, access, and financial inclusion with a global public audience.
@@ -473,7 +459,7 @@
                         position: relative;
                         cursor: pointer;
                         font-size: 16px;
-                        font-family: "ITC Avant Garde Gothic" !important;
+                        font-family: "Inter", sans-serif;
                         padding-bottom: 6px;   /* gap between text & line */
 
                     }
