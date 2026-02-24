@@ -434,16 +434,14 @@
     </nav>
   </div>
   <section class="hero-display position-relative" id="featured-hero-section">
-    <!-- Background image with parallax effect -->
     <div id="featured-parallax-bg" class="featured-parallax-bg" 
         style="background-image: url('{% if hero_posts.0.wide_thumbnail %}{{ hero_posts.0.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}');">
     </div>
     
     <div class="featured-overlay"></div>
 
-    <div class="container featured-content-wrap text-white position-relative">
+    <!-- <div class="container featured-content-wrap text-white position-relative">
       <div class="featured-text-panel" style="color: transparent !important;">
-        <!-- Content Type Badge -->
         <div class="featured-content-type-badge mb-3">
           <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
                 style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
@@ -454,8 +452,7 @@
           </span>
         </div>
 
-        <!-- Main Title -->
-        <h1 id="featured-slide-title" class="featured-main-title text-white   mb-4">
+        <h1 id="featured-slide-title" class="featured-main-title text-white fw-bold mb-4">
           {% if hero_posts %}
             {{ hero_posts.0.title }}
           {% else %}
@@ -463,40 +460,7 @@
           {% endif %}
         </h1>
 
-        <!-- Date -->
-        <!-- <span id="featured-slide-date" class="text-white opacity-75 small d-block mb-3">
-          <i class="bi bi-clock me-1"></i>
-          {% if hero_posts %}{{ hero_posts.0.date|date:"M d, Y" }}{% else %}Latest{% endif %}
-        </span> -->
-
-        <!-- Author Section -->
-        <!-- <div class="featured-author-wrap d-flex align-items-center gap-2 mb-4">
-          <a id="featured-author-link" href="{% if hero_posts.0.author_profile %}{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}{% else %}#{% endif %}">
-            {% if hero_posts and hero_posts.0.author_profile and hero_posts.0.author_profile.profile_image %}
-              <img id="featured-author-avatar" src="{{ hero_posts.0.author_profile.profile_image.file.url }}" 
-                  alt="{{ hero_posts.0.author_profile.name }}" class="author-avatar rounded-circle" width="40" height="40">
-            {% elif hero_posts and hero_posts.0.author_image %}
-              <img id="featured-author-avatar" src="{{ hero_posts.0.author_image.file.url }}" 
-                  alt="{{ hero_posts.0.author }}" class="author-avatar rounded-circle" width="40" height="40">
-            {% else %}
-              <img id="featured-author-avatar" src="{% static 'images/author-default.jpg' %}" 
-                  alt="Author" class="author-avatar rounded-circle" width="40" height="40">
-            {% endif %}
-          </a>
-
-          {% if hero_posts.0.author_profile %}
-            <a id="featured-slide-author" href="{% url 'author_profile_by_id' hero_posts.0.author_profile.id %}"
-              class="text-white opacity-75 small text-decoration-none author-link">
-              {{ hero_posts.0.author_profile.name }}
-            </a>
-          {% elif hero_posts.0.author %}
-            <a id="featured-slide-author" href="#" class="text-white opacity-75 small text-decoration-none author-link">
-              {{ hero_posts.0.author }}
-            </a>
-          {% endif %}
-        </div> -->
-
-        <!-- CTA Button -->
+        
         <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
           style="max-width: 220px; width: 100%;" class="btn btn-mint   py-2 rounded-2 ">
           Read the Story   
@@ -537,7 +501,6 @@
         </div>
       </div>
 
-      <!-- Bottom Cards -->
       <div class="featured-bottom-cards pt-2 ">
         <div class="row g-4">
           {% for post in hero_posts|slice:"1:4" %}
@@ -559,13 +522,171 @@
           {% endfor %}
         </div>
       </div>
+    </div> -->
+ 
+
+  <div class="container featured-content-wrap text-white position-relative">
+  <div class="featured-text-panel" style="color: transparent !important;">
+
+    <!-- Content Type Badge -->
+    <div class="featured-content-type-badge mb-3">
+      <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+            style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+        <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
+        <span id="featured-type-text">
+          {% if hero_posts|slice:":1" %}
+            {% if hero_posts.0.content_type %}
+              {{ hero_posts.0.get_content_type_display }}
+            {% else %}
+              Cover Story
+            {% endif %}
+          {% else %}
+            Cover Story
+          {% endif %}
+        </span>
+      </span>
+    </div>
+
+    <!-- Main Title -->
+    <h1 id="featured-slide-title" class="featured-main-title text-white mb-4">
+      {% if hero_posts|slice:":1" %}
+        {{ hero_posts.0.title }}
+      {% else %}
+        Cash is simple, safe, and <span class="text-mint">for everyone</span>
+      {% endif %}
+    </h1>
+
+        <!-- CTA Button -->
+        <a id="featured-slide-link" href="{% if hero_posts %}{{ hero_posts.0.url_path }}{% else %}#{% endif %}" 
+          style="max-width: 220px; width: 100%;" class="btn btn-mint   py-2 rounded-2 ">
+          Read the Story   
+        </a>
+
+    <!-- Carousel Navigation -->
+    <div class="featured-carousel-nav mt-auto pt-4">
+      <div class="d-flex align-items-center gap-3">
+
+        <!-- Dots (ONLY 3) -->
+        <div class="carousel-dots d-flex gap-2" id="featured-carousel-dots">
+          {% for post in hero_posts|slice:":3" %}
+            <button class="carousel-dot {% if forloop.first %}active{% endif %}"
+                    data-slide="{{ forloop.counter0 }}"
+                    data-image="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% endif %}"
+                    data-title="{{ post.title|escapejs }}"
+                    data-author="{% if post.author_profile %}{{ post.author_profile.name }}{% elif post.author %}{{ post.author }}{% endif %}"
+                    data-author-id="{% if post.author_profile %}{{ post.author_profile.id }}{% endif %}"
+                    data-author-avatar="{% if post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% endif %}"
+                    data-content-type="{{ post.get_content_type_display }}"
+                    data-url="{{ post.url_path }}"
+                    aria-label="Slide {{ forloop.counter }}">
+            </button>
+          {% empty %}
+            <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
+          {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <div class="carousel-controls d-flex gap-2 ms-auto">
+          <button class="btn btn-carousel" id="featured-prev" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="btn btn-carousel" id="featured-next" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <button class="btn btn-carousel" id="featured-pause" aria-label="Pause autoplay">
+            <i class="bi bi-pause-fill" id="pause-icon"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+      <!-- Bottom Cards -->
+      <div class="featured-bottom-cards pt-2 ">
+        <div class="row g-4">
+          {% for post in hero_posts|slice:"1:4" %}
+            <div class="col-lg-4 col-md-6">
+              <a href="{{ post.url_path }}" class="featured-small-card d-flex gap-3 text-white text-decoration-none">
+                <img src="{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}"
+                    class="featured-small-thumb rounded-2"
+                    alt="{{ post.title }}">
+                <div>
+                  <div class="small opacity-75 text-uppercase">
+                    {{ post.get_content_type_display }}
+                  </div>
+                  <div class="fw-semibold">
+                    {{ post.title|truncatechars:80 }}
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> -->
+ 
+
+  <div class="container featured-content-wrap text-white position-relative">
+  <div class="featured-text-panel" style="color: transparent !important;">
+
+    <!-- Content Type Badge -->
+    <div class="featured-content-type-badge mb-3">
+      <span id="featured-type-badge" class="badge rounded-pill px-3 py-2 fw-bold text-uppercase"
+            style="font-size: 0.75rem; background: linear-gradient(135deg, #4CD1C2 0%, #3bbcae 100%); color: #002e26;">
+        <i id="featured-type-icon" class="bi bi-star-fill me-1"></i>
+        <span id="featured-type-text">
+          {% if hero_posts|slice:":1" %}
+            {% if hero_posts.0.content_type %}
+              {{ hero_posts.0.get_content_type_display }}
+            {% else %}
+              Cover Story
+            {% endif %}
+          {% else %}
+            Cover Story
+          {% endif %}
+        </span>
+      </span>
     </div>
  
 
+<!-- JSON DATA (ONLY 3 POSTS) -->
+      <script type="application/json" id="hero-posts-data">
+        [
+        {% for post in hero_posts|slice:":3" %}
+        {
+          "id": {{ post.id }},
+          "title": "{{ post.title|escapejs }}",
+          "intro": "{{ post.intro|escapejs }}",
+          "url": "{{ post.url_path }}",
+          "author": "{% if post.author_profile %}{{ post.author_profile.name|escapejs }}{% elif post.author %}{{ post.author|escapejs }}{% endif %}",
+          "author_id": {% if post.author_profile %}{{ post.author_profile.id }}{% else %}null{% endif %},
+          "author_image": "{% if post.author_profile and post.author_profile.profile_image %}{{ post.author_profile.profile_image.file.url }}{% elif post.author_image %}{{ post.author_image.file.url }}{% else %}{% static 'images/author-default.jpg' %}{% endif %}",
+          "image": "{% if post.wide_thumbnail %}{{ post.wide_thumbnail.file.url }}{% elif post.tall_thumbnail %}{{ post.tall_thumbnail.file.url }}{% else %}{% static 'images/homepage/featured-fallback.jpg' %}{% endif %}",
+          "type": "{% if post.article_types.first %}{{ post.article_types.first.name|lower }}{% else %}news{% endif %}",
+          "vimeo_id": "{{ post.vimeo_id|default:'' }}",
+          "has_video": {% if post.vimeo_id %}true{% else %}false{% endif %}
+        }{% if not forloop.last %},{% endif %}
+        {% empty %}
+        {
+          "id": 0,
+          "title": "Cash is simple, safe, and for everyone",
+          "intro": "Research, reporting, and resources that show why physical cash remains essential around the world.",
+          "url": "/why-cash-matters/",
+          "author": "",
+          "image": "{% static 'images/homepage/featured-fallback.jpg' %}",
+          "type": "news",
+          "vimeo_id": "",
+          "has_video": false
+        }
+        {% endfor %}
+        ]
+        </script>
+
   <!-- Hero Carousel Data (for JavaScript) -->
-  <script type="application/json" id="hero-posts-data">
+  <!-- <script type="application/json" id="hero-posts-data">
       [
-        {% for post in hero_posts %}
+        {% for post in hero_posts|slice:":3" %}
         {
           "id": {{ post.id }},
           "title": "{{ post.title|escapejs }}",
@@ -594,7 +715,7 @@
         }
         {% endfor %}
       ]
-    </script>
+    </script> -->
  </section>
   <!-- =========================================
          2. FEATURED CONTENT (GSAP ANIMATION)
